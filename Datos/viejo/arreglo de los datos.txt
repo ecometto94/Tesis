@@ -1,0 +1,11 @@
+id 16726 dos mediciones en el mismo tiempo, elimine la que tiene el valor mas alto****
+
+Arregle una edad que tenia 1057 y 1056, le puse 57 y 56****
+
+agregue tpo_agrup 7 y 45****
+
+complete algunos tpo_agrup que estaban en blanco, casi todos 750 y 780****
+
+Borrar edades mayores a 100 (pero solo las edades, dejar todo el otro registro pero con la edad missing)***
+
+Agregue tres variables morisky nuevas FALTA SOLO ESTO
