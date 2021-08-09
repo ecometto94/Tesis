@@ -1,0 +1,136 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}		    % for insert images
+\usepackage[spanish]{babel} 	% for spanish titles
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry} 
+								% for page size and margin settings
+\usepackage{mathtools}          % for greek math symbol formatting
+\usepackage{enumitem}           % for control of 'enumerate' numbering
+\usepackage{listings}           % for control of 'itemize' spacing
+\usepackage{indentfirst}		% package to make first paragraph always indented
+\usepackage{hyperref}           % page numbers and '\ref's become clickable
+\usepackage{bm}					% for bold maths
+
+% TITLE VARIABLES 
+
+\def\thesistitle{Modelos longitudinales con covariables que varían en el tiempo}
+\def\thesisauthorfirst{\textbf{Esteban Cometto}}
+\def\thesissupervisorfirst{Maria Del Carmen García}
+\def\thesissupervisorsecond{Noelia Castellana}
+\def\thesisdate{\today}
+
+%% OTHER USEFUL VARIABLES 
+
+\def\npatients{560}
+\def\fullcovname{\emph{adherencia al tratamiento farmacológico}}
+\def\covname{\emph{adherencia}}
+\def\cvt{covariable que varía en el tiempo}
+
+%% FOR PDF METADATA
+\title{\thesistitle}
+\author{\thesisauthorfirst\space\thesisauthorsecond}
+\date{\thesisdate}
+
+\begin{document}
+
+\begin{titlepage}
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+	\center
+	\textsc{\Large Universidad Nacional de Rosario}\\[.7cm]
+	\includegraphics[width=25mm]{img/fceye-unr.png}\\[.5cm]
+	\textsc{Facultad de Ciencias Económicas y Estadística}\\[0.5cm]
+	\textsc{Anteproyecto de Tesina}
+	
+	\HRule \\[0.4cm]
+	{ \huge \bfseries \thesistitle}\\[0.1cm]
+	\HRule \\[.5cm]
+	
+	\begin{minipage}{0.6\textwidth}
+	\large
+	\emph{Autor:}	\thesisauthorfirst
+	\end{minipage}
+	\\[.6cm]
+	\begin{minipage}{0.6\textwidth}
+	\emph{Director:} 	\thesissupervisorfirst \\[.2cm]
+	\emph{Codirector:} 	\thesissupervisorsecond
+	\end{minipage}
+	\\[4cm]
+	\vfill
+	{\large \thesisdate}\\
+	\clearpage
+\end{titlepage}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introducción}
+
+En los estudios longitudinales las unidades experimentales se observan repetidamente en varias ocasiones. Los modelos 
+lineales mixtos permiten analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en 
+función del tiempo, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre 
+sujetos por medio del error y los efectos aleatorios, respectivamente. En este tipo de estudios es también frecuente contar 
+con variables explicativas que se desean incorporar al análisis. Estas variables pueden ser fijas a lo largo de todo el 
+período o bien pueden variar a lo largo del seguimiento. La introducción de una \cvt (CVT) al 
+modelo produce un importante desafío conceptual. Se consideran algunos aspectos de la interpretación de este tipo de 
+covariables, presentando diferentes definiciones y enfoques para incorporarlas en los modelos mixtos.
+
+Un programa de atención y control de pacientes hipertensos iniciado en el año 2014 en Rosario realiza un seguimiento 
+exhaustivo de \npatients pacientes. Este programa contempla: efectores no médicos supervisados, tratamiento farmacológico 
+genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada visita se registran tanto 
+características de los pacientes, del tratamiento y de los valores de la tensión arterial. En particular, se desea evaluar 
+si la adherencia al tratamiento farmacológico influye en los valores de la tensión arterial sistólica a lo largo del 
+seguimiento. Como la variable “\fullcovname” es una CVT estocástica se evaluaran diferentes enfoques para incluirla en un 
+modelo longitudinal que pueda explicar el cambio en la tensión arterial sistólica media a lo largo del tiempo. 
+
+\newpage
+\section{Objetivos}
+
+\subsection{Objetivo Principal}
+
+Profundizar en el estudio de propuestas metodológicas para utilizar la información obtenida de la \cvt dentro de un 
+modelo mixto
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+	\item Específicar distintos tipos de CVT
+	\item Transformaciones a realizar sobre la CVT antes de incluirla al modelo, incluyendo conversión a covariable fija
+	\item Consideraciones sobre interpretación de los parámetros sobre las CVT
+	\item Indagar sobre feedback entre la CVT y la variable respuesta
+\end{itemize}
+
+\newpage
+\section{Metodología}
+
+En un modelo mixto, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos 
+parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características 
+poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos de 
+ella (efectos aleatorios).
+
+Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo va 
+a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto a la 
+estructura de covariancia.
+
+El modelo lineal mixto para la unidad i se puede expresar en forma matricial como:
+\[ \bm{Y}_i = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i + \bm{\varepsilon}_i \quad i = 1, ... n \]
+Donde:
+\begin{itemize}
+	\item $\bm{Y}_i$: Vector de la variable respuesta de la i-ésima unidad, de dimensión $(n_ix1)$
+	\item $\bm{X}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte sistematica de la respuesta, 
+	de dimensión $(n_ixp)$
+	\item $\bm{\beta}$: Vector de parámetros de dimensión $(px1)$
+	\item $\bm{Z_i}$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte aleatoria de la respuesta, 
+	de dimensión $(n_ixk)$
+	\item $\bm{b}_i$: Vector de efectos aleatorios de la i-ésima unidad, de dimensión $(kx1)$
+	\item $\bm{\varepsilon}_i$: Vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_ix1)$
+	\item $n$: número de individuos
+	\item $p$: número de parámetros
+\end{itemize}
+Además, $\bm{b}_i$ y $\bm{\varepsilon}_i$ son independientes 
+\[ \bm{b}_i ~ N_{n_i}(0, R_i) \]
+\[ \bm{\varepsilon}_i ~ N_{n_i}(0, D_i) \]
+Las matrices $D_i$ y $R_i$ contienen las variancias y covariancias de los elementos de los vectores 
+$\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente
+
+
+\end{document}
