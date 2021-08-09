@@ -1,0 +1,76 @@
+\begin{thebibliography}{}
+
+\bibitem[B{\"u}hlmann and Van De~Geer, 2011]{buhlmann2011statistics}
+B{\"u}hlmann, P. and Van De~Geer, S. (2011).
+\newblock {\em Statistics for high-dimensional data: methods, theory and
+  applications}.
+\newblock Springer Science \& Business Media.
+
+\bibitem[Efron et~al., 2004]{efron2004least}
+Efron, B., Hastie, T., Johnstone, I., Tibshirani, R., et~al. (2004).
+\newblock Least angle regression.
+\newblock {\em The Annals of statistics}, 32(2):407--499.
+
+\bibitem[Friedman et~al., 2001]{friedman2001elements}
+Friedman, J., Hastie, T., and Tibshirani, R. (2001).
+\newblock {\em The elements of statistical learning}, volume~1.
+\newblock Springer series in statistics Springer, Berlin.
+
+\bibitem[Han et~al., 2011]{han2011data}
+Han, J., Pei, J., and Kamber, M. (2011).
+\newblock {\em Data mining: concepts and techniques}.
+\newblock Elsevier.
+
+\bibitem[Hastie et~al., 2015]{hastie2015statistical}
+Hastie, T., Tibshirani, R., and Wainwright, M. (2015).
+\newblock {\em Statistical learning with sparsity: the lasso and
+  generalizations}.
+\newblock CRC press.
+
+\bibitem[Hoerl and Kennard, 1970]{hoerl1970ridge}
+Hoerl, A.~E. and Kennard, R.~W. (1970).
+\newblock Ridge regression: Biased estimation for nonorthogonal problems.
+\newblock {\em Technometrics}, 12(1):55--67.
+
+\bibitem[Larose and Larose, 2015]{larose2015data}
+Larose, D.~T. and Larose, C.~D. (2015).
+\newblock {\em Data mining and predictive analytics}.
+\newblock John Wiley \& Sons.
+
+\bibitem[Leskovec et~al., 2014]{leskovec2014mining}
+Leskovec, J., Rajaraman, A., and Ullman, J.~D. (2014).
+\newblock {\em Mining of massive datasets}.
+\newblock Cambridge University Press.
+
+\bibitem[Montgomery et~al., 2015]{montgomery2015introduction}
+Montgomery, D.~C., Peck, E.~A., and Vining, G.~G. (2015).
+\newblock {\em Introduction to linear regression analysis}.
+\newblock John Wiley \& Sons.
+
+\bibitem[Nisbet et~al., 2009]{nisbet2009handbook}
+Nisbet, R., Miner, G., and Elder~IV, J. (2009).
+\newblock {\em Handbook of statistical analysis and data mining applications}.
+\newblock Academic Press.
+
+\bibitem[Osborne et~al., 2000]{osborne2000new}
+Osborne, M.~R., Presnell, B., and Turlach, B.~A. (2000).
+\newblock A new approach to variable selection in least squares problems.
+\newblock {\em IMA journal of numerical analysis}, 20(3):389--403.
+
+\bibitem[Tibshirani, 1996]{tibshirani1996regression}
+Tibshirani, R. (1996).
+\newblock Regression shrinkage and selection via the lasso.
+\newblock {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)}, pages 267--288.
+
+\bibitem[Tibshirani, 2011]{tibshirani2011solution}
+Tibshirani, R.~J. (2011).
+\newblock {\em The solution path of the generalized lasso}.
+\newblock Stanford University.
+
+\bibitem[Tibshirani et~al., 2013]{tibshirani2013lasso}
+Tibshirani, R.~J. et~al. (2013).
+\newblock The lasso problem and uniqueness.
+\newblock {\em Electronic Journal of Statistics}, 7:1456--1490.
+
+\end{thebibliography}

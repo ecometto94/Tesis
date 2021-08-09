@@ -1,0 +1,298 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[left=3cm, right=2cm, top=2.5cm, bottom=2.5cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{subfig}
+\graphicspath{{C/}{Users/}{Ivan/}{Dropbox/}{5 Tesina/}{Tesina/}{Imágenes/}}
+\usepackage{float}
+\usepackage{grffile}
+
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$\diamond$}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{%
+    \renewcommand{\headrulewidth}{0pt}%
+    \fancyhf{}%
+    \fancyfoot[R]{\thepage}%
+}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{amsmath}
+\allowdisplaybreaks
+\newcommand\mylabel[2]{\label{#1} \\[-\baselineskip] \tag*{#2\ \hphantom{(\ref{#1})}}}
+\usepackage{amssymb}
+\usepackage{color}
+
+\newcommand*{\addheight}[2][.5ex]{%
+  \raisebox{0pt}[\dimexpr\height+(#1)\relax]{#2}%
+}
+
+\usepackage{natbib}
+\makeatletter
+\renewcommand\@biblabel[1]{}
+\makeatother
+
+\makeatletter
+\renewenvironment{thebibliography}[1]
+     {\section*{\bibname}% <-- this line was changed from \chapter* to \section*
+      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\makeatother
+
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*}{\section}{}{}
+
+\begin{document}
+\begin{titlepage}
+
+\begin{center}
+\includegraphics{UNR}
+
+{\scshape Facultad de Ciencias Económicas y Estadística}
+
+{\scshape Universidad Nacional de Rosario}
+\end{center}
+
+\vspace{2cm}
+
+{\Large{Anteproyecto de Tesina}}
+
+\begin{center}
+\Huge{\textbf{Regresión Lineal Múltiple en Grandes Dimensiones}}
+\end{center}
+
+\begin{center}
+{\large{Carrera: Licenciatura en Estadística}}
+\end{center}
+
+\vspace{2.5cm}
+
+{\large
+
+Alumno:
+
+\hspace{0.5cm} Iván Ariel Millanes
+
+\vspace{0.25cm}
+Directora:
+
+\hspace{0.5cm} Dra. Marta Quaglino
+
+\vspace{0.25cm}
+Co-Directora:
+
+\hspace{0.5cm} Lic. María Belén Allasia
+
+}
+
+\vspace{1cm}
+\begin{center}
+{\Large{2017}}
+\end{center}
+\end{titlepage}
+
+\pagestyle{empty}
+{
+  \renewcommand{\thispagestyle}[1]{}
+  \tableofcontents
+}
+\clearpage
+\pagestyle{fancy}
+
+\setcounter{page}{1}
+
+\section*{Título de la Tesina}
+\addcontentsline{toc}{section}{\protect\numberline{}Título de la Tesina}%
+{\Large{Regresión Lineal Múltiple en Grandes Dimensiones}}
+
+\nocite{*}
+
+\section{Introducción}
+El análisis de regresión es una técnica estadística utilizada para investigar y modelar la relación entre variables. Esta técnica estudia la relación entre una variable respuesta o dependiente y una o más variables explicativas o predictores. Se puede usar con un fin descriptivo, es decir, para conocer la función que describe la relación entre las variables, detectando cuáles de las variables explicativas están relacionadas con la respuesta y explorando la forma e intensidad de esa relación, o bien, una vez conocida esta relación, con un fin predictivo, es decir, para conocer el valor probable de la respuesta a partir del valor conocido de los predictores.
+
+La regresión lineal fue el primer tipo de análisis de regresión en ser estudiado con rigurosidad y utilizado ampliamente en aplicaciones prácticas. En este enfoque, las relaciones se modelan usando funciones lineales en los parámetros. Por lo general, estos modelos se ajustan usando el método de estimación denominado mínimos cuadrados. Este método es muy popular debido a su fácil aplicación y buenas propiedades \citep{montgomery2015introduction}.
+
+Sin embargo, en la actualidad, los grandes avances tecnológicos y la capacidad de almacenamiento creciente de los medios informáticos permite disponer de grandes bases de datos que hacen más compleja la tarea de extraer información en forma comprensible para interpretar los fenómenos investigados \citep{nisbet2009handbook} \citep{han2011data} \citep{leskovec2014mining} \citep{larose2015data}. En este contexto, es común encontrarse con situaciones en las que el número de variables explicativas es mucho mayor que el número de observaciones. El análisis de regresión en este escenario recibe el nombre de regresión en ``grandes dimensiones".
+
+El método de mínimos cuadrados falla en ``grandes dimensiones", porque los estimadores que se obtienen no son únicos. Esta no unicidad de los estimadores hace que la interpretación de las soluciones pierda sentido, ya que para una solución el coeficiente estimado para un predictor puede ser positivo, mientras que para otra, puede ser negativo, es decir, el efecto de ese predictor sobre la respuesta depende de la solución elegida \citep{friedman2001elements}.
+
+El presente anteproyecto plantea realizar un trabajo orientado al estudio de métodos de estimación en modelos de regresión no tradicionales que se adecúen al contexto de grandes dimensiones de datos, en particular al estudio de las regresiones \textit{Ridge} y LASSO (\textit{Least Absolute Shrinkage and Selection Operator}), haciendo estudios comparativos que evidencien sus propiedades en cuanto a bondad de predicción del modelo y características distribucionales de los estimadores de los parámetros.
+
+\section{Objetivos}
+\subsection{Objetivo General}
+Profundizar en el estudio de propuestas metodológicas para estimar los parámetros de modelos de regresión múltiple en contextos de bases de datos de grandes dimensiones donde el número de variables explicativas exceda al número de observaciones, haciendo estudios que permitan verificar de forma empírica sus propiedades.
+
+\subsection{Objetivos Específicos}
+\begin{itemize}
+\item Realizar una búsqueda bibliográfica actualizada sobre métodos de estimación en regresión múltiple adecuados para ``grandes dimensiones", enfocando la atención en las regresiones \textit{Ridge} y LASSO.
+
+\item Hacer una síntesis de los métodos y su implementación.
+
+\item Indagar sobre los programas disponibles para la obtención de los estimadores de los métodos estudiados.
+
+\item Realizar estudios por simulación que permitan verificar empíricamente las propiedades de los métodos en cuanto a su capacidad predictiva.
+
+\item Estudiar propiedades distribucionales de los estimadores a través de simulaciones.
+\end{itemize}
+
+\newpage
+
+\section{Metodología}
+
+Se considera una muestra aleatoria $(\boldsymbol{x}_i^T, y_i) \in \mathbb{R}^p \times \mathbb{R}$, $i=1,...,n$, donde $\boldsymbol{x}_i \in \mathbb{R}^p$ es un vector columna de $p$ variables explicativas continuas del elemento $i$ e $y_i \in \mathbb{R}$ es una variable respuesta, también continua, de ese mismo elemento. Las variables $\boldsymbol{x}_i$ e $y_i$ se suponen relacionadas por el modelo
+\begin{equation}
+\label{Modelo}
+y_i = \boldsymbol{x}^T_i \boldsymbol{\beta_0}+\epsilon_i \hspace{1cm} i=1,...,n
+\end{equation}
+donde $\boldsymbol{\beta_0} \in \mathbb{R}^p$ es un vector desconocido de coeficientes y $\epsilon_i$, $i=1,...,n$, son errores aleatorios con $E(\epsilon_i)=0$. Sin pérdida de generalidad se ignora el término correspondiente a la ordenada al origen. Se asume que las variables explicativas están centradas. Escrito en forma matricial el modelo resulta
+\begin{equation}
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta_0}+\boldsymbol{\epsilon}
+\end{equation} 
+donde $\boldsymbol{y}=(y_1,...,y_n)^T \in \mathbb{R}^n$ es el vector de variables respuestas, $\boldsymbol{X} \in \mathbb{R}^{n \times p}$ es la matriz de variables explicativas centradas, con $i$-ésima fila $\boldsymbol{x}_i^T \in \mathbb{R}^p$, $i=1,...,n$, y $j$-ésima columna $\boldsymbol{X}_j \in \mathbb{R}^n$, $j=1,...,p$, y $\boldsymbol{\epsilon}=(\epsilon_1,...,\epsilon_n)^T \in \mathbb{R}^n$ es el vector de errores aleatorios.
+
+\subsection*{Regresión Mínimo Cuadrática}
+Los estimadores mínimo cuadráticos de los coeficientes del modelo (\ref{Modelo}) son aquellos coeficientes $\boldsymbol{\beta}$ que minimizan la Suma de Cuadrados del Error (SCE), es decir, se definen como la solución al siguiente problema de optimización
+\begin{equation}
+\label{LSProblem}
+\operatornamewithlimits{min}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p}SCE(\boldsymbol{\beta}) \iff \operatornamewithlimits{min}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} \sum_{i=1}^n (y_i-\boldsymbol{x}_i^T\boldsymbol{\beta})^2 \iff \operatornamewithlimits{min}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} ||\boldsymbol{y}-\boldsymbol{X\beta} ||_2^2,
+\end{equation}
+donde $||\boldsymbol{y}-\boldsymbol{X\beta} ||_2^2$ es el cuadrado de la denominada norma 2 de $\boldsymbol{y}-\boldsymbol{X\beta}$.
+
+Si el rango de la matriz $\boldsymbol{X}$ es igual a $p$, es decir, si los predictores $\boldsymbol{X}_1$, ..., $\boldsymbol{X}_p$ (columnas de la matriz $\boldsymbol{X}$, cada una de dimensión $n \times 1$) son linealmente independientes, entonces el problema de optimización mínimo cuadrático tiene solución única 
+\begin{equation}
+\label{BetaMC}
+\boldsymbol{\hat{\beta}}^{MC}=(\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{y}.
+\end{equation}
+
+\subsection*{Problemas del Ajuste Mínimo Cuadrático \\ en ``Grandes Dimensiones"}
+Cuando el rango de la matriz $\boldsymbol{X}$ es menor que $p$, hecho que ocurre cuando $p > n$, existen infinitas soluciones al problema de optimización mínimo cuadrático (\ref{LSProblem}). Dada una solución $\boldsymbol{\hat{\beta}}$, $\boldsymbol{\hat{\beta}} + \boldsymbol{\eta}$ también es solución para cualquier $\boldsymbol{\eta} \in null(\boldsymbol{X})=\{\boldsymbol{\eta} \in \mathbb{R}^p: \boldsymbol{X}\boldsymbol{\eta}=\boldsymbol{0}\}$, donde $null(\boldsymbol{X})$ es el espacio nulo de la matriz $\boldsymbol{X}$, ya que 
+\begin{equation}
+\boldsymbol{X}(\boldsymbol{\hat{\beta}} + \boldsymbol{\eta})=\boldsymbol{X}\boldsymbol{\hat{\beta}}+ \boldsymbol{X}\boldsymbol{\eta}=\boldsymbol{X}\boldsymbol{\hat{\beta}},
+\end{equation}
+es decir, con $\boldsymbol{\hat{\beta}}$ y $\boldsymbol{\hat{\beta}} + \boldsymbol{\eta}$ se alcanza el mismo mínimo en (\ref{LSProblem}). Al no haber una solución única, la interpretación de las soluciones pierde sentido, ya que para al menos un $j\in \{1,...,p\}$ se tendrá que $\hat{\beta}_j>0$ para una solución $\boldsymbol{\hat{\beta}}$, pero $\tilde{\beta}_j<0$ para otra solución $\boldsymbol{\tilde{\beta}}$, es decir, una variable explicativa influiría en forma directa e inversa sobre la respuesta simultáneamente. Este hecho también invalida las predicciones sobre nuevas observaciones \citep{hastie2015statistical}.
+
+Incluso cuando el rango de la matriz $\boldsymbol{X}$ es igual a $p$, situación en la cual existe una solución única al problema de optimización mínimo cuadrático, puede que no sea conveniente utilizar mínimos cuadrados si $p$ es muy cercano a $n$, debido a que el error de predicción dentro de la muestra del estimador mínimo cuadrático puede ser alto. Este error es igual a $\sigma^2 \dfrac{p}{n}$, el cual crece a medida que $p$ se aproxima a $n$ (siendo $n > p$).
+
+Para tratar estos problemas, se pueden utilizar métodos de regresión penalizada, también denominados métodos de regularización. Al utilizar estos métodos, el estimador mínimo cuadrático se modifica en una de dos formas:
+\begin{itemize}
+\item Forma restringida:
+\begin{equation}
+\operatornamewithlimits{min}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} ||\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\beta} ||_2^2 \text{ } \text{ } \text{ } \text{ sujeto a } \text{ } \text{ } \boldsymbol{\beta} \in C,
+\end{equation}
+\end{itemize}
+donde $C$ es algún conjunto usualmente convexo,
+\begin{itemize}
+\item Forma penalizada:
+\begin{equation}
+\operatornamewithlimits{min}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} ||\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\beta} ||_2^2 + P(\boldsymbol{\beta}),
+\end{equation}
+\end{itemize}
+donde $P(\cdot)$ es alguna función de penalización usualmente convexa.
+
+Los métodos de regularización buscan una reducción importante en la variancia de las estimaciones a costa de la introducción de algo de sesgo, lo que mejora los resultados globalmente \citep{buhlmann2011statistics}.
+
+Las regresiones \textit{Ridge} y LASSO son métodos de regularización utilizados en el contexto de grandes dimensiones.
+
+\subsubsection*{Regresión \textit{Ridge}}
+La regresión \textit{Ridge} fue presentada por Hoerl and Kennard (1970) como una alternativa a los estimadores mínimo cuadráticos en presencia de multicolinealidad. Se trata de un proceso continuo que contrae los coeficientes y por lo tanto es estable. Sin embargo, no fija los coeficientes de variables muy poco asociadas con la respuesta exactamente en cero, razón por la cual no provee modelos fácilmente interpretables en presencia de muchas variables explicativas.
+
+El estimador \textit{Ridge} se define como
+\begin{equation}
+\label{BETA_Ridge}
+\boldsymbol{\hat{\beta}}^{Ridge}=\operatornamewithlimits{argmin}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} \left\{ \frac{1}{2} \sum_{i=1}^n (y_i-\boldsymbol{x}_i^T\boldsymbol{\beta})^2+\lambda \sum_{j=1}^p \beta_j^2 \right\},
+\end{equation}
+donde $\lambda > 0$ es una constante denominada parámetro de suavizado.
+ 
+\subsubsection*{Regresión LASSO}
+En 1996, Tibshirani, intentando retener lo mejor de la selección de un subconjunto de variables y de la regresión \textit{Ridge}, propuso la técnica denominada LASSO, la cual contrae algunos coeficientes y fija en cero a otros \citep{tibshirani1996regression} \citep{tibshirani2013lasso}.
+
+El estimador LASSO se define como
+\begin{equation}
+\label{BETA_LASSO}
+\boldsymbol{\hat{\beta}}^{LASSO}=\operatornamewithlimits{argmin}\limits_{\boldsymbol{\beta} \in \mathbb{R}^p} \left\{ \frac{1}{2} \sum_{i=1}^n (y_i-\boldsymbol{x}_i^T\boldsymbol{\beta})^2+\lambda \sum_{j=1}^p |\beta_j| \right\},
+\end{equation}
+donde $\lambda > 0$ es una constante denominada parámetro de suavizado.
+
+\vspace{1.5cm}
+
+En ambos métodos, la solución depende de la elección de $\lambda$, dando lugar a un camino de soluciones \citep{osborne2000new} \citep{efron2004least} \citep{tibshirani2011solution}. De todas las soluciones calculadas para algunas variantes de $\lambda$ previamente establecidas, se elige la mejor de acuerdo a algún criterio (como por ejemplo, minimización del Error Cuadrático Medio) utilizando validación cruzada.
+
+\section{Aplicación}
+\subsection{Simulaciones}
+Se propone estudiar el comportamiento de los estimadores, en principio de lo métodos \textit{Ridge} y LASSO, mediante la simulación de escenarios donde el número de variables explicativas es mayor que el número de observaciones, con el objetivo de comparar sus propiedades, así como la bondad de predicción de los modelos. 
+
+Se plantea la inclusión de un escenario en el cual los estimadores mínimo cuadráticos puedan ser calculados en forma única $(n=p)$.
+
+Las comparaciones se realizarán teniendo en cuenta medidas globales de capacidad predictiva del modelo y propiedades distribucionales de los estimadores de cada parámetro del modelo, enfocando en especial sesgo y precisión.
+
+\section{Cronograma}
+\subsubsection*{Marzo 2017 - Abril 2017}
+\begin{itemize}
+\item Investigación bibliográfica.
+
+\item Adquisición de conocimientos y experiencia con los métodos de estimación de parámetros en modelos de regresión lineal múltiple en el contexto de grandes dimensiones de datos.
+
+\end{itemize}
+
+\subsubsection*{Mayo 2017 - Junio 2017}
+\begin{itemize}
+\item Estudio de las regresiones Ridge y LASSO y de sus propiedades.
+
+\item Revisión de las implementaciones en el software R
+
+\end{itemize}
+
+\subsubsection*{Julio 2017 - Septiembre 2017}
+\begin{itemize}
+\item Estudio por simulación para evaluar el comportamiento de los estimadores.
+
+\item Redacción de la tesina.
+\end{itemize}
+
+\subsubsection*{Octubre 2017}
+\begin{itemize}
+\item Revisión general del trabajo.
+
+\end{itemize}
+
+\subsubsection*{Noviembre 2017}
+\begin{itemize}
+\item Presentación de la tesina.
+
+\end{itemize}
+
+\renewcommand{\refname}{Bibliografía}
+\bibliographystyle{apalike}
+\bibliography{Bibliografia}
+
+\end{document}
