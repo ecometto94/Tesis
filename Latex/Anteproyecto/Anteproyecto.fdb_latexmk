@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1628550811 "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" "Anteproyecto.pdf" "Anteproyecto" 1628550815
-  "Anteproyecto.aux" 1628550814 1427 ee71f7e3465b120d0c8ab437848c1563 "pdflatex"
-  "Anteproyecto.out" 1628550814 613 a4f497dcfb468103ba4162f7c3671da6 "pdflatex"
-  "Anteproyecto.tex" 1628550810 6416 c9626f93f2ce5712a47c7d1492ff8d46 ""
-  "Anteproyecto.toc" 1628550814 397 0687e29526cea02099c4d5c0cfa62ec9 "pdflatex"
+["pdflatex"] 1628813457 "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" "Anteproyecto.pdf" "Anteproyecto" 1628813459
+  "Anteproyecto.aux" 1628813459 2214 32ef5e23e8ba2126cc934af624eb30e1 "pdflatex"
+  "Anteproyecto.out" 1628813459 1537 793a8782e5e4e606a9874b69dfa7ce6c "pdflatex"
+  "Anteproyecto.tex" 1628813455 10048 3dcb1de092f5b96250b1234d603b6933 ""
+  "Anteproyecto.toc" 1628813459 793 796d79d04cdef0a11b688eb97b092b2a "pdflatex"
   "C:/Users/ecometto001/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1627598227 9745695 f7105840bdc8460ec31ba47e9d1ce99b ""
   "C:/Users/ecometto001/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1628548403 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1233951848 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -37,6 +37,9 @@
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1247596666 35469 dcf3a5f2fc1862f5952e3ee5eb1d98c4 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1247596666 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
+  "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247596667 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1247596667 36118 fad905eba93cff5bce1e185fe980a177 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb" 1247596670 35479 2cca68718f15872e7cce1a8f6033b99b ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580390158 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -103,7 +106,7 @@
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1622550326 10214 00ce62e730d0cfe22b35e8f1c84949c7 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/tools/indentfirst.sty" 1622550326 1618 786b14c5a3e144c3a51452d08232d18b ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" 1628550810 6416 c9626f93f2ce5712a47c7d1492ff8d46 ""
+  "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" 1628813455 10048 3dcb1de092f5b96250b1234d603b6933 ""
   "img/fceye-unr.png" 1628028664 31108 3730c4dd1160e89668899a61165fd5fc ""
   (generated)
   "Anteproyecto.toc"
