@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1628813457 "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" "Anteproyecto.pdf" "Anteproyecto" 1628813459
-  "Anteproyecto.aux" 1628813459 2214 32ef5e23e8ba2126cc934af624eb30e1 "pdflatex"
-  "Anteproyecto.out" 1628813459 1537 793a8782e5e4e606a9874b69dfa7ce6c "pdflatex"
-  "Anteproyecto.tex" 1628813455 10048 3dcb1de092f5b96250b1234d603b6933 ""
-  "Anteproyecto.toc" 1628813459 793 796d79d04cdef0a11b688eb97b092b2a "pdflatex"
+["pdflatex"] 1629240760 "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" "Anteproyecto.pdf" "Anteproyecto" 1629240766
+  "Anteproyecto.aux" 1629240766 2322 af755d9d7a699bd76b476f5bdae9fbe8 "pdflatex"
+  "Anteproyecto.out" 1629240766 1634 ec2f88dc92eeb1347a750c5cf5ef416a "pdflatex"
+  "Anteproyecto.tex" 1629240751 10926 11bfb241a2f5171aa7071bbbdb3a77d6 ""
+  "Anteproyecto.toc" 1629240766 860 a0c4ef2f84c8d8aba10ef0a0ff2beb94 "pdflatex"
   "C:/Users/ecometto001/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1627598227 9745695 f7105840bdc8460ec31ba47e9d1ce99b ""
   "C:/Users/ecometto001/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1628548403 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1233951848 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -102,11 +102,12 @@
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/mathtools/mhsetup.sty" 1618240528 5582 a43dedf8e5ec418356f1e9dfe5d29fc3 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1575571282 9715 b051d5b493d9fe5f4bc251462d039e5f ""
+  "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/setspace/setspace.sty" 1324294077 22913 a27d7908fc6f0385466454a966a316eb ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/tools/bm.sty" 1622550326 13197 df0fe9a9695763546b59e02a008447b3 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1622550326 10214 00ce62e730d0cfe22b35e8f1c84949c7 ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/tools/indentfirst.sty" 1622550326 1618 786b14c5a3e144c3a51452d08232d18b ""
   "C:/Users/ecometto001/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" 1628813455 10048 3dcb1de092f5b96250b1234d603b6933 ""
+  "c:/Users/ecometto001/Documents/Personal/Tesis/Latex/Anteproyecto/Anteproyecto.tex" 1629240751 10926 11bfb241a2f5171aa7071bbbdb3a77d6 ""
   "img/fceye-unr.png" 1628028664 31108 3730c4dd1160e89668899a61165fd5fc ""
   (generated)
   "Anteproyecto.toc"

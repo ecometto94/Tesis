@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+                                % for page size and margin settings
 \usepackage{graphicx}		    % for insert images
 \usepackage[spanish]{babel} 	% for spanish titles
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry} 
@@ -10,6 +12,8 @@
 \usepackage{hyperref}           % page numbers and '\ref's become clickable
 \usepackage{bm}					% for bold maths
 \usepackage{hyperref}           % page numbers and '\ref's become clickable
+\usepackage{setspace}			 % for setting interline spacing
+\renewcommand{\baselinestretch}{1.5}
 
 % TITLE VARIABLES 
 
@@ -22,7 +26,7 @@
 %% OTHER USEFUL VARIABLES 
 
 \def\npatients{560}
-\def\fullcovname{\emph{adherencia al tratamiento farmacológico}}
+\def\fullcovname{adherencia al tratamiento farmacológico}
 \def\covname{\emph{adherencia}}
 \def\cvt{covariable que varía en el tiempo}
 \def\xseqj{$X_{i1}, ..., X_{ij}$}
@@ -72,29 +76,29 @@
 \newpage
 \section{Introducción}
 
-En los estudios longitudinales las unidades experimentales se observan repetidamente en varias ocasiones. Los modelos 
-lineales mixtos permiten analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en 
-función del tiempo, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre 
-sujetos por medio del error y los efectos aleatorios, respectivamente. En este tipo de estudios es también frecuente contar 
-con variables explicativas que se desean incorporar al análisis. Estas variables pueden ser fijas a lo largo de todo el 
-período o bien pueden variar a lo largo del seguimiento. La introducción de una \cvt (CVT) al 
-modelo produce un importante desafío conceptual. Se consideran algunos aspectos de la interpretación de este tipo de 
+En los estudios longitudinales las unidades experimentales se observan repetidamente en varias ocasiones. Los modelos
+lineales mixtos permiten analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en
+función del tiempo, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre
+sujetos por medio del error y los efectos aleatorios, respectivamente. En este tipo de estudios es también frecuente contar
+con variables explicativas que se desean incorporar al análisis. Estas variables pueden ser fijas a lo largo de todo el
+período o bien pueden variar a lo largo del seguimiento. La introducción de una \cvt{} (CVT) al
+modelo produce un importante desafío conceptual. Se consideran algunos aspectos de la interpretación de este tipo de
 covariables, presentando diferentes definiciones y enfoques para incorporarlas en los modelos mixtos.
 
-Un programa de atención y control de pacientes hipertensos iniciado en el año 2014 en Rosario realiza un seguimiento 
-exhaustivo de \npatients pacientes. Este programa contempla: efectores no médicos supervisados, tratamiento farmacológico 
-genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada visita se registran tanto 
-características de los pacientes, del tratamiento y de los valores de la tensión arterial. En particular, se desea evaluar 
-si la adherencia al tratamiento farmacológico influye en los valores de la tensión arterial sistólica a lo largo del 
-seguimiento. Como la variable “\fullcovname” es una CVT estocástica se evaluaran diferentes enfoques para incluirla en un 
-modelo longitudinal que pueda explicar el cambio en la tensión arterial sistólica media a lo largo del tiempo. 
+Un programa de atención y control de pacientes hipertensos iniciado en el año 2014 en Rosario realiza un seguimiento
+exhaustivo de \npatients{} pacientes. Este programa contempla: efectores no médicos supervisados, tratamiento farmacológico
+genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada visita se registran tanto
+características de los pacientes, del tratamiento y de los valores de la tensión arterial. En particular, se desea evaluar
+si la adherencia al tratamiento farmacológico influye en los valores de la tensión arterial sistólica a lo largo del
+seguimiento. Como la variable “\fullcovname{}” es una CVT estocástica se evaluaran diferentes enfoques para incluirla en un
+modelo longitudinal que pueda explicar el cambio en la tensión arterial sistólica media a lo largo del tiempo.
 
 \newpage
 \section{Objetivos}
 
 \subsection{Objetivo Principal}
 
-Profundizar en el estudio de propuestas metodológicas para utilizar la información obtenida de la \cvt dentro de un 
+Profundizar en el estudio de propuestas metodológicas para utilizar la información obtenida de la \cvt{} dentro de un
 modelo mixto.
 
 \subsection{Objetivos Específicos}
@@ -109,13 +113,13 @@ modelo mixto.
 \newpage
 \section{Metodología}
 
-En un modelo mixto, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos 
-parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características 
-poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos de 
+En un modelo mixto, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos
+parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características
+poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos de
 ella (efectos aleatorios).
 
-Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo va 
-a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto a la 
+Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo va
+a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto a la
 estructura de covariancia.
 
 El modelo lineal mixto para la unidad i se puede expresar en forma matricial como:
@@ -127,20 +131,20 @@ El modelo lineal mixto para la unidad i se puede expresar en forma matricial com
 Donde:
 \begin{itemize}
 	\item $\bm{Y}_i$: Vector de la variable respuesta de la i-ésima unidad, de dimensión $(n_i*1)$
-	\item $\bm{X}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte sistematica de la respuesta, 
+	\item $\bm{X}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte sistematica de la respuesta,
 	de dimensión $(n_i*p)$
 	\item $\bm{\beta}$: Vector de parámetros de dimensión $(p*1)$
-	\item $\bm{Z_i}$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte aleatoria de la respuesta, 
+	\item $\bm{Z_i}$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte aleatoria de la respuesta,
 	de dimensión $(n_i*k)$
 	\item $\bm{b}_i$: Vector de efectos aleatorios de la i-ésima unidad, de dimensión $(k*1)$
 	\item $\bm{\varepsilon}_i$: Vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$
 	\item $n$: número de individuos
 	\item $p$: número de parámetros
 \end{itemize}
-Además, $\bm{b}_i$ y $\bm{\varepsilon}_i$ son independientes .
+Además, $\bm{b}_i$ y $\bm{\varepsilon}_i$ son independientes.
 \[ \bm{b}_i ~ N_{n_i}(0, R_i) \]
 \[ \bm{\varepsilon}_i ~ N_{n_i}(0, D_i) \]
-Las matrices $D_i$ y $R_i$ contienen las variancias y covariancias de los elementos de los vectores 
+Las matrices $D_i$ y $R_i$ contienen las variancias y covariancias de los elementos de los vectores
 $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 La media marginal de $\bm{Y}_i$ está dada por:
 \begin{equation}
@@ -151,8 +155,8 @@ Y la media condicional de $\bm{Y}_i$, dado $\bm{b}_i$, por:
 	E(\bm{Y}_i|\bm{b}_i) = \bm{X}_i\bm{\beta} + \bm{Z}\bm{b}_i
 \end{equation}
 
-Dejando de lado la forma matricial, lo que a menudo se pasa por alto es la suposición implícita de que la media 
-condicional de la respuesta j-ésima, dado \xseqn, depende solo de $X_{ij}$.
+Dejando de lado la forma matricial, lo que a menudo se pasa por alto es la suposición implícita de que la media
+condicional de la respuesta j-ésima, dado \xseqn{}, depende solo de $X_{ij}$.
 \begin{equation}
 \label{esperanza}
 	E(Y_{ij}|\bm{X}_i) = E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
@@ -160,20 +164,20 @@ condicional de la respuesta j-ésima, dado \xseqn, depende solo de $X_{ij}$.
 
 \subsection{Supuestos y problemas en la estimación}
 
-Con las covariables fijas, esta suposición se mantiene necesariamente desde $X_{ij} = X_{ik}$ para todas las ocasiones 
-$k \neq j$. Además, con covariables variables en el tiempo que se fijan por diseño del estudio (por ejemplo, indicador 
-de grupo de tratamiento en una prueba cruzada), la suposición también se cumple ya que los valores de las covariables 
-en cualquier ocasión se determinan a priori por diseño del estudio y de manera completamente no relacionado con la 
-respuesta longitudinal. Sin embargo, cuando una covariable es variable en el tiempo y estocástica, puede que no 
+Con las covariables fijas, esta suposición se mantiene necesariamente desde $X_{ij} = X_{ik}$ para todas las ocasiones
+$k \neq j$. Además, con covariables variables en el tiempo que se fijan por diseño del estudio (por ejemplo, indicador
+de grupo de tratamiento en una prueba cruzada), la suposición también se cumple ya que los valores de las covariables
+en cualquier ocasión se determinan a priori por diseño del estudio y de manera completamente no relacionado con la
+respuesta longitudinal. Sin embargo, cuando una covariable es variable en el tiempo y estocástica, puede que no
 necesariamente se mantenga.
 
-En general, cuando (\ref{esperanza}) no se cumple, los valores precedentes y/o posteriores de la CVT confunden la 
+En general, cuando (\ref{esperanza}) no se cumple, los valores precedentes y/o posteriores de la CVT confunden la
 relación entre $Y_{ij}$ y $X_{ij}$, esto puede llevar a estimaciones sesgadas de $\beta$
 
 \subsection{Variables Endógenas y Exógenas}
 
-Se dice que una \cvt es exógena cuando los valores actuales y anteriores de la respuesta en la ocasión 
-$j$ \yseqj, dados los valores actuales y precedentes de la CVT \xseqj, no predice el valor 
+Se dice que una \cvt{} es exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
+$j$ \yseqj{}, dados los valores actuales y precedentes de la CVT \xseqj{}, no predice el valor
 posterior de $X_{ij+1}$. Más formalmente, una CVT es exógena cuando:
 
 \begin{equation}
@@ -192,17 +196,26 @@ que es una suposición más débil que \ref{esperanza}.
 
 \subsection{Pruebas sobre la exogeneidad}
 
-En principio, es posible examinar la suposición de que una \cvt es exógena al considerar modelos de regresión para la 
-dependencia de $X_{ij}$ en \yseqj (o alguna función conocida de \yseqj) y \xseqjminus (o alguna función 
-conocida de \xseqjminus). La ausencia de cualquier relación entre $X_{ij}$ e \yseqjminus, dado 
-el perfil de covariable anterior, \xseqjminus, proporciona soporte para la validez de la suposición de que 
+En principio, es posible examinar la suposición de que una \cvt{} es exógena al considerar modelos de regresión para la
+dependencia de $X_{ij}$ en \yseqj{} (o alguna función conocida de \yseqj{}) y \xseqjminus{} (o alguna función
+conocida de \xseqjminus{}). La ausencia de cualquier relación entre $X_{ij}$ e \yseqjminus{}, dado
+el perfil de covariable anterior, \xseqjminus{}, proporciona soporte para la validez de la suposición de que
 el proceso de covariable es exógeno.
 
 \subsection{Conclusiones sobre la exogeneidad}
 
-En conclusión, cuando las covariables son variables en el tiempo y estocásticas, los parámetros de regresión no 
-necesariamente tienen la interpretación causal implícita incluso cuando \ref{esperanza} se cumple. A los parámetros de 
-regresión se les puede dar una interpretación causal solo cuando se puede asumir además que las CVT son exógenas con 
+En conclusión, cuando las covariables son variables en el tiempo y estocásticas, los parámetros de regresión no
+necesariamente tienen la interpretación causal implícita incluso cuando \ref{esperanza} se cumple. A los parámetros de
+regresión se les puede dar una interpretación causal solo cuando se puede asumir además que las CVT son exógenas con
 respecto a la variable de respuesta (es decir, cuando \ref{exogeneidad} se cumple).
+
+\newpage
+\section{Aplicación}
+
+Se propone estudiar el comportamiento de la \fullcovname{} sobre la tensión arterial sistólica (TAS) a través de distintas
+formas de introducirla al modelo y también la comprobación de ciertos supuestos para poder obtener interpretación causales sobre
+sus parámetros. Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha otra información para
+obtener modelos que describan de mejor manera el comportamiento de la TAS, nos centraremos en modelos más simples con
+respecto a las covariables fijas con el fin de no perder de vista la relación entre la variable respuesta y la CVT.
 
 \end{document}
