@@ -1,0 +1,176 @@
+\begin{thebibliography}{}
+
+\bibitem[Beale et~al., 1967]{beale1967discarding}
+Beale, E., Kendall, M., and Mann, D. (1967).
+\newblock The discarding of variables in multivariate analysis.
+\newblock {\em Biometrika}, 54(3-4):357--366.
+
+\bibitem[Bien, 2016]{bien2016simulator}
+Bien, J. (2016).
+\newblock The simulator: An engine to streamline simulations.
+\newblock {\em Submitted}.
+
+\bibitem[Boyd and Vandenberghe, 2004]{boyd2004convex}
+Boyd, S. and Vandenberghe, L. (2004).
+\newblock {\em Convex optimization}.
+\newblock Cambridge, UK: Cambridge University Press.
+
+\bibitem[Efron et~al., 2004]{efron2004least}
+Efron, B., Hastie, T., Johnstone, I., Tibshirani, R., et~al. (2004).
+\newblock Least angle regression.
+\newblock {\em The Annals of statistics}, 32(2):407--499.
+
+\bibitem[Friedman et~al., 2007]{friedman2007pathwise}
+Friedman, J., Hastie, T., H{\"o}fling, H., Tibshirani, R., et~al. (2007).
+\newblock Pathwise coordinate optimization.
+\newblock {\em The Annals of Applied Statistics}, 1(2):302--332.
+
+\bibitem[Friedman et~al., 2009]{friedman2009glmnet}
+Friedman, J., Hastie, T., and Tibshirani, R. (2009).
+\newblock glmnet: Lasso and elastic-net regularized generalized linear models.
+\newblock {\em R package version}, 1(4).
+
+\bibitem[Friedman et~al., 2010]{friedman2010regularization}
+Friedman, J., Hastie, T., and Tibshirani, R. (2010).
+\newblock Regularization paths for generalized linear models via coordinate
+  descent.
+\newblock {\em Journal of statistical software}, 33(1):1.
+
+\bibitem[Galton, 1886]{galton1886regression}
+Galton, F. (1886).
+\newblock Regression towards mediocrity in hereditary stature.
+\newblock {\em The Journal of the Anthropological Institute of Great Britain
+  and Ireland}, 15:246--263.
+
+\bibitem[Gauss, 1809]{gauss1809theoria}
+Gauss, C.~F. (1809).
+\newblock {\em Theoria motus corporum coelestum}.
+\newblock Hamburgi: Sumtibus F. Perthes et I.H. Besser.
+
+\bibitem[Groves and Rothenberg, 1969]{groves1969note}
+Groves, T. and Rothenberg, T. (1969).
+\newblock A note on the expected value of an inverse matrix.
+\newblock {\em Biometrika}, 56(3):690--691.
+
+\bibitem[Haff, 1979]{haff1979identity}
+Haff, L. (1979).
+\newblock An identity for the wishart distribution with applications.
+\newblock {\em Journal of Multivariate Analysis}, 9(4):531--544.
+
+\bibitem[Han et~al., 2011]{han2011data}
+Han, J., Pei, J., and Kamber, M. (2011).
+\newblock {\em Data mining: concepts and techniques}.
+\newblock Amsterdam: Elsevier.
+
+\bibitem[Hastie et~al., 2009]{friedman2001elements}
+Hastie, T., Tibshirani, R., and Friedman, J. (2009).
+\newblock {\em The elements of statistical learning, 2nd edition}.
+\newblock New York, NY: Springer.
+
+\bibitem[Hastie et~al., 2015]{hastie2015statistical}
+Hastie, T., Tibshirani, R., and Wainwright, M. (2015).
+\newblock {\em Statistical learning with sparsity: the lasso and
+  generalizations}.
+\newblock Boca Raton, FL: CRC press.
+
+\bibitem[Hocking and Leslie, 1967]{hocking1967selection}
+Hocking, R. and Leslie, R. (1967).
+\newblock Selection of the best subset in regression analysis.
+\newblock {\em Technometrics}, 9(4):531--540.
+
+\bibitem[Hoerl and Kennard, 1970]{hoerl1970ridge}
+Hoerl, A.~E. and Kennard, R.~W. (1970).
+\newblock Ridge regression: Biased estimation for nonorthogonal problems.
+\newblock {\em Technometrics}, 12(1):55--67.
+
+\bibitem[Kloft et~al., 2009]{kloft2009efficient}
+Kloft, M., Brefeld, U., Laskov, P., M{\"u}ller, K.~R., Zien, A., and
+  Sonnenburg, S. (2009).
+\newblock Efficient and accurate lp-norm multiple kernel learning.
+\newblock In {\em Advances in neural information processing systems 22}, pages
+  997--1005.
+
+\bibitem[Laplace, 1810]{marquis1810memoire}
+Laplace, P.~S. (1810).
+\newblock {\em M{\'e}moire sur les approximations des formules qui sont
+  fonctions de tr{\`e}s-grands nombres, et sur leur application aux
+  probabilit{\'e}s}.
+\newblock París: Baudouin.
+
+\bibitem[Larose and Larose, 2015]{larose2015data}
+Larose, D.~T. and Larose, C.~D. (2015).
+\newblock {\em Data mining and predictive analytics}.
+\newblock Hoboken, NJ: John Wiley \& Sons.
+
+\bibitem[Legendre, 1805]{legendre1805nouvelles}
+Legendre, A.~M. (1805).
+\newblock {\em Nouvelles m{\'e}thodes pour la d{\'e}termination des orbites des
+  com{\`e}tes}.
+\newblock París: F. Didot.
+
+\bibitem[Leskovec et~al., 2014]{leskovec2014mining}
+Leskovec, J., Rajaraman, A., and Ullman, J.~D. (2014).
+\newblock {\em Mining of massive datasets}.
+\newblock Cambridge, UK: Cambridge University Press.
+
+\bibitem[Montgomery et~al., 2012]{montgomery2015introduction}
+Montgomery, D.~C., Peck, E.~A., and Vining, G.~G. (2012).
+\newblock {\em Introduction to linear regression analysis, 5th edition}.
+\newblock Hoboken, NJ: John Wiley \& Sons.
+
+\bibitem[Nisbet et~al., 2009]{nisbet2009handbook}
+Nisbet, R., Miner, G., and Elder~IV, J. (2009).
+\newblock {\em Handbook of statistical analysis and data mining applications}.
+\newblock London: Academic Press.
+
+\bibitem[Osborne et~al., 2000]{osborne2000new}
+Osborne, M.~R., Presnell, B., and Turlach, B.~A. (2000).
+\newblock A new approach to variable selection in least squares problems.
+\newblock {\em IMA journal of numerical analysis}, 20(3):389--403.
+
+\bibitem[Stigler, 1981]{stigler1981gauss}
+Stigler, S.~M. (1981).
+\newblock Gauss and the invention of least squares.
+\newblock {\em The Annals of Statistics}, 9(3):465--474.
+
+\bibitem[Tibshirani, 1996]{tibshirani1996regression}
+Tibshirani, R. (1996).
+\newblock Regression shrinkage and selection via the lasso.
+\newblock {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)}, pages 267--288.
+
+\bibitem[Tibshirani, 2017]{tibshiranisparsity}
+Tibshirani, R. (2017).
+\newblock {\em Machine Learning 10-702: Sparsity, the Lasso, and Friends}.
+\newblock Retrieved from:
+  http://www.stat.cmu.edu/~ryantibs/statml/lectures/sparsity.pdf.
+
+\bibitem[Tibshirani et~al., 2013]{tibshirani2013lasso}
+Tibshirani, R.~J. et~al. (2013).
+\newblock The lasso problem and uniqueness.
+\newblock {\em Electronic Journal of Statistics}, 7:1456--1490.
+
+\bibitem[Wishart, 1928]{wishart1928generalised}
+Wishart, J. (1928).
+\newblock The generalised product moment distribution in samples from a normal
+  multivariate population.
+\newblock {\em Biometrika}, 20A(1/2):32--52.
+
+\bibitem[Wu, 2007]{wu2007karush}
+Wu, H.~C. (2007).
+\newblock The {Karush-Kuhn-Tucker} optimality conditions in an optimization
+  problem with interval-valued objective function.
+\newblock {\em European Journal of Operational Research}, 176(1):46--59.
+
+\bibitem[Yan and Su, 2009]{yan2009linear}
+Yan, X. and Su, X. (2009).
+\newblock {\em Linear regression analysis: theory and computing}.
+\newblock Singapore: World Scientific.
+
+\bibitem[Zou and Hastie, 2005]{zou2005regularization}
+Zou, H. and Hastie, T. (2005).
+\newblock Regularization and variable selection via the elastic net.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 67(2):301--320.
+
+\end{thebibliography}
