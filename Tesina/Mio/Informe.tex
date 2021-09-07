@@ -1,4 +1,6 @@
 \documentclass[12pt]{article}
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+                                % for page size and margin settings
 \usepackage{graphicx}		    % for insert images
 \usepackage[spanish]{babel} 	% for spanish titles
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry} 
@@ -9,36 +11,31 @@
 \usepackage{indentfirst}		% package to make first paragraph always indented
 \usepackage{hyperref}           % page numbers and '\ref's become clickable
 \usepackage{bm}					% for bold maths
+\usepackage{hyperref}           % page numbers and '\ref's become clickable
+\usepackage{setspace}			% for setting interline spacing
+\renewcommand{\baselinestretch}{1.5}
+\bibliographystyle{ieeetr}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SET TITLE PAGE VALUES HERE %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%             ||               %
-%             ||               %
-%             \/               %
+% TITLE VARIABLES 
 
 \def\thesistitle{Modelos longitudinales con covariables que varían en el tiempo}
 \def\thesisauthorfirst{\textbf{Esteban Cometto}}
-\def\thesissupervisorfirst{Maria Del Carmen García}
-\def\thesissupervisorsecond{Noelia Castellana}
+\def\thesissupervisorfirst{Noelia Castellana}
+\def\thesissupervisorsecond{Cecilia Rapelli}
 \def\thesisdate{\today}
 
-
-
-%             /\               %
-%             ||               %
-%             ||               %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% SET TITLE PAGE VALUES HERE %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% OTHER USEFUL VARIABLES %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% OTHER USEFUL VARIABLES 
 
 \def\npatients{560}
-\def\fullcovname{\emph{adherencia al tratamiento farmacológico}}
+\def\fullcovname{adherencia al tratamiento farmacológico}
 \def\covname{\emph{adherencia}}
+\def\cvt{covariable que varía en el tiempo}
+\def\xseqj{$X_{i1}, ..., X_{ij}$}
+\def\xseqn{$X_{i1}, ..., X_{in_i}$}
+\def\xseqjminus{$X_{i1}, ..., X_{ij-1}$}
+\def\yseqj{$Y_{i1}, ..., Y_{ij}$}
+\def\yseqn{$Y_{i1}, ..., Y_{in_i}$}
+\def\yseqjminus{$Y_{i1}, ..., Y_{ij-1}$}
 
 %% FOR PDF METADATA
 \title{\thesistitle}
@@ -53,6 +50,7 @@
 	\textsc{\Large Universidad Nacional de Rosario}\\[.7cm]
 	\includegraphics[width=25mm]{img/fceye-unr.png}\\[.5cm]
 	\textsc{Facultad de Ciencias Económicas y Estadística}\\[0.5cm]
+	\textsc{Anteproyecto de Tesina}
 	
 	\HRule \\[0.4cm]
 	{ \huge \bfseries \thesistitle}\\[0.1cm]
@@ -64,8 +62,8 @@
 	\end{minipage}
 	\\[.6cm]
 	\begin{minipage}{0.6\textwidth}
-	\emph{Director:} 	\thesissupervisorfirst \\[.2cm]
-	\emph{Codirector:} 	\thesissupervisorsecond
+	\emph{Directora:} 	\thesissupervisorfirst \\[.2cm]
+	\emph{Codirectora:} 	\thesissupervisorsecond
 	\end{minipage}
 	\\[4cm]
 	\vfill
@@ -79,6 +77,69 @@
 \newpage
 \section{Introducción}
 
+%% Tesis mara catalano, silvia camats y redacción mia
 
+Los datos longitudinales están conformados por mediciones repetidas de una misma variable realizadas a la misma unidad.
+Estas mediciones surgen de observar unidades en diferentes ocasiones, es decir en diferentes momentos o condiciones
+experimentales.
+
+Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos longitudinales están agrupados. Las
+observaciones dentro de un mismo agrupamiento generalmente están correlacionadas positivamente. Por lo tanto, los
+supuestos usuales acerca de la independencia entre las respuestas de cada unidad y la homogeneidad de variancias
+frecuentemente no son válidos
+
+El objetivo principal de estos estudios es estudiar los cambios en el tiempo y los factores que influencian el cambio.
+
+Las ocasiones en las que se registran las mediciones repetidas no necesariamente serán iguales para todos los
+individuos, por lo tanto se pueden obtener tanto estudios balanceados (todos los individuos tienen el mismo número de
+mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la secuencia de tiempos de observaciones no es
+igual para todos los individuos). Otra característica de estos datos es que en ocasiones se pueden obtener valores
+perdidos, obteniendo datos incompletos aunque se cuente con un estudio balanceado.
+
+Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
+respuesta es modelada por una parte sistemática que está formada por una combinación de
+características poblacionales que son compartidas por todas las unidades (efectos fijos), y una
+parte aleatoria que está constituida por efectos específicos de cada unidad (efectos aleatorios)
+y por el error aleatorio. Estos modelos permiten, además, hacer predicciones del perfil de una
+unidad específica. La selección de la estructura de covariancia apropiada produce estimadores más eficientes
+y consecuentemente, pruebas estadísticas más robustas para los efectos de interés
+
+%% Chapter lalonde
+
+Las covariables en los estudios longitudinales se pueden clasificar en dos categorias: fijas y variables en el tiempo.
+Las diferencias entre estos tipos de covariables pueden llevar a diferentes intereses de investigación, diferentes tipos
+de análisis y diferentes conclusiones.
+
+Las covariables fijas son variables independientes que no tienen variación intra-sujeto, lo que significa que el valor
+de la covariable no cambia para un individuo determinado en el estudio longitudinal. Este tipo de covariable se puede usar para
+realizar comparaciones entre poblaciones y describir diferentes tendencias en el tiempo, pero no permite una relación
+dinámica entre la covariable y la respuesta.
+
+Las covariables variables en el tiempo (CVT) son variables independientes que contienen ambas variaciones, intra y entre
+sujeto, lo que significa que el valor de la covariable cambia para un individuo determinado a lo largo del tiempo y
+además puede cambiar para diferentes sujetos. Una CVT se puede usar para hacer comparaciones entre poblaciones, describir
+tendencias en el tiempo y también la relación dinámica entre la CVT y la respuesta
+
+Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones que las covariables fijas. Por ejemplo,
+una CVT puede estar involucrada en efectos acumulados para diferentes valores a través del tiempo (Fitzmaurice y Lard 1995).
+Además, ciertas CVT transmiten diferente información que otras. Por ejemplo, covariables como la edad pueden cambiar a
+través del tiempo, pero cambian de manera predecible. Por otro lado, covariables como la precipitación diaria pueden cambiar
+a través del tiempo pero no pueden ser predecidas. En esos casos es importante considerar las relaciones entre la CVT y
+la respuesta a través del tiempo.
+
+%% Redacción mia
+
+En el presente informe se cuenta con un programa de atención y control de pacientes hipertensos iniciado en el año 2014 en 
+Rosario que realiza un seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla: efectores no médicos
+supervisados, tratamiento farmacológico genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado.
+En cada visita se registran tantocaracterísticas de los pacientes, del tratamiento y de los valores de la tensión arterial.
+En particular, se desea evaluar si la adherencia al tratamiento farmacológico influye en los valores de la tensión arterial
+sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una CVT estocástica se evaluaran diferentes
+enfoques para incluirla en un modelo longitudinal que pueda explicar el cambio en la tensión arterial sistólica media a
+lo largo del tiempo.
+
+Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha otra información para
+obtener modelos que describan de mejor manera el comportamiento de la TAS, nos centraremos en modelos más simples con
+respecto a las covariables fijas con el fin de no perder de vista la relación entre la variable respuesta y la CVT.
 
 \end{document}
