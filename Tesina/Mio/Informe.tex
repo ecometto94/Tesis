@@ -13,6 +13,7 @@
 \usepackage{bm}					% for bold maths
 \usepackage{hyperref}           % page numbers and '\ref's become clickable
 \usepackage{setspace}			% for setting interline spacing
+\usepackage{amsmath}			% for matrices
 \renewcommand{\baselinestretch}{1.5}
 \bibliographystyle{ieeetr}
 
@@ -291,7 +292,64 @@ estructura de la matriz.
 A continuación se mencionan algunas estructuras que se pueden utilizar, se llamará $R$ a la matriz de correlaciones
 
 \begin{itemize}
-	\item \emph{Arbitraria o no estructurada (datos balanceados)}
+	\item \emph{Arbitraria o no estructurada (datos balanceados):} Considera variancias y covariancias distintas entre
+	las mediciones repetidas. Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
+	\[
+	\varSigma = 
+	\begin{bmatrix}
+		\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
+		\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
+		\vdots 		 & \vdots	    & \ddots & \vdots	   \\
+		\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
+	\end{bmatrix}
+	\]
+	La ausencia de restricciones hace que haya que estimar una gran cantidad de parámetros
+	\item \emph{Simetria compuesta (datos balanceados o no balanceados):} La correlación entre pares de observaciones
+	es la misma, sin importar la cantidad de rezagos entre ellas, $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
+	\[
+	R_i =
+	\begin{bmatrix}
+		1      & \rho   & \dots  & \rho \\
+		\rho   & 1      & \dots  & \rho \\
+		\vdots & \vdots	& \ddots & \vdots \\
+		\rho   & \rho   & \dots  & 1
+	\end{bmatrix}
+	\]
+	\item \emph{Toeplitz (datos equiespaciados):} Se plantea para que cualquier par de respuestas que estén igualmente
+	separadas en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$ para todo $j$ y $k$.
+	\[
+	R_i =
+	\begin{bmatrix}
+		1      & \rho_1 	& \dots  & \rho_n \\
+		\rho_1 & 1     		& \dots  & \rho_{n-1} \\
+		\vdots & \vdots		& \ddots & \vdots \\
+		\rho_n & \rho_{n-1} & \dots  & 1
+	\end{bmatrix}
+	\]
+	\item \emph{Autorregresiva de primer orden (datos equiespaciados):} Es un caso especial de la estructura anterior,
+	en la que $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación entre medidas repetidas
+	disminuye a medida que aumenta el número de rezagos entre ellas.
+	\[
+	R_i =
+	\begin{bmatrix}
+		1      & \rho 	    & \dots  & \rho^n \\
+		\rho   & 1     		& \dots  & \rho^{n-1} \\
+		\vdots & \vdots		& \ddots & \vdots \\
+		\rho^n & \rho^{n-1} & \dots  & 1
+	\end{bmatrix}
+	\]
+	\item \emph{Markov (datos no equiespaciados):} Es una generalización de la estructura autorregresiva para mediciones
+	no equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
+	\[
+	R_i =
+	\begin{bmatrix}
+		1      		   & \rho^{d_{12}} 	    & \dots  & \rho^{d_{1n}} \\
+		\\rho^{d_{21}} & 1     		& \dots  & \rho^{n-1} \\
+		\vdots 		   & \vdots		& \ddots & \vdots \\
+		\rho^n 		   & \rho^{n-1} & \dots  & 1
+	\end{bmatrix}
+	\]
 \end{itemize}
+
 
 \end{document}
