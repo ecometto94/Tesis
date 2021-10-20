@@ -265,20 +265,18 @@ los datos. A continuación se presentan técnicas gráficas para cada estructura
 Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta tendencia se puede expresar como una función,
 se puede escribir o representar a las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo lineal para
 representar la evolución en el tiempo va a ser:
-\[ Y_i = X_i\beta + \varepsilon_i; i = 1, ..., N; Y_i = (Y_{i1}, Y_{i2}, ..., Y_{in_{i}})' \]
+\[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1}, Y_{i2}, ..., Y_{in_{i}})' \]
 Donde:
 
-$Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión $t_{ij}$.
-
-$X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
-
-$\beta $: vector de parámetros de dimensión $(p*1)$
-
-$\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$, este mismo representa todas
-las fuentes de variabilidad de los datos longitudinales
-\[ \varepsilon_i ~ N_{n_i}(0, \varSigma_i(\theta )) \]
-
-$\theta$: vector de parámetros desconocidos de covariancia, de dimensión $(q*1)$
+\begin{itemize}
+	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión $t_{ij}$.
+	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
+	\item $\beta $: vector de parámetros de dimensión $(p*1)$
+	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$, este mismo representa todas
+	las fuentes de variabilidad de los datos longitudinales
+	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
+	\item $\theta$: vector de parámetros desconocidos de covariancia, de dimensión $(q*1)$
+\end{itemize}
 
 \subsection{Modelación de la estructura de covariancia}
 
@@ -291,65 +289,149 @@ estructura de la matriz.
 
 A continuación se mencionan algunas estructuras que se pueden utilizar, se llamará $R$ a la matriz de correlaciones
 
+\subsubsection{Arbitraria o no estructurada (datos balanceados)}
+
+Considera variancias y covariancias distintas entre las mediciones repetidas.
+Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
+\[
+\varSigma = 
+\begin{bmatrix}
+	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
+	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
+	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
+	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
+\end{bmatrix}
+\]
+La ausencia de restricciones hace que haya que estimar una gran cantidad de parámetros
+
+\subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
+
+La correlación entre pares de observaciones es la misma, sin importar la cantidad de rezagos entre ellas,
+$Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho   & \dots  & \rho \\
+	\rho   & 1      & \dots  & \rho \\
+	\vdots & \vdots	& \ddots & \vdots \\
+	\rho   & \rho   & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Toeplitz (datos equiespaciados)}
+Se plantea para que cualquier par de respuestas que estén igualmente separadas en el tiempo la correlación es la misma,
+$Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$ para todo $j$ y $k$.
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho_1 	& \dots  & \rho_n \\
+	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
+	\vdots & \vdots		& \ddots & \vdots \\
+	\rho_n & \rho_{n-1} & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
+Es un caso especial de la estructura anterior, en la que $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la
+correlación entre medidas repetidas disminuye a medida que aumenta el número de rezagos entre ellas.
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho 	    & \dots  & \rho^n \\
+	\rho   & 1     		& \dots  & \rho^{n-1} \\
+	\vdots & \vdots		& \ddots & \vdots \\
+	\rho^n & \rho^{n-1} & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Markov (datos no equiespaciados)}
+
+Es una generalización de la estructura autorregresiva para mediciones no equiespaciadas.
+$Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
+\[
+R_i =
+\begin{bmatrix}
+	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
+	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
+	\vdots 		  & \vdots		  & \ddots & \vdots \\
+	\rho^n 		  & \rho^{n-1}    & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsection{Modelos lineales mixtos}
+
+En estos modelos, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos
+parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características
+poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos
+de ella (efectos aleatorios).
+
+Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo
+va a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto
+a la estructura de covariancia.
+
+El modelo lineal mixto para la unidad $i$ se puede expresar en forma matricial como:
+
+\[ Y_i = X_i\beta + Z_ib_i + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1}, Y_{i2}, ... Y_{in_{i}})' \]
+
+Donde:
+
 \begin{itemize}
-	\item \emph{Arbitraria o no estructurada (datos balanceados):} Considera variancias y covariancias distintas entre
-	las mediciones repetidas. Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
-	\[
-	\varSigma = 
-	\begin{bmatrix}
-		\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
-		\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
-		\vdots 		 & \vdots	    & \ddots & \vdots	   \\
-		\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
-	\end{bmatrix}
-	\]
-	La ausencia de restricciones hace que haya que estimar una gran cantidad de parámetros
-	\item \emph{Simetria compuesta (datos balanceados o no balanceados):} La correlación entre pares de observaciones
-	es la misma, sin importar la cantidad de rezagos entre ellas, $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho   & \dots  & \rho \\
-		\rho   & 1      & \dots  & \rho \\
-		\vdots & \vdots	& \ddots & \vdots \\
-		\rho   & \rho   & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Toeplitz (datos equiespaciados):} Se plantea para que cualquier par de respuestas que estén igualmente
-	separadas en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$ para todo $j$ y $k$.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho_1 	& \dots  & \rho_n \\
-		\rho_1 & 1     		& \dots  & \rho_{n-1} \\
-		\vdots & \vdots		& \ddots & \vdots \\
-		\rho_n & \rho_{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Autorregresiva de primer orden (datos equiespaciados):} Es un caso especial de la estructura anterior,
-	en la que $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación entre medidas repetidas
-	disminuye a medida que aumenta el número de rezagos entre ellas.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho 	    & \dots  & \rho^n \\
-		\rho   & 1     		& \dots  & \rho^{n-1} \\
-		\vdots & \vdots		& \ddots & \vdots \\
-		\rho^n & \rho^{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Markov (datos no equiespaciados):} Es una generalización de la estructura autorregresiva para mediciones
-	no equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      		   & \rho^{d_{12}} 	    & \dots  & \rho^{d_{1n}} \\
-		\rho^{d_{21}} & 1     		& \dots  & \rho^{n-1} \\
-		\vdots 		   & \vdots		& \ddots & \vdots \\
-		\rho^n 		   & \rho^{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
+	\item $Y_i$: Vector de la variable respuesta de la i-ésima unidad, de dimensión $(n_i*1)$
+	\item $X_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte sistemática de la respuesta, de dimensión $(n_i*p)$
+	\item $\beta$: Vector de parámetros de dimensión $(p*1)$
+	\item $Z_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte aleatoria de la respuesta, de dimensión $(n_i*k)$
+	\item $b_i$: Vector de efectos aleatorios de la i-ésima unidad, de dimensión $(k*1)$
+	\item $\varepsilon_i$: Vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$
 \end{itemize}
 
+$\varepsilon_i$ y $b_i$ son independientes.
+
+\[ \varepsilon_i \sim N_{n_i}(0, R_i) \]
+\[ b_i \sim N_k(0, D_i) \]
+
+Las matrices $D_i$ y $R_i$ contienen las variancias y covariancias de los elementos de los vectores $b_i$ y $\varepsilon_i$
+respectivamente. A partir de este modelo se obtiene:
+
+\begin{itemize}
+	\item $E(y_i/b_i) = X_i\beta + Z_ib_i$ (media condicional o específica de la i-ésima unidad)
+	\item $E(Y_i) = X_i\beta$ (media marginal)
+	\item $Cov(Y_i/b_i) = R_i$ (variancia condicional)
+	\item $Cov(Y_i) = Z_iD_iZ'_i + R_i = \varSigma_i$ (variancia marginal)
+\end{itemize}
+
+Generalmente, la matriz $D_i$ adopta una estructura de covariancia arbitraria, mientras que la matriz $R_i$ adopta
+cualquiera de las vistas anteriormente
+
+\subsection{Estimación de los parámetros del modelo}
+
+Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se pueden usar métodos de estimación basados
+en la teoría de máxima verosimilitud, cuya idea es asignar a los parámetros el valor más probable en base a los datos que
+fueron observados. Se usarán para estimar los parámetros de la parte media y los de las estructuras de covariancia los
+métodos de máxima verosimilitud (ML) y máxima verosimilitud restringida (REML) respectivamente
+
+\subsubsection{Método de máxima verosimilitud (ML)}
+
+Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$ son independientes entre sí, se obtiene
+la siguiente función de log-verosimilitud:
+
+\[ f(Y) = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)] \]
+
+Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de covariancia.
+
+La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego debe igualarse a cero, de esta manera se
+obtienen sus estimadores. Cuando $\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no lineal,
+por lo que no se puede obtener una expresión explícita de $\hat{\theta}$, para encontrar su solución se recurren a
+algoritmos numéricos. El estimador del vector $\beta$ resulta:
+
+\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}Y_i\]
+
+El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es conocido se conoce la distribución exacta
+del estimador. Sin embargo, cuando es desconocido, no se puede calcular de manera exacta la matriz de covariancias de
+$\hat{\beta}$. Si el número de unidades es grande se puede demostrar que asintóticamente:
+
+\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \]
+
+\subsubsection{Método de máxima verosimilitud restringida (REML)}
 
 \end{document}
