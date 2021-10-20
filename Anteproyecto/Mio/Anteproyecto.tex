@@ -18,7 +18,7 @@
 
 % TITLE VARIABLES 
 
-\def\thesistitle{Modelos longitudinales con covariables que varían en el tiempo}
+\def\thesistitle{Incorporación de covariables que varían en el tiempo a un modelo mixto}
 \def\thesisauthorfirst{\textbf{Esteban Cometto}}
 \def\thesissupervisorfirst{Noelia Castellana}
 \def\thesissupervisorsecond{Cecilia Rapelli}
@@ -77,62 +77,59 @@
 \newpage
 \section{Introducción}
 
-Un estudio longitudinal se realiza cuando el objetivo de la investigación es caracterizar
-el cambio de la variable en estudio a través del tiempo y los factores que influyen en ese
-cambio. Éstos consisten en medir repetidamente la variable de interés a cada uno de los
-individuos o unidades a través del tiempo, bajo diferentes condiciones experimentales permitiendo
-caracterizar  el  cambio  en  la respuesta y los factores que influencian dicho cambio.
+Los estudios longitudinales están conformados por datos obtenidos midiendo repetidamente una variable respuesta a
+la misma unidad. En este tipo de estudios es también frecuente contar con variables explicativas que se desean incorporar
+al análisis. Estas covariables pueden ser fijas a lo largo de todo el período (por ejemplo el sexo biológico de una persona)
+o bien puedan variar a lo largo del seguimiento (por ejemplo el valor de colesterol).
 
-Los modelos lineales mixtos permiten analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en
-función del tiempo, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre
-sujetos por medio del error y los efectos aleatorios, respectivamente. En este tipo de estudios es también frecuente contar
-con variables explicativas que se desean incorporar al análisis. Estas variables pueden ser fijas a lo largo de todo el
-período o bien pueden variar a lo largo del seguimiento. La introducción de una \cvt{} (CVT) al
-modelo produce un importante desafío conceptual. Se consideran algunos aspectos de la interpretación de este tipo de
-covariables, presentando diferentes definiciones y enfoques para incorporarlas en los modelos mixtos.
+Los modelos lineales mixtos permiten
+analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en función del tiempo y las
+covariables, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre sujetos
+por medio del error y los efectos aleatorios, respectivamente. Este tipo de covariables que varían en el tiempo pueden
+utilizarse para comparar poblaciones, para describir tendencias en el tiempo, y también para describir relaciones
+dinámicas con la variable respuesta. La relación entre la covariable que varía en el tiempo y la variable respuesta
+puede estar confundida por valores anteriores y/o posteriores de la covariable y en consecuencia esto puede conducir
+a inferencias engañosas sobre los parámetros del modelo. Esta tesina realiza una introducción a la problemática de
+incorporar covariables que varían con el tiempo en modelos para datos longitudinales, presentando diferentes definiciones
+de las mismas y enfoques metodológicos aplicando los conceptos en un ejemplo real. 
+
 
 \newpage
 \section{Objetivos}
 
 \subsection{Objetivo Principal}
 
-Profundizar en el estudio de propuestas metodológicas para utilizar la información obtenida de la \cvt{} dentro de un
-modelo mixto.
+Profundizar en el estudio de propuestas metodológicas respecto a la incorporación de covariables que varían con
+el tiempo en modelos mixtos para datos longitudinales.
 
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-	\item Específicar distintos tipos de CVT
-	\item Transformaciones a realizar sobre la CVT antes de incluirla al modelo, incluyendo conversión a covariable fija
-	\item Consideraciones sobre interpretación de los parámetros sobre las CVT
-	\item Indagar sobre feedback entre la CVT y la variable respuesta
+	\item Profundizar en las definiciones de los tipos de covariables
+	\item Describir diferentes transformaciones que pueden realizarse sobre las covariables que varían en el tiempo
+	\item Evaluar propuestas de incorporación de covariables que varían en el tiempo en los modelos mixtos
+	\item Aplicar los conecptos vistos a una problemática con datos que surgen de un estudio sobre hipertensión arterial
 \end{itemize}
 
 \newpage
 \section{Metodología}
 
-En un modelo mixto, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos
-parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características
-poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos de
-ella (efectos aleatorios).
+En un modelo mixto, cada unidad tiene una trayectoria individual caracterizada por parámetros individuales.
+La respuesta media es modelada como una combinación de características poblacionales que son comunes a todos los
+individuos (efectos fijos) y efectos específicos de la unidad que son únicos de ella (efectos aleatorios),
+considerando las dos fuentes de variación (intra y entre) presentes en los datos longitudinales.
 
-Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo va
-a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto a la
-estructura de covariancia.
-
-Lo que a menudo se pasa por alto es la suposición implícita de que la media
-condicional de la respuesta j-ésima, dado \xseqn{}, depende solo de $X_{ij}$.
+Este modelo supone implícitamente que la media condicional de la respuesta j-ésima, dado \xseqn{}, depende solo de $X_{ij}$.
 \begin{equation}
 \label{esperanza}
 	E(Y_{ij}|\bm{X}_i) = E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
 \end{equation}
 
 Con las covariables fijas, esta suposición se mantiene necesariamente desde $X_{ij} = X_{ik}$ para todas las ocasiones
-$k \neq j$. Además, con covariables variables en el tiempo que se fijan por diseño del estudio (por ejemplo, indicador
+$k \neq j$. Con covariables variables en el tiempo que se fijan por diseño del estudio (por ejemplo, indicador
 de grupo de tratamiento en una prueba cruzada), la suposición también se cumple ya que los valores de las covariables
 en cualquier ocasión se determinan a priori por diseño del estudio y de manera completamente no relacionado con la
-respuesta longitudinal. Sin embargo, cuando una covariable es variable en el tiempo y estocástica, puede que no
-necesariamente se mantenga.
+respuesta longitudinal. Sin embargo, cuando una covariable es variable en el tiempo, puede que no necesariamente se mantenga.
 
 En general, cuando (\ref{esperanza}) no se cumple, los valores precedentes y/o posteriores de la CVT confunden la
 relación entre $Y_{ij}$ y $X_{ij}$, esto puede llevar a estimaciones sesgadas de los parámetros del modelo.
@@ -149,42 +146,46 @@ respecto a la variable de respuesta.
 \newpage
 \section{Materiales}
 
-Un programa de atención y control de pacientes hipertensos iniciado en el año 2014 en Rosario realiza un seguimiento
-exhaustivo de \npatients{} pacientes. Este programa contempla: efectores no médicos supervisados, tratamiento farmacológico
-genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada visita se registran tanto
-características de los pacientes, del tratamiento y de los valores de la tensión arterial. En particular, se desea evaluar
-si la adherencia al tratamiento farmacológico influye en los valores de la tensión arterial sistólica a lo largo del
-seguimiento. Como la variable “\fullcovname{}” es una CVT estocástica se evaluaran diferentes enfoques para incluirla en un
-modelo longitudinal que pueda explicar el cambio en la tensión arterial sistólica media a lo largo del tiempo.
+Los datos que se utilizarán provienen de un programa de atención y control de pacientes hipertensos iniciado en el año 2014
+en Rosario que realiza un seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla: efectores no médicos
+supervisados, tratamiento farmacológico genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado.
+En cada visita se registran tanto características de los pacientes, del tratamiento y de los valores de la tensión arterial.
+En particular, se desea evaluar si la variable "\fullcovname{}" influye en los valores de la tensión arterial
+sistólica a lo largo del seguimiento. Dicha variable se evaluó a través de un cuestionario validado que otorga como resultado
+una respuesta dicotómica: adhiere - no adhiere. Este cuestionario se realizó en cada visita. Como la \fullcovname{} es una CVT,
+se evaluaran diferentesi enfoques para incluirla en un modelo mixto que pueda explicar el cambio en la tensión
+arterial sistólica media a lo largo del tiempo.
 
-Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha otra información para
-obtener modelos que describan de mejor manera el comportamiento de la TAS, nos centraremos en modelos más simples con
+Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha otra información para obtener modelos
+que describan de mejor manera el comportamiento de la tensión arterial sistólica, nos centraremos en modelos más simples con
 respecto a las covariables fijas con el fin de no perder de vista la relación entre la variable respuesta y la CVT.
+
+Para el desarrollo del análisis de los datos se utilizará el lenguaje Python.
 
 \newpage
 \section{Cronograma}
 
-\subsection*{Septiembre 2021 - Octubre 2021}
+\subsection*{Octubre 2020 - Julio 2021}
 \begin{itemize}
 	\item Revisión bibliográfica sobre covariables que varían en el tiempo para modelos longitudinales
 \end{itemize}
 
-\subsection*{Noviembre 2021 - Diciembre 2021}
+\subsection*{Agosto 2021 - Octubre 2021}
 \begin{itemize}
 	\item Procesamiento y análisis de la información 
 \end{itemize}
 
-\subsection*{Enero 2021 - Febrero 2022}
+\subsection*{Noviembre 2021 - Abril 2022}
 \begin{itemize}
 	\item Elaboración de informe
 \end{itemize}
 
-\subsection*{Marzo 2022}
+\subsection*{Mayo 2022 - Junio 2022}
 \begin{itemize}
 	\item Revision de informe
 \end{itemize}
 
-\subsection*{Abril 2022}
+\subsection*{Julio 2022}
 \begin{itemize}
 	\item Fecha tentativa de presentación
 \end{itemize}
