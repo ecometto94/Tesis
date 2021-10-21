@@ -414,8 +414,11 @@ métodos de máxima verosimilitud (ML) y máxima verosimilitud restringida (REML
 Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$ son independientes entre sí, se obtiene
 la siguiente función de log-verosimilitud:
 
-\[ f(Y) = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)] \]
+\begin{equation}
+\label{ML}
+	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)]
+\end{equation}
 
 Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de covariancia.
 
@@ -424,14 +427,111 @@ obtienen sus estimadores. Cuando $\theta$ es desconocido (lo que generalmente su
 por lo que no se puede obtener una expresión explícita de $\hat{\theta}$, para encontrar su solución se recurren a
 algoritmos numéricos. El estimador del vector $\beta$ resulta:
 
-\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}Y_i\]
+\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i\]
 
 El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es conocido se conoce la distribución exacta
 del estimador. Sin embargo, cuando es desconocido, no se puede calcular de manera exacta la matriz de covariancias de
 $\hat{\beta}$. Si el número de unidades es grande se puede demostrar que asintóticamente:
 
-\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \]
+\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} = (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
 
 \subsubsection{Método de máxima verosimilitud restringida (REML)}
+
+El inconveniente que posee el método de MV es que los parámetros de covariancia resultan sesgados. Es decir, a pesar de que
+la estimación de $\beta$ resulta insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los parámetros
+que representan las variancias van a ser demasiado pequeños, dando así una visión muy optimista de la variabilidad de las
+mediciones, es decir, se subestiman los parámetros de covariancia. El sesgo se debe a que en la estimación MV no se tiene 
+en cuenta que $\beta$ es estimado a partir de los datos.
+
+El método REML separa la parte de los datos usada para estimar $\beta$ de aquella usada para estimar los parámetros de
+$\varSigma_i$, la función de log-verosimilitud restringida que se propone es:
+
+\begin{equation}
+\label{REML}
+	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)] -
+	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
+\end{equation}
+
+Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
+
+\[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1} \sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
+
+Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
+
+\subsection{Pruebas de hipótesis}
+
+Generalmente, la inferencia en estos modelos se centra en los parámetros de la parte media. Es decir, en combinaciones
+lineales de los parámetros de $\beta$. La hipótesis lineal general para los test se plantea construyendo dichas combinaciones
+a través de $L'\beta$, siendo $L'$ una matriz de dimensión $(r*p)$.
+
+El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su distribución muestral es aproximadamente:
+
+\[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
+
+Para probar las hipótesis se proponen dos métodos basados en la función de verosimilitud:
+
+\subsubsection{Test de Wald}
+
+Se plantean las hipótesis:
+
+\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+
+La estadística de prueba resulta:
+
+\[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
+
+Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
+
+Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la aproximación asintótica a la distribución
+Normal. Si el $N$ es chico se propone reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El problema
+con el uso de esta estadística es que no se conocen los grados de libertad del denominador y deben ser calculados con los
+datos. 
+
+%Algunos métodos para estimar los grados de libertad son: Contaiment, Within-Between, Satterthwaite y Kenward y Roger,
+%entre otros (\emph{Fitzmaurice et al., 2004})
+
+\subsubsection{Test de cociente de verosimilitud}
+
+Se basa en la teoría asintótica y va a suplir las dificultades del test de Wald. El test se obtiene comparando las
+verosimilitudes de dos modelos, uno de los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro no
+tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya que el modelo reducido es un caso particular
+del modelo completo.
+
+Al igual que anteriormente, se plantean las hipótesis:
+
+\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+
+La función de log-verosimilitud maximizada del modelo completo es:
+
+\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
+
+Y la del modelo reducido es:
+
+\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1} (Y_i - X_i\beta_0)] \]
+
+Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto $L'\beta = 0$.
+
+Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
+
+\[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
+
+Donde $v$ es el número de parámetros del modelo completo menos el número de parámetros del modelo reducido
+
+Si lo que se quiere comparar mediante este test es la estructura media de dos modelos, se recomienda estimar los parámetros
+mediante el método ML. En cambio, si lo que se desea comparar son patrones de covariancia anidados entre dos modelos se
+recomienda estimar los parámetros con el método REML.
+
+Cuando se desea hacer inferencia sobre las componentes de variancia (por ejemplo, postular que una variancia es nula),
+la diferencia entre los dos modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si sucede esto,
+la distribución de la estadística $G^2$ ya no será una chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado,
+una de $k$ grados de libertad y otra de $k+1$ grados de libertad.
+
+% Si bien hay tablas para esta estadística, se recomienda en general utilizar en vez de un nivel de significación del 5%,
+% uno del 10%, para no tener problemas de elegir un modelo demasiado simple
+
+\subsection{Elección entre modelos de covariancia}
 
 \end{document}
