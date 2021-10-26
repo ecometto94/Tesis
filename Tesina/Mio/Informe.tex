@@ -630,4 +630,128 @@ confundido si además de depender de las componentes fijas y del error que predi
 
 \section{Covariables que varían en el tiempo}
 
+En los estudios longitudinales, las variables independientes pueden ser clasificadas en dos categorías: covariables fijas
+en el tiempo, es decir que no varían en el tiempo (CNVT) o covariables que varían en el tiempo (CVT). La diferencia entre
+ellas puede conducir a diferentes enfoques de análisis así como también a diferentes conclusiones.
+
+Las CNVT son variables independientes que no presentan variación intra-sujeto, es decir, los valores de estas covariables
+no cambian a lo largo del estudio para un individuo en particular. Por ejemplo, el sexo biológico de una persona o el
+grupo de tratamiento.
+
+Las CVT son variables independientes que incluyen tanto la variación intra-sujeto y la variación entre-sujetos. Esto
+significa que, para un individuo en particular, el valor de la covariable cambia a través del tiempo y puede cambiar
+también entre diferentes individuos. Por ejemplo, valor de la presión arterial o condición de fumar (si/no).
+
+Tanto las CNVT y las CVT ueden ser utilizadas para realizar comparaciones entre poblaciones y describir diferentes
+tendencias a lo largo del tiempo. Sin embargo, sólo las CVT permiten describir una relación dinámica entre la covariable
+y la variable respuesta.
+
+\subsection{Covariables estocásticas y no estocásticas}
+
+Las CVT no estocásticas son covariables que varían sistemáticamente a través del tiempo pero son fijas por diseño del
+estudio o bien su valor puede predecirse. En cambio, las CVT estocásticas son covariables que varían aleatoriamente a
+través del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados ya que son gobernados por un
+mecanismo aleatorio. Ejemplos de las primeras son: tiempo desde la visita basal, edad, grupo de tratamiento en los
+estudios cross-over. Ejemplos de las segunas son: valor del colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
+
+\subsection{Covariables exógenas y endógenas}
+
+Se dice que una CVT es exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
+$j (Y_{i1}, ..., Y_{ij})$, dados los valores actuales y precedentes de la CVT $(X_{i1}, ..., X_{ij})$, no predicen el
+valor posterior de $X_{ij+1}$. Más formalmente, una CVT es exógena cuando:
+
+\begin{equation}
+	\label{exogeneidad}
+	f(X_{ij+1}|X_{i1}, ..., X_{ij}, Y_{i1}, ..., Y_{ij}) = f(X_{ij+1}|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Y en consecuencia:
+
+\begin{equation}
+	\label{exogeneidad debil}
+	E(Y_i|X_i) = E(Y_i|X_{i1}, ..., X_{in_i}) = E(Y_i|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Esta definición implica que la respuesta en cualquier momento puede depender de valores previos de la variable respuesta
+y de la CVT, pero será independiente de todos los demás valores de la covariable. Por ejemplo, en un estudio longitudinal
+en donde se evalúa si el nivel de polución en el aire está asociado a la función pulmonar, es de esperar que el nivel de
+polución del aire en una determinada ocasión dependa de los niveles observados previamente, pero no se espera que dependa
+de los niveles de la función pulmonar observados previamente en el sujeto.
+
+Una CVT que no es exógena se define como endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física
+está asociada al nivel de glicemia. El nivel de actividad física en un determinado momento puede estar (o no) asociado
+a niveles previos y también puede estar asociado a valores previos de la glicemia (un paciente con valor de glicemia
+alto en una visita puede decidir aumentar su nivel de actividad física para reducir este valor)
+
+Es posible examinar empíricamente la suposición de que una CVT es exógena al considerar modelos de regresión para la
+dependencia de $X_{ij}$ en $Y_{i1}, ... Y_{ij-1}$ (o en alguna función conocida de $Y_{i1}, ... Y_{ij-1}$) y
+$X_{i1}, ..., X_{ij-1}$	(o en alguna función conocida de $X_{i1}, ... X_{ij-1}$). La ausencia de cualquier relación
+entre $X_ij$ y $Y_{i1}, ... Y_{ij-1}$, dado el perfil de la covariable anterior $X_{i1}, ..., X_{ij-1}$, proporciona
+soporte para la validez de la suposición de que la CVT es exógena.
+
+A los parámetros de regresión se les puede dar una interpretación causal sólo cuando se puede asumir que las CVT son
+exógenas con respecto a la variable respuesta.
+
+\subsection{Otros tipos de CVT}
+
+Trabajos más recientes han definido una nueva categorización de las CVT para facilitar las interpretaciones y los
+métodos de estimación adecuados para el modelo. Se pueden definir cuatro tipos de CVT relacionados con el grado de
+no exogeneidad con respecto a la respuesta.
+
+\subsubsection{CVT tipo I}
+
+Se clasifica una CVT como de tipo I si satisface:
+
+\begin{equation}
+	\label{CVT tipo I}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
+\end{equation}
+
+En otras palabras, una CVT se considera de tipo I si la variable respuesta en la j-ésima ocasión es independiente de
+todos los valores de la CVT en diferentes momentos, aún de los previos a la ocasión. Variables que involucran cambios
+predecibles en el tiempo son tratadas como CVT tipo I, por ejemplo la edad o el momento de observación.
+
+\subsubsection{CVT tipo II}
+
+Una CVT se clasficia de tipo II si:
+
+\begin{equation}
+	\label{CVT tipo II}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Cabe destacar que la clase de covariables de tipo I es un subconjunto de la clase de covariables de tipo II. Esta
+condición dice que el proceso de la CVT $X_{ij+1}, ..., X_{in_i}$ no se ve afectado por la respuesta $Y_{ij}$.
+
+En otras palabras, la variable respuesta en la j-ésima ocasión puede estar asociada a valores previos de la CVT. Esta
+definición es similar pero no equivalente a la definición de exogeneidad. Se puede demostrar que la exogeneidad es
+suficiente es condición suficiente para que una CVT sea de tipo II. Este tipo de CVT incluyen covariables que pueden tener
+una asociación rezagada con la respuesta (los valores anteriores de la CVT pueden afectar a la respuesta actual) pero los
+valores de la covariable en un momento determinado no se verán afectados por los valores previos de la variable respuesta.
+Un ejemplo de este tipo de CVT es el "tratamiento farmacológico para la hipertensión arterial" con la variable respuesta
+"presión arterial".
+
+\subsubsection{CVT tipo III}
+
+Se clasifica a una CVT como de tipo III si no es de tipo II. No se asume independencia entre la respuesta y la covariable,
+por lo tanto, uede existir un \emph{feedback} entre ambas en donde los valores de la CVT pueden estar afectados por
+valores previos de la variable respuesta. Un ejemplo de este tipo de CVT es el "tratamiento farmacológico para la
+hipertensión arterial" con la variable respuesta "infarto de miocardio". Mientras que es esperable que la medicación
+impacte en la probabilidad de tener un infarto de miocardio, también tener un infarto de miocardio puede impactar
+en el cambio del tratamiento farmacológico.
+
+\subsubsection{CVT tipo IV}
+
+Una CVT se define como de tipo IV si:
+
+\begin{equation}
+	\label{CVT tipo IV}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij+1}, ..., X_{in_i})
+\end{equation}
+
+La CVT puede estar asociada con valores previos de la variable respuesta, pero la variable respuesta no está asociada
+con valores previos de la covariable, está sólo asociada con el valor observado de la covariable en la misma ocasión.
+Un ejemplo de este tipo de CVT es "presión arterial" con la variable respuesta "peso". En una determinada ocasión hay
+relación entre ambas variables, es esperable que valores previos del peso impacten en la presión arterial pero no al revés
+
 \end{document}
