@@ -534,4 +534,100 @@ una de $k$ grados de libertad y otra de $k+1$ grados de libertad.
 
 \subsection{Elección entre modelos de covariancia}
 
+Cuando los modelos no están anidados, como sucede generalmente cuando se plantean modelos con distintas estructuras
+de covariancia, no se puede usar el método del cociente de verosimilitud para compararlos.
+
+Como en la matriz de covariancia siempre intervienen los residuos, y en ellos aparecen los parámetros de la parte
+media del modelo, para asegurarse que la parte media esté bien especificada se elige un modelo maximal (modelo con
+todos los parámetros que queremos incorporar). Dado dicho modelo, se plantean distintos modelos que se van a diferenciar
+únicamente en la estructura de la matriz de covariancia.
+
+Los enfoques que se proponen a continuación se basan en la comparación de versiones penalizadas de las log-verosimilitudes
+de los modelos. Como es conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser la verosimilitud.
+Para comparar modelos con distinto número de parámetros, se penalizan a los mismos, surgiendo varios criterios A
+continuación se destacan dos de estos:
+
+\begin{itemize}
+	\item \emph{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
+	\item \emph{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
+\end{itemize}
+
+Donde:
+
+$\hat{l}$: log-verosimilitud maximizada del modelo
+
+$p$: número de parámetros del modelo
+
+El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio para seleccionar un modelo es aquel que
+minimice los valores de $AIC$ o $BIC$
+
+
+\subsection{Predicción de los efectos aleatorios}
+
+En muchas aplicaciones la inferencia está centrada solamente en los efectos fijos. Estos parámetros se interpretan como
+los cambios de la respuesta media en el tiempo, pero muchas veces se desea conocer además los perfiles individuales, por
+lo que necesitamos conocer los valores de $b_i$. Como $b_i$ es una cantidad aleatoria se habla de predicción de $b_i$.
+
+Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar $E[b_i - c(Y_i)]^2$. La función $c(Y_i)$
+que hace que esa esperanza sea lo más chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se simboliza:
+
+\[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
+
+Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico (EBLUP) o estimador empírico de Bayes
+resulta:
+
+\[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
+
+A través de esto se pueden conocer los perfiles individuales, siendo $\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
+operando algebraicamente se llega a la expresión:
+
+\[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n - \hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
+
+Resulta que el perfil individual estimado es un promedio ponderado entre el perfil de la respuesta media poblacional
+($X_i\hat{\beta}$) y el perfil de la respuesta observada en la unidad $i$ $(Y_i)$.
+
+\subsection{Examen de residuos}
+
+Como en todo análisis de datos en donde se utiliza un modelo estadístico, es necesario realizar un estudio del
+cumplimiento de los supuestos del modelo utilizando los gráficos de residuos.
+
+El modelo lineal mixto para la unidad $i$ es:
+
+\[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
+
+Con $b_i$ y $\varepsilon_i$ independientes y $\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
+
+En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
+
+\subsubsection{Residuos marginales}
+
+Se definen como la diferencia entre el vector de respuestas y su media marginal estimada.
+
+\[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
+
+\subsubsection{Residuos condicionales}
+
+Se definen como la diferencia entre el vector de respuestas y su media condicional estimada.
+
+\[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
+
+\subsubsection{Residuos de los efectos aleatorios}
+
+\[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
+
+Estos residuos así calculados reciben el nombre de residuos ordinarios, van a estar correlacionados y sus variancias no
+van a ser necesariamente contrastes. Para evitar este inconveniente es necesario realizar una estandarización de los mismos:
+
+\begin{itemize}
+	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen los residuos estudentizados.
+	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen los residuos de Pearson.
+\end{itemize}
+
+Se define como residuo puro al residuo que depende de solo los componentes fijos y del error que predice, y residuo
+confundido si además de depender de las componentes fijas y del error que predicen están en función de otros residuos.
+
+% En el word hay una tabla que explica como usar cada residuo
+
+\section{Covariables que varían en el tiempo}
+
 \end{document}
