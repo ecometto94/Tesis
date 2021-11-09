@@ -265,20 +265,18 @@ los datos. A continuación se presentan técnicas gráficas para cada estructura
 Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta tendencia se puede expresar como una función,
 se puede escribir o representar a las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo lineal para
 representar la evolución en el tiempo va a ser:
-\[ Y_i = X_i\beta + \varepsilon_i; i = 1, ..., N; Y_i = (Y_{i1}, Y_{i2}, ..., Y_{in_{i}})' \]
+\[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1}, Y_{i2}, ..., Y_{in_{i}})' \]
 Donde:
 
-$Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión $t_{ij}$.
-
-$X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
-
-$\beta $: vector de parámetros de dimensión $(p*1)$
-
-$\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$, este mismo representa todas
-las fuentes de variabilidad de los datos longitudinales
-\[ \varepsilon_i ~ N_{n_i}(0, \varSigma_i(\theta )) \]
-
-$\theta$: vector de parámetros desconocidos de covariancia, de dimensión $(q*1)$
+\begin{itemize}
+	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión $t_{ij}$.
+	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
+	\item $\beta $: vector de parámetros de dimensión $(p*1)$
+	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$, este mismo representa todas
+	las fuentes de variabilidad de los datos longitudinales
+	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
+	\item $\theta$: vector de parámetros desconocidos de covariancia, de dimensión $(q*1)$
+\end{itemize}
 
 \subsection{Modelación de la estructura de covariancia}
 
@@ -291,65 +289,469 @@ estructura de la matriz.
 
 A continuación se mencionan algunas estructuras que se pueden utilizar, se llamará $R$ a la matriz de correlaciones
 
+\subsubsection{Arbitraria o no estructurada (datos balanceados)}
+
+Considera variancias y covariancias distintas entre las mediciones repetidas.
+Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
+\[
+\varSigma = 
+\begin{bmatrix}
+	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
+	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
+	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
+	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
+\end{bmatrix}
+\]
+La ausencia de restricciones hace que haya que estimar una gran cantidad de parámetros
+
+\subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
+
+La correlación entre pares de observaciones es la misma, sin importar la cantidad de rezagos entre ellas,
+$Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho   & \dots  & \rho \\
+	\rho   & 1      & \dots  & \rho \\
+	\vdots & \vdots	& \ddots & \vdots \\
+	\rho   & \rho   & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Toeplitz (datos equiespaciados)}
+Se plantea para que cualquier par de respuestas que estén igualmente separadas en el tiempo la correlación es la misma,
+$Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$ para todo $j$ y $k$.
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho_1 	& \dots  & \rho_n \\
+	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
+	\vdots & \vdots		& \ddots & \vdots \\
+	\rho_n & \rho_{n-1} & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
+Es un caso especial de la estructura anterior, en la que $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la
+correlación entre medidas repetidas disminuye a medida que aumenta el número de rezagos entre ellas.
+\[
+R_i =
+\begin{bmatrix}
+	1      & \rho 	    & \dots  & \rho^n \\
+	\rho   & 1     		& \dots  & \rho^{n-1} \\
+	\vdots & \vdots		& \ddots & \vdots \\
+	\rho^n & \rho^{n-1} & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsubsection{Markov (datos no equiespaciados)}
+
+Es una generalización de la estructura autorregresiva para mediciones no equiespaciadas.
+$Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
+\[
+R_i =
+\begin{bmatrix}
+	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
+	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
+	\vdots 		  & \vdots		  & \ddots & \vdots \\
+	\rho^n 		  & \rho^{n-1}    & \dots  & 1
+\end{bmatrix}
+\]
+
+\subsection{Modelos lineales mixtos}
+
+En estos modelos, cada unidad tiene una trayectoria individual caracterizada por parámetros y un subconjunto de esos
+parámetros ahora se consideran aleatorios. La respuesta media es modelada como una combinación de características
+poblacionales que son comunes a todos los individuos (efectos fijos) y efectos específicos de la unidad que son únicos
+de ella (efectos aleatorios).
+
+Se consideran las dos fuentes de variación (intra y entre) presentes en los datos longitudinales. Entonces, este modelo
+va a ser similar al modelo lineal general con respecto a la parte media del mismo, pero se va a diferenciar en cuanto
+a la estructura de covariancia.
+
+El modelo lineal mixto para la unidad $i$ se puede expresar en forma matricial como:
+
+\[ Y_i = X_i\beta + Z_ib_i + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1}, Y_{i2}, ... Y_{in_{i}})' \]
+
+Donde:
+
 \begin{itemize}
-	\item \emph{Arbitraria o no estructurada (datos balanceados):} Considera variancias y covariancias distintas entre
-	las mediciones repetidas. Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
-	\[
-	\varSigma = 
-	\begin{bmatrix}
-		\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
-		\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
-		\vdots 		 & \vdots	    & \ddots & \vdots	   \\
-		\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
-	\end{bmatrix}
-	\]
-	La ausencia de restricciones hace que haya que estimar una gran cantidad de parámetros
-	\item \emph{Simetria compuesta (datos balanceados o no balanceados):} La correlación entre pares de observaciones
-	es la misma, sin importar la cantidad de rezagos entre ellas, $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho   & \dots  & \rho \\
-		\rho   & 1      & \dots  & \rho \\
-		\vdots & \vdots	& \ddots & \vdots \\
-		\rho   & \rho   & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Toeplitz (datos equiespaciados):} Se plantea para que cualquier par de respuestas que estén igualmente
-	separadas en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$ para todo $j$ y $k$.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho_1 	& \dots  & \rho_n \\
-		\rho_1 & 1     		& \dots  & \rho_{n-1} \\
-		\vdots & \vdots		& \ddots & \vdots \\
-		\rho_n & \rho_{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Autorregresiva de primer orden (datos equiespaciados):} Es un caso especial de la estructura anterior,
-	en la que $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación entre medidas repetidas
-	disminuye a medida que aumenta el número de rezagos entre ellas.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      & \rho 	    & \dots  & \rho^n \\
-		\rho   & 1     		& \dots  & \rho^{n-1} \\
-		\vdots & \vdots		& \ddots & \vdots \\
-		\rho^n & \rho^{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
-	\item \emph{Markov (datos no equiespaciados):} Es una generalización de la estructura autorregresiva para mediciones
-	no equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
-	\[
-	R_i =
-	\begin{bmatrix}
-		1      		   & \rho^{d_{12}} 	    & \dots  & \rho^{d_{1n}} \\
-		\rho^{d_{21}} & 1     		& \dots  & \rho^{n-1} \\
-		\vdots 		   & \vdots		& \ddots & \vdots \\
-		\rho^n 		   & \rho^{n-1} & \dots  & 1
-	\end{bmatrix}
-	\]
+	\item $Y_i$: Vector de la variable respuesta de la i-ésima unidad, de dimensión $(n_i*1)$
+	\item $X_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte sistemática de la respuesta, de dimensión $(n_i*p)$
+	\item $\beta$: Vector de parámetros de dimensión $(p*1)$
+	\item $Z_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la parte aleatoria de la respuesta, de dimensión $(n_i*k)$
+	\item $b_i$: Vector de efectos aleatorios de la i-ésima unidad, de dimensión $(k*1)$
+	\item $\varepsilon_i$: Vector de errores aleatorios de la i-ésima unidad, de dimensión $(n_i*1)$
 \end{itemize}
 
+$\varepsilon_i$ y $b_i$ son independientes.
+
+\[ \varepsilon_i \sim N_{n_i}(0, R_i) \]
+\[ b_i \sim N_k(0, D_i) \]
+
+Las matrices $D_i$ y $R_i$ contienen las variancias y covariancias de los elementos de los vectores $b_i$ y $\varepsilon_i$
+respectivamente. A partir de este modelo se obtiene:
+
+\begin{itemize}
+	\item $E(y_i/b_i) = X_i\beta + Z_ib_i$ (media condicional o específica de la i-ésima unidad)
+	\item $E(Y_i) = X_i\beta$ (media marginal)
+	\item $Cov(Y_i/b_i) = R_i$ (variancia condicional)
+	\item $Cov(Y_i) = Z_iD_iZ'_i + R_i = \varSigma_i$ (variancia marginal)
+\end{itemize}
+
+Generalmente, la matriz $D_i$ adopta una estructura de covariancia arbitraria, mientras que la matriz $R_i$ adopta
+cualquiera de las vistas anteriormente
+
+\subsection{Estimación de los parámetros del modelo}
+
+Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se pueden usar métodos de estimación basados
+en la teoría de máxima verosimilitud, cuya idea es asignar a los parámetros el valor más probable en base a los datos que
+fueron observados. Se usarán para estimar los parámetros de la parte media y los de las estructuras de covariancia los
+métodos de máxima verosimilitud (ML) y máxima verosimilitud restringida (REML) respectivamente
+
+\subsubsection{Método de máxima verosimilitud (ML)}
+
+Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$ son independientes entre sí, se obtiene
+la siguiente función de log-verosimilitud:
+
+\begin{equation}
+\label{ML}
+	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)]
+\end{equation}
+
+Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de covariancia.
+
+La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego debe igualarse a cero, de esta manera se
+obtienen sus estimadores. Cuando $\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no lineal,
+por lo que no se puede obtener una expresión explícita de $\hat{\theta}$, para encontrar su solución se recurren a
+algoritmos numéricos. El estimador del vector $\beta$ resulta:
+
+\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1} \sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i\]
+
+El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es conocido se conoce la distribución exacta
+del estimador. Sin embargo, cuando es desconocido, no se puede calcular de manera exacta la matriz de covariancias de
+$\hat{\beta}$. Si el número de unidades es grande se puede demostrar que asintóticamente:
+
+\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} = (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
+
+\subsubsection{Método de máxima verosimilitud restringida (REML)}
+
+El inconveniente que posee el método de MV es que los parámetros de covariancia resultan sesgados. Es decir, a pesar de que
+la estimación de $\beta$ resulta insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los parámetros
+que representan las variancias van a ser demasiado pequeños, dando así una visión muy optimista de la variabilidad de las
+mediciones, es decir, se subestiman los parámetros de covariancia. El sesgo se debe a que en la estimación MV no se tiene 
+en cuenta que $\beta$ es estimado a partir de los datos.
+
+El método REML separa la parte de los datos usada para estimar $\beta$ de aquella usada para estimar los parámetros de
+$\varSigma_i$, la función de log-verosimilitud restringida que se propone es:
+
+\begin{equation}
+\label{REML}
+	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)' \varSigma_i^{-1} (Y_i - X_i\beta)] -
+	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
+\end{equation}
+
+Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
+
+\[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1} \sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
+
+Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
+
+\subsection{Pruebas de hipótesis}
+
+Generalmente, la inferencia en estos modelos se centra en los parámetros de la parte media. Es decir, en combinaciones
+lineales de los parámetros de $\beta$. La hipótesis lineal general para los test se plantea construyendo dichas combinaciones
+a través de $L'\beta$, siendo $L'$ una matriz de dimensión $(r*p)$.
+
+El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su distribución muestral es aproximadamente:
+
+\[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
+
+Para probar las hipótesis se proponen dos métodos basados en la función de verosimilitud:
+
+\subsubsection{Test de Wald}
+
+Se plantean las hipótesis:
+
+\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+
+La estadística de prueba resulta:
+
+\[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
+
+Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
+
+Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la aproximación asintótica a la distribución
+Normal. Si el $N$ es chico se propone reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El problema
+con el uso de esta estadística es que no se conocen los grados de libertad del denominador y deben ser calculados con los
+datos. 
+
+%Algunos métodos para estimar los grados de libertad son: Contaiment, Within-Between, Satterthwaite y Kenward y Roger,
+%entre otros (\emph{Fitzmaurice et al., 2004})
+
+\subsubsection{Test de cociente de verosimilitud}
+
+Se basa en la teoría asintótica y va a suplir las dificultades del test de Wald. El test se obtiene comparando las
+verosimilitudes de dos modelos, uno de los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro no
+tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya que el modelo reducido es un caso particular
+del modelo completo.
+
+Al igual que anteriormente, se plantean las hipótesis:
+
+\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+
+La función de log-verosimilitud maximizada del modelo completo es:
+
+\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
+
+Y la del modelo reducido es:
+
+\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1} (Y_i - X_i\beta_0)] \]
+
+Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto $L'\beta = 0$.
+
+Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
+
+\[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
+
+Donde $v$ es el número de parámetros del modelo completo menos el número de parámetros del modelo reducido
+
+Si lo que se quiere comparar mediante este test es la estructura media de dos modelos, se recomienda estimar los parámetros
+mediante el método ML. En cambio, si lo que se desea comparar son patrones de covariancia anidados entre dos modelos se
+recomienda estimar los parámetros con el método REML.
+
+Cuando se desea hacer inferencia sobre las componentes de variancia (por ejemplo, postular que una variancia es nula),
+la diferencia entre los dos modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si sucede esto,
+la distribución de la estadística $G^2$ ya no será una chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado,
+una de $k$ grados de libertad y otra de $k+1$ grados de libertad.
+
+% Si bien hay tablas para esta estadística, se recomienda en general utilizar en vez de un nivel de significación del 5%,
+% uno del 10%, para no tener problemas de elegir un modelo demasiado simple
+
+\subsection{Elección entre modelos de covariancia}
+
+Cuando los modelos no están anidados, como sucede generalmente cuando se plantean modelos con distintas estructuras
+de covariancia, no se puede usar el método del cociente de verosimilitud para compararlos.
+
+Como en la matriz de covariancia siempre intervienen los residuos, y en ellos aparecen los parámetros de la parte
+media del modelo, para asegurarse que la parte media esté bien especificada se elige un modelo maximal (modelo con
+todos los parámetros que queremos incorporar). Dado dicho modelo, se plantean distintos modelos que se van a diferenciar
+únicamente en la estructura de la matriz de covariancia.
+
+Los enfoques que se proponen a continuación se basan en la comparación de versiones penalizadas de las log-verosimilitudes
+de los modelos. Como es conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser la verosimilitud.
+Para comparar modelos con distinto número de parámetros, se penalizan a los mismos, surgiendo varios criterios A
+continuación se destacan dos de estos:
+
+\begin{itemize}
+	\item \emph{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
+	\item \emph{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
+\end{itemize}
+
+Donde:
+
+$\hat{l}$: log-verosimilitud maximizada del modelo
+
+$p$: número de parámetros del modelo
+
+El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio para seleccionar un modelo es aquel que
+minimice los valores de $AIC$ o $BIC$
+
+
+\subsection{Predicción de los efectos aleatorios}
+
+En muchas aplicaciones la inferencia está centrada solamente en los efectos fijos. Estos parámetros se interpretan como
+los cambios de la respuesta media en el tiempo, pero muchas veces se desea conocer además los perfiles individuales, por
+lo que necesitamos conocer los valores de $b_i$. Como $b_i$ es una cantidad aleatoria se habla de predicción de $b_i$.
+
+Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar $E[b_i - c(Y_i)]^2$. La función $c(Y_i)$
+que hace que esa esperanza sea lo más chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se simboliza:
+
+\[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
+
+Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico (EBLUP) o estimador empírico de Bayes
+resulta:
+
+\[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
+
+A través de esto se pueden conocer los perfiles individuales, siendo $\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
+operando algebraicamente se llega a la expresión:
+
+\[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n - \hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
+
+Resulta que el perfil individual estimado es un promedio ponderado entre el perfil de la respuesta media poblacional
+($X_i\hat{\beta}$) y el perfil de la respuesta observada en la unidad $i$ $(Y_i)$.
+
+\subsection{Examen de residuos}
+
+Como en todo análisis de datos en donde se utiliza un modelo estadístico, es necesario realizar un estudio del
+cumplimiento de los supuestos del modelo utilizando los gráficos de residuos.
+
+El modelo lineal mixto para la unidad $i$ es:
+
+\[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
+
+Con $b_i$ y $\varepsilon_i$ independientes y $\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
+
+En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
+
+\subsubsection{Residuos marginales}
+
+Se definen como la diferencia entre el vector de respuestas y su media marginal estimada.
+
+\[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
+
+\subsubsection{Residuos condicionales}
+
+Se definen como la diferencia entre el vector de respuestas y su media condicional estimada.
+
+\[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
+
+\subsubsection{Residuos de los efectos aleatorios}
+
+\[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
+
+Estos residuos así calculados reciben el nombre de residuos ordinarios, van a estar correlacionados y sus variancias no
+van a ser necesariamente contrastes. Para evitar este inconveniente es necesario realizar una estandarización de los mismos:
+
+\begin{itemize}
+	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen los residuos estudentizados.
+	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen los residuos de Pearson.
+\end{itemize}
+
+Se define como residuo puro al residuo que depende de solo los componentes fijos y del error que predice, y residuo
+confundido si además de depender de las componentes fijas y del error que predicen están en función de otros residuos.
+
+% En el word hay una tabla que explica como usar cada residuo
+
+\section{Covariables que varían en el tiempo}
+
+En los estudios longitudinales, las variables independientes pueden ser clasificadas en dos categorías: covariables fijas
+en el tiempo, es decir que no varían en el tiempo (CNVT) o covariables que varían en el tiempo (CVT). La diferencia entre
+ellas puede conducir a diferentes enfoques de análisis así como también a diferentes conclusiones.
+
+Las CNVT son variables independientes que no presentan variación intra-sujeto, es decir, los valores de estas covariables
+no cambian a lo largo del estudio para un individuo en particular. Por ejemplo, el sexo biológico de una persona o el
+grupo de tratamiento.
+
+Las CVT son variables independientes que incluyen tanto la variación intra-sujeto y la variación entre-sujetos. Esto
+significa que, para un individuo en particular, el valor de la covariable cambia a través del tiempo y puede cambiar
+también entre diferentes individuos. Por ejemplo, valor de la presión arterial o condición de fumar (si/no).
+
+Tanto las CNVT y las CVT ueden ser utilizadas para realizar comparaciones entre poblaciones y describir diferentes
+tendencias a lo largo del tiempo. Sin embargo, sólo las CVT permiten describir una relación dinámica entre la covariable
+y la variable respuesta.
+
+\subsection{Covariables estocásticas y no estocásticas}
+
+Las CVT no estocásticas son covariables que varían sistemáticamente a través del tiempo pero son fijas por diseño del
+estudio o bien su valor puede predecirse. En cambio, las CVT estocásticas son covariables que varían aleatoriamente a
+través del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados ya que son gobernados por un
+mecanismo aleatorio. Ejemplos de las primeras son: tiempo desde la visita basal, edad, grupo de tratamiento en los
+estudios cross-over. Ejemplos de las segunas son: valor del colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
+
+\subsection{Covariables exógenas y endógenas}
+
+Se dice que una CVT es exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
+$j (Y_{i1}, ..., Y_{ij})$, dados los valores actuales y precedentes de la CVT $(X_{i1}, ..., X_{ij})$, no predicen el
+valor posterior de $X_{ij+1}$. Más formalmente, una CVT es exógena cuando:
+
+\begin{equation}
+	\label{exogeneidad}
+	f(X_{ij+1}|X_{i1}, ..., X_{ij}, Y_{i1}, ..., Y_{ij}) = f(X_{ij+1}|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Y en consecuencia:
+
+\begin{equation}
+	\label{exogeneidad debil}
+	E(Y_i|X_i) = E(Y_i|X_{i1}, ..., X_{in_i}) = E(Y_i|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Esta definición implica que la respuesta en cualquier momento puede depender de valores previos de la variable respuesta
+y de la CVT, pero será independiente de todos los demás valores de la covariable. Por ejemplo, en un estudio longitudinal
+en donde se evalúa si el nivel de polución en el aire está asociado a la función pulmonar, es de esperar que el nivel de
+polución del aire en una determinada ocasión dependa de los niveles observados previamente, pero no se espera que dependa
+de los niveles de la función pulmonar observados previamente en el sujeto.
+
+Una CVT que no es exógena se define como endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física
+está asociada al nivel de glicemia. El nivel de actividad física en un determinado momento puede estar (o no) asociado
+a niveles previos y también puede estar asociado a valores previos de la glicemia (un paciente con valor de glicemia
+alto en una visita puede decidir aumentar su nivel de actividad física para reducir este valor)
+
+Es posible examinar empíricamente la suposición de que una CVT es exógena al considerar modelos de regresión para la
+dependencia de $X_{ij}$ en $Y_{i1}, ... Y_{ij-1}$ (o en alguna función conocida de $Y_{i1}, ... Y_{ij-1}$) y
+$X_{i1}, ..., X_{ij-1}$	(o en alguna función conocida de $X_{i1}, ... X_{ij-1}$). La ausencia de cualquier relación
+entre $X_ij$ y $Y_{i1}, ... Y_{ij-1}$, dado el perfil de la covariable anterior $X_{i1}, ..., X_{ij-1}$, proporciona
+soporte para la validez de la suposición de que la CVT es exógena.
+
+A los parámetros de regresión se les puede dar una interpretación causal sólo cuando se puede asumir que las CVT son
+exógenas con respecto a la variable respuesta.
+
+\subsection{Otros tipos de CVT}
+
+Trabajos más recientes han definido una nueva categorización de las CVT para facilitar las interpretaciones y los
+métodos de estimación adecuados para el modelo. Se pueden definir cuatro tipos de CVT relacionados con el grado de
+no exogeneidad con respecto a la respuesta.
+
+\subsubsection{CVT tipo I}
+
+Se clasifica una CVT como de tipo I si satisface:
+
+\begin{equation}
+	\label{CVT tipo I}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
+\end{equation}
+
+En otras palabras, una CVT se considera de tipo I si la variable respuesta en la j-ésima ocasión es independiente de
+todos los valores de la CVT en diferentes momentos, aún de los previos a la ocasión. Variables que involucran cambios
+predecibles en el tiempo son tratadas como CVT tipo I, por ejemplo la edad o el momento de observación.
+
+\subsubsection{CVT tipo II}
+
+Una CVT se clasficia de tipo II si:
+
+\begin{equation}
+	\label{CVT tipo II}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
+\end{equation}
+
+Cabe destacar que la clase de covariables de tipo I es un subconjunto de la clase de covariables de tipo II. Esta
+condición dice que el proceso de la CVT $X_{ij+1}, ..., X_{in_i}$ no se ve afectado por la respuesta $Y_{ij}$.
+
+En otras palabras, la variable respuesta en la j-ésima ocasión puede estar asociada a valores previos de la CVT. Esta
+definición es similar pero no equivalente a la definición de exogeneidad. Se puede demostrar que la exogeneidad es
+suficiente es condición suficiente para que una CVT sea de tipo II. Este tipo de CVT incluyen covariables que pueden tener
+una asociación rezagada con la respuesta (los valores anteriores de la CVT pueden afectar a la respuesta actual) pero los
+valores de la covariable en un momento determinado no se verán afectados por los valores previos de la variable respuesta.
+Un ejemplo de este tipo de CVT es el "tratamiento farmacológico para la hipertensión arterial" con la variable respuesta
+"presión arterial".
+
+\subsubsection{CVT tipo III}
+
+Se clasifica a una CVT como de tipo III si no es de tipo II. No se asume independencia entre la respuesta y la covariable,
+por lo tanto, uede existir un \emph{feedback} entre ambas en donde los valores de la CVT pueden estar afectados por
+valores previos de la variable respuesta. Un ejemplo de este tipo de CVT es el "tratamiento farmacológico para la
+hipertensión arterial" con la variable respuesta "infarto de miocardio". Mientras que es esperable que la medicación
+impacte en la probabilidad de tener un infarto de miocardio, también tener un infarto de miocardio puede impactar
+en el cambio del tratamiento farmacológico.
+
+\subsubsection{CVT tipo IV}
+
+Una CVT se define como de tipo IV si:
+
+\begin{equation}
+	\label{CVT tipo IV}
+	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij+1}, ..., X_{in_i})
+\end{equation}
+
+La CVT puede estar asociada con valores previos de la variable respuesta, pero la variable respuesta no está asociada
+con valores previos de la covariable, está sólo asociada con el valor observado de la covariable en la misma ocasión.
+Un ejemplo de este tipo de CVT es "presión arterial" con la variable respuesta "peso". En una determinada ocasión hay
+relación entre ambas variables, es esperable que valores previos del peso impacten en la presión arterial pero no al revés
 
 \end{document}
