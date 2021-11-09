@@ -27,7 +27,6 @@
 %% OTHER USEFUL VARIABLES 
 
 \def\npatients{560}
-\def\fullcovname{adherencia al tratamiento farmacológico}
 \def\covname{\emph{adherencia}}
 \def\cvt{covariable que varía en el tiempo}
 \def\xseqj{$X_{i1}, ..., X_{ij}$}
@@ -85,13 +84,13 @@ o bien puedan variar a lo largo del seguimiento (por ejemplo el valor de coleste
 Los modelos lineales mixtos permiten
 analizar este tipo de datos, modelando, por un lado, la evolución de la respuesta promedio en función del tiempo y las
 covariables, mediante efectos fijos, y, por otro lado, la variación entre las respuestas repetidas dentro y entre sujetos
-por medio del error y los efectos aleatorios, respectivamente. Este tipo de covariables que varían en el tiempo pueden
+por medio del error y los efectos aleatorios, respectivamente. Las covariables que varían en el tiempo pueden
 utilizarse para comparar poblaciones, para describir tendencias en el tiempo, y también para describir relaciones
 dinámicas con la variable respuesta. La relación entre la covariable que varía en el tiempo y la variable respuesta
 puede estar confundida por valores anteriores y/o posteriores de la covariable y en consecuencia esto puede conducir
 a inferencias engañosas sobre los parámetros del modelo. Esta tesina realiza una introducción a la problemática de
 incorporar covariables que varían con el tiempo en modelos para datos longitudinales, presentando diferentes definiciones
-de las mismas y enfoques metodológicos aplicando los conceptos en un ejemplo real. 
+de las mismas y enfoques metodológicos aplicando los conceptos en un estudio de hipertensión arterial. 
 
 
 \newpage
@@ -99,16 +98,18 @@ de las mismas y enfoques metodológicos aplicando los conceptos en un ejemplo re
 
 \subsection{Objetivo Principal}
 
-Profundizar en el estudio de propuestas metodológicas respecto a la incorporación de covariables que varían con
+Describir las diferentes propuestas metodológicas para la incorporación de covariables que varían con
 el tiempo en modelos mixtos para datos longitudinales.
 
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-	\item Profundizar en las definiciones de los tipos de covariables
+	\item Definir los tipos de covariables existentes.
 	\item Describir diferentes transformaciones que pueden realizarse sobre las covariables que varían en el tiempo
-	\item Evaluar propuestas de incorporación de covariables que varían en el tiempo en los modelos mixtos
-	\item Aplicar los conecptos vistos a una problemática con datos que surgen de un estudio sobre hipertensión arterial
+		  para introducirlas al modelo.
+	\item Evaluar propuestas de incorporación de covariables que varían en el tiempo en los modelos mixtos.
+	\item Aplicar los conceptos vistos en un estudio sobre la tendencia de la presión arterial en el tiempo para pacientes
+		  que siguen cierto tratamiento.
 \end{itemize}
 
 \newpage
@@ -126,7 +127,7 @@ Este modelo supone implícitamente que la media condicional de la respuesta j-é
 \end{equation}
 
 Con las covariables fijas, esta suposición se mantiene necesariamente desde $X_{ij} = X_{ik}$ para todas las ocasiones
-$k \neq j$. Con covariables variables en el tiempo que se fijan por diseño del estudio (por ejemplo, indicador
+$k \neq j$. Con covariables variables en el tiempo (CVT) que se fijan por diseño del estudio (por ejemplo, indicador
 de grupo de tratamiento en una prueba cruzada), la suposición también se cumple ya que los valores de las covariables
 en cualquier ocasión se determinan a priori por diseño del estudio y de manera completamente no relacionado con la
 respuesta longitudinal. Sin embargo, cuando una covariable es variable en el tiempo, puede que no necesariamente se mantenga.
@@ -135,7 +136,7 @@ En general, cuando (\ref{esperanza}) no se cumple, los valores precedentes y/o p
 relación entre $Y_{ij}$ y $X_{ij}$, esto puede llevar a estimaciones sesgadas de los parámetros del modelo.
 
 Se dice que una \cvt{} es exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
-$j$ (\yseqj{}), dados los valores actuales y precedentes de la CVT (\xseqj{}), no predice el valor
+$j$ (\yseqj{}), dados los valores actuales y precedentes de la CVT (\xseqj{}), no predicen el valor
 posterior de $X_{ij+1}$. De lo contrario, se dice que la CVT es endógena.
 
 Cuando las covariables son variables en el tiempo, los parámetros de regresión no
@@ -150,11 +151,11 @@ Los datos que se utilizarán provienen de un programa de atención y control de 
 en Rosario que realiza un seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla: efectores no médicos
 supervisados, tratamiento farmacológico genérico para la hipertensión y utilización de un algoritmo terapéutico sistematizado.
 En cada visita se registran tanto características de los pacientes, del tratamiento y de los valores de la tensión arterial.
-En particular, se desea evaluar si la variable "\fullcovname{}" influye en los valores de la tensión arterial
+En particular, se desea evaluar si la variable \emph{adherencia al tratamiento farmacológico} influye en los valores de la tensión arterial
 sistólica a lo largo del seguimiento. Dicha variable se evaluó a través de un cuestionario validado que otorga como resultado
-una respuesta dicotómica: adhiere - no adhiere. Este cuestionario se realizó en cada visita. Como la \fullcovname{} es una CVT,
-se evaluaran diferentesi enfoques para incluirla en un modelo mixto que pueda explicar el cambio en la tensión
-arterial sistólica media a lo largo del tiempo.
+una respuesta dicotómica: adhiere - no adhiere. Este cuestionario se realizó en cada visita. Como la adherencia al tratamiento
+farmacológico es una CVT, se evaluaran diferentes enfoques para incluirla en un modelo mixto que pueda explicar el cambio
+en la tensión arterial sistólica media a lo largo del tiempo.
 
 Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha otra información para obtener modelos
 que describan de mejor manera el comportamiento de la tensión arterial sistólica, nos centraremos en modelos más simples con
