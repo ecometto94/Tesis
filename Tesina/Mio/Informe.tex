@@ -785,6 +785,26 @@ A pesar de que los modelos rezagados distribuidos permiten modelar parsimoniosam
 la especificación de del número de rezagos, $L$, y el órden del modelo para el coeficiente, $p$, deben ser consideradas.
 Ésto puede realizarse a través de tests para modelos anidados, como el test del cociente de verosimilitud o el test de Wald.
 
-% Diggle 258
+\subsection{Confusores variables en el tiempo}
+
+El análisis de regresión epidemiológica tradicional considera una clasificación de variables que están relacionadas tanto
+con una exposición de interés como con el resultado, ya sea como confusoras o intermedias. Una confusora se define
+vagamente como una variable asociada tanto con la exposición de interés como con la respuesta, y que, si se ignora en
+el análisis, conducirá a estimaciones sesgadas del efecto de la exposición. Una variable intermedia es aquella que se
+encuentra en la vía causal desde la exposición hasta el resultado y un análisis no debe controlar
+dicha variable, ya que se pierde el efecto de la exposición mediado por la variable intermedia.
+
+Por ejemplo, en un estudio observacional de pacientes con hipertensión elevada, podemos esperar determinar
+la magnitud del beneficio (o daño) atribuible a un tratamiento en la supervivencia del paciente o medidas
+longitudinales como la hipertensión en cierto momento. Sin embargo, podemos encontrar que la hipertensión en el tiempo t
+prediga tanto la hipertensión en momentos posteriores como las opciones de tratamiento posteriores. En este caso,
+la hipertensión en el momento $s < t$ es la variable de respuesta para las opciones de tratamiento recibidas antes de s,
+pero también es un predictor y, por lo tanto, un factor de confusión potencial para el tratamiento administrado
+en momentos futuros, t > s.
+
+Aunque los métodos anteriormente descritos se han desarrollado para el análisis general con un confusor dependiente
+del tiempo, en esta sección nos centramos en el caso especial de una covariable endógena.
+
+% diggle 282
 
 \end{document}
