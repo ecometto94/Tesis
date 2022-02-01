@@ -15,6 +15,7 @@
 \usepackage{setspace}			% for setting interline spacing
 \usepackage{amsmath}			% for matrices
 \usepackage{tikz} 				% for graphs
+\usepackage{multirow}			% for tables
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
 \renewcommand{\baselinestretch}{1.5}
 \bibliographystyle{ieeetr}
@@ -810,7 +811,13 @@ Para aclarar los problemas que surgen con las covariables dependientes del tiemp
 estudio, $t = 0, 1$, con medidas de exposición y respuesta $(X_{t-1}, Y_t)$. Sea $Y_t$ un indicador de gravedad de la
 enfermedad o de los síntomas (1 = enfermedad/síntomas presentes, 0 = enfermedad/síntomas ausentes) y sea $X_t = 1$
 si se administra tratamiento y $0$ en caso contrario. Se supone que la exposición $X_{t-1}$ precede a $Y_t$ para
-$t = 1, 2$ y que $Y_t$ precede o se mide simultáneamente con $X_t$.
+$t = 1, 2$ y que $Y_t$ precede o se mide simultáneamente con $X_t$. La figura 1 presenta un grafo que representa
+los modelos secuenciales condicionales:
+
+\[ logit E(Y_1 / X_0 = x_0) = -0.5 - 0.5x_0, \]
+\[ logit E(X_1 / Y_1 = y_1, X_0 = x_0) = -0.5 + 1y_1, \]
+\[ logit E(Y_2 / H_1^X = h_1^X, Y_1 = y_1) = -1 + 1.5y_1 - 0.5x_1, \]
+\[ donde H_1^x = {X_0, X_1} y h_1^X = {x_0, x_1} \]
 
 \begin{figure}[h]
 \centering
@@ -826,6 +833,35 @@ $t = 1, 2$ y que $Y_t$ precede o se mide simultáneamente con $X_t$.
 \end{tikzpicture}
 \caption{Covariable variable en el tiempo, $X_{t-1}$, y respuesta $Y_t$.}
 \end{figure}
+
+Estos modelos especifican un efecto beneficioso del tratamiento $X_0$ sobre el resultado en el momento 1 con una razón de
+odds logarítmica de -0,5 en el modelo $[Y_1|X_0]$. Sin embargo, el segundo modelo especifica que el tratamiento recibido
+en el momento 2 depende en gran medida del resultado en el momento uno. Para $X_0 = 0$ o $X_0 = 1$, si los pacientes tienen
+una respuesta inicial deficiente $(Y_1 = 1)$, es más probable que reciban tratamiento en el momento 2 que si respondieran
+bien $(Y_1 = 0)$. Finalmente, la respuesta en el segundo tiempo está fuertemente correlacionada con la respuesta inicial
+y está influenciada por el tratamiento en el tiempo 2.
+
+\begin{table}
+\caption{Recuentos esperados cuando se tratan inicialmente 500 sujetos, $X_0 = 1$, y 500 sujetos no reciben tratamiento,
+$X_0 = 0$, cuando el tratamiento en el momento 2, $X_1$, se predice por el resultado en el momento 1, $Y_1$,
+según el modelo dado por}
+% COMPLETAR CON LA REFERENCIA DEL MODELO
+\begin{tabular}{*{17}{c}}
+	\hline
+	$X_0$ & \multicolumn{8}{c}{\bf{0}} & \multicolumn{8}{c}{\bf{1}} \\
+	$n$ & \multicolumn{8}{c}{500} & \multicolumn{8}{c}{500} \\
+	$Y_1$ & \multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} & \multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} \\
+	$n$ & \multicolumn{4}{c}{311} & \multicolumn{4}{c}{189} & \multicolumn{4}{c}{365} & \multicolumn{4}{c}{135} \\
+	$X_1$ & \multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} & \multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
+	\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} & \multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} \\
+	$n$ & \multicolumn{2}{c}{194} & \multicolumn{2}{c}{117} & \multicolumn{2}{c}{71} & \multicolumn{2}{c}{118} &
+	\multicolumn{2}{c}{227} & \multicolumn{2}{c}{138} & \multicolumn{2}{c}{51} & \multicolumn{2}{c}{84} \\
+	$Y_2$ & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} &
+	\bf{0} & \bf{1} & \bf{0} & \bf{1} \\
+	$n$ & 142 & 52 & 96 & 21 & 27 & 44 & 59 & 59 & 166 & 61 & 113 & 25 & 19 & 32 & 42 & 42 \\
+	\hline
+\end{tabular}
+\end{table}
 
 % diggle 282
 
