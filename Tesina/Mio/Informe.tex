@@ -1,8 +1,8 @@
-\documentclass[12pt]{article}
+\documentclass[spanish]{article}
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
                                 % for page size and margin settings
 \usepackage{graphicx}		    % for insert images
-\usepackage[spanish]{babel} 	% for spanish titles
+\usepackage[es-tabla]{babel} 	% for spanish titles
 \usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry} 
 								% for page size and margin settings
 \usepackage{mathtools}          % for greek math symbol formatting
@@ -16,6 +16,7 @@
 \usepackage{amsmath}			% for matrices
 \usepackage{tikz} 				% for graphs
 \usepackage{multirow}			% for tables
+\usepackage{float}				% to manually select placement of tables
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
 \renewcommand{\baselinestretch}{1.5}
 \bibliographystyle{ieeetr}
@@ -841,7 +842,7 @@ una respuesta inicial deficiente $(Y_1 = 1)$, es más probable que reciban trata
 bien $(Y_1 = 0)$. Finalmente, la respuesta en el segundo tiempo está fuertemente correlacionada con la respuesta inicial
 y está influenciada por el tratamiento en el tiempo 2.
 
-\begin{table}
+\begin{table}[H]
 \caption{Recuentos esperados cuando se tratan inicialmente 500 sujetos, $X_0 = 1$, y 500 sujetos no reciben tratamiento,
 $X_0 = 0$, cuando el tratamiento en el momento 2, $X_1$, se predice por el resultado en el momento 1, $Y_1$,
 según el modelo dado por}
