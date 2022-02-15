@@ -142,14 +142,20 @@ necesariamente tienen la interpretación causal implícita incluso cuando (\ref{
 regresión se les puede dar una interpretación causal solo cuando se puede asumir además que las CVT son exógenas con
 respecto a la variable de respuesta.
 
-Existen diferentes formas de incorporar las CVT al modelo. La manera más simple es
-resumir la información para cada individuo en un valor e incorporarla como una covariable
-fija, sin embargo de esta forma se pierde información. Si la CVT es exógena, puede
-incorporarse al modelo de manera normal. En algunos casos puede resultar útil realizar
-algunas transformaciones a la covariable, por ejemplo, promedio hasta el momento t,
-incorporar mediciones rezagadas, etc. Una transformación que resulta de interés es dividir
-su efecto en efecto entre y efectro intra e introducirla como dos covariables diferentes,
-esto ayuda a la interpretación de los parámetros.
+Existen diferentes formas de incorporar las CVT al modelo según los objetivos de la investigación y el tipo de covariable
+(endógena / exógena) ya sea realizando transformaciones de interés o bien considerando la covariable sin transformar.
+
+Puede ser de interés resumir la información de la CVT para cada individuo en un único valor e incorporarla como una covariable
+fija en el tiempo, sin embargo de esta forma se pierde la información longitudinal de la covariable y la interpretación de los
+parámetros del modelo resulta confusa.
+
+Otra forma de incorporar la CVT es dividiendo su efecto en dos componentes: efecto entre-individuos y efecto intra-individuos e
+introducirla como dos covariables diferentes.
+
+También pueden realizarse transformaciones a la CVT:  resumiendo los valores observados hasta el momento t
+(por ejemplo el promedio), considerando mediciones rezagadas, etc e introducir al modelo las covariables transformadas.
+Si se desea incorporar la CVT sin ninguna transformación es necesario evaluar si la covariable es exógena. En caso contrario
+(covariable endógena) se requiere aplicar modelos más sofisticados.
 
 \newpage
 \section{Materiales}
