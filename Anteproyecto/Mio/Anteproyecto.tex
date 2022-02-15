@@ -124,7 +124,7 @@ Este modelo supone implícitamente que la media condicional de la respuesta j-é
 	E(Y_{ij}|\bm{X}_i) = E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
 \end{equation}
 
-Con las covariables fijas, esta suposición se mantiene necesariamente desde $X_{ij} = X_{ik}$ para todas las ocasiones
+Con las covariables fijas en el tiempo, esta suposición se mantiene necesariamente ya que $X_{ij} = X_{ik}$ para todas las ocasiones
 $k \neq j$. Con covariables variables en el tiempo (CVT) que se fijan por diseño del estudio (por ejemplo, indicador
 de grupo de tratamiento en una prueba cruzada), la suposición también se cumple ya que los valores de las covariables
 en cualquier ocasión se determinan a priori por diseño del estudio y de manera completamente no relacionado con la
@@ -141,6 +141,15 @@ Cuando las covariables son variables en el tiempo, los parámetros de regresión
 necesariamente tienen la interpretación causal implícita incluso cuando (\ref{esperanza}) se cumple. A los parámetros de
 regresión se les puede dar una interpretación causal solo cuando se puede asumir además que las CVT son exógenas con
 respecto a la variable de respuesta.
+
+Existen diferentes formas de incorporar las CVT al modelo. La manera más simple es
+resumir la información para cada individuo en un valor e incorporarla como una covariable
+fija, sin embargo de esta forma se pierde información. Si la CVT es exógena, puede
+incorporarse al modelo de manera normal. En algunos casos puede resultar útil realizar
+algunas transformaciones a la covariable, por ejemplo, promedio hasta el momento t,
+incorporar mediciones rezagadas, etc. Una transformación que resulta de interés es dividir
+su efecto en efecto entre y efectro intra e introducirla como dos covariables diferentes,
+esto ayuda a la interpretación de los parámetros.
 
 \newpage
 \section{Materiales}
