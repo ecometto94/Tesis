@@ -918,10 +918,95 @@ condicional \ref{feedback_3} que generó los datos. En este modelo que ajusta po
 el análisis que ajusta por $Y_1$ no refleja el efecto causal tanto de $X_0$ como de $X_1$ ya que al condicionar a una
 variable intermedia solo caracteriza efectos directos.
 
-Esta simple ilustración obliga a darse cuenta de que con exposiciones longitudinales (tratamientos) y resultados
+Esta simple ilustración muestra que con exposiciones longitudinales (tratamientos) y resultados
 longitudinales, una variable puede ser tanto una variable de confusión como una variable intermedia.
 Entonces no se pueden usar métodos de regresión estándar para obtener declaraciones causales.
 
-% diggle 284
+\section{Consideraciones al usar modelos longitudinales con CVT}
+
+Las CVT suelen medirse en las mismas ocasiones que la variable respuesta, aunque no tiene por qué ser así. Por ejemplo,
+si interesa un efecto retrasado de una CVT, entonces un investigador puede compensar deliberadamente la recopilación de
+los datos de la respuesta correspondientes por un rezago de tiempo predeterminado para examinar la relación temporal
+específica esperada. Sin embargo, será más útil tener una correspondencia temporal directa entre las covariables y
+las respuestas que varíen con el tiempo. Por ejemplo, si una covariable se mide diariamente pero una respuesta se mide
+solo semanalmente, entonces los valores de la covariable diaria tendrían que agregarse o resumirse de alguna manera a la
+semana más cercana para que se examine su efecto en un resultado semanal. Al considerar el escenario inverso en el que una
+covariable se evalúa semanalmente pero una respuesta se evalúa diariamente, la covariable solo podría tener un efecto a nivel
+de semana (p. ej., podría predecir el resultado medio entre días durante la semana en la que se midió el predictor).
+Por lo tanto, en general, aunque las CVT y los resultados no necesariamente deben recopilarse en el mismo \emph{momento}
+exacto, deben utilizatse dentro del mismo \emph{marco}.
+
+\subsection{CVT con valores faltantes}
+
+Antes de continuar, debemos reconocer el impacto de la presencia de valores faltantes en las CVT al estimar modelos
+longitudinales. La forma en que la mayoría del software ``maneja'' los datos faltantes es exigir que un caso sea \emph{completo}
+(debe incluir \emph{todas} las covariables y las respuestas del modelo) para que el caso sea incluido en el modelo.
+La eliminación de casos en los que falta alguna CVT o respuesta crea tres problemas: estadísticas de ajuste incomparables si
+los modelos se basan en casos diferentes, una reducción en el poder estadístico y la posibilidad de resultados sesgados
+del modelo. Los dos primeros problemas se pueden abordar mediante la estimación de modelos longitudinales a través de
+software más avanzado para modelos de ecuaciones estructurales. Estos modelos permitirán que los casos en los que falten
+covariables variables en el tiempo permanezcan en el modelo, dadas las suposiciones específicas sobre las distribuciones
+de la CVT y las razones de sus datos incompletos.
+
+Con respecto al tercer problema de sesgo potencial, la eliminación de casos con CVT o respuestas faltantes dará como
+resultado efectos sesgados si los datos no faltan al azar (MAR - Missing at random), una condición en la que la falta es
+predecible a partir de los otros datos de la persona. Aunque es muy importante para la mayoría de los métodos modernos
+poder abordar los datos faltantes, desafortunadamente la suposición de MAR no es comprobable, pero incluir las
+otras ocasiones completas de la persona, así como cualquier covariable relacionada con la falta (es decir, incluso si no está
+relacionada con la respuesta) puede hacer más plausible la suposición de MAR.
+
+\subsection{Las CVT contienen información entre-persona e intra-persona}
+
+Como es sabido, todas las covariables fijas deben estar centradas y tener un valor de 0 significativo para que el intercepto
+del modelo sea interpretable. El mismo requerimiento aplica al modelar el efecto de las CVT, excepto que las decisiones
+relacionadas con el centrado puede ser mucho más complicado cuando se aplica a una CVT. La razón de esto, como se explica
+a continuación, es que aunque las CVT se miden a nivel de tiempo (es decir, en cada ocasión), por lo general también
+contienen una variación sistemática en niveles más altos de muestreo (es decir, variación invariable en el tiempo). Es decir,
+\emph{Las CVT contienen información tanto entre personas como dentro de la persona}. En consecuencia, ambas fuentes de
+variación deben estar representadas explícitamente (y centradas apropiadamente) dentro de un modelo longitudinal.
+
+Considere el ejemplo en el que el estrés predice un estado de ánimo negativo. Aunque los niveles de estrés variarán a lo
+largo de los días, en la medida en que algunas personas tiendan a reportar más estrés todos los días, el estrés también
+variará sistemáticamente entre \emph{personas}. Es decir, aunque el estrés variable en el tiempo se mida a lo largo del tiempo,
+lo más probable es que contenga \textbf{variación entre-persona} (es decir, diferencias de persona a persona en los niveles
+medios de estrés a lo largo de los días) así como \textbf{variación intra-persona} (es decir, variación en torno al nivel
+medio de un persona, tener más o menos estrés de lo habitual en un momento dado). Debido a que las variables longitudinales
+generalmente contienen variaciones tanto entre personas como dentro de las personas, como resultado, generalmente son dos
+variables en lugar de una. Cada fuente de variación (variación de persona a persona y variación de tiempo a tiempo) puede
+tener un efecto diferente en la respuesta (un \textbf{efecto entre-persona} y un \textbf{efecto intra-persona},
+respectivamente. En el ejemplo del estrés y el estado de ánimo negativo, las personas con \emph{mayor estrés en promedio}
+(que otras personas) pueden reportar \emph{mayor estado de ánimo negativo en promedio}; este efecto entre personas se
+consideraría como un \textbf{rasgo} o efecto crónico. Además, en momentos en que el \emph{estrés es más alto de lo habitual},
+el estado de ánimo negativo también puede ser \emph{mayor de lo habitual}; este efecto dentro de la persona se consideraría un
+\textbf{estado} o efecto agudo.
+
+Un precursor lógico para examinar los efectos entre-persona e intra-persona de una CVT es estimar qué parte de su variación se
+debe a cada fuente. Para determinar esto, podemos tratar la CVT como una respuesta y usar un modelo de intercepción aleatoria
+de medias vacías para cuantificar su cantidad de variación entre personas (como la varianza de la intercepción aleatoria
+$\tau^2_{U_0}$) y la variación dentro de la persona (como la varianza residual $\sigma^2_e$) con el fin de calcular una
+correlación intraclase como $ICC = \tau^2_{U_0} / (\tau^2_{U_0} + \sigma^2_e)$. El ICC indica la proporción de la varianza
+total que existe entre las personas en sus niveles medios de respuesta a lo largo del tiempo (es decir, debido a $\tau^2_{U_0}$).
+Si esa variación entre personas ($\tau^2_{U_0}$) es significativamente mayor que 0 se puede evaluar mediante la prueba de
+razón de verosimilitud.
+
+El tamaño del ICC dictará qué efectos puede mostrar potencialmente la CVT. Primero (y más probable), si hay una variación
+significativa entre-persona en la CVT (es decir, $\tau^2_{U_0} > 0$), entonces esa variación entre-persona puede mostrar
+potencialmente un correspondiente efecto entre-persona. Alternativamente, si la CVT \emph{no} tiene una variación significativa
+entre-personas (es decir, $\tau^2_{U_0} \approx 0$), esto significa que solo tiene variación intra-persona y, por lo tanto,
+la CVT solo podría mostrar un efecto intra-persona. Un ejemplo de cuándo es probable que ocurra lo último es cuando se modela
+el cambio a lo largo de un tiempo balanceado. Si todos en la muestra tienen el mismo conjunto de observaciones de tiempo
+balanceado, entonces el predictor de \emph{tiempo} solo tendrá una variación intra-persona y, por lo tanto,
+solo puede mostrar un efecto intra-persona. Sin embargo, cuando el \emph{tiempo} está desbalanceado de tal manera que su
+ICC es mayor que 0 (p. ej., las personas difieren al comienzo de un estudio en edad o nivel de grado), entonces ese \emph{tiempo}
+predictor de tiempo desbalanceado (p. ej., edad o grado) tiene el potencial de mostrar efectos diferenciales entre-persona
+e intra-persona. Finalmente, también es posible que una CVT tenga un $ICC \approx 1$, lo que indica poca o ninguna variación
+intra-persona (y en cuyo caso es esencialmente una covariable invariable en el tiempo). Desafortunadamente, por lo general,
+no existen maneras sencillas en la mayoría de los softwares para probar si la cantidad de variación intra-persona es
+significativamente mayor que 0 (es decir, $\sigma^2_e > 0$ and $ICC < 1$). Sin embargo, si $ICC \approx 1$, la CVT debe
+tratarse como una covariable invariante en el tiempo, por ejemplo, incluyendo solo su valor en el tiempo 0.
+
+\subsection{Las CVT pueden tener efecto entre-persona y/o intra-persona}
+
+% Lessa Hoffman 358
 
 \end{document}
