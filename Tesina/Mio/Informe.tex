@@ -11,7 +11,6 @@
 \usepackage{indentfirst}		% package to make first paragraph always indented
 \usepackage{hyperref}           % page numbers and '\ref's become clickable
 \usepackage{bm}					% for bold maths
-\usepackage{hyperref}           % page numbers and '\ref's become clickable
 \usepackage{setspace}			% for setting interline spacing
 \usepackage{amsmath}			% for matrices
 \usepackage{tikz} 				% for graphs
@@ -21,7 +20,9 @@
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
 \renewcommand{\baselinestretch}{1.5}
 \bibliographystyle{ieeetr}
-\numberwithin{equation}{section}
+\numberwithin{figure}{subsection}
+\numberwithin{equation}{subsection}
+\numberwithin{table}{subsection}
 
 % TITLE VARIABLES 
 
@@ -1007,6 +1008,86 @@ tratarse como una covariable invariante en el tiempo, por ejemplo, incluyendo so
 
 \subsection{Las CVT pueden tener efecto entre-persona y/o intra-persona}
 
-% Lessa Hoffman 358
+El tipo de variación que tiene una CVT (entre personas y/o dentro de una persona) dictará los tipos de efectos que puede
+mostrar. Para ilustrar mejor estos diferentes efectos, en la figura \ref{lessa_1} se muestran cuatro conjuntos de efectos hipotéticos
+de estrés variable en el tiempo (en el eje x) que predicen un estado de ánimo negativo variable en el tiempo (en el eje y).
+
+\begin{figure}
+	\centering
+	\includegraphics{img/lessa1.png}
+	\caption{Efectos hipotéticos entre-persona (como la pendiente de la línea discontinua a través de la media de la persona)
+	y efectos intra-persona (como la pendiente de la línea completa para la media = 5; marcadores triangulares) del estrés
+	variable en el tiempo sobre el estado de ánimo negativo variable en el tiempo.}
+	\label{lessa_1}
+\end{figure}
+
+Aquí el estrés y el estado de ánimo negativo son variables continuas con una media de 5 para facilitar la explicación,
+y se trazan trayectorias separadas para personas con una puntuación media de estrés a lo largo del tiempo de 4, 5 o 6.
+Nótese que el \emph{tiempo} no es necesario en \ref{lessa_1}: una vez que se hayan incluido en el modelo los efectos fijos
+y aleatorios necesarios relacionados con el tiempo, probablemente ya no importará en qué ocasión se trate al considerar
+los efectos de CVT. Aquí, lo que necesitamos saber es cuál fue el valor de estrés en cada ocasión, y no necesariamente
+\emph{cuándo} se informó ese valor de estrés (sin embargo, en qué ocasión puede importar si el efecto de la CVT cambia
+con el tiempo). Críticamente, tanto el estrés como el estado de ánimo negativo tienen variación entre-persona y
+variación intra-persona y, por lo tanto, existe la posibilidad de que el estrés muestre un efecto tanto entre-persona como
+intra-persona, \ref{lessa_1} fue diseñado para ilustrar diferentes patrones de estos efectos.
+
+Para comenzar, el panel superior izquierdo de \ref{lessa_1} muestra un efecto de estrés que es completamente
+\emph{entre-persona}: hay una pendiente positiva de 1 a través de la media de estrés de la persona (como lo muestra la
+línea discontinua a través de el centro de las trayectorias individuales), lo que indica que por cada unidad mayor de
+\emph{estrés medio de la persona} se espera que el estado de ánimo negativo medio sea superior a 1. O dicho de manera más
+simple, las personas que reportan más estrés en promedio que otras personas tienden a ser más gruñonas en promedio que
+otras personas. Sin embargo, no hay efecto de estrés dentro de las personas (las trayectorias individuales tienen una
+pendiente de 0), lo que indica que reportar \emph{más estrés que su propia media} no tiene ningún efecto sobre el estado
+de ánimo negativo de esa ocasión. Esto significa que el efecto del estrés en el panel superior izquierdo es completamente
+\emph{transversal}: las diferencias individuales en el estrés promedio a lo largo del tiempo se relacionan con el estado de
+ánimo negativo promedio, pero la variación intraindividual en el estrés no se relaciona con el estado de ánimo negativo de
+esa ocasión.
+
+A continuación, considere el panel superior derecho de \ref{lessa_1}, que muestra un efecto del estrés que es completamente
+\emph{intra-persona}: hay una pendiente positiva de 1 en cada trayectoria de estrés individual, lo que indica que
+para cada unidad \emph{más estrés que su propia media} (cualquiera que sea su propia media), se espera que el estado de
+ánimo negativo de esa ocasión sea 1 más alto. O dicho de manera más simple, se predice que el estado de ánimo negativo
+será más alto de lo habitual en los días en que las personas reportan más estrés de lo habitual. Sin embargo, esta vez no
+hay efecto del estrés entre-persona: el estrés medio de la persona no predice el estado de ánimo negativo medio de la persona.
+Entonces, el efecto del estrés en el panel superior derecho es completamente \emph{longitudinal}: no es que las personas
+crónicamente estresadas sean más gruñonas que otras personas, es que cada vez que las personas reportan más estrés de
+lo normal (independientemente de lo que sea ``habitua'', como lo indica el estrés medio de su persona), también son más
+gruñones de lo habitual.
+
+Sin embargo, rara vez encontramos solo un efecto entre-persona o solo un efecto intra-persona de una CVT, es más probable
+que ambos efectos se observen hasta cierto punto. Para ilustrar, considere el panel inferior izquierdo de \ref{lessa_1},
+que muestra los efectos de estrés positivos de ambos tipos. Pero aquí el efecto entre-persona de 2 es mayor que el efecto
+intra-persona de 0.5: la pendiente de la línea a través de las medias de las personas tiene una pendiente de 1.5 más
+pronunciada que la pendiente de las trayectorias de estrés individuales. En consecuencia, por cada unidad de
+\emph{estrés de una persona sobre otras personas}, se espera que el estado de ánimo negativo sea 2 veces más alto, pero por
+cada unidad de \emph{más estrés que la propia media}, se espera que el estado de ánimo negativo de esa ocasión sea más alto
+en 0.5. Dada la misma variabilidad tanto para el estrés como para el estado de ánimo negativo (es decir, ICC de 0.5 para cada
+variable), este resultado significaría que ser una persona más estresada (que otras personas) es más importante para predecir
+el estado de ánimo negativo que tener una ocasión más estresante (de lo habitual), pero aquí tanto las diferencias individuales
+como la variación intraindividual en el estrés son importantes hasta cierto punto.
+
+Hasta ahora, los efectos hipotéticos del estrés han sido aditivos en todos los niveles, pero este no tiene por qué ser el caso.
+Para ilustrar, considere el panel inferior derecho de \ref{lessa_1} en el que también está presente una interacción entre
+el estrés entre-persona y el estrés intra-persona. En consecuencia, los dos efectos principales del estrés ahora están
+condicionados el uno al otro: el efecto de estrés entre-persona de 2 se aplica \emph{específicamente cuando las personas
+están en sus propios niveles medios de estrés} (p. ej., como lo muestra la línea discontinua a través de la estrés medio
+de la persona), y el efecto de estrés intra-persona de 1 se aplica \emph{específicamente para las personas en el valor
+central del estrés medio de la persona} (p. ej., el estrés medio de la persona = 5 aquí, como lo indican los triángulos).
+La interacción entre el estrés entre-persona y el estrés intra-persona de -0.5 se puede interpretar de dos maneras equivalentes.
+Primero (y más intuitivamente), significa que el \emph{efecto dentro-persona} de reportar más estrés de lo habitual en una
+ocasión dada (que era 1 dado el estrés medio de una persona = 5) \emph{se vuelve menos positivo por 0.5 por cada unidad mayor del
+estrés medio de esa persona:} el efecto de reportar más estrés de lo habitual importa \emph{menos} para las personas que tienen
+más estrés en general. Alternativamente, la interacción entre el estrés entre-persona y el estrés intra-persona de -0.5
+también significa que el \emph{efecto entre-persona} de reportar un mayor estrés medio que otras personas (que es 2 cuando
+el estrés variable en el tiempo está en la media de la persona) \emph{se vuelve menos positivo en 0.5 por cada unidad más
+de estrés que lo habitual:} las diferencias entre las personas debido al estrés medio son menos pronunciadas cuando
+las personas están más estresadas que lo habitual.
+
+% Lessa Hoffman 333
+
+\newpage
+\nocite{*}
+\renewcommand{\refname}{Bibliografía}
+\bibliography{Bibliografia}
 
 \end{document}
