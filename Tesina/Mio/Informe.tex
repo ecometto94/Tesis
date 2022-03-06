@@ -36,7 +36,7 @@
 
 \def\npatients{560}
 \def\fullcovname{adherencia al tratamiento farmacológico}
-\def\covname{\emph{adherencia}}
+\def\covname{\textit{adherencia}}
 \def\cvt{covariable que varía en el tiempo}
 \def\xseqj{$X_{i1}, ..., X_{ij}$}
 \def\xseqn{$X_{i1}, ..., X_{in_i}$}
@@ -66,12 +66,12 @@
 	
 	\begin{minipage}{0.6\textwidth}
 	\large
-	\emph{Autor:}	\thesisauthorfirst
+	\textit{Autor:}	\thesisauthorfirst
 	\end{minipage}
 	\\[.6cm]
 	\begin{minipage}{0.6\textwidth}
-	\emph{Directora:} 	\thesissupervisorfirst \\[.2cm]
-	\emph{Codirectora:} 	\thesissupervisorsecond
+	\textit{Directora:} 	\thesissupervisorfirst \\[.2cm]
+	\textit{Codirectora:} 	\thesissupervisorsecond
 	\end{minipage}
 	\\[4cm]
 	\vfill
@@ -201,16 +201,16 @@ Existen estudios empíricos que llevan a pensar que existen tres fuentes potenci
 sobre la correlación entre medidas repetidas:
 
 \begin{itemize}
-	\item \emph{Heterogeneidad entre las unidades:} Refleja la propensión natural de las unidades a responder.
+	\item \textit{Heterogeneidad entre las unidades:} Refleja la propensión natural de las unidades a responder.
 	Los individuos tienen diferentes reacciones frente a los mismos estímulos.
-	\item \emph{Variación biológica intra-unidad:} Se piensa que la secuencia de medidas repetidas de una unidad tiene
+	\item \textit{Variación biológica intra-unidad:} Se piensa que la secuencia de medidas repetidas de una unidad tiene
 	un comportamiento determinado, que produce que las mediciones más cercanas sean más parecidas.
-	\item \emph{Error de medición:} Surge debido a los errores de medida, se puede disminuir usando instrumentos
+	\item \textit{Error de medición:} Surge debido a los errores de medida, se puede disminuir usando instrumentos
 	de medición más precisos
 \end{itemize}
 
-Estas tres fuentes de variación pueden clasificarse en \emph{``variabilidad entre''}, es decir, la variación entre
-las unidades (heterogeneidad entre unidades) y \emph{``variabilidad intra''}, es decir, la variación entre las mediciones
+Estas tres fuentes de variación pueden clasificarse en \textit{``variabilidad entre''}, es decir, la variación entre
+las unidades (heterogeneidad entre unidades) y \textit{``variabilidad intra''}, es decir, la variación entre las mediciones
 de las misma unidad (variación biológica intra-unidad y error de medición)
 
 Dado que, como se mencionó anteriormente, las mediciones están correlacionadas sí, si se utilizaran las técnicas habituales
@@ -223,36 +223,36 @@ modelando los datos considerando la modelación de dos estructuras: la parte med
 Antes de ajustar algún modelo, lo primero siempre es realizar un análisis exploratorio para estudiar cómo se comportan
 los datos. A continuación se presentan técnicas gráficas para cada estructura.
 
-\emph{Evaluación de la parte media}
+\textit{Evaluación de la parte media}
 
 \begin{itemize}
-	\item \emph{Perfil individual:} Consiste en un gráfico de dispersión en el cual se representan las respuestas vs las
+	\item \textit{Perfil individual:} Consiste en un gráfico de dispersión en el cual se representan las respuestas vs las
 	ocasiones. Cada respuesta tiene un punto y se une con un segmento los puntos de la misma unidad. Sirven para detectar
 	si hay mucha variabilidad entre y dentro de las unidades y si hay valores atípicos.
-	\item \emph{Perfiles promedio por grupo:} En general son más informativos. Para cada tiempo calculamos un promedio
+	\item \textit{Perfiles promedio por grupo:} En general son más informativos. Para cada tiempo calculamos un promedio
 	para cada grupo y luego se unen los puntos. Permiten ver la tendencia de las variables a través de las ocasiones.
 	Se superponen en un mismo gráfico los perfiles promedio de cada grupo
 \end{itemize}
 
-\emph{Evaluación de la estructura de covariancia}
+\textit{Evaluación de la estructura de covariancia}
 
 \begin{itemize}
-	\item \emph{Matriz de diagrama de dispersión:} Para cada par de ocasiones se grafican los valores esperados de la
+	\item \textit{Matriz de diagrama de dispersión:} Para cada par de ocasiones se grafican los valores esperados de la
 	respuesta y todos estos gráficos se acomodan dentro de una matriz. En general se utiliza cuando las ocasiones son las
 	mismas para todas las unidades.
-	\item \emph{Gráfico de Draftman:} Es similar al gráfico anterior pero utilizando variables estandarizadas.
+	\item \textit{Gráfico de Draftman:} Es similar al gráfico anterior pero utilizando variables estandarizadas.
 	La utilización de la variable respuesta estandarizada ayuda a eliminar la variabilidad de los datos asociada con
 	diferencias en las medias y variancias en el tiempo, permitiendo visualizar más claramente el patrón de correlación.
-	\item \emph{Gráfico PRISM (Partial Regression on Intervenors Scatterplot Matrix):} Utilizando la variable estandarizada
+	\item \textit{Gráfico PRISM (Partial Regression on Intervenors Scatterplot Matrix):} Utilizando la variable estandarizada
 	se crea una matriz de gráficos de dispersión. En la primera diagonal se encuentran gráficos de dispersión entre la
 	variable respuesta en los tiempos $t_j$ y $t_{j+1}$. Luego, en la k-ésima diagonal, se obtienen gráficos de regresión
 	parcial de las respuestas en los tiempos $t_j$ y $t_{j+k}$, ajustadas por las respuestas en los tiempos intermedios.
 	Estos gráficos permiten ver con mayor claridad ciertos tipos de estructuras seriales que se dan entre las
 	medidas repetidas.
-	\item \emph{Correlograma:} Representa las características que existen entre las respuestas de los individuos de
+	\item \textit{Correlograma:} Representa las características que existen entre las respuestas de los individuos de
 	cada grupo en tiempos que están separados una cantidad de periodos. Permite analizar cómo evoluciona la correlación
 	a medida que aumenta el número de rezagos.
-	\item \emph{Semivariograma:} Cuando los datos están desbalanceados, el semivariograma permite distinguir las 3 fuentes
+	\item \textit{Semivariograma:} Cuando los datos están desbalanceados, el semivariograma permite distinguir las 3 fuentes
 	de variabilidad. Después de haber estimado un modelo, el mismo permite confirmar si la estructura de correlación es
 	adecuada. El semivariograma se define como una función:
 	\[ \gamma(u) = \frac{1}{2} E[(\varepsilon _{ij} - \varepsilon_{ij'})^2] \]
@@ -496,7 +496,7 @@ con el uso de esta estadística es que no se conocen los grados de libertad del 
 datos. 
 
 %Algunos métodos para estimar los grados de libertad son: Contaiment, Within-Between, Satterthwaite y Kenward y Roger,
-%entre otros (\emph{Fitzmaurice et al., 2004})
+%entre otros (\textit{Fitzmaurice et al., 2004})
 
 \subsubsection{Test de cociente de verosimilitud}
 
@@ -555,8 +555,8 @@ Para comparar modelos con distinto número de parámetros, se penalizan a los mi
 continuación se destacan dos de estos:
 
 \begin{itemize}
-	\item \emph{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
-	\item \emph{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
+	\item \textit{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
+	\item \textit{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
 \end{itemize}
 
 Donde:
@@ -741,7 +741,7 @@ Un ejemplo de este tipo de CVT es el ``tratamiento farmacológico para la hipert
 \subsubsection{CVT tipo III}
 
 Se clasifica a una CVT como de tipo III si no es de tipo II. No se asume independencia entre la respuesta y la covariable,
-por lo tanto, uede existir un \emph{feedback} entre ambas en donde los valores de la CVT pueden estar afectados por
+por lo tanto, uede existir un \textit{feedback} entre ambas en donde los valores de la CVT pueden estar afectados por
 valores previos de la variable respuesta. Un ejemplo de este tipo de CVT es el ``tratamiento farmacológico para la
 hipertensión arterial'' con la variable respuesta ``infarto de miocardio''. Mientras que es esperable que la medicación
 impacte en la probabilidad de tener un infarto de miocardio, también tener un infarto de miocardio puede impactar
@@ -934,14 +934,14 @@ solo semanalmente, entonces los valores de la covariable diaria tendrían que ag
 semana más cercana para que se examine su efecto en un resultado semanal. Al considerar el escenario inverso en el que una
 covariable se evalúa semanalmente pero una respuesta se evalúa diariamente, la covariable solo podría tener un efecto a nivel
 de semana (p. ej., podría predecir el resultado medio entre días durante la semana en la que se midió el predictor).
-Por lo tanto, en general, aunque las CVT y los resultados no necesariamente deben recopilarse en el mismo \emph{momento}
-exacto, deben utilizatse dentro del mismo \emph{marco}.
+Por lo tanto, en general, aunque las CVT y los resultados no necesariamente deben recopilarse en el mismo \textit{momento}
+exacto, deben utilizatse dentro del mismo \textit{marco}.
 
 \subsection{CVT con valores faltantes}
 
 Antes de continuar, debemos reconocer el impacto de la presencia de valores faltantes en las CVT al estimar modelos
-longitudinales. La forma en que la mayoría del software ``maneja'' los datos faltantes es exigir que un caso sea \emph{completo}
-(debe incluir \emph{todas} las covariables y las respuestas del modelo) para que el caso sea incluido en el modelo.
+longitudinales. La forma en que la mayoría del software ``maneja'' los datos faltantes es exigir que un caso sea \textit{completo}
+(debe incluir \textit{todas} las covariables y las respuestas del modelo) para que el caso sea incluido en el modelo.
 La eliminación de casos en los que falta alguna CVT o respuesta crea tres problemas: estadísticas de ajuste incomparables si
 los modelos se basan en casos diferentes, una reducción en el poder estadístico y la posibilidad de resultados sesgados
 del modelo. Los dos primeros problemas se pueden abordar mediante la estimación de modelos longitudinales a través de
@@ -963,22 +963,22 @@ del modelo sea interpretable. El mismo requerimiento aplica al modelar el efecto
 relacionadas con el centrado puede ser mucho más complicado cuando se aplica a una CVT. La razón de esto, como se explica
 a continuación, es que aunque las CVT se miden a nivel de tiempo (es decir, en cada ocasión), por lo general también
 contienen una variación sistemática en niveles más altos de muestreo (es decir, variación invariable en el tiempo). Es decir,
-\emph{Las CVT contienen información tanto entre personas como dentro de la persona}. En consecuencia, ambas fuentes de
+\textit{Las CVT contienen información tanto entre personas como dentro de la persona}. En consecuencia, ambas fuentes de
 variación deben estar representadas explícitamente (y centradas apropiadamente) dentro de un modelo longitudinal.
 
 Considere el ejemplo en el que el estrés predice un estado de ánimo negativo. Aunque los niveles de estrés variarán a lo
 largo de los días, en la medida en que algunas personas tiendan a reportar más estrés todos los días, el estrés también
-variará sistemáticamente entre \emph{personas}. Es decir, aunque el estrés variable en el tiempo se mida a lo largo del tiempo,
+variará sistemáticamente entre \textit{personas}. Es decir, aunque el estrés variable en el tiempo se mida a lo largo del tiempo,
 lo más probable es que contenga \textbf{variación entre-persona} (es decir, diferencias de persona a persona en los niveles
 medios de estrés a lo largo de los días) así como \textbf{variación intra-persona} (es decir, variación en torno al nivel
 medio de un persona, tener más o menos estrés de lo habitual en un momento dado). Debido a que las variables longitudinales
 generalmente contienen variaciones tanto entre personas como dentro de las personas, como resultado, generalmente son dos
 variables en lugar de una. Cada fuente de variación (variación de persona a persona y variación de tiempo a tiempo) puede
 tener un efecto diferente en la respuesta (un \textbf{efecto entre-persona} y un \textbf{efecto intra-persona},
-respectivamente. En el ejemplo del estrés y el estado de ánimo negativo, las personas con \emph{mayor estrés en promedio}
-(que otras personas) pueden reportar \emph{mayor estado de ánimo negativo en promedio}; este efecto entre personas se
-consideraría como un \textbf{rasgo} o efecto crónico. Además, en momentos en que el \emph{estrés es más alto de lo habitual},
-el estado de ánimo negativo también puede ser \emph{mayor de lo habitual}; este efecto dentro de la persona se consideraría un
+respectivamente. En el ejemplo del estrés y el estado de ánimo negativo, las personas con \textit{mayor estrés en promedio}
+(que otras personas) pueden reportar \textit{mayor estado de ánimo negativo en promedio}; este efecto entre personas se
+consideraría como un \textbf{rasgo} o efecto crónico. Además, en momentos en que el \textit{estrés es más alto de lo habitual},
+el estado de ánimo negativo también puede ser \textit{mayor de lo habitual}; este efecto dentro de la persona se consideraría un
 \textbf{estado} o efecto agudo.
 
 Un precursor lógico para examinar los efectos entre-persona e intra-persona de una CVT es estimar qué parte de su variación se
@@ -992,13 +992,13 @@ razón de verosimilitud.
 
 El tamaño del ICC dictará qué efectos puede mostrar potencialmente la CVT. Primero (y más probable), si hay una variación
 significativa entre-persona en la CVT (es decir, $\tau^2_{U_0} > 0$), entonces esa variación entre-persona puede mostrar
-potencialmente un correspondiente efecto entre-persona. Alternativamente, si la CVT \emph{no} tiene una variación significativa
+potencialmente un correspondiente efecto entre-persona. Alternativamente, si la CVT \textit{no} tiene una variación significativa
 entre-personas (es decir, $\tau^2_{U_0} \approx 0$), esto significa que solo tiene variación intra-persona y, por lo tanto,
 la CVT solo podría mostrar un efecto intra-persona. Un ejemplo de cuándo es probable que ocurra lo último es cuando se modela
 el cambio a lo largo de un tiempo balanceado. Si todos en la muestra tienen el mismo conjunto de observaciones de tiempo
-balanceado, entonces el predictor de \emph{tiempo} solo tendrá una variación intra-persona y, por lo tanto,
-solo puede mostrar un efecto intra-persona. Sin embargo, cuando el \emph{tiempo} está desbalanceado de tal manera que su
-ICC es mayor que 0 (p. ej., las personas difieren al comienzo de un estudio en edad o nivel de grado), entonces ese \emph{tiempo}
+balanceado, entonces el predictor de \textit{tiempo} solo tendrá una variación intra-persona y, por lo tanto,
+solo puede mostrar un efecto intra-persona. Sin embargo, cuando el \textit{tiempo} está desbalanceado de tal manera que su
+ICC es mayor que 0 (p. ej., las personas difieren al comienzo de un estudio en edad o nivel de grado), entonces ese \textit{tiempo}
 predictor de tiempo desbalanceado (p. ej., edad o grado) tiene el potencial de mostrar efectos diferenciales entre-persona
 e intra-persona. Finalmente, también es posible que una CVT tenga un $ICC \approx 1$, lo que indica poca o ninguna variación
 intra-persona (y en cuyo caso es esencialmente una covariable invariable en el tiempo). Desafortunadamente, por lo general,
@@ -1023,33 +1023,33 @@ de estrés variable en el tiempo (en el eje x) que predicen un estado de ánimo 
 
 Aquí el estrés y el estado de ánimo negativo son variables continuas con una media de 5 para facilitar la explicación,
 y se trazan trayectorias separadas para personas con una puntuación media de estrés a lo largo del tiempo de 4, 5 o 6.
-Nótese que el \emph{tiempo} no es necesario en \ref{lessa_1}: una vez que se hayan incluido en el modelo los efectos fijos
+Nótese que el \textit{tiempo} no es necesario en \ref{lessa_1}: una vez que se hayan incluido en el modelo los efectos fijos
 y aleatorios necesarios relacionados con el tiempo, probablemente ya no importará en qué ocasión se trate al considerar
 los efectos de CVT. Aquí, lo que necesitamos saber es cuál fue el valor de estrés en cada ocasión, y no necesariamente
-\emph{cuándo} se informó ese valor de estrés (sin embargo, en qué ocasión puede importar si el efecto de la CVT cambia
+\textit{cuándo} se informó ese valor de estrés (sin embargo, en qué ocasión puede importar si el efecto de la CVT cambia
 con el tiempo). Críticamente, tanto el estrés como el estado de ánimo negativo tienen variación entre-persona y
 variación intra-persona y, por lo tanto, existe la posibilidad de que el estrés muestre un efecto tanto entre-persona como
 intra-persona, \ref{lessa_1} fue diseñado para ilustrar diferentes patrones de estos efectos.
 
 Para comenzar, el panel superior izquierdo de \ref{lessa_1} muestra un efecto de estrés que es completamente
-\emph{entre-persona}: hay una pendiente positiva de 1 a través de la media de estrés de la persona (como lo muestra la
+\textit{entre-persona}: hay una pendiente positiva de 1 a través de la media de estrés de la persona (como lo muestra la
 línea discontinua a través de el centro de las trayectorias individuales), lo que indica que por cada unidad mayor de
-\emph{estrés medio de la persona} se espera que el estado de ánimo negativo medio sea superior a 1. O dicho de manera más
+\textit{estrés medio de la persona} se espera que el estado de ánimo negativo medio sea superior a 1. O dicho de manera más
 simple, las personas que reportan más estrés en promedio que otras personas tienden a ser más gruñonas en promedio que
 otras personas. Sin embargo, no hay efecto de estrés dentro de las personas (las trayectorias individuales tienen una
-pendiente de 0), lo que indica que reportar \emph{más estrés que su propia media} no tiene ningún efecto sobre el estado
+pendiente de 0), lo que indica que reportar \textit{más estrés que su propia media} no tiene ningún efecto sobre el estado
 de ánimo negativo de esa ocasión. Esto significa que el efecto del estrés en el panel superior izquierdo es completamente
-\emph{transversal}: las diferencias individuales en el estrés promedio a lo largo del tiempo se relacionan con el estado de
+\textit{transversal}: las diferencias individuales en el estrés promedio a lo largo del tiempo se relacionan con el estado de
 ánimo negativo promedio, pero la variación intraindividual en el estrés no se relaciona con el estado de ánimo negativo de
 esa ocasión.
 
 A continuación, considere el panel superior derecho de \ref{lessa_1}, que muestra un efecto del estrés que es completamente
-\emph{intra-persona}: hay una pendiente positiva de 1 en cada trayectoria de estrés individual, lo que indica que
-para cada unidad \emph{más estrés que su propia media} (cualquiera que sea su propia media), se espera que el estado de
+\textit{intra-persona}: hay una pendiente positiva de 1 en cada trayectoria de estrés individual, lo que indica que
+para cada unidad \textit{más estrés que su propia media} (cualquiera que sea su propia media), se espera que el estado de
 ánimo negativo de esa ocasión sea 1 más alto. O dicho de manera más simple, se predice que el estado de ánimo negativo
 será más alto de lo habitual en los días en que las personas reportan más estrés de lo habitual. Sin embargo, esta vez no
 hay efecto del estrés entre-persona: el estrés medio de la persona no predice el estado de ánimo negativo medio de la persona.
-Entonces, el efecto del estrés en el panel superior derecho es completamente \emph{longitudinal}: no es que las personas
+Entonces, el efecto del estrés en el panel superior derecho es completamente \textit{longitudinal}: no es que las personas
 crónicamente estresadas sean más gruñonas que otras personas, es que cada vez que las personas reportan más estrés de
 lo normal (independientemente de lo que sea ``habitua'', como lo indica el estrés medio de su persona), también son más
 gruñones de lo habitual.
@@ -1059,8 +1059,8 @@ que ambos efectos se observen hasta cierto punto. Para ilustrar, considere el pa
 que muestra los efectos de estrés positivos de ambos tipos. Pero aquí el efecto entre-persona de 2 es mayor que el efecto
 intra-persona de 0.5: la pendiente de la línea a través de las medias de las personas tiene una pendiente de 1.5 más
 pronunciada que la pendiente de las trayectorias de estrés individuales. En consecuencia, por cada unidad de
-\emph{estrés de una persona sobre otras personas}, se espera que el estado de ánimo negativo sea 2 veces más alto, pero por
-cada unidad de \emph{más estrés que la propia media}, se espera que el estado de ánimo negativo de esa ocasión sea más alto
+\textit{estrés de una persona sobre otras personas}, se espera que el estado de ánimo negativo sea 2 veces más alto, pero por
+cada unidad de \textit{más estrés que la propia media}, se espera que el estado de ánimo negativo de esa ocasión sea más alto
 en 0.5. Dada la misma variabilidad tanto para el estrés como para el estado de ánimo negativo (es decir, ICC de 0.5 para cada
 variable), este resultado significaría que ser una persona más estresada (que otras personas) es más importante para predecir
 el estado de ánimo negativo que tener una ocasión más estresante (de lo habitual), pero aquí tanto las diferencias individuales
@@ -1069,19 +1069,39 @@ como la variación intraindividual en el estrés son importantes hasta cierto pu
 Hasta ahora, los efectos hipotéticos del estrés han sido aditivos en todos los niveles, pero este no tiene por qué ser el caso.
 Para ilustrar, considere el panel inferior derecho de \ref{lessa_1} en el que también está presente una interacción entre
 el estrés entre-persona y el estrés intra-persona. En consecuencia, los dos efectos principales del estrés ahora están
-condicionados el uno al otro: el efecto de estrés entre-persona de 2 se aplica \emph{específicamente cuando las personas
+condicionados el uno al otro: el efecto de estrés entre-persona de 2 se aplica \textit{específicamente cuando las personas
 están en sus propios niveles medios de estrés} (p. ej., como lo muestra la línea discontinua a través de la estrés medio
-de la persona), y el efecto de estrés intra-persona de 1 se aplica \emph{específicamente para las personas en el valor
+de la persona), y el efecto de estrés intra-persona de 1 se aplica \textit{específicamente para las personas en el valor
 central del estrés medio de la persona} (p. ej., el estrés medio de la persona = 5 aquí, como lo indican los triángulos).
 La interacción entre el estrés entre-persona y el estrés intra-persona de -0.5 se puede interpretar de dos maneras equivalentes.
-Primero (y más intuitivamente), significa que el \emph{efecto dentro-persona} de reportar más estrés de lo habitual en una
-ocasión dada (que era 1 dado el estrés medio de una persona = 5) \emph{se vuelve menos positivo por 0.5 por cada unidad mayor del
-estrés medio de esa persona:} el efecto de reportar más estrés de lo habitual importa \emph{menos} para las personas que tienen
+Primero (y más intuitivamente), significa que el \textit{efecto dentro-persona} de reportar más estrés de lo habitual en una
+ocasión dada (que era 1 dado el estrés medio de una persona = 5) \textit{se vuelve menos positivo por 0.5 por cada unidad mayor del
+estrés medio de esa persona:} el efecto de reportar más estrés de lo habitual importa \textit{menos} para las personas que tienen
 más estrés en general. Alternativamente, la interacción entre el estrés entre-persona y el estrés intra-persona de -0.5
-también significa que el \emph{efecto entre-persona} de reportar un mayor estrés medio que otras personas (que es 2 cuando
-el estrés variable en el tiempo está en la media de la persona) \emph{se vuelve menos positivo en 0.5 por cada unidad más
+también significa que el \textit{efecto entre-persona} de reportar un mayor estrés medio que otras personas (que es 2 cuando
+el estrés variable en el tiempo está en la media de la persona) \textit{se vuelve menos positivo en 0.5 por cada unidad más
 de estrés que lo habitual:} las diferencias entre las personas debido al estrés medio son menos pronunciadas cuando
 las personas están más estresadas que lo habitual.
+
+Para resumir, es probable que las CVT sean informativas en múltiples niveles de análisis porque casi siempre
+contienen variancia tanto entre-persona como intra-persona, y es probable que cada fuente de variación tenga
+un efecto diferente sobre el resultado. Estos efectos pueden ser aditivos o interactivos (y cada uno de ellos
+también puede interactuar con otros predictores). La experiencia sugiere que \textit{es la regla, más que la
+excepción, que los efectos entre-persona e intra-persona de las CVT diferirán entre sí}, y hay (al menos) dos
+razones para esto. La primera razón se relaciona con los constructos teóricos medidos por la covariable en
+el análisis. En el ejemplo del estrés, una confluencia de varios factores crónicos puede resultar en que un
+individuo determinado sea una persona con "mucho estrés" o "bajo estrés", tales como variables de personalidad,
+diferencias en el estilo de vida, etc. Sin embargo, es probable que factores diferentes y más reales sean la
+razón por la que algunos días son más estresantes que otros, como las desviaciones específicas temporales de
+las rutinas normales de trabajo, familia o salud. Por lo tanto, dado que la variación entre-personae intra-persona
+probablemente represente dos constructos teóricos diferentes, su efecto sobre un resultado dado a menudo será
+de diferentes magnitudes o incluso de diferentes direcciones. Pero además de las diferencias en los constructos
+que reflejan, sin embargo, la segunda razón por la cual los efectos entre-persona e intra-persona probablemente
+difieran entre sí es simplemente porque son coeficientes no estandarizados. Es decir, cantidades desiguales de
+variación entre-persona versus intra-persona darán como resultado efectos fijos que se estiman en diferentes
+escalas numéricas.
+
+\subsection{El valor de las CVT en los modelos}
 
 % Lessa Hoffman 333
 
