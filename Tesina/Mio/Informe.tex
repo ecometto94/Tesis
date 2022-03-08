@@ -1101,7 +1101,23 @@ difieran entre sí es simplemente porque son coeficientes no estandarizados. Es 
 variación entre-persona versus intra-persona darán como resultado efectos fijos que se estiman en diferentes
 escalas numéricas.
 
-\subsection{El valor de las CVT en los modelos}
+\subsection{El rol de las CVT en los modelos para la parte media}
+
+Ahora consideramos los roles potenciales que pueden desempeñar las CVT en cada parte del modelo. Se cree comúnmente que
+el papel de los efectos fijos de las CVT en el modelo de las medias es aportar a la varianza residual intra-persona
+($\sigma_e^2$). Si bien esto es cierto, no es toda la historia, porque los predictores que varían en el tiempo deberán
+estar representados por dos covariables separadas que distingan sus fuentes de variación entre-persona e intra-persona
+para distinguir adecuadamente su potencial efecto entre-persona e intra-persona en un resultado longitudinal. Por lo tanto,
+para ser más específicos, es la parte \textit{intra-persona de la CVT} la que potencialmente
+podría explicar la variancia $\sigma_e^2$ intra-persona. De manera similar, las interacciones entre las partes intra-persona
+de dos o más CVT también reducirían $\sigma_e^2$. En contraste, la parte \textit{entre personas de la CVT} es en realidad
+una covariable \textit{invariante en el tiempo}. Y, como ua sabemos, las covariables invariantes en el tiempo
+pueden modificar cualquier término para la intersección, la asíntota, el cambio en el tiempo o el efecto de cualquier
+CVT.
+
+%%% NO ENTIENDO ESTO
+% Al hacerlo, explican la variancia aleatoria de nivel 2 en el efecto de nivel 1 si el efecto de nivel 1 es aleatorio,
+% o bien la varianza residual de nivel 1 si el efecto de nivel 1 no es aleatorio.
 
 % Lessa Hoffman 333
 
