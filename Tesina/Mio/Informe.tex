@@ -1119,7 +1119,25 @@ CVT.
 % Al hacerlo, explican la variancia aleatoria de nivel 2 en el efecto de nivel 1 si el efecto de nivel 1 es aleatorio,
 % o bien la varianza residual de nivel 1 si el efecto de nivel 1 no es aleatorio.
 
-% Lessa Hoffman 333
+\subsection{El rol de las CVT en los modelos para la covariancia}
+
+Además de los efectos fijos en el modelo de la parte media que pueden explicar la variancia de la respuesta,
+una CVT puede contribuir al modelo de la variancia de dos formas. Primero, los predictores variables en el tiempo
+pueden tener \textit{efectos aleatorios}, es decir, cada persona puede necesitar su propia pendiente para el efecto
+de la CVT. Por ejemplo, \textit{el efecto de tener más estrés de lo normal} en el estado de ánimo negativo podría
+diferir aleatoriamente entre las personas. Las diferencias individuales en las pendientes se convertirían entonces
+en otra cantidad de variancia a predecir (es decir, mediante interacciones entre niveles de la CVT con la pendiente
+aleatoria con una o más covariables invariantes en el tiempo, tal como vimos en secciones anteriores)
+
+En segundo lugar, las CVT también se pueden usar para predecir la heterogeneidad de la variancia en la respuesta.
+La \textit{parte entre-persona} de una CVT puede predecir la heterogeneidad de la variancia entre persona (es decir,
+cantidades diferenciales de las variancias de efectos aleatorios entre personas) o la heterogeneidad de la variancia
+residual intra-persona (es decir, cantidades diferenciales de fluctuación intra-persona entre personas). Pero la
+\textit{parte intra-persona} de una CVT solo puede predecir la heterogeneidad de la variancia residual intra-persona.
+En resumen, especificar y evaluar correctamente las muchas contribuciones de una CVT (y todas sus partes aditivas e
+interactivas) en un modelo longitudinal puede ser una tarea bastante compleja.
+
+% Lessa Hoffman 334
 
 \newpage
 \nocite{*}
