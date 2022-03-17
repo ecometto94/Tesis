@@ -635,6 +635,10 @@ confundido si además de depender de las componentes fijas y del error que predi
 
 % En el word hay una tabla que explica como usar cada residuo
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DIGGLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Covariables que varían en el tiempo}
 
 En los estudios longitudinales, las variables independientes pueden ser clasificadas en dos categorías: covariables fijas
@@ -923,6 +927,10 @@ Esta simple ilustración muestra que con exposiciones longitudinales (tratamient
 longitudinales, una variable puede ser tanto una variable de confusión como una variable intermedia.
 Entonces no se pueden usar métodos de regresión estándar para obtener declaraciones causales.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%LESSA HOFFMAN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Consideraciones al usar modelos longitudinales con CVT}
 
 Las CVT suelen medirse en las mismas ocasiones que la variable respuesta, aunque no tiene por qué ser así. Por ejemplo,
@@ -1137,7 +1145,26 @@ residual intra-persona (es decir, cantidades diferenciales de fluctuación intra
 En resumen, especificar y evaluar correctamente las muchas contribuciones de una CVT (y todas sus partes aditivas e
 interactivas) en un modelo longitudinal puede ser una tarea bastante compleja.
 
-% Lessa Hoffman 334
+%%%
+% ACA IRIA EL CAPITULO 1.F DE LESSA HOFFMAN PERO NO LO ENTENDI
+%%%
+
+\section{Examinando los principales efectos multi-nivel de las CVT}
+
+El ejemplo de este capítulo se basará en los mismos datos que se usaron anteriormente. Se recopilaron cinco
+evaluaciones durante un período de dos semanas de 105 adultos mayores de 69 a 95 años
+($\hat{\mu} = 80.13, \hat{\sigma} = 6.11$), el 27\% de los cuales eran hombres. La respuesta es la suma de
+la cantidad de síntomas físicos que los participantes informaron haber experimentado en las últimas 24 horas
+($\hat{\mu} = 1.27, \hat{\sigma} = 1.32, rango posible = 0 a 5; ICC = 0.66$). Un total de 509 casos estaban
+completos con respecto a las variables a incluir (es decir, síntomas predichos por sexo, edad, estado de ánimo
+negativo diario y estres diarios). Dado nuestro eventual interés en modelos con varianzas heterogéneas, estimaremos
+todos los modelos utilizando la máxima verosimilitud (ML). La significación los efectos fijos individuales se
+probará mediante sus $p-value$ de prueba de Wald. La significación de un conjunto de múltiples efectos fijos
+nuevos o de un nuevo efecto aleatorio se evaluará mediante pruebas de razón de verosimilitud. Haremos las
+suposiciones habituales de normalidad, así como independencia y variancia constante entre personas, días y
+covariables.
+
+% Lessa Hoffman 336
 
 \newpage
 \nocite{*}
