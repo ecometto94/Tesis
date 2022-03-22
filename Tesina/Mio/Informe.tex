@@ -250,187 +250,187 @@ mediciones de las misma unidad (variación biológica intra-unidad y error de
 medición)
 
 Dado que, como se mencionó anteriormente, las mediciones están correlacionadas
-sí, si se utilizaran las técnicas habituales basadas en la independencia entre
-mediciones, los errores estándares nominales van a ser incorrectos, lo cual nos
-llevaría a inferencias incorrectas sobre los parámetros del modelo. En base a
-esto, surgen técnicas que consideran esa correlación modelando los datos
+entre sí, si se utilizaran las técnicas habituales basadas en la independencia
+entre mediciones, los errores estándares nominales van a ser incorrectos, lo
+cual nos llevaría a inferencias incorrectas sobre los parámetros del modelo. En
+base a esto, surgen técnicas que consideran esa correlación modelando los datos
 considerando la modelación de dos estructuras: la parte media y la estructura
 de covariancia.
 
-\subsection{Análisis exploratorio}
+% \subsection{Análisis exploratorio}
 
-Antes de ajustar algún modelo, lo primero siempre es realizar un análisis
-exploratorio para estudiar cómo se comportan los datos. A continuación se
-presentan técnicas gráficas para cada estructura.
+% Antes de ajustar algún modelo, lo primero siempre es realizar un análisis
+% exploratorio para estudiar cómo se comportan los datos. A continuación se
+% presentan técnicas gráficas para cada estructura.
 
-\textit{Evaluación de la parte media}
+% \textit{Evaluación de la parte media}
 
-\begin{itemize}
-	\item \textit{Perfil individual:} Consiste en un gráfico de dispersión en
-	el cual se representan las respuestas vs las ocasiones. Cada respuesta
-	tiene un punto y se une con un segmento los puntos de la misma unidad.
-	Sirven para detectar si hay mucha variabilidad entre y dentro de las
-	unidades y si hay valores atípicos.
-	\item \textit{Perfiles promedio por grupo:} En general son más
-	informativos. Para cada tiempo calculamos un promedio para cada grupo y
-	luego se unen los puntos. Permiten ver la tendencia de las variables a
-	través de las ocasiones. Se superponen en un mismo gráfico los perfiles
-	promedio de cada grupo
-\end{itemize}
+% \begin{itemize}
+% 	\item \textit{Perfil individual:} Consiste en un gráfico de dispersión en
+% 	el cual se representan las respuestas vs las ocasiones. Cada respuesta
+% 	tiene un punto y se une con un segmento los puntos de la misma unidad.
+% 	Sirven para detectar si hay mucha variabilidad entre y dentro de las
+% 	unidades y si hay valores atípicos.
+% 	\item \textit{Perfiles promedio por grupo:} En general son más
+% 	informativos. Para cada tiempo calculamos un promedio para cada grupo y
+% 	luego se unen los puntos. Permiten ver la tendencia de las variables a
+% 	través de las ocasiones. Se superponen en un mismo gráfico los perfiles
+% 	promedio de cada grupo
+% \end{itemize}
 
-\textit{Evaluación de la estructura de covariancia}
+% \textit{Evaluación de la estructura de covariancia}
 
-\begin{itemize}
-	\item \textit{Matriz de diagrama de dispersión:} Para cada par de ocasiones
-	se grafican los valores esperados de la respuesta y todos estos gráficos se
-	acomodan dentro de una matriz. En general se utiliza cuando las ocasiones
-	son las mismas para todas las unidades.
-	\item \textit{Gráfico de Draftman:} Es similar al gráfico anterior pero
-	utilizando variables estandarizadas. La utilización de la variable
-	respuesta estandarizada ayuda a eliminar la variabilidad de los datos
-	asociada con diferencias en las medias y variancias en el tiempo,
-	permitiendo visualizar más claramente el patrón de correlación.
-	\item \textit{Gráfico PRISM (Partial Regression on Intervenors Scatterplot
-	Matrix):} Utilizando la variable estandarizada se crea una matriz de
-	gráficos de dispersión. En la primera diagonal se encuentran gráficos de
-	dispersión entre la variable respuesta en los tiempos $t_j$ y $t_{j+1}$.
-	Luego, en la k-ésima diagonal, se obtienen gráficos de regresión parcial de
-	las respuestas en los tiempos $t_j$ y $t_{j+k}$, ajustadas por las
-	respuestas en los tiempos intermedios. Estos gráficos permiten ver con
-	mayor claridad ciertos tipos de estructuras seriales que se dan entre las
-	medidas repetidas.
-	\item \textit{Correlograma:} Representa las características que existen
-	entre las respuestas de los individuos de cada grupo en tiempos que están
-	separados una cantidad de periodos. Permite analizar cómo evoluciona la
-	correlación a medida que aumenta el número de rezagos.
-	\item \textit{Semivariograma:} Cuando los datos están desbalanceados, el
-	semivariograma permite distinguir las 3 fuentes de variabilidad. Después de
-	haber estimado un modelo, el mismo permite confirmar si la estructura de
-	correlación es adecuada. El semivariograma se define como una función:
-	\[ \gamma(u) = \frac{1}{2} E[(\varepsilon _{ij} - \varepsilon_{ij'})^2] \]
-	\[ u_{ijj'} = |t_{ij} - t_{ij'}| \]
-	\[ \widehat{\gamma(u)} = v_{ijj'} = \frac{1}{2} (r_{ij} - r_{ij'}) \] donde
-	$r_{ij}$ y $r_{ij'}$ son los residuos estandarizados obtenidos después de
-	ajustar un modelo de regresión considerando las observaciones
-	independientes.
+% \begin{itemize}
+% 	\item \textit{Matriz de diagrama de dispersión:} Para cada par de ocasiones
+% 	se grafican los valores esperados de la respuesta y todos estos gráficos se
+% 	acomodan dentro de una matriz. En general se utiliza cuando las ocasiones
+% 	son las mismas para todas las unidades.
+% 	\item \textit{Gráfico de Draftman:} Es similar al gráfico anterior pero
+% 	utilizando variables estandarizadas. La utilización de la variable
+% 	respuesta estandarizada ayuda a eliminar la variabilidad de los datos
+% 	asociada con diferencias en las medias y variancias en el tiempo,
+% 	permitiendo visualizar más claramente el patrón de correlación.
+% 	\item \textit{Gráfico PRISM (Partial Regression on Intervenors Scatterplot
+% 	Matrix):} Utilizando la variable estandarizada se crea una matriz de
+% 	gráficos de dispersión. En la primera diagonal se encuentran gráficos de
+% 	dispersión entre la variable respuesta en los tiempos $t_j$ y $t_{j+1}$.
+% 	Luego, en la k-ésima diagonal, se obtienen gráficos de regresión parcial de
+% 	las respuestas en los tiempos $t_j$ y $t_{j+k}$, ajustadas por las
+% 	respuestas en los tiempos intermedios. Estos gráficos permiten ver con
+% 	mayor claridad ciertos tipos de estructuras seriales que se dan entre las
+% 	medidas repetidas.
+% 	\item \textit{Correlograma:} Representa las características que existen
+% 	entre las respuestas de los individuos de cada grupo en tiempos que están
+% 	separados una cantidad de periodos. Permite analizar cómo evoluciona la
+% 	correlación a medida que aumenta el número de rezagos.
+% 	\item \textit{Semivariograma:} Cuando los datos están desbalanceados, el
+% 	semivariograma permite distinguir las 3 fuentes de variabilidad. Después de
+% 	haber estimado un modelo, el mismo permite confirmar si la estructura de
+% 	correlación es adecuada. El semivariograma se define como una función:
+% 	\[ \gamma(u) = \frac{1}{2} E[(\varepsilon _{ij} - \varepsilon_{ij'})^2] \]
+% 	\[ u_{ijj'} = |t_{ij} - t_{ij'}| \]
+% 	\[ \widehat{\gamma(u)} = v_{ijj'} = \frac{1}{2} (r_{ij} - r_{ij'}) \] donde
+% 	$r_{ij}$ y $r_{ij'}$ son los residuos estandarizados obtenidos después de
+% 	ajustar un modelo de regresión considerando las observaciones
+% 	independientes.
 
-	Se va a obtener un gráfico donde la variabilidad total va a estar dividida
-	en 3 partes. Si la curva no empieza en cero significa que hay error de
-	medición, si tiene pendiente quiere decir que hay un error debido a una
-	causa biológica (correlación serial) y si la misma no llega a la variancia
-	total significa que se debe explicar la variabilidad entre.
-\end{itemize}
+% 	Se va a obtener un gráfico donde la variabilidad total va a estar dividida
+% 	en 3 partes. Si la curva no empieza en cero significa que hay error de
+% 	medición, si tiene pendiente quiere decir que hay un error debido a una
+% 	causa biológica (correlación serial) y si la misma no llega a la variancia
+% 	total significa que se debe explicar la variabilidad entre.
+% \end{itemize}
 
-\subsection{Modelo lineal general para datos longitudinales}
+% \subsection{Modelo lineal general para datos longitudinales}
 
-Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta
-tendencia se puede expresar como una función, se puede escribir o representar a
-las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo
-lineal para representar la evolución en el tiempo va a ser:
-\[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1},
-Y_{i2}, ..., Y_{in_{i}})' \] Donde:
+% Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta
+% tendencia se puede expresar como una función, se puede escribir o representar a
+% las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo
+% lineal para representar la evolución en el tiempo va a ser:
+% \[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1},
+% Y_{i2}, ..., Y_{in_{i}})' \] Donde:
 
-\begin{itemize}
-	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión
-	$t_{ij}$.
-	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
-	\item $\beta $: vector de parámetros de dimensión $(p*1)$
-	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad,
-	de dimensión $(n_i*1)$, este mismo representa todas las fuentes de
-	variabilidad de los datos longitudinales
-	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
-	\item $\theta$: vector de parámetros desconocidos de covariancia, de
-	dimensión $(q*1)$
-\end{itemize}
+% \begin{itemize}
+% 	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión
+% 	$t_{ij}$.
+% 	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
+% 	\item $\beta $: vector de parámetros de dimensión $(p*1)$
+% 	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad,
+% 	de dimensión $(n_i*1)$, este mismo representa todas las fuentes de
+% 	variabilidad de los datos longitudinales
+% 	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
+% 	\item $\theta$: vector de parámetros desconocidos de covariancia, de
+% 	dimensión $(q*1)$
+% \end{itemize}
 
-\subsection{Modelación de la estructura de covariancia}
+% \subsection{Modelación de la estructura de covariancia}
 
-Al tenerse tantos parámetros de variancia $(n)$ y covariancia $n(n-1)/2$ para
-estimar, se proponen modelos específicos para la estructura de correlación. Se
-trata de elegir una estructura que no tenga tantos parámetros. Sin embargo, se
-debe tener cuidado de no seleccionar estructuras demasiado parcas con las que
-se pierda información.
+% Al tenerse tantos parámetros de variancia $(n)$ y covariancia $n(n-1)/2$ para
+% estimar, se proponen modelos específicos para la estructura de correlación. Se
+% trata de elegir una estructura que no tenga tantos parámetros. Sin embargo, se
+% debe tener cuidado de no seleccionar estructuras demasiado parcas con las que
+% se pierda información.
 
-La matriz de covariancia de cada unidad va a ser función de $\theta$. El número
-de parámetros de este vector depende de la estructura de la matriz.
+% La matriz de covariancia de cada unidad va a ser función de $\theta$. El número
+% de parámetros de este vector depende de la estructura de la matriz.
 
-A continuación se mencionan algunas estructuras que se pueden utilizar, se
-llamará $R$ a la matriz de correlaciones
+% A continuación se mencionan algunas estructuras que se pueden utilizar, se
+% llamará $R$ a la matriz de correlaciones
 
-\subsubsection{Arbitraria o no estructurada (datos balanceados)}
+% \subsubsection{Arbitraria o no estructurada (datos balanceados)}
 
-Considera variancias y covariancias distintas entre las mediciones repetidas.
-Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
-\[
-\varSigma = 
-\begin{bmatrix}
-	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
-	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
-	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
-	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
-\end{bmatrix}
-\]
-La ausencia de restricciones hace que haya que estimar una gran cantidad de
-parámetros
+% Considera variancias y covariancias distintas entre las mediciones repetidas.
+% Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
+% \[
+% \varSigma = 
+% \begin{bmatrix}
+% 	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
+% 	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
+% 	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
+% 	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
+% \end{bmatrix}
+% \]
+% La ausencia de restricciones hace que haya que estimar una gran cantidad de
+% parámetros
 
-\subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
+% \subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
 
-La correlación entre pares de observaciones es la misma, sin importar la
-cantidad de rezagos entre ellas,
-$Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
-\[
-R_i =
-\begin{bmatrix}
-	1      & \rho   & \dots  & \rho \\
-	\rho   & 1      & \dots  & \rho \\
-	\vdots & \vdots	& \ddots & \vdots \\
-	\rho   & \rho   & \dots  & 1
-\end{bmatrix}
-\]
+% La correlación entre pares de observaciones es la misma, sin importar la
+% cantidad de rezagos entre ellas,
+% $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
+% \[
+% R_i =
+% \begin{bmatrix}
+% 	1      & \rho   & \dots  & \rho \\
+% 	\rho   & 1      & \dots  & \rho \\
+% 	\vdots & \vdots	& \ddots & \vdots \\
+% 	\rho   & \rho   & \dots  & 1
+% \end{bmatrix}
+% \]
 
-\subsubsection{Toeplitz (datos equiespaciados)}
-Se plantea para que cualquier par de respuestas que estén igualmente separadas
-en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$
-para todo $j$ y $k$.
-\[
-R_i =
-\begin{bmatrix}
-	1      & \rho_1 	& \dots  & \rho_n \\
-	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
-	\vdots & \vdots		& \ddots & \vdots \\
-	\rho_n & \rho_{n-1} & \dots  & 1
-\end{bmatrix}
-\]
+% \subsubsection{Toeplitz (datos equiespaciados)}
+% Se plantea para que cualquier par de respuestas que estén igualmente separadas
+% en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$
+% para todo $j$ y $k$.
+% \[
+% R_i =
+% \begin{bmatrix}
+% 	1      & \rho_1 	& \dots  & \rho_n \\
+% 	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
+% 	\vdots & \vdots		& \ddots & \vdots \\
+% 	\rho_n & \rho_{n-1} & \dots  & 1
+% \end{bmatrix}
+% \]
 
-\subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
-Es un caso especial de la estructura anterior, en la que
-$Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación
-entre medidas repetidas disminuye a medida que aumenta el número de rezagos
-entre ellas.
-\[
-R_i =
-\begin{bmatrix}
-	1      & \rho 	    & \dots  & \rho^n \\
-	\rho   & 1     		& \dots  & \rho^{n-1} \\
-	\vdots & \vdots		& \ddots & \vdots \\
-	\rho^n & \rho^{n-1} & \dots  & 1
-\end{bmatrix}
-\]
+% \subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
+% Es un caso especial de la estructura anterior, en la que
+% $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación
+% entre medidas repetidas disminuye a medida que aumenta el número de rezagos
+% entre ellas.
+% \[
+% R_i =
+% \begin{bmatrix}
+% 	1      & \rho 	    & \dots  & \rho^n \\
+% 	\rho   & 1     		& \dots  & \rho^{n-1} \\
+% 	\vdots & \vdots		& \ddots & \vdots \\
+% 	\rho^n & \rho^{n-1} & \dots  & 1
+% \end{bmatrix}
+% \]
 
-\subsubsection{Markov (datos no equiespaciados)}
+% \subsubsection{Markov (datos no equiespaciados)}
 
-Es una generalización de la estructura autorregresiva para mediciones no
-equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde
-$d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
-\[
-R_i =
-\begin{bmatrix}
-	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
-	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
-	\vdots 		  & \vdots		  & \ddots & \vdots \\
-	\rho^n 		  & \rho^{n-1}    & \dots  & 1
-\end{bmatrix}
-\]
+% Es una generalización de la estructura autorregresiva para mediciones no
+% equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde
+% $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
+% \[
+% R_i =
+% \begin{bmatrix}
+% 	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
+% 	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
+% 	\vdots 		  & \vdots		  & \ddots & \vdots \\
+% 	\rho^n 		  & \rho^{n-1}    & \dots  & 1
+% \end{bmatrix}
+% \]
 
 \subsection{Modelos lineales mixtos}
 
@@ -488,283 +488,283 @@ este modelo se obtiene:
 Generalmente, la matriz $D_i$ adopta una estructura de covariancia arbitraria,
 mientras que la matriz $R_i$ adopta cualquiera de las vistas anteriormente
 
-\subsection{Estimación de los parámetros del modelo}
+% \subsection{Estimación de los parámetros del modelo}
 
-Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se
-pueden usar métodos de estimación basados en la teoría de máxima verosimilitud,
-cuya idea es asignar a los parámetros el valor más probable en base a los datos
-que fueron observados. Se usarán para estimar los parámetros de la parte media
-y los de las estructuras de covariancia los métodos de máxima verosimilitud
-(ML) y máxima verosimilitud restringida (REML) respectivamente
+% Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se
+% pueden usar métodos de estimación basados en la teoría de máxima verosimilitud,
+% cuya idea es asignar a los parámetros el valor más probable en base a los datos
+% que fueron observados. Se usarán para estimar los parámetros de la parte media
+% y los de las estructuras de covariancia los métodos de máxima verosimilitud
+% (ML) y máxima verosimilitud restringida (REML) respectivamente
 
-\subsubsection{Método de máxima verosimilitud (ML)}
+% \subsubsection{Método de máxima verosimilitud (ML)}
 
-Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$
-son independientes entre sí, se obtiene la siguiente función de
-log-verosimilitud:
+% Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$
+% son independientes entre sí, se obtiene la siguiente función de
+% log-verosimilitud:
 
-\begin{equation}
-\label{ML}
-	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
-	\varSigma_i^{-1} (Y_i - X_i\beta)]
-\end{equation}
+% \begin{equation}
+% \label{ML}
+% 	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+% 	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
+% 	\varSigma_i^{-1} (Y_i - X_i\beta)]
+% \end{equation}
 
-Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de
-covariancia.
+% Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de
+% covariancia.
 
-La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego
-debe igualarse a cero, de esta manera se obtienen sus estimadores. Cuando
-$\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no
-lineal, por lo que no se puede obtener una expresión explícita de
-$\hat{\theta}$, para encontrar su solución se recurren a algoritmos numéricos.
-El estimador del vector $\beta$ resulta:
+% La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego
+% debe igualarse a cero, de esta manera se obtienen sus estimadores. Cuando
+% $\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no
+% lineal, por lo que no se puede obtener una expresión explícita de
+% $\hat{\theta}$, para encontrar su solución se recurren a algoritmos numéricos.
+% El estimador del vector $\beta$ resulta:
 
-\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1}
-\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i \]
+% \[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1}
+% \sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i \]
 
-El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es
-conocido se conoce la distribución exacta del estimador. Sin embargo, cuando es
-desconocido, no se puede calcular de manera exacta la matriz de covariancias de
-$\hat{\beta}$. Si el número de unidades es grande se puede demostrar que
-asintóticamente:
+% El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es
+% conocido se conoce la distribución exacta del estimador. Sin embargo, cuando es
+% desconocido, no se puede calcular de manera exacta la matriz de covariancias de
+% $\hat{\beta}$. Si el número de unidades es grande se puede demostrar que
+% asintóticamente:
 
-\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
-(\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
+% \[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
+% (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
 
-\subsubsection{Método de máxima verosimilitud restringida (REML)}
+% \subsubsection{Método de máxima verosimilitud restringida (REML)}
 
-El inconveniente que posee el método de MV es que los parámetros de covariancia
-resultan sesgados. Es decir, a pesar de que la estimación de $\beta$ resulta
-insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los
-parámetros que representan las variancias van a ser demasiado pequeños, dando
-así una visión muy optimista de la variabilidad de las mediciones, es decir, se
-subestiman los parámetros de covariancia. El sesgo se debe a que en la
-estimación MV no se tiene en cuenta que $\beta$ es estimado a partir de los
-datos.
+% El inconveniente que posee el método de MV es que los parámetros de covariancia
+% resultan sesgados. Es decir, a pesar de que la estimación de $\beta$ resulta
+% insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los
+% parámetros que representan las variancias van a ser demasiado pequeños, dando
+% así una visión muy optimista de la variabilidad de las mediciones, es decir, se
+% subestiman los parámetros de covariancia. El sesgo se debe a que en la
+% estimación MV no se tiene en cuenta que $\beta$ es estimado a partir de los
+% datos.
 
-El método REML separa la parte de los datos usada para estimar $\beta$ de
-aquella usada para estimar los parámetros de $\varSigma_i$, la función de
-log-verosimilitud restringida que se propone es:
+% El método REML separa la parte de los datos usada para estimar $\beta$ de
+% aquella usada para estimar los parámetros de $\varSigma_i$, la función de
+% log-verosimilitud restringida que se propone es:
 
-\begin{equation}
-\label{REML}
-	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
-	\varSigma_i^{-1} (Y_i - X_i\beta)] -
-	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
-\end{equation}
+% \begin{equation}
+% \label{REML}
+% 	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+% 	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
+% 	\varSigma_i^{-1} (Y_i - X_i\beta)] -
+% 	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
+% \end{equation}
 
-Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
+% Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
 
-\[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1}
-\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
+% \[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1}
+% \sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
 
-Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
+% Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
 
-\subsection{Pruebas de hipótesis}
+% \subsection{Pruebas de hipótesis}
 
-Generalmente, la inferencia en estos modelos se centra en los parámetros de la
-parte media. Es decir, en combinaciones lineales de los parámetros de $\beta$.
-La hipótesis lineal general para los test se plantea construyendo dichas
-combinaciones a través de $L'\beta$, siendo $L'$ una matriz de dimensión
-$(r*p)$.
+% Generalmente, la inferencia en estos modelos se centra en los parámetros de la
+% parte media. Es decir, en combinaciones lineales de los parámetros de $\beta$.
+% La hipótesis lineal general para los test se plantea construyendo dichas
+% combinaciones a través de $L'\beta$, siendo $L'$ una matriz de dimensión
+% $(r*p)$.
 
-El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su
-distribución muestral es aproximadamente:
+% El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su
+% distribución muestral es aproximadamente:
 
-\[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
+% \[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
 
-Para probar las hipótesis se proponen dos métodos basados en la función de
-verosimilitud:
+% Para probar las hipótesis se proponen dos métodos basados en la función de
+% verosimilitud:
 
-\subsubsection{Test de Wald}
+% \subsubsection{Test de Wald}
 
-Se plantean las hipótesis:
+% Se plantean las hipótesis:
 
-\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
 
-La estadística de prueba resulta:
+% La estadística de prueba resulta:
 
-\[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
+% \[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
 
-Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
+% Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
 
-Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la
-aproximación asintótica a la distribución Normal. Si el $N$ es chico se propone
-reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El
-problema con el uso de esta estadística es que no se conocen los grados de
-libertad del denominador y deben ser calculados con los datos. 
+% Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la
+% aproximación asintótica a la distribución Normal. Si el $N$ es chico se propone
+% reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El
+% problema con el uso de esta estadística es que no se conocen los grados de
+% libertad del denominador y deben ser calculados con los datos. 
 
-%Algunos métodos para estimar los grados de libertad son: Contaiment,
-%Within-Between, Satterthwaite y Kenward y Roger, entre otros
-%(\textit{Fitzmaurice et al., 2004})
+% %Algunos métodos para estimar los grados de libertad son: Contaiment,
+% %Within-Between, Satterthwaite y Kenward y Roger, entre otros
+% %(\textit{Fitzmaurice et al., 2004})
 
-\subsubsection{Test de cociente de verosimilitud}
+% \subsubsection{Test de cociente de verosimilitud}
 
-Se basa en la teoría asintótica y va a suplir las dificultades del test de
-Wald. El test se obtiene comparando las verosimilitudes de dos modelos, uno de
-los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro
-no tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya
-que el modelo reducido es un caso particular del modelo completo.
+% Se basa en la teoría asintótica y va a suplir las dificultades del test de
+% Wald. El test se obtiene comparando las verosimilitudes de dos modelos, uno de
+% los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro
+% no tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya
+% que el modelo reducido es un caso particular del modelo completo.
 
-Al igual que anteriormente, se plantean las hipótesis:
+% Al igual que anteriormente, se plantean las hipótesis:
 
-\[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
+% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
 
-La función de log-verosimilitud maximizada del modelo completo es:
+% La función de log-verosimilitud maximizada del modelo completo es:
 
-\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-\frac{1}{2} \sum_{i=1}^{N} [(Y_i -
-X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
+% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+% \frac{1}{2} \sum_{i=1}^{N} [(Y_i -
+% X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
 
-Y la del modelo reducido es:
+% Y la del modelo reducido es:
 
-\[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1}
-(Y_i - X_i\beta_0)] \]
+% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+% \frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1}
+% (Y_i - X_i\beta_0)] \]
 
-Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto
-$L'\beta = 0$.
+% Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto
+% $L'\beta = 0$.
 
-Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
+% Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
 
-\[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
+% \[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
 
-Donde $v$ es el número de parámetros del modelo completo menos el número de
-parámetros del modelo reducido
+% Donde $v$ es el número de parámetros del modelo completo menos el número de
+% parámetros del modelo reducido
 
-Si lo que se quiere comparar mediante este test es la estructura media de dos
-modelos, se recomienda estimar los parámetros mediante el método ML. En cambio,
-si lo que se desea comparar son patrones de covariancia anidados entre dos
-modelos se recomienda estimar los parámetros con el método REML.
+% Si lo que se quiere comparar mediante este test es la estructura media de dos
+% modelos, se recomienda estimar los parámetros mediante el método ML. En cambio,
+% si lo que se desea comparar son patrones de covariancia anidados entre dos
+% modelos se recomienda estimar los parámetros con el método REML.
 
-Cuando se desea hacer inferencia sobre las componentes de variancia (por
-ejemplo, postular que una variancia es nula), la diferencia entre los dos
-modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si
-sucede esto, la distribución de la estadística $G^2$ ya no será una
-chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado, una de
-$k$ grados de libertad y otra de $k+1$ grados de libertad.
+% Cuando se desea hacer inferencia sobre las componentes de variancia (por
+% ejemplo, postular que una variancia es nula), la diferencia entre los dos
+% modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si
+% sucede esto, la distribución de la estadística $G^2$ ya no será una
+% chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado, una de
+% $k$ grados de libertad y otra de $k+1$ grados de libertad.
 
-% Si bien hay tablas para esta estadística, se recomienda en general utilizar
-% en vez de un nivel de significación del 5%, uno del 10%, para no tener
-% problemas de elegir un modelo demasiado simple
+% % Si bien hay tablas para esta estadística, se recomienda en general utilizar
+% % en vez de un nivel de significación del 5%, uno del 10%, para no tener
+% % problemas de elegir un modelo demasiado simple
 
-\subsection{Elección entre modelos de covariancia}
+% \subsection{Elección entre modelos de covariancia}
 
-Cuando los modelos no están anidados, como sucede generalmente cuando se
-plantean modelos con distintas estructuras de covariancia, no se puede usar el
-método del cociente de verosimilitud para compararlos.
+% Cuando los modelos no están anidados, como sucede generalmente cuando se
+% plantean modelos con distintas estructuras de covariancia, no se puede usar el
+% método del cociente de verosimilitud para compararlos.
 
-Como en la matriz de covariancia siempre intervienen los residuos, y en ellos
-aparecen los parámetros de la parte media del modelo, para asegurarse que la
-parte media esté bien especificada se elige un modelo maximal (modelo con todos
-los parámetros que queremos incorporar). Dado dicho modelo, se plantean
-distintos modelos que se van a diferenciar únicamente en la estructura de la
-matriz de covariancia.
+% Como en la matriz de covariancia siempre intervienen los residuos, y en ellos
+% aparecen los parámetros de la parte media del modelo, para asegurarse que la
+% parte media esté bien especificada se elige un modelo maximal (modelo con todos
+% los parámetros que queremos incorporar). Dado dicho modelo, se plantean
+% distintos modelos que se van a diferenciar únicamente en la estructura de la
+% matriz de covariancia.
 
-Los enfoques que se proponen a continuación se basan en la comparación de
-versiones penalizadas de las log-verosimilitudes de los modelos. Como es
-conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser
-la verosimilitud. Para comparar modelos con distinto número de parámetros, se
-penalizan a los mismos, surgiendo varios criterios A continuación se destacan
-dos de estos:
+% Los enfoques que se proponen a continuación se basan en la comparación de
+% versiones penalizadas de las log-verosimilitudes de los modelos. Como es
+% conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser
+% la verosimilitud. Para comparar modelos con distinto número de parámetros, se
+% penalizan a los mismos, surgiendo varios criterios A continuación se destacan
+% dos de estos:
 
-\begin{itemize}
-	\item \textit{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
-	\item \textit{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
-\end{itemize}
+% \begin{itemize}
+% 	\item \textit{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
+% 	\item \textit{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
+% \end{itemize}
 
-Donde:
+% Donde:
 
-$\hat{l}$: log-verosimilitud maximizada del modelo
+% $\hat{l}$: log-verosimilitud maximizada del modelo
 
-$p$: número de parámetros del modelo
+% $p$: número de parámetros del modelo
 
-El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio
-para seleccionar un modelo es aquel que minimice los valores de $AIC$ o $BIC$
+% El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio
+% para seleccionar un modelo es aquel que minimice los valores de $AIC$ o $BIC$
 
 
-\subsection{Predicción de los efectos aleatorios}
+% \subsection{Predicción de los efectos aleatorios}
 
-En muchas aplicaciones la inferencia está centrada solamente en los efectos
-fijos. Estos parámetros se interpretan como los cambios de la respuesta media
-en el tiempo, pero muchas veces se desea conocer además los perfiles
-individuales, por lo que necesitamos conocer los valores de $b_i$. Como $b_i$
-es una cantidad aleatoria se habla de predicción de $b_i$.
+% En muchas aplicaciones la inferencia está centrada solamente en los efectos
+% fijos. Estos parámetros se interpretan como los cambios de la respuesta media
+% en el tiempo, pero muchas veces se desea conocer además los perfiles
+% individuales, por lo que necesitamos conocer los valores de $b_i$. Como $b_i$
+% es una cantidad aleatoria se habla de predicción de $b_i$.
 
-Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar
-$E[b_i - c(Y_i)]^2$. La función $c(Y_i)$ que hace que esa esperanza sea lo más
-chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se
-simboliza:
+% Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar
+% $E[b_i - c(Y_i)]^2$. La función $c(Y_i)$ que hace que esa esperanza sea lo más
+% chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se
+% simboliza:
 
-\[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
+% \[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
 
-Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico
-(EBLUP) o estimador empírico de Bayes resulta:
+% Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico
+% (EBLUP) o estimador empírico de Bayes resulta:
 
-\[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
+% \[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
 
-A través de esto se pueden conocer los perfiles individuales, siendo
-$\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
-operando algebraicamente se llega a la expresión:
+% A través de esto se pueden conocer los perfiles individuales, siendo
+% $\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
+% operando algebraicamente se llega a la expresión:
 
-\[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n -
-\hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
+% \[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n -
+% \hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
 
-Resulta que el perfil individual estimado es un promedio ponderado entre el
-perfil de la respuesta media poblacional ($X_i\hat{\beta}$) y el perfil de la
-respuesta observada en la unidad $i$ $(Y_i)$.
+% Resulta que el perfil individual estimado es un promedio ponderado entre el
+% perfil de la respuesta media poblacional ($X_i\hat{\beta}$) y el perfil de la
+% respuesta observada en la unidad $i$ $(Y_i)$.
 
-\subsection{Examen de residuos}
+% \subsection{Examen de residuos}
 
-Como en todo análisis de datos en donde se utiliza un modelo estadístico, es
-necesario realizar un estudio del cumplimiento de los supuestos del modelo
-utilizando los gráficos de residuos.
+% Como en todo análisis de datos en donde se utiliza un modelo estadístico, es
+% necesario realizar un estudio del cumplimiento de los supuestos del modelo
+% utilizando los gráficos de residuos.
 
-El modelo lineal mixto para la unidad $i$ es:
+% El modelo lineal mixto para la unidad $i$ es:
 
-\[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
+% \[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
 
-Con $b_i$ y $\varepsilon_i$ independientes y
-$\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
+% Con $b_i$ y $\varepsilon_i$ independientes y
+% $\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
 
-En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
+% En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
 
-\subsubsection{Residuos marginales}
+% \subsubsection{Residuos marginales}
 
-Se definen como la diferencia entre el vector de respuestas y su media marginal
-estimada.
+% Se definen como la diferencia entre el vector de respuestas y su media marginal
+% estimada.
 
-\[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
+% \[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
 
-\subsubsection{Residuos condicionales}
+% \subsubsection{Residuos condicionales}
 
-Se definen como la diferencia entre el vector de respuestas y su media
-condicional estimada.
+% Se definen como la diferencia entre el vector de respuestas y su media
+% condicional estimada.
 
-\[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
+% \[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
 
-\subsubsection{Residuos de los efectos aleatorios}
+% \subsubsection{Residuos de los efectos aleatorios}
 
-\[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
+% \[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
 
-Estos residuos así calculados reciben el nombre de residuos ordinarios, van a
-estar correlacionados y sus variancias no van a ser necesariamente contrastes.
-Para evitar este inconveniente es necesario realizar una estandarización de los
-mismos:
+% Estos residuos así calculados reciben el nombre de residuos ordinarios, van a
+% estar correlacionados y sus variancias no van a ser necesariamente contrastes.
+% Para evitar este inconveniente es necesario realizar una estandarización de los
+% mismos:
 
-\begin{itemize}
-	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen
-	los residuos estudentizados.
-	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen
-	los residuos de Pearson.
-\end{itemize}
+% \begin{itemize}
+% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen
+% 	los residuos estudentizados.
+% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen
+% 	los residuos de Pearson.
+% \end{itemize}
 
-Se define como residuo puro al residuo que depende de solo los componentes
-fijos y del error que predice, y residuo confundido si además de depender de
-las componentes fijas y del error que predicen están en función de otros
-residuos.
+% Se define como residuo puro al residuo que depende de solo los componentes
+% fijos y del error que predice, y residuo confundido si además de depender de
+% las componentes fijas y del error que predicen están en función de otros
+% residuos.
 
 % En el word hay una tabla que explica como usar cada residuo
 
@@ -1475,26 +1475,6 @@ compleja.
 %%%
 % ACA IRIA EL CAPITULO 1.F DE LESSA HOFFMAN PERO NO LO ENTENDI
 %%%
-
-\section{Examinando los principales efectos multi-nivel de las CVT}
-
-El ejemplo de este capítulo se basará en los mismos datos que se usaron
-anteriormente. Se recopilaron cinco evaluaciones durante un período de dos
-semanas de 105 adultos mayores de 69 a 95 años ($\hat{\mu} = 80.13,
-\hat{\sigma} = 6.11$), el 27\% de los cuales eran hombres. La respuesta es la
-suma de la cantidad de síntomas físicos que los participantes informaron haber
-experimentado en las últimas 24 horas
-($\hat{\mu} = 1.27, \hat{\sigma} = 1.32, rango posible = 0 a 5; ICC = 0.66$).
-Un total de 509 casos estaban completos con respecto a las variables a incluir
-(es decir, síntomas predichos por sexo, edad, estado de ánimo negativo diario y
-estres diarios). Dado nuestro eventual interés en modelos con varianzas
-heterogéneas, estimaremos todos los modelos utilizando la máxima verosimilitud
-(ML). La significación los efectos fijos individuales se probará mediante sus
-$p-value$ de prueba de Wald. La significación de un conjunto de múltiples
-efectos fijos nuevos o de un nuevo efecto aleatorio se evaluará mediante
-pruebas de razón de verosimilitud. Haremos las suposiciones habituales de
-normalidad, así como independencia y variancia constante entre personas, días y
-covariables.
 
 % Lessa Hoffman terminado
 
