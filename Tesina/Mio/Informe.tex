@@ -158,13 +158,13 @@ pacientes hipertensos iniciado en el año 2014 en Rosario que realiza un
 seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla:
 efectores no médicos supervisados, tratamiento farmacológico genérico para la
 hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada
-visita se registran tantocaracterísticas de los pacientes, del tratamiento y de
-los valores de la tensión arterial. En particular, se desea evaluar si la
-adherencia al tratamiento farmacológico influye en los valores de la tensión
-arterial sistólica a lo largo del seguimiento. Como la variable
-“\fullcovname{}” es una CVT estocástica se evaluaran diferentes enfoques para
-incluirla en un modelo longitudinal que pueda explicar el cambio en la tensión
-arterial sistólica media a lo largo del tiempo.
+visita se registra el seguimiento del tratamiento y los valores de la tensión
+arterial sistólica. En particular, se desea evaluar si la adherencia al
+tratamiento farmacológico influye en los valores de la tensión arterial
+sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una
+CVT estocástica se evaluaran diferentes enfoques para incluirla en un modelo
+longitudinal que pueda explicar el cambio en la tensión arterial sistólica
+media a lo largo del tiempo.
 
 Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha
 otra información para obtener modelos que describan de mejor manera el
@@ -177,17 +177,19 @@ variable respuesta y la CVT.
 
 \subsection{Objetivo Principal}
 
-Profundizar en el estudio de propuestas metodológicas para utilizar la
-información obtenida de la \cvt{} dentro de un modelo mixto.
+Presentar diferentes propuestas metodológicas respecto a la incorporación de
+covariables que varían con el tiempo en modelos mixtos para datos
+longitudinales.
 
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-	\item Específicar distintos tipos de CVT
-	\item Transformaciones a realizar sobre la CVT antes de incluirla al
-	modelo, incluyendo conversión a covariable fija
-	\item Consideraciones sobre interpretación de los parámetros sobre las CVT
-	\item Indagar sobre feedback entre la CVT y la variable respuesta
+	\item Definir los tipos de covariables existentes.
+	\item Evaluar propuestas de incorporación de covariables que varían en el
+	tiempo en los modelos mixtos.
+	\item Aplicar los conceptos vistos en un estudio sobre la tendencia de la
+		  presión arterial en el tiempo para pacientes que siguen cierto
+		  tratamiento.
 \end{itemize}
 
 \newpage
@@ -772,6 +774,7 @@ mientras que la matriz $R_i$ adopta cualquiera de las vistas anteriormente
 % DIGGLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Covariables que varían en el tiempo}
 
 En los estudios longitudinales, las variables independientes pueden ser
@@ -1163,6 +1166,7 @@ métodos de regresión estándar para obtener declaraciones causales.
 %LESSA HOFFMAN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Consideraciones al usar modelos longitudinales con CVT}
 
 Las CVT suelen medirse en las mismas ocasiones que la variable respuesta,
@@ -1477,6 +1481,79 @@ compleja.
 %%%
 
 % Lessa Hoffman terminado
+
+\newpage
+\section{Aplicación}
+
+Se cuenta con un programa de atención y control de pacientes hipertensos
+iniciado en el año 2014 en Rosario que realiza un seguimiento exhaustivo de
+\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los
+cuales un 49.28\% son hombres. Las visitas se realizaron una vez por mes
+durante 7 meses desde la primera consulta y en cada una de ellas se registró si
+la persona estaba adhiriendo correctamente al tratamiento y el valor de la
+tensión arterial sistólica (TAS) (M=134.10, DS=16.07).
+
+A fines de centrarse en la CVT se dejaron de lado algunas covariables fijas
+derivadas de estudios de laboratorio, manteniendo solo algunas covariables
+sociodemográficas de interés para lograr una estabilidad entre modelos
+interpretables pero no demasiado complejos sin perder el objetivo principal de
+este informe.
+
+\subsection{Análisis descriptivo}
+
+En esta sección se presentaran diversos gráficos para ayudar a entender un poco
+mejor la población en estudio.
+
+En la figura \ref{TAS_vs_tpo} se puede observar que en general la TAS se
+mantiene constante (o con una muy leve pendiente decreciente) a través del
+tiempo. Esto a simple vista no resultaría muy alentador, dado que el propósito
+del tratamiento es disminuir la TAS a niveles más saludables. Sin embargo, como
+se mencionó anteriormente, los pacientes no adhirieron al 100\% el tratamiento,
+este efecto es el que estudiaremos más adelante. Cabe destacar que las
+mediciones de los pacientes son equiespaciadas en el tiempo, las desviaciones
+del eje en el tiempo se deben a una técnica llamada ``jitter'' que nos permite
+mover levemente los puntos en el eje x para poder observar mejor la densidad de
+los mismos. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/TAS_vs_tpo.png}
+	\caption{TAS de cada paciente en cada tiempo}
+	\label{TAS_vs_tpo}
+\end{figure}
+
+En la figura \ref{spaghetti} se pueden observar las trayectorias individuales
+de 15 pacientes seleccionados al azar, las pendientes son muy similares entre
+sí, sin embargo hay variación en la ordenada al origen.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/spaghetti_plot.png}
+	\caption{TAS a través del tiempo de 15 pacientes al azar}
+	\label{spaghetti}
+\end{figure}
+
+Otro gráfico que resulta de interés es observar la evolución de la TAS a través
+del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
+expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
+utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
+Podemos observar que, ya sea en mayor o en menor medida, estas covariables
+parecen tener un efecto en la ordenada al origen pero no en la pendiente.
+Teniendo menor TAS los pacientes con IMC más bajo, los más jóvenes, los que no
+padecieron diabetes, y las mujeres. Este es el comportamiento esperado en las
+respectivas primeras 3 covariables mencionadas, ya que es de público
+conocimiento que los grupos mencionados con menor TAS se consideran más
+saludables.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{img/TAS_vs_tpo_with_covs.png}
+	\caption{TAS a través del tiempo sobre grupos de covariables}
+	\label{TAS_with_covs}
+\end{figure}
+
+
+
 
 \newpage
 \nocite{*}
