@@ -490,79 +490,81 @@ este modelo se obtiene:
 Generalmente, la matriz $D_i$ adopta una estructura de covariancia arbitraria,
 mientras que la matriz $R_i$ adopta cualquiera de las vistas anteriormente
 
-% \subsection{Estimación de los parámetros del modelo}
+\subsection{Estimación de los parámetros del modelo}
 
-% Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se
-% pueden usar métodos de estimación basados en la teoría de máxima verosimilitud,
-% cuya idea es asignar a los parámetros el valor más probable en base a los datos
-% que fueron observados. Se usarán para estimar los parámetros de la parte media
-% y los de las estructuras de covariancia los métodos de máxima verosimilitud
-% (ML) y máxima verosimilitud restringida (REML) respectivamente
+Bajo el supuesto de que $\varepsilon_i$ y $b_i$ se distribuyen normalmente se
+pueden usar métodos de estimación basados en la teoría de máxima verosimilitud,
+cuya idea es asignar a los parámetros el valor más probable en base a los datos
+que fueron observados. Se usarán para estimar los parámetros de la parte media
+y los de las estructuras de covariancia los métodos de máxima verosimilitud
+(ML) y máxima verosimilitud restringida (REML) respectivamente
 
-% \subsubsection{Método de máxima verosimilitud (ML)}
+\subsubsection{Método de máxima verosimilitud (ML)}
 
-% Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$
-% son independientes entre sí, se obtiene la siguiente función de
-% log-verosimilitud:
+Bajo el supuesto de que $Y_i \sim N_{n_i}(X_i\beta, \varSigma_i)$ y las $Y_i$
+son independientes entre sí, se obtiene la siguiente función de
+log-verosimilitud:
 
-% \begin{equation}
-% \label{ML}
-% 	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% 	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
-% 	\varSigma_i^{-1} (Y_i - X_i\beta)]
-% \end{equation}
+\begin{equation}
+\label{ML}
+	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
+	\varSigma_i^{-1} (Y_i - X_i\beta)]
+\end{equation}
 
-% Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de
-% covariancia.
+Siendo $\varSigma_i$ función del vector $\theta$ que contiene los parámetros de
+covariancia.
 
-% La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego
-% debe igualarse a cero, de esta manera se obtienen sus estimadores. Cuando
-% $\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no
-% lineal, por lo que no se puede obtener una expresión explícita de
-% $\hat{\theta}$, para encontrar su solución se recurren a algoritmos numéricos.
-% El estimador del vector $\beta$ resulta:
+La ecuación anterior se debe derivar con respecto a $\beta$ y $\theta$ y luego
+debe igualarse a cero, de esta manera se obtienen sus estimadores. Cuando
+$\theta$ es desconocido (lo que generalmente sucede) se obtiene una ecuación no
+lineal, por lo que no se puede obtener una expresión explícita de
+$\hat{\theta}$, para encontrar su solución se recurren a algoritmos numéricos.
+El estimador del vector $\beta$ resulta:
 
-% \[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1}
-% \sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i \]
+\[ \hat{\beta} = (\sum_{i=1}^{N} X_i'\hat{\varSigma_i}^{-1}X_i)^{-1}
+\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}Y_i \]
 
-% El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es
-% conocido se conoce la distribución exacta del estimador. Sin embargo, cuando es
-% desconocido, no se puede calcular de manera exacta la matriz de covariancias de
-% $\hat{\beta}$. Si el número de unidades es grande se puede demostrar que
-% asintóticamente:
+El estimador $\hat{\beta}$ resulta insesgado de $\beta$. Cuando $\theta$ es
+conocido se conoce la distribución exacta del estimador. Sin embargo, cuando es
+desconocido, no se puede calcular de manera exacta la matriz de covariancias de
+$\hat{\beta}$. Si el número de unidades es grande se puede demostrar que
+asintóticamente:
 
-% \[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
-% (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
+\[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
+(\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
 
-% \subsubsection{Método de máxima verosimilitud restringida (REML)}
+% AGREGAR EL PROBLEMA CUANDO EL SUPUESTO NO SE CUMPLE
 
-% El inconveniente que posee el método de MV es que los parámetros de covariancia
-% resultan sesgados. Es decir, a pesar de que la estimación de $\beta$ resulta
-% insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los
-% parámetros que representan las variancias van a ser demasiado pequeños, dando
-% así una visión muy optimista de la variabilidad de las mediciones, es decir, se
-% subestiman los parámetros de covariancia. El sesgo se debe a que en la
-% estimación MV no se tiene en cuenta que $\beta$ es estimado a partir de los
-% datos.
+\subsubsection{Método de máxima verosimilitud restringida (REML)}
 
-% El método REML separa la parte de los datos usada para estimar $\beta$ de
-% aquella usada para estimar los parámetros de $\varSigma_i$, la función de
-% log-verosimilitud restringida que se propone es:
+El inconveniente que posee el método de MV es que los parámetros de covariancia
+resultan sesgados. Es decir, a pesar de que la estimación de $\beta$ resulta
+insesgada, no pasa lo mismo con $\theta$. Si el tamaño de muestra es chico, los
+parámetros que representan las variancias van a ser demasiado pequeños, dando
+así una visión muy optimista de la variabilidad de las mediciones, es decir, se
+subestiman los parámetros de covariancia. El sesgo se debe a que en la
+estimación MV no se tiene en cuenta que $\beta$ es estimado a partir de los
+datos.
 
-% \begin{equation}
-% \label{REML}
-% 	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% 	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
-% 	\varSigma_i^{-1} (Y_i - X_i\beta)] -
-% 	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
-% \end{equation}
+El método REML separa la parte de los datos usada para estimar $\beta$ de
+aquella usada para estimar los parámetros de $\varSigma_i$, la función de
+log-verosimilitud restringida que se propone es:
 
-% Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
+\begin{equation}
+\label{REML}
+	l^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
+	\frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta)'
+	\varSigma_i^{-1} (Y_i - X_i\beta)] -
+	- \frac{1}{2} ln |\sum_{i=1}^{N} X'_i \hat{\varSigma_i^{-1} X_i}|
+\end{equation}
 
-% \[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1}
-% \sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
+Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
 
-% Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
+\[ \hat{\beta} = (\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} X_i)^{-1}
+\sum_{i=1}^{N} X'_i \hat{\varSigma}_i^{-1} Y_i\]
+
+Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
 
 % \subsection{Pruebas de hipótesis}
 
