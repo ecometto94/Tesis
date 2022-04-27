@@ -85,42 +85,19 @@
 \newpage
 \section{Introducción}
 
-%% Tesis mara catalano, silvia camats y redacción mia
-
-Los datos longitudinales están conformados por mediciones repetidas de una
-misma variable realizadas a la misma unidad. Estas mediciones surgen de
-observar unidades en diferentes ocasiones, es decir en diferentes momentos o
-condiciones experimentales.
-
-Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
-longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
-los supuestos usuales acerca de la independencia entre las respuestas de cada
-unidad y la homogeneidad de variancias frecuentemente no son válidos
+Los datos longitudinales tienen la particularidad de estar conformados por
+mediciones repetidas sobre una unidad, las cuales pueden surgir por ser medidas
+en diferentes momentos o conidiciones
 
 El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio.
-
-Las ocasiones en las que se registran las mediciones repetidas no
-necesariamente serán iguales para todos los individuos, por lo tanto se pueden
-obtener tanto estudios balanceados (todos los individuos tienen el mismo número
-de mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la
-secuencia de tiempos de observaciones no es igual para todos los individuos).
-Otra característica de estos datos es que en ocasiones se pueden obtener
-valores perdidos, obteniendo datos incompletos aunque se cuente con un estudio
-balanceado.
+los factores que influencian el cambio. 
 
 Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
 respuesta es modelada por una parte sistemática que está formada por una
 combinación de características poblacionales que son compartidas por todas las
 unidades (efectos fijos), y una parte aleatoria que está constituida por
 efectos específicos de cada unidad (efectos aleatorios) y por el error
-aleatorio. Estos modelos permiten, además, hacer predicciones del perfil de una
-unidad específica. La selección de la estructura de covariancia apropiada
-produce estimadores más eficientes y consecuentemente, pruebas estadísticas más
-robustas para los efectos de interés
-
-%% Chapter lalonde
+aleatorio.
 
 Las covariables en los estudios longitudinales se pueden clasificar en dos
 categorias: fijas y variables en el tiempo. Las diferencias entre estos tipos
@@ -142,27 +119,19 @@ para hacer comparaciones entre poblaciones, describir tendencias en el tiempo y
 también la relación dinámica entre la CVT y la respuesta
 
 Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones
-que las covariables fijas. Por ejemplo, una CVT puede estar involucrada en
-efectos acumulados para diferentes valores a través del tiempo (Fitzmaurice y
-Lard 1995). Además, ciertas CVT transmiten diferente información que otras. Por
-ejemplo, covariables como la edad pueden cambiar a través del tiempo, pero
-cambian de manera predecible. Por otro lado, covariables como la precipitación
-diaria pueden cambiar a través del tiempo pero no pueden ser predecidas. En
-esos casos es importante considerar las relaciones entre la CVT y la respuesta
-a través del tiempo.
-
-%% Redacción mia
+que las covariables fijas. Por ejemplo, covariables como la edad pueden cambiar
+a través del tiempo, pero cambian de manera predecible. Por otro lado,
+covariables como la precipitación diaria pueden cambiar a través del tiempo
+pero no pueden ser predecidas. En esos casos es importante considerar las
+relaciones entre la CVT y la respuesta a través del tiempo.
 
 En el presente informe se cuenta con un programa de atención y control de
-pacientes hipertensos iniciado en el año 2014 en Rosario que realiza un
-seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla:
-efectores no médicos supervisados, tratamiento farmacológico genérico para la
-hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada
-visita se registra el seguimiento del tratamiento y los valores de la tensión
-arterial sistólica. En particular, se desea evaluar si la adherencia al
-tratamiento farmacológico influye en los valores de la tensión arterial
-sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una
-CVT estocástica se evaluaran diferentes enfoques para incluirla en un modelo
+pacientes hipertensos iniciado en el año 2014 en Rosario. En cada visita se
+registra el seguimiento del tratamiento y los valores de la tensión arterial
+sistólica. En particular, se desea evaluar si la adherencia al tratamiento
+farmacológico influye en los valores de la tensión arterial sistólica (TAS) a
+lo largo del seguimiento. Como la variable “\fullcovname{}” es una CVT
+estocástica se evaluaran diferentes enfoques para incluirla en un modelo
 longitudinal que pueda explicar el cambio en la tensión arterial sistólica
 media a lo largo del tiempo.
 
@@ -171,6 +140,95 @@ otra información para obtener modelos que describan de mejor manera el
 comportamiento de la TAS, nos centraremos en modelos más simples con respecto a
 las covariables fijas con el fin de no perder de vista la relación entre la
 variable respuesta y la CVT.
+
+% ESTO ME DIJERON QUE LO RESUMA
+
+% %% Tesis mara catalano, silvia camats y redacción mia
+
+% Los datos longitudinales están conformados por mediciones repetidas de una
+% misma variable realizadas a la misma unidad. Estas mediciones surgen de
+% observar unidades en diferentes ocasiones, es decir en diferentes momentos o
+% condiciones experimentales.
+
+% Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
+% longitudinales están agrupados. Las observaciones dentro de un mismo
+% agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
+% los supuestos usuales acerca de la independencia entre las respuestas de cada
+% unidad y la homogeneidad de variancias frecuentemente no son válidos
+
+% El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
+% los factores que influencian el cambio.
+
+% Las ocasiones en las que se registran las mediciones repetidas no
+% necesariamente serán iguales para todos los individuos, por lo tanto se pueden
+% obtener tanto estudios balanceados (todos los individuos tienen el mismo número
+% de mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la
+% secuencia de tiempos de observaciones no es igual para todos los individuos).
+% Otra característica de estos datos es que en ocasiones se pueden obtener
+% valores perdidos, obteniendo datos incompletos aunque se cuente con un estudio
+% balanceado.
+
+% Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
+% respuesta es modelada por una parte sistemática que está formada por una
+% combinación de características poblacionales que son compartidas por todas las
+% unidades (efectos fijos), y una parte aleatoria que está constituida por
+% efectos específicos de cada unidad (efectos aleatorios) y por el error
+% aleatorio. Estos modelos permiten, además, hacer predicciones del perfil de una
+% unidad específica. La selección de la estructura de covariancia apropiada
+% produce estimadores más eficientes y consecuentemente, pruebas estadísticas más
+% robustas para los efectos de interés
+
+% %% Chapter lalonde
+
+% Las covariables en los estudios longitudinales se pueden clasificar en dos
+% categorias: fijas y variables en el tiempo. Las diferencias entre estos tipos
+% de covariables pueden llevar a diferentes intereses de investigación,
+% diferentes tipos de análisis y diferentes conclusiones.
+
+% Las covariables fijas son variables independientes que no tienen variación
+% intra-sujeto, lo que significa que el valor de la covariable no cambia para un
+% individuo determinado en el estudio longitudinal. Este tipo de covariable se
+% puede usar para realizar comparaciones entre poblaciones y describir diferentes
+% tendencias en el tiempo, pero no permite una relación dinámica entre la
+% covariable y la respuesta.
+
+% Las covariables variables en el tiempo (CVT) son variables independientes que
+% contienen ambas variaciones, intra y entre sujeto, lo que significa que el
+% valor de la covariable cambia para un individuo determinado a lo largo del
+% tiempo y además puede cambiar para diferentes sujetos. Una CVT se puede usar
+% para hacer comparaciones entre poblaciones, describir tendencias en el tiempo y
+% también la relación dinámica entre la CVT y la respuesta
+
+% Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones
+% que las covariables fijas. Por ejemplo, una CVT puede estar involucrada en
+% efectos acumulados para diferentes valores a través del tiempo (Fitzmaurice y
+% Lard 1995). Además, ciertas CVT transmiten diferente información que otras. Por
+% ejemplo, covariables como la edad pueden cambiar a través del tiempo, pero
+% cambian de manera predecible. Por otro lado, covariables como la precipitación
+% diaria pueden cambiar a través del tiempo pero no pueden ser predecidas. En
+% esos casos es importante considerar las relaciones entre la CVT y la respuesta
+% a través del tiempo.
+
+% %% Redacción mia
+
+% En el presente informe se cuenta con un programa de atención y control de
+% pacientes hipertensos iniciado en el año 2014 en Rosario que realiza un
+% seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla:
+% efectores no médicos supervisados, tratamiento farmacológico genérico para la
+% hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada
+% visita se registra el seguimiento del tratamiento y los valores de la tensión
+% arterial sistólica. En particular, se desea evaluar si la adherencia al
+% tratamiento farmacológico influye en los valores de la tensión arterial
+% sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una
+% CVT estocástica se evaluaran diferentes enfoques para incluirla en un modelo
+% longitudinal que pueda explicar el cambio en la tensión arterial sistólica
+% media a lo largo del tiempo.
+
+% Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha
+% otra información para obtener modelos que describan de mejor manera el
+% comportamiento de la TAS, nos centraremos en modelos más simples con respecto a
+% las covariables fijas con el fin de no perder de vista la relación entre la
+% variable respuesta y la CVT.
 
 \newpage
 \section{Objetivos}
@@ -204,10 +262,9 @@ condiciones experimentales.
 
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente.
-
-El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio. 
+agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
+los supuestos usuales acerca de la independencia entre las respuestas de cada
+unidad y la homogeneidad de variancias frecuentemente no son válidos
 
 Las ocasiones en las que se registran las mediciones repetidas no
 necesariamente serán iguales para todos los individuos, por lo tanto se pueden
