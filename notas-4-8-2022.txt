@@ -1,11 +1,4 @@
-cambiar metodologia por datos longitudinales
-
-cambiar covariables variables del tiempo por metodologia
-
-agregar estimacion de los parametros y en la suposicion ahi agregar la info de
-las CVT
-
-que la introduccion sea muy breve
+se puede hablar de la variables fijas basales ver weiss 1.8.3
 
 agregar que la CVT se mide inmediatamente antes de la Y
 
@@ -19,7 +12,5 @@ feedback puede ir dentro de endogeneidad, sacar los ejemplos y poner pura
 teoria, si hay ejemplos que sean de una oracion como en los tipos de cvt
 
 agregar la info del archivo "resumen 2019"
-
-#DONE - ACTUALIZAR EL TITULO DEL INFORME
 
 agregar que para covariables endogenas se puede ajustar un GEE o el GMM
