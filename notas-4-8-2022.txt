@@ -1,16 +1,11 @@
-se puede hablar de la variables fijas basales ver weiss 1.8.3
-
-agregar que la CVT se mide inmediatamente antes de la Y
-
-borrar los 4 tipos de CVT o ser un poco mas claros, abrir en distintos tipos de
-endogeneidad y exogeneidad
-
 cambiar el titulo de variables rezagadas por transformaciones y agregar tmb el
 promedio o distintas funciones hasta el momento
-
-feedback puede ir dentro de endogeneidad, sacar los ejemplos y poner pura
-teoria, si hay ejemplos que sean de una oracion como en los tipos de cvt
 
 agregar la info del archivo "resumen 2019"
 
 agregar que para covariables endogenas se puede ajustar un GEE o el GMM
+
+
+
+
+NO ENCONTRE EN NINGUN LIBRO QUE ES FEEDBACK

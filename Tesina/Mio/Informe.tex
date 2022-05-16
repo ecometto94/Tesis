@@ -468,12 +468,16 @@ en una determinada ocasión dependa de los niveles observados previamente, pero
 no se espera que dependa de los niveles de la función pulmonar observados
 previamente en el sujeto.
 
-Una CVT que no es exógena se define como endógena. Por ejemplo, cuando se
-evalúa si la cantidad de actividad física está asociada al nivel de glicemia.
-El nivel de actividad física en un determinado momento puede estar (o no)
-asociado a niveles previos y también puede estar asociado a valores previos de
-la glicemia (un paciente con valor de glicemia alto en una visita puede decidir
-aumentar su nivel de actividad física para reducir este valor)
+Una CVT que no es exógena se define como endógena. Una variable endógena es una
+variable estocásticamente relacionada con otros factores medidos en el estudio.
+Esta también puede definirse como una variable generada por un proceso
+relacionado con el individuo en estudio. En otras palabras, las CVT endógenas
+están asociadas con un efecto individual y, a menudo, pueden explicarse por
+otras variables en el estudio. Cuando el proceso estocástico de una CVT
+endógena puede ser (al menos parcialmente) explicado por la variable de
+respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
+endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
+longitudinal.
 
 Es posible examinar empíricamente la suposición de que una CVT es exógena al
 considerar modelos de regresión para la dependencia de $X_{ij}$ en
@@ -532,189 +536,7 @@ respuesta.
 % ser consideradas. Ésto puede realizarse a través de tests para modelos
 % anidados, como el test del cociente de verosimilitud o el test de Wald.
 
-% \subsection{Confusores variables en el tiempo}
 
-% El análisis de regresión epidemiológica tradicional considera una clasificación
-% de variables que están relacionadas tanto con una exposición de interés como
-% con el resultado, ya sea como confusoras o intermedias. Una confusora se define
-% vagamente como una variable asociada tanto con la exposición de interés como
-% con la respuesta, y que, si se ignora en el análisis, conducirá a estimaciones
-% sesgadas del efecto de la exposición. Una variable intermedia es aquella que se
-% encuentra en la vía causal desde la exposición hasta el resultado y un análisis
-% no debe controlar dicha variable, ya que se pierde el efecto de la exposición
-% mediado por la variable intermedia.
-
-% Por ejemplo, en un estudio observacional de pacientes con hipertensión elevada,
-% podemos esperar determinar la magnitud del beneficio (o daño) atribuible a un
-% tratamiento en la supervivencia del paciente o medidas longitudinales como la
-% hipertensión en cierto momento. Sin embargo, podemos encontrar que la
-% hipertensión en el tiempo $t$ prediga tanto la hipertensión en momentos
-% posteriores como las opciones de tratamiento posteriores. En este caso, la
-% hipertensión en el momento $s < t$ es la variable de respuesta para las
-% opciones de tratamiento recibidas antes de $s$, pero también es un predictor y,
-% por lo tanto, un factor de confusión potencial para el tratamiento administrado
-% en momentos futuros, $t > s$.
-
-% \subsubsection{Feedback}
-
-% Para aclarar los problemas que surgen con las covariables dependientes del
-% tiempo, se consiidera un solo par de tiempos de estudio, $t = 0, 1$, con
-% medidas de exposición y respuesta $(X_{t-1}, Y_t)$. Sea $Y_t$ un indicador de
-% gravedad de la enfermedad o de los síntomas (1 = enfermedad/síntomas presentes,
-% 0 = enfermedad/síntomas ausentes) y sea $X_t = 1$ si se administra tratamiento
-% y $0$ en caso contrario. Se supone que la exposición $X_{t-1}$ precede a $Y_t$
-% para $t = 1, 2$ y que $Y_t$ precede o se mide simultáneamente con $X_t$. La
-% figura 1 presenta un grafo que representa los modelos secuenciales
-% condicionales:
-
-% \begin{equation}
-% 	\label{feedback_1}
-% 	logit \ E(Y_1 / X_0 = x_0) = -0.5 - 0.5x_0,
-% \end{equation}
-% \begin{equation}
-% 	\label{feedback_2}
-% 	logit \ E(X_1 / Y_1 = y_1, X_0 = x_0) = -0.5 + 1y_1,
-% \end{equation}
-% \begin{equation}
-% 	\label{feedback_3}
-% 	logit \ E(Y_2 / H_1^X = h_1^X, Y_1 = y_1) = -1 + 1.5y_1 - 0.5x_1,
-% \end{equation}
-% \[ donde \ H_1^x = \{ X_0, X_1 \} \ y \ h_1^X = \{ x_0, x_1 \} \]
-
-% \begin{figure}[h]
-% \centering
-% \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
-% 	\node[main] (X0) {$X_0$};
-% 	\node[main] (Y1) [right of=X0] {$Y_1$};
-% 	\node[main] (X1) [below of=X0] {$X_1$};
-% 	\node[main] (Y2) [below of=Y1] {$Y_2$};
-% 	\draw [->] (X0) to (Y1);
-% 	\draw [->] (Y1) to (X1);
-% 	\draw [->] (Y1) to (Y2);
-% 	\draw [->] (X1) to (Y2);
-% \end{tikzpicture}
-% \caption{Covariable variable en el tiempo, $X_{t-1}$, y respuesta $Y_t$.}
-% \end{figure}
-
-% Estos modelos especifican un efecto beneficioso del tratamiento $X_0$ sobre el
-% resultado en el momento 1 con una razón de odds logarítmica de -0,5 en el
-% modelo $[Y_1|X_0]$. Sin embargo, el segundo modelo especifica que el
-% tratamiento recibido en el momento 2 depende en gran medida del resultado en el
-% momento uno. Para $X_0 = 0$ o $X_0 = 1$, si los pacientes tienen una respuesta
-% inicial deficiente $(Y_1 = 1)$, es más probable que reciban tratamiento en el
-% momento 2 que si respondieran bien $(Y_1 = 0)$. Finalmente, la respuesta en el
-% segundo tiempo está fuertemente correlacionada con la respuesta inicial y está
-% influenciada por el tratamiento en el tiempo 2.
-
-% \begin{table}[H]
-% 	\label{feedback_table}
-% 	\caption{Recuentos esperados cuando se tratan inicialmente 500 sujetos,
-% 	$X_0 = 1$, y 500 sujetos no reciben tratamiento, $X_0 = 0$, cuando el
-% 	tratamiento en el momento 2, $X_1$, se predice por el resultado en el
-% 	momento 1, $Y_1$, según el modelo dado por
-% 	\ref{feedback_1}-\ref{feedback_3}}
-% 	\begin{tabular}{*{17}{c}}
-% 		\hline
-% 		$X_0$ & \multicolumn{8}{c}{\bf{0}} & \multicolumn{8}{c}{\bf{1}} \\[-3mm]
-
-% 		$n$ & \multicolumn{8}{c}{500} & \multicolumn{8}{c}{500} \\
-
-% 		$Y_1$ & \multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} &
-% 		\multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} \\[-3mm]
-
-% 		$n$ & \multicolumn{4}{c}{311} & \multicolumn{4}{c}{189} &
-% 		\multicolumn{4}{c}{365} & \multicolumn{4}{c}{135} \\
-
-% 		$X_1$ & \multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-% 		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-% 		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-% 		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} \\[-3mm]
-
-% 		$n$ & \multicolumn{2}{c}{194} & \multicolumn{2}{c}{117} &
-% 		\multicolumn{2}{c}{71} & \multicolumn{2}{c}{118} &
-% 		\multicolumn{2}{c}{227} & \multicolumn{2}{c}{138} &
-% 		\multicolumn{2}{c}{51} & \multicolumn{2}{c}{84} \\
-
-% 		$Y_2$ & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} &
-% 		\bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} &
-% 		\bf{0} & \bf{1} & \bf{0} & \bf{1} \\[-3mm]
-
-% 		$n$ & 142 & 52 & 96 & 21 & 27 & 44 & 59 & 59 & 166 & 61 & 113 & 25 &
-% 		19 & 32 & 42 & 42 \\
-
-% 		\multicolumn{17}{l}{$ E(Y_2|x_0 = 1, x_1 = 1) =
-% 		(25 + 42) / (138 + 84) = 0.30 $} \\
-
-% 		\multicolumn{17}{l}{$ E(Y_2|x_0 = 1, x_1 = 0) =
-% 		(61 + 32) / (227 + 51) = 0.33 $} \\
-
-% 		\multicolumn{17}{l}{$ E(Y_2|x_0 = 0, x_1 = 1) =
-% 		(21 + 59) / (117 + 118) = 0.34 $} \\
-
-% 		\multicolumn{17}{l}{$ E(Y_2|x_0 = 0, x_1 = 0) =
-% 		(52 + 44) / (194 + 71) = 0.36 $} \\
-		
-% 		\hline
-% 	\end{tabular}
-% \end{table}
-
-% La tabla \ref{feedback_table} muestra los recuentos esperados para cada camino
-% de tratamiento/resultado si 500 sujetos recibieron tratamiento inicialmente y
-% 500 sujetos no. Esta tabla ilustra el beneficio del tratamiento en el momento 1
-% en la primera respuesta, $Y_1$, y muestra que solo se espera que 134 sujetos
-% (27\%) tengan síntomas si reciben tratamiento inicial en comparación con 189
-% sujetos (38\%) entre los que no reciben tratamiento. El beneficio aparente del
-% tratamiento disminuye en el segundo tiempo de medición con un 30\% de pacientes
-% que muestran síntomas entre los que reciben tratamiento en ambos momentos
-% ($X_0 = X_1 = 1$) frente a un 36\% entre los que no reciben tratamiento en
-% ningún momento ($X_0 = X_1 = 0$).
-
-% Las distribuciones condicionales en \ref{feedback_1}-\ref{feedback_3} conducen
-% a una distribución marginal de $Y_2$ condicional al tratamiento en los tiempos
-% 1 y 2 representado por la estructura de regresión:
-
-% \begin{equation}
-% 	\label{feedback_4}
-% 	logit \ E(Y_2|H_1^X = h_1^x) = -0.56 - 0.13x_0 -0.1x_1 - 0.04x_0x_1
-% \end{equation}
-
-% Este modelo indica un impacto beneficioso del tratamiento entre aquellos
-% sujetos que se observó que recibieron tratamiento en el momento 1 y en el
-% momento 2. Tenga en cuenta que la expectativa marginal se calcula tomando
-% promedios sobre la distribución del resultado intermedio. Dado que la variable
-% intermedia influye tanto en el segundo resultado como en la asignación del
-% tratamiento, necesitamos promediar $Y_1$ para obtener ambos $Pr(Y_2|X_0, X_1)$
-% y $Pr(X_1|X_0)$:
-
-% \[ \mu_2(x_0, x_1) = Pr(Y_2 = 1|X_0 = x_0, X_1 = x_1), \]
-% \[\mu_2(1, 1) = \frac{Pr(Y_2 = 1, X_1 = 1 | X_0 = 1)}{Pr(X_1 = 1 | X_0 = 1)},\]
-% \[ Pr(Y_2 = 1, X_1 = 1 | X_0 = 1) = \sum_{y_1 = 0, 1}
-% Pr(Y_2 = 1 | X_1 = 1, Y_1 = y_1, X_0 = 1) \]
-% \[ X \ Pr(X_1 = 1 | Y_1 = y_1, X_0 = 1) \]
-% \[ X \ Pr(Y_1 = y_1 | X_0 = 1), \]
-% \[ Pr(X_1 = 1 | X_0 = 1) = \sum_{y_1 = 0, 1} Pr(X_1 = 1 | Y_1 = y_1, X_0 = 1)\]
-% \[ X \ Pr(Y_1 = y_1 | X_0 = 1) \]
-
-% Suponga que el objetivo científico es determinar el efecto del tratamiento en
-% el momento 1 y el momento 2 en el estado final del paciente, $Y_2$. Podemos
-% considerar reportar las medias marginales observadas $\mu(x_0, x_1)$. Sin
-% embargo, dado que $Y_1$ está correlacionado tanto con $X_1$ como con $Y_2$,
-% reconocemos que estos efectos marginales observados no explican el factor de
-% confusión $Y_1$ y, por lo tanto, no reflejan el efecto causal del tratamiento.
-% La estructura marginal refleja un pequeño efecto beneficioso del tratamiento en
-% el momento 1 además del momento 2, con el coeficiente de $X_0$ en
-% \ref{feedback_4} igual a $-0.13$. Por otro lado, si el análisis controlara
-% $Y_1$, entonces obtendríamos el modelo condicional \ref{feedback_3} que generó
-% los datos. En este modelo que ajusta por $Y_1$ no hay efecto de $X_0$ sobre la
-% media (condicional) de $Y_2$ ya que hemos condicionado la variable intermedia
-% $Y_1$ y bloqueado el efecto de $X_0$. Por lo tanto, el análisis que ajusta por
-% $Y_1$ no refleja el efecto causal tanto de $X_0$ como de $X_1$ ya que al
-% condicionar a una variable intermedia solo caracteriza efectos directos.
-
-% Esta simple ilustración muestra que con exposiciones longitudinales
-% (tratamientos) y resultados longitudinales, una variable puede ser tanto una
-% variable de confusión como una variable intermedia. Entonces no se pueden usar
-% métodos de regresión estándar para obtener declaraciones causales.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %LESSA HOFFMAN
