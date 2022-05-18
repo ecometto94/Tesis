@@ -492,51 +492,64 @@ A los parámetros de regresión se les puede dar una interpretación causal sól
 cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta.
 
-% \subsection{Covariables rezagadas}
+\section{Transformaciones de interés de CVT}
 
-% En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
-% antes del tiempo $t$ para predecir $Y_{it}$. Sin embargo, en algunas
-% aplicaciones, el historial completo de la covariable \xseqn{} está disponible y
-% es considerado como potencial predictor de la respuesta. En otras, solo un
-% pequeño subconjunto de las mediciones más recientes son usados, ya que se
-% supone que el efecto en la respuesta está concentrado en ellas. En cualquier
-% caso, el uso de más de una covariable rezagada puede llevar a predictores
-% altamente correlacionados, lo que lleva a preguntarse sobre la elección de
-% cuantos predictores rezagados utiliar y sobre la estructura de sus
-% coeficientes.
+En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
+antes del tiempo $t$ para predecir $Y_{it}$. Sin embargo, en algunas
+aplicaciones, el historial completo de la covariable \xseqn{} está disponible y
+es considerado como potencial predictor de la respuesta. En otras, solo un
+pequeño subconjunto de las mediciones más recientes son usados, ya que se
+supone que el efecto en la respuesta está concentrado en ellas. En cualquier
+caso, el uso de más de una covariable rezagada puede llevar a predictores
+altamente correlacionados, lo que lleva a preguntarse sobre la elección de
+cuantos predictores rezagados utilizar y sobre la estructura de sus
+coeficientes.
 
-% \subsubsection{Una sola covariable rezagada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACA NOE DIJO DE AGREGAR UNA SECCION DE COVARIABLES SIN TRANSFORMAR PERO NO ME PARECIO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% En algunas aplicaciones hay justificacion previa para considerar la covariable
-% en un solo rezago $k$ momentos antes de la medición de la respuesta. Por
-% ejemplo, muchos agentes farmacológicos son rápidamente limpiados del cuerpo,
-% por lo que sólo mantienen efectos por una corta duración. En este caso, si la
-% covariable es exógena, puede ajustarse el modelo mixto sin más consideraciones.
-% Lo más común es que se desconozca el valor $k$ apropiado y se consideren varias
-% opciones diferentes.
+\subsection{Una sola covariable rezagada}
 
-% \subsubsection{Múltiples covaribales rezagadas}
+En algunas aplicaciones hay justificacion previa para considerar la covariable
+en un solo rezago $k$ momentos antes de la medición de la respuesta. Por
+ejemplo, muchos agentes farmacológicos son rápidamente limpiados del cuerpo,
+por lo que sólo mantienen efectos por una corta duración. En este caso, si la
+covariable es exógena, puede ajustarse el modelo mixto sin más consideraciones.
+Lo más común es que se desconozca el valor $k$ apropiado y se consideren varias
+opciones diferentes.
 
-% La literatura de series de tiempo ha considerado modelos tanto para infinitos o
-% finitos rezagos de la covariable. Dado que los datos longitudinales son
-% tipicamente series de tiempo cortas, se puede proponer un modelo de menor
-% dimensión para los coeficientes de las covariables rezagadas. En los modelos
-% rezagados distribuidos, los coeficientes rezagados se asume que siguen una
-% función paramétrica suave de orden inferior. Por ejemplo, para un rezago finito
-% $L$, se puede usar un modelo polinomial de orden $p$, con $p < L$ para obtener
-% coeficientes de regresión suaves.
+\subsection{Múltiples covaribales rezagadas}
 
-% \[ Y_{it} = \beta_0 + \beta_1 X_{it-1} + \beta_2 X_{it-2} + ... +
-% \beta_L X_{it-L}, \]
-% \[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
+La literatura de series de tiempo ha considerado modelos tanto para infinitos o
+finitos rezagos de la covariable. Dado que los datos longitudinales son
+tipicamente series de tiempo cortas, se puede proponer un modelo de menor
+dimensión para los coeficientes de las covariables rezagadas. En los modelos
+rezagados distribuidos, los coeficientes rezagados se asume que siguen una
+función paramétrica suave de orden inferior. Por ejemplo, para un rezago finito
+$L$, se puede usar un modelo polinomial de orden $p$, con $p < L$ para obtener
+coeficientes de regresión suaves.
 
-% A pesar de que los modelos rezagados distribuidos permiten modelar
-% parsimoniosamente las covariables rezagadas múltiples, la especificación de del
-% número de rezagos, $L$, y el órden del modelo para el coeficiente, $p$, deben
-% ser consideradas. Ésto puede realizarse a través de tests para modelos
-% anidados, como el test del cociente de verosimilitud o el test de Wald.
+\[ Y_{it} = \beta_0 + \beta_1 X_{it-1} + \beta_2 X_{it-2} + ... +
+\beta_L X_{it-L}, \]
+\[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
 
+A pesar de que los modelos rezagados distribuidos permiten modelar
+parsimoniosamente las covariables rezagadas múltiples, la especificación del
+número de rezagos, $L$, y el órden del modelo para el coeficiente, $p$, deben
+ser consideradas. Ésto puede realizarse a través de tests para modelos
+anidados, como el test del cociente de verosimilitud o el test de Wald.
 
+\subsection{Funcion de las covariables rezagadas}
+
+Una alternativa cuando se quiere utilizar la información de las covariables
+rezagadas pero quiere mantenerse un modelo parsimonioso, es decir, con el menor
+número posible de variables independientes, es resumir a través de una función
+la información de éstas en una sola covariable. Un ejemplo puede ser el valor
+promedio o acumulado hasta la ocasión actual. Sin embargo, la elección de está
+funcion dependerá del tipo de problema a analizar. Cabe destacar que, al igual
+que con toda medida resumen, al usar este tipo de covariables se pierde
+parte de la información.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %LESSA HOFFMAN
