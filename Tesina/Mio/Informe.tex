@@ -551,6 +551,28 @@ funcion dependerá del tipo de problema a analizar. Cabe destacar que, al igual
 que con toda medida resumen, al usar este tipo de covariables se pierde
 parte de la información.
 
+\section{Formas de introducir una CVT al modelo}
+
+\subsection{Convertirla en CNVT}
+
+Una solución rápida al problema de las CVT es transformarla en una CNVT, esto
+se puede lograr resumiendo la información de la misma mediante alguna función
+como el promedio de los valores de cada individuo y dejarlo fijo a través del
+tiempo. También podria usarse su valor máximo, mínimo o cualquier
+transformación que resulte de interés en el estudio. El problema de este
+enfoque es que se pierde mucha información, dado que se usa una covariable más
+simple que no refleja la relación dinámica entre la covariable y la respuesta
+en el tiempo.
+
+\subsection{CVT exógena}
+
+Si la CVT es exógena se puede introducirse al modelo en su forma original o con
+cualquiera de sus transformaciones mencionadas en la sección anterios, dado que
+no habrá problemas con la estimación de los parámetros y pueden recibir una
+interpretación causal
+
+\subsubsection{Dividir su efecto en efecto entre-persona e intra-persona}
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %LESSA HOFFMAN
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
