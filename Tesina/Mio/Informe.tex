@@ -85,42 +85,17 @@
 \newpage
 \section{Introducción}
 
-%% Tesis mara catalano, silvia camats y redacción mia
-
-Los datos longitudinales están conformados por mediciones repetidas de una
-misma variable realizadas a la misma unidad. Estas mediciones surgen de
-observar unidades en diferentes ocasiones, es decir en diferentes momentos o
-condiciones experimentales.
-
-Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
-longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
-los supuestos usuales acerca de la independencia entre las respuestas de cada
-unidad y la homogeneidad de variancias frecuentemente no son válidos
-
-El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio.
-
-Las ocasiones en las que se registran las mediciones repetidas no
-necesariamente serán iguales para todos los individuos, por lo tanto se pueden
-obtener tanto estudios balanceados (todos los individuos tienen el mismo número
-de mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la
-secuencia de tiempos de observaciones no es igual para todos los individuos).
-Otra característica de estos datos es que en ocasiones se pueden obtener
-valores perdidos, obteniendo datos incompletos aunque se cuente con un estudio
-balanceado.
+Los datos longitudinales tienen la particularidad de estar conformados por
+mediciones repetidas sobre una unidad, las cuales pueden surgir por ser medidas
+en diferentes momentos o conidiciones. Su principal interés es estudiar los
+cambios en el tiempo y los factores que influencian el cambio. 
 
 Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
 respuesta es modelada por una parte sistemática que está formada por una
 combinación de características poblacionales que son compartidas por todas las
 unidades (efectos fijos), y una parte aleatoria que está constituida por
 efectos específicos de cada unidad (efectos aleatorios) y por el error
-aleatorio. Estos modelos permiten, además, hacer predicciones del perfil de una
-unidad específica. La selección de la estructura de covariancia apropiada
-produce estimadores más eficientes y consecuentemente, pruebas estadísticas más
-robustas para los efectos de interés
-
-%% Chapter lalonde
+aleatorio.
 
 Las covariables en los estudios longitudinales se pueden clasificar en dos
 categorias: fijas y variables en el tiempo. Las diferencias entre estos tipos
@@ -142,29 +117,31 @@ para hacer comparaciones entre poblaciones, describir tendencias en el tiempo y
 también la relación dinámica entre la CVT y la respuesta
 
 Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones
-que las covariables fijas. Por ejemplo, una CVT puede estar involucrada en
-efectos acumulados para diferentes valores a través del tiempo (Fitzmaurice y
-Lard 1995). Además, ciertas CVT transmiten diferente información que otras. Por
-ejemplo, covariables como la edad pueden cambiar a través del tiempo, pero
-cambian de manera predecible. Por otro lado, covariables como la precipitación
-diaria pueden cambiar a través del tiempo pero no pueden ser predecidas. En
-esos casos es importante considerar las relaciones entre la CVT y la respuesta
-a través del tiempo.
-
-%% Redacción mia
+que las covariables fijas. Por ejemplo, covariables como la edad pueden cambiar
+a través del tiempo, pero cambian de manera predecible. Por otro lado,
+covariables como la precipitación diaria pueden cambiar a través del tiempo
+pero no pueden ser predecidas. En esos casos es importante considerar las
+relaciones entre la CVT y la respuesta a través del tiempo.
 
 En el presente informe se cuenta con un programa de atención y control de
-pacientes hipertensos iniciado en el año 2014 en Rosario que realiza un
-seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla:
-efectores no médicos supervisados, tratamiento farmacológico genérico para la
-hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada
-visita se registra el seguimiento del tratamiento y los valores de la tensión
-arterial sistólica. En particular, se desea evaluar si la adherencia al
-tratamiento farmacológico influye en los valores de la tensión arterial
-sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una
-CVT estocástica se evaluaran diferentes enfoques para incluirla en un modelo
+pacientes hipertensos iniciado en el año 2014 en Rosario. En cada visita se
+registra el seguimiento del tratamiento y los valores de la tensión arterial
+sistólica. En particular, se desea evaluar si la adherencia al tratamiento
+farmacológico influye en los valores de la tensión arterial sistólica (TAS) a
+lo largo del seguimiento. Como la variable “\fullcovname{}” es una CVT
+estocástica se evaluaran diferentes enfoques para incluirla en un modelo
 longitudinal que pueda explicar el cambio en la tensión arterial sistólica
 media a lo largo del tiempo.
+
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
 
 Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha
 otra información para obtener modelos que describan de mejor manera el
@@ -193,9 +170,7 @@ longitudinales.
 \end{itemize}
 
 \newpage
-\section{Metodología}
-
-\subsection{Los Datos Longitudinales}
+\section{Los Datos Longitudinales}
 
 Los datos longitudinales están conformados por mediciones repetidas de una
 misma variable realizadas a la misma unidad. Estas mediciones surgen de
@@ -204,10 +179,9 @@ condiciones experimentales.
 
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente.
-
-El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio. 
+agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
+los supuestos usuales acerca de la independencia entre las respuestas de cada
+unidad y la homogeneidad de variancias frecuentemente no son válidos
 
 Las ocasiones en las que se registran las mediciones repetidas no
 necesariamente serán iguales para todos los individuos, por lo tanto se pueden
@@ -226,13 +200,17 @@ la variable en estudio, observadas en los tiempos $t_1, t_2, ..., t_n$, siendo
 entonces el número total de observaciones $N^*=Nn$. Se le llama $Y_{ij}$ a la
 medición sobre la unidad $i$ en la ocasión $j$, con $i=1, ..., N; j=1, ..., n$
 
-Asociadas a cada unidad se observan las covariables $X_{ij}$, de las cuales
-existen dos tipos: variables en el tiempo (estocásticas) e invariables en el
-tiempo (estacionarias)
+Asociadas a cada unidad se observan las covariables $X_{ij}$ medidas también
+sobre la unidad $i$ en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son
+simultáneamente medidas. Esto quiere decir que en un análisis de corte
+transversal, $Y_{ij}$ y $X_{ij}$ se correlacionan directamente. Sin embargo,
+para un análisis longitudinal se debe asumir que existe un orden
+pre-establecido:
+$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in_i}, Y_{in_i})$
 
-Existen estudios empíricos que llevan a pensar que existen tres fuentes
-potenciales de variabilidad que influyen sobre la correlación entre medidas
-repetidas:
+
+Existen tres fuentes potenciales de variabilidad que influyen sobre la
+correlación entre medidas repetidas:
 
 \begin{itemize}
 	\item \textit{Heterogeneidad entre las unidades:} Refleja la propensión
@@ -259,182 +237,7 @@ base a esto, surgen técnicas que consideran esa correlación modelando los dato
 considerando la modelación de dos estructuras: la parte media y la estructura
 de covariancia.
 
-% \subsection{Análisis exploratorio}
-
-% Antes de ajustar algún modelo, lo primero siempre es realizar un análisis
-% exploratorio para estudiar cómo se comportan los datos. A continuación se
-% presentan técnicas gráficas para cada estructura.
-
-% \textit{Evaluación de la parte media}
-
-% \begin{itemize}
-% 	\item \textit{Perfil individual:} Consiste en un gráfico de dispersión en
-% 	el cual se representan las respuestas vs las ocasiones. Cada respuesta
-% 	tiene un punto y se une con un segmento los puntos de la misma unidad.
-% 	Sirven para detectar si hay mucha variabilidad entre y dentro de las
-% 	unidades y si hay valores atípicos.
-% 	\item \textit{Perfiles promedio por grupo:} En general son más
-% 	informativos. Para cada tiempo calculamos un promedio para cada grupo y
-% 	luego se unen los puntos. Permiten ver la tendencia de las variables a
-% 	través de las ocasiones. Se superponen en un mismo gráfico los perfiles
-% 	promedio de cada grupo
-% \end{itemize}
-
-% \textit{Evaluación de la estructura de covariancia}
-
-% \begin{itemize}
-% 	\item \textit{Matriz de diagrama de dispersión:} Para cada par de ocasiones
-% 	se grafican los valores esperados de la respuesta y todos estos gráficos se
-% 	acomodan dentro de una matriz. En general se utiliza cuando las ocasiones
-% 	son las mismas para todas las unidades.
-% 	\item \textit{Gráfico de Draftman:} Es similar al gráfico anterior pero
-% 	utilizando variables estandarizadas. La utilización de la variable
-% 	respuesta estandarizada ayuda a eliminar la variabilidad de los datos
-% 	asociada con diferencias en las medias y variancias en el tiempo,
-% 	permitiendo visualizar más claramente el patrón de correlación.
-% 	\item \textit{Gráfico PRISM (Partial Regression on Intervenors Scatterplot
-% 	Matrix):} Utilizando la variable estandarizada se crea una matriz de
-% 	gráficos de dispersión. En la primera diagonal se encuentran gráficos de
-% 	dispersión entre la variable respuesta en los tiempos $t_j$ y $t_{j+1}$.
-% 	Luego, en la k-ésima diagonal, se obtienen gráficos de regresión parcial de
-% 	las respuestas en los tiempos $t_j$ y $t_{j+k}$, ajustadas por las
-% 	respuestas en los tiempos intermedios. Estos gráficos permiten ver con
-% 	mayor claridad ciertos tipos de estructuras seriales que se dan entre las
-% 	medidas repetidas.
-% 	\item \textit{Correlograma:} Representa las características que existen
-% 	entre las respuestas de los individuos de cada grupo en tiempos que están
-% 	separados una cantidad de periodos. Permite analizar cómo evoluciona la
-% 	correlación a medida que aumenta el número de rezagos.
-% 	\item \textit{Semivariograma:} Cuando los datos están desbalanceados, el
-% 	semivariograma permite distinguir las 3 fuentes de variabilidad. Después de
-% 	haber estimado un modelo, el mismo permite confirmar si la estructura de
-% 	correlación es adecuada. El semivariograma se define como una función:
-% 	\[ \gamma(u) = \frac{1}{2} E[(\varepsilon _{ij} - \varepsilon_{ij'})^2] \]
-% 	\[ u_{ijj'} = |t_{ij} - t_{ij'}| \]
-% 	\[ \widehat{\gamma(u)} = v_{ijj'} = \frac{1}{2} (r_{ij} - r_{ij'}) \] donde
-% 	$r_{ij}$ y $r_{ij'}$ son los residuos estandarizados obtenidos después de
-% 	ajustar un modelo de regresión considerando las observaciones
-% 	independientes.
-
-% 	Se va a obtener un gráfico donde la variabilidad total va a estar dividida
-% 	en 3 partes. Si la curva no empieza en cero significa que hay error de
-% 	medición, si tiene pendiente quiere decir que hay un error debido a una
-% 	causa biológica (correlación serial) y si la misma no llega a la variancia
-% 	total significa que se debe explicar la variabilidad entre.
-% \end{itemize}
-
-% \subsection{Modelo lineal general para datos longitudinales}
-
-% Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta
-% tendencia se puede expresar como una función, se puede escribir o representar a
-% las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo
-% lineal para representar la evolución en el tiempo va a ser:
-% \[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1},
-% Y_{i2}, ..., Y_{in_{i}})' \] Donde:
-
-% \begin{itemize}
-% 	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión
-% 	$t_{ij}$.
-% 	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
-% 	\item $\beta $: vector de parámetros de dimensión $(p*1)$
-% 	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad,
-% 	de dimensión $(n_i*1)$, este mismo representa todas las fuentes de
-% 	variabilidad de los datos longitudinales
-% 	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
-% 	\item $\theta$: vector de parámetros desconocidos de covariancia, de
-% 	dimensión $(q*1)$
-% \end{itemize}
-
-% \subsection{Modelación de la estructura de covariancia}
-
-% Al tenerse tantos parámetros de variancia $(n)$ y covariancia $n(n-1)/2$ para
-% estimar, se proponen modelos específicos para la estructura de correlación. Se
-% trata de elegir una estructura que no tenga tantos parámetros. Sin embargo, se
-% debe tener cuidado de no seleccionar estructuras demasiado parcas con las que
-% se pierda información.
-
-% La matriz de covariancia de cada unidad va a ser función de $\theta$. El número
-% de parámetros de este vector depende de la estructura de la matriz.
-
-% A continuación se mencionan algunas estructuras que se pueden utilizar, se
-% llamará $R$ a la matriz de correlaciones
-
-% \subsubsection{Arbitraria o no estructurada (datos balanceados)}
-
-% Considera variancias y covariancias distintas entre las mediciones repetidas.
-% Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
-% \[
-% \varSigma = 
-% \begin{bmatrix}
-% 	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
-% 	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
-% 	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
-% 	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
-% \end{bmatrix}
-% \]
-% La ausencia de restricciones hace que haya que estimar una gran cantidad de
-% parámetros
-
-% \subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
-
-% La correlación entre pares de observaciones es la misma, sin importar la
-% cantidad de rezagos entre ellas,
-% $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho   & \dots  & \rho \\
-% 	\rho   & 1      & \dots  & \rho \\
-% 	\vdots & \vdots	& \ddots & \vdots \\
-% 	\rho   & \rho   & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Toeplitz (datos equiespaciados)}
-% Se plantea para que cualquier par de respuestas que estén igualmente separadas
-% en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$
-% para todo $j$ y $k$.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho_1 	& \dots  & \rho_n \\
-% 	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
-% 	\vdots & \vdots		& \ddots & \vdots \\
-% 	\rho_n & \rho_{n-1} & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
-% Es un caso especial de la estructura anterior, en la que
-% $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación
-% entre medidas repetidas disminuye a medida que aumenta el número de rezagos
-% entre ellas.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho 	    & \dots  & \rho^n \\
-% 	\rho   & 1     		& \dots  & \rho^{n-1} \\
-% 	\vdots & \vdots		& \ddots & \vdots \\
-% 	\rho^n & \rho^{n-1} & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Markov (datos no equiespaciados)}
-
-% Es una generalización de la estructura autorregresiva para mediciones no
-% equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde
-% $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
-% 	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
-% 	\vdots 		  & \vdots		  & \ddots & \vdots \\
-% 	\rho^n 		  & \rho^{n-1}    & \dots  & 1
-% \end{bmatrix}
-% \]
-
-\subsection{Modelos lineales mixtos}
+\section{Modelos lineales mixtos}
 
 En estos modelos, cada unidad tiene una trayectoria individual caracterizada
 por parámetros y un subconjunto de esos parámetros ahora se consideran
@@ -534,8 +337,6 @@ asintóticamente:
 \[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
 (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
 
-% AGREGAR EL PROBLEMA CUANDO EL SUPUESTO NO SE CUMPLE
-
 \subsubsection{Método de máxima verosimilitud restringida (REML)}
 
 El inconveniente que posee el método de MV es que los parámetros de covariancia
@@ -566,242 +367,68 @@ Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
 
 Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
 
-% \subsection{Pruebas de hipótesis}
-
-% Generalmente, la inferencia en estos modelos se centra en los parámetros de la
-% parte media. Es decir, en combinaciones lineales de los parámetros de $\beta$.
-% La hipótesis lineal general para los test se plantea construyendo dichas
-% combinaciones a través de $L'\beta$, siendo $L'$ una matriz de dimensión
-% $(r*p)$.
-
-% El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su
-% distribución muestral es aproximadamente:
-
-% \[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
-
-% Para probar las hipótesis se proponen dos métodos basados en la función de
-% verosimilitud:
-
-% \subsubsection{Test de Wald}
-
-% Se plantean las hipótesis:
-
-% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
-
-% La estadística de prueba resulta:
-
-% \[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
-
-% Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
-
-% Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la
-% aproximación asintótica a la distribución Normal. Si el $N$ es chico se propone
-% reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El
-% problema con el uso de esta estadística es que no se conocen los grados de
-% libertad del denominador y deben ser calculados con los datos. 
-
-% %Algunos métodos para estimar los grados de libertad son: Contaiment,
-% %Within-Between, Satterthwaite y Kenward y Roger, entre otros
-% %(\textit{Fitzmaurice et al., 2004})
-
-% \subsubsection{Test de cociente de verosimilitud}
-
-% Se basa en la teoría asintótica y va a suplir las dificultades del test de
-% Wald. El test se obtiene comparando las verosimilitudes de dos modelos, uno de
-% los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro
-% no tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya
-% que el modelo reducido es un caso particular del modelo completo.
-
-% Al igual que anteriormente, se plantean las hipótesis:
-
-% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
-
-% La función de log-verosimilitud maximizada del modelo completo es:
-
-% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% \frac{1}{2} \sum_{i=1}^{N} [(Y_i -
-% X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
-
-% Y la del modelo reducido es:
-
-% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% \frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1}
-% (Y_i - X_i\beta_0)] \]
-
-% Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto
-% $L'\beta = 0$.
-
-% Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
-
-% \[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
-
-% Donde $v$ es el número de parámetros del modelo completo menos el número de
-% parámetros del modelo reducido
-
-% Si lo que se quiere comparar mediante este test es la estructura media de dos
-% modelos, se recomienda estimar los parámetros mediante el método ML. En cambio,
-% si lo que se desea comparar son patrones de covariancia anidados entre dos
-% modelos se recomienda estimar los parámetros con el método REML.
-
-% Cuando se desea hacer inferencia sobre las componentes de variancia (por
-% ejemplo, postular que una variancia es nula), la diferencia entre los dos
-% modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si
-% sucede esto, la distribución de la estadística $G^2$ ya no será una
-% chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado, una de
-% $k$ grados de libertad y otra de $k+1$ grados de libertad.
-
-% % Si bien hay tablas para esta estadística, se recomienda en general utilizar
-% % en vez de un nivel de significación del 5%, uno del 10%, para no tener
-% % problemas de elegir un modelo demasiado simple
-
-% \subsection{Elección entre modelos de covariancia}
-
-% Cuando los modelos no están anidados, como sucede generalmente cuando se
-% plantean modelos con distintas estructuras de covariancia, no se puede usar el
-% método del cociente de verosimilitud para compararlos.
-
-% Como en la matriz de covariancia siempre intervienen los residuos, y en ellos
-% aparecen los parámetros de la parte media del modelo, para asegurarse que la
-% parte media esté bien especificada se elige un modelo maximal (modelo con todos
-% los parámetros que queremos incorporar). Dado dicho modelo, se plantean
-% distintos modelos que se van a diferenciar únicamente en la estructura de la
-% matriz de covariancia.
-
-% Los enfoques que se proponen a continuación se basan en la comparación de
-% versiones penalizadas de las log-verosimilitudes de los modelos. Como es
-% conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser
-% la verosimilitud. Para comparar modelos con distinto número de parámetros, se
-% penalizan a los mismos, surgiendo varios criterios A continuación se destacan
-% dos de estos:
-
-% \begin{itemize}
-% 	\item \textit{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
-% 	\item \textit{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
-% \end{itemize}
-
-% Donde:
-
-% $\hat{l}$: log-verosimilitud maximizada del modelo
-
-% $p$: número de parámetros del modelo
-
-% El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio
-% para seleccionar un modelo es aquel que minimice los valores de $AIC$ o $BIC$
-
-
-% \subsection{Predicción de los efectos aleatorios}
-
-% En muchas aplicaciones la inferencia está centrada solamente en los efectos
-% fijos. Estos parámetros se interpretan como los cambios de la respuesta media
-% en el tiempo, pero muchas veces se desea conocer además los perfiles
-% individuales, por lo que necesitamos conocer los valores de $b_i$. Como $b_i$
-% es una cantidad aleatoria se habla de predicción de $b_i$.
-
-% Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar
-% $E[b_i - c(Y_i)]^2$. La función $c(Y_i)$ que hace que esa esperanza sea lo más
-% chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se
-% simboliza:
-
-% \[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
-
-% Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico
-% (EBLUP) o estimador empírico de Bayes resulta:
-
-% \[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
-
-% A través de esto se pueden conocer los perfiles individuales, siendo
-% $\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
-% operando algebraicamente se llega a la expresión:
-
-% \[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n -
-% \hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
-
-% Resulta que el perfil individual estimado es un promedio ponderado entre el
-% perfil de la respuesta media poblacional ($X_i\hat{\beta}$) y el perfil de la
-% respuesta observada en la unidad $i$ $(Y_i)$.
-
-% \subsection{Examen de residuos}
-
-% Como en todo análisis de datos en donde se utiliza un modelo estadístico, es
-% necesario realizar un estudio del cumplimiento de los supuestos del modelo
-% utilizando los gráficos de residuos.
-
-% El modelo lineal mixto para la unidad $i$ es:
-
-% \[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
-
-% Con $b_i$ y $\varepsilon_i$ independientes y
-% $\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
-
-% En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
-
-% \subsubsection{Residuos marginales}
-
-% Se definen como la diferencia entre el vector de respuestas y su media marginal
-% estimada.
-
-% \[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
-
-% \subsubsection{Residuos condicionales}
-
-% Se definen como la diferencia entre el vector de respuestas y su media
-% condicional estimada.
-
-% \[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
-
-% \subsubsection{Residuos de los efectos aleatorios}
-
-% \[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
-
-% Estos residuos así calculados reciben el nombre de residuos ordinarios, van a
-% estar correlacionados y sus variancias no van a ser necesariamente contrastes.
-% Para evitar este inconveniente es necesario realizar una estandarización de los
-% mismos:
-
-% \begin{itemize}
-% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen
-% 	los residuos estudentizados.
-% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen
-% 	los residuos de Pearson.
-% \end{itemize}
-
-% Se define como residuo puro al residuo que depende de solo los componentes
-% fijos y del error que predice, y residuo confundido si además de depender de
-% las componentes fijas y del error que predicen están en función de otros
-% residuos.
-
-% En el word hay una tabla que explica como usar cada residuo
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DIGGLE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Problemas con la estimación}
+
+Pepe y Anderson (1994) mostraron que estas ecuaciones llegan a cero solo si la
+data cumple con el supuesto
+
+\begin{equation}
+\label{estimation_issue}
+	E[Y_{ij} | X_{ij}] = E[Y_{ij} | X_{ij}, j = 1, ..., T]
+\end{equation}
+
+Esto quiere decir que la media condicional de la variable respuesta en una
+determinada ocasión, dados todos los valores de la covariable, depende solo del
+valor de la covariable en esa ocasión. Este supuesto se cumple tanto con
+covariables no variables del tiempo como con covariables variables en el tiempo
+no estocáticas. Sin embargo, para las CVT estocásticas puede no necesariamente
+cumplirse: valores anteriores o posteriores de la CVT pueden confundir la
+relacion entre la variable respuesta y la CVT en una determinada ocasión. En
+consecuencia, esto puede conducir a estimaciones sesgadas de los efectos fijos
+del modelo.
+
+Frente a este escenario, varios autores recomendaron plantear el modelo
+longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
+estimación generalizadas) con estructura de correlación independiente o bien
+utilizar el GMM (método generalizado de los momentos), donde es posible
+incorporar información sobre la naturaleza de la CVT que se está analizando.
 
 \newpage
-\section{Covariables que varían en el tiempo}
+
+\section{Covariables en datos longitudinales}
 
 En los estudios longitudinales, las variables independientes pueden ser
-clasificadas en dos categorías: covariables fijas en el tiempo, es decir que no
-varían en el tiempo (CNVT) o covariables que varían en el tiempo (CVT). La
-diferencia entre ellas puede conducir a diferentes enfoques de análisis así
-como también a diferentes conclusiones.
-
-Las CNVT son variables independientes que no presentan variación intra-sujeto,
-es decir, los valores de estas covariables no cambian a lo largo del estudio
-para un individuo en particular. Por ejemplo, el sexo biológico de una persona
-o el grupo de tratamiento.
-
-Las CVT son variables independientes que incluyen tanto la variación
-intra-sujeto y la variación entre-sujetos. Esto significa que, para un
-individuo en particular, el valor de la covariable cambia a través del tiempo y
-puede cambiar también entre diferentes individuos. Por ejemplo, valor de la
-presión arterial o condición de fumar (si/no).
+clasificadas en dos categorías: covariables fijas, es decir que no varían en el
+tiempo (CNVT) o covariables que varían en el tiempo (CVT). La diferencia entre
+ellas puede conducir a diferentes enfoques de análisis así como también a
+diferentes conclusiones.
 
 Tanto las CNVT y las CVT ueden ser utilizadas para realizar comparaciones entre
 poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
 embargo, sólo las CVT permiten describir una relación dinámica entre la
 covariable y la variable respuesta.
 
-\subsection{Covariables estocásticas y no estocásticas}
+\subsection{Covariables fijas}
+
+Las CNVT son variables independientes que no presentan variación intra-sujeto,
+es decir, los valores de estas covariables no cambian a lo largo del estudio
+para un individuo en particular.
+
+Éstas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
+biológico de una persona o el grupo de tratamiento) o pueden ser covariables
+basales (es decir, medidas al inicio del estudio). Las covariables basales son
+fijas por definición pero pueden ser variables en el tiempo por naturaleza, por
+ejemplo, la edad varia en el tiempo pero la edad basal es fija.
+
+\subsection{Covariables variables en el tiempo}
+
+Las CVT son variables independientes que incluyen tanto la variación
+intra-sujeto como la variación entre-sujetos. Esto significa que, para un
+individuo en particular, el valor de la covariable cambia a través del tiempo y
+puede cambiar también entre diferentes individuos. Por ejemplo, valor de la
+presión arterial o condición de fumar (si/no).
+
+\subsubsection{Covariables estocásticas y no estocásticas}
 
 Las CVT no estocásticas son covariables que varían sistemáticamente a través
 del tiempo pero son fijas por diseño del estudio o bien su valor puede
@@ -809,10 +436,10 @@ predecirse. En cambio, las CVT estocásticas son covariables que varían
 aleatoriamente a través del tiempo, es decir, los valores en cualquier ocasión
 no pueden ser estimados ya que son gobernados por un mecanismo aleatorio.
 Ejemplos de las primeras son: tiempo desde la visita basal, edad, grupo de
-tratamiento en los estudios cross-over. Ejemplos de las segunas son: valor del
+tratamiento en los estudios cross-over. Ejemplos de las segundas son: valor del
 colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 
-\subsection{Covariables exógenas y endógenas}
+\subsubsection{Covariables exógenas y endógenas}
 
 Se dice que una CVT es exógena cuando los valores actuales y anteriores de la
 respuesta en la ocasión $j (Y_{i1}, ..., Y_{ij})$, dados los valores actuales y
@@ -841,12 +468,16 @@ en una determinada ocasión dependa de los niveles observados previamente, pero
 no se espera que dependa de los niveles de la función pulmonar observados
 previamente en el sujeto.
 
-Una CVT que no es exógena se define como endógena. Por ejemplo, cuando se
-evalúa si la cantidad de actividad física está asociada al nivel de glicemia.
-El nivel de actividad física en un determinado momento puede estar (o no)
-asociado a niveles previos y también puede estar asociado a valores previos de
-la glicemia (un paciente con valor de glicemia alto en una visita puede decidir
-aumentar su nivel de actividad física para reducir este valor)
+Una CVT que no es exógena se define como endógena. Una variable endógena es una
+variable estocásticamente relacionada con otros factores medidos en el estudio.
+Esta también puede definirse como una variable generada por un proceso
+relacionado con el individuo en estudio. En otras palabras, las CVT endógenas
+están asociadas con un efecto individual y, a menudo, pueden explicarse por
+otras variables en el estudio. Cuando el proceso estocástico de una CVT
+endógena puede ser (al menos parcialmente) explicado por la variable de
+respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
+endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
+longitudinal.
 
 Es posible examinar empíricamente la suposición de que una CVT es exógena al
 considerar modelos de regresión para la dependencia de $X_{ij}$ en
@@ -861,82 +492,7 @@ A los parámetros de regresión se les puede dar una interpretación causal sól
 cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta.
 
-\subsection{Otros tipos de CVT}
-
-Trabajos más recientes han definido una nueva categorización de las CVT para
-facilitar las interpretaciones y los métodos de estimación adecuados para el
-modelo. Se pueden definir cuatro tipos de CVT relacionados con el grado de no
-exogeneidad con respecto a la respuesta.
-
-\subsubsection{CVT tipo I}
-
-Se clasifica una CVT como de tipo I si satisface:
-
-\begin{equation}
-	\label{CVT tipo I}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
-\end{equation}
-
-En otras palabras, una CVT se considera de tipo I si la variable respuesta en
-la j-ésima ocasión es independiente de todos los valores de la CVT en
-diferentes momentos, aún de los previos a la ocasión. Variables que involucran
-cambios predecibles en el tiempo son tratadas como CVT tipo I, por ejemplo la
-edad o el momento de observación.
-
-\subsubsection{CVT tipo II}
-
-Una CVT se clasficia de tipo II si:
-
-\begin{equation}
-	\label{CVT tipo II}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
-\end{equation}
-
-Cabe destacar que la clase de covariables de tipo I es un subconjunto de la
-clase de covariables de tipo II. Esta condición dice que el proceso de la CVT
-$X_{ij+1}, ..., X_{in_i}$ no se ve afectado por la respuesta $Y_{ij}$.
-
-En otras palabras, la variable respuesta en la j-ésima ocasión puede estar
-asociada a valores previos de la CVT. Esta definición es similar pero no
-equivalente a la definición de exogeneidad. Se puede demostrar que la
-exogeneidad es suficiente es condición suficiente para que una CVT sea de tipo
-II. Este tipo de CVT incluyen covariables que pueden tener una asociación
-rezagada con la respuesta (los valores anteriores de la CVT pueden afectar a la
-respuesta actual) pero los valores de la covariable en un momento determinado
-no se verán afectados por los valores previos de la variable respuesta. Un
-ejemplo de este tipo de CVT es el ``tratamiento farmacológico para la
-hipertensión arterial'' con la variable respuesta ``presión arterial''.
-
-\subsubsection{CVT tipo III}
-
-Se clasifica a una CVT como de tipo III si no es de tipo II. No se asume
-independencia entre la respuesta y la covariable, por lo tanto, uede existir un
-\textit{feedback} entre ambas en donde los valores de la CVT pueden estar
-afectados por valores previos de la variable respuesta. Un ejemplo de este tipo
-de CVT es el ``tratamiento farmacológico para la hipertensión arterial'' con la
-variable respuesta ``infarto de miocardio''. Mientras que es esperable que la
-medicación impacte en la probabilidad de tener un infarto de miocardio, también
-tener un infarto de miocardio puede impactar en el cambio del tratamiento
-farmacológico.
-
-\subsubsection{CVT tipo IV}
-
-Una CVT se define como de tipo IV si:
-
-\begin{equation}
-	\label{CVT tipo IV}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij+1}, ..., X_{in_i})
-\end{equation}
-
-La CVT puede estar asociada con valores previos de la variable respuesta, pero
-la variable respuesta no está asociada con valores previos de la covariable,
-está sólo asociada con el valor observado de la covariable en la misma ocasión.
-Un ejemplo de este tipo de CVT es ``presión arterial'' con la variable
-respuesta ``peso''. En una determinada ocasión hay relación entre ambas
-variables, es esperable que valores previos del peso impacten en la presión
-arterial pero no al revés
-
-\subsection{Covariables rezagadas}
+\section{Transformaciones de interés de CVT}
 
 En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
 antes del tiempo $t$ para predecir $Y_{it}$. Sin embargo, en algunas
@@ -946,10 +502,14 @@ pequeño subconjunto de las mediciones más recientes son usados, ya que se
 supone que el efecto en la respuesta está concentrado en ellas. En cualquier
 caso, el uso de más de una covariable rezagada puede llevar a predictores
 altamente correlacionados, lo que lleva a preguntarse sobre la elección de
-cuantos predictores rezagados utiliar y sobre la estructura de sus
+cuantos predictores rezagados utilizar y sobre la estructura de sus
 coeficientes.
 
-\subsubsection{Una sola covariable rezagada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACA NOE DIJO DE AGREGAR UNA SECCION DE COVARIABLES SIN TRANSFORMAR PERO NO ME PARECIO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Una sola covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
 en un solo rezago $k$ momentos antes de la medición de la respuesta. Por
@@ -959,7 +519,7 @@ covariable es exógena, puede ajustarse el modelo mixto sin más consideraciones
 Lo más común es que se desconozca el valor $k$ apropiado y se consideren varias
 opciones diferentes.
 
-\subsubsection{Múltiples covaribales rezagadas}
+\subsection{Múltiples covaribales rezagadas}
 
 La literatura de series de tiempo ha considerado modelos tanto para infinitos o
 finitos rezagos de la covariable. Dado que los datos longitudinales son
@@ -975,7 +535,7 @@ coeficientes de regresión suaves.
 \[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
 
 A pesar de que los modelos rezagados distribuidos permiten modelar
-parsimoniosamente las covariables rezagadas múltiples, la especificación de del
+parsimoniosamente las covariables rezagadas múltiples, la especificación del
 número de rezagos, $L$, y el órden del modelo para el coeficiente, $p$, deben
 ser consideradas. Ésto puede realizarse a través de tests para modelos
 anidados, como el test del cociente de verosimilitud o el test de Wald.
