@@ -624,7 +624,7 @@ Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
 de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
 incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
 y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
-definieron un cuarto tipo de CVT. 
+definieron un cuarto tipo de CVT.
 
 \newpage
 
@@ -682,17 +682,43 @@ Otro gráfico que resulta de interés es observar la evolución de la TAS a trav
 del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
 expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
 utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
-Podemos observar que, ya sea en mayor o en menor medida, estas covariables
-parecen tener un efecto en la ordenada al origen pero no en la pendiente.
+Podemos observar que en general la TAS disminuye, ya sea en mayor o menor
+medida, a los largo del tiempo. Analizando las covariables de a una, el IMC
+parece no tener un efecto significativo, dado que, aunque los pacientes con
+menor IMC presentan menor TAS, los promedios en cada tiempo caen dentro de los
+intervalos de confianza de ambos grupos. En cuanto a la edad y el sexo, no
+parece haber una diferencia significativa en las pendientes pero si parece haber
+una leve diferencia en las ordenadas al origen, presentando menor TAS los
+pacientes más jóvenes y de sexo femenino. Por último, los pacientes con
+antecedentes de diabetes parecen tener una TAS mayor en un comienzo con una
+pendiente negativa a través del tiempo, mientras que los pacientes que no tienen
+antecedentes de diabetes comienzan con una TAS mas inferior manteniendola más
+constante.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/TAS_vs_tpo_with_covs.png}
-	\caption{TAS a través del tiempo sobre grupos de covariables}
+	\caption{TAS a través del tiempo según grupos de covariables}
 	\label{TAS_with_covs}
 \end{figure}
 
+Por último, la figura \ref{TAS_with_adh} refleja el efecto de la adherencia al
+tratamiento sobre la TAS. Para mantener perfiles no variables en el tiempo, se
+usa la adherencia total al tratamiento y al igual que antes se divide en base a
+su mediana, teniendo por un lado los pacientes que adhieren correctamente a más
+del 86\% del tratamiento (al menos 6 de las 7 ocasiones) y por el otro a los
+pacientes que adhieren correctamente menos del 86\% del tratamiento (hasta 5 de
+las 7 ocasiones). Aqui se puede observar que los pacientes que adhieren
+correctamente al tratamiento parecen tener una pendiente negativa en la TAS a
+través del tiempo, mientras que los pacientes que no adhieren correctamente
+mantienen la TAS constante.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia.png}
+	\caption{TAS a través del tiempo según adherencia al tratamiento}
+	\label{TAS_with_adh}
+\end{figure}
 
 
 \newpage
