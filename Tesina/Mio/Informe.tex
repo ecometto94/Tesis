@@ -720,6 +720,39 @@ mantienen la TAS más constante.
 	\label{TAS_with_adh}
 \end{figure}
 
+\subsection{Evaluación de la exogeneidad}
+
+Para evaluar la exogeneidad de la adherencia se ajustaron modelos de regresion
+logística en cada ocasión, usando como variable respuesta la adherencia en dicha
+ocasión y como covariables la TAS y la adherencia en la ocasión anterior y el
+promedio y proporción hasta la ocasión anterior. En la tabla \ref{exog_table} se
+presentan los valores de los coeficientes para cada covariable y en paréntesis
+el p-value asociado a cada uno. Como se puede notar, en ninguna ocasión la
+adherencia depende de valores anteriores de la TAS, por lo tanto puede
+considerarse como una covariable exógena.
+
+\begin{table}[H]
+	\label{exog_table}
+	\caption{Resultados de la prueba de exogeneidad}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ & $\overline{y}_{t-2}$ \\
+		\hline
+		\hline
+		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
+		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ & $0.0075\ (0.419)$ \\
+		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ & $-0.017\ (0.138)$ \\
+		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ & $-0.0141\ (0.307)$ \\
+		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ & $<0.0001\ (0.996)$ \\
+		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ & $-0.0072\ (0.678)$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Modelo propuesto para la media}
+
+
+
 
 \newpage
 \nocite{*}
