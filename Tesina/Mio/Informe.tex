@@ -736,23 +736,73 @@ considerarse como una covariable exógena.
 	\caption{Resultados de la prueba de exogeneidad}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ & $\overline{y}_{t-2}$ \\
+		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
+		$\overline{y}_{t-2}$ \\
 		\hline
 		\hline
 		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
-		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ & $0.0075\ (0.419)$ \\
-		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ & $-0.017\ (0.138)$ \\
-		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ & $-0.0141\ (0.307)$ \\
-		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ & $<0.0001\ (0.996)$ \\
-		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ & $-0.0072\ (0.678)$ \\
+		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
+		$0.0075\ (0.419)$ \\
+		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
+		$-0.017\ (0.138)$ \\
+		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
+		$-0.0141\ (0.307)$ \\
+		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
+		$<0.0001\ (0.996)$ \\
+		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
+		$-0.0072\ (0.678)$ \\
 		\hline
 	\end{tabular}
 \end{table}
 
-\subsection{Modelo propuesto para la media}
+\subsection{Modelo propuesto}
 
+\subsubsection{Modelo propuesto para la media}
 
+El modelo \ref{modelo_simple} se obtuvo mediante el método stepwise, el cual
+consiste en ajustar un modelo con todas las covariables y en cada paso quitar la
+de mayor p-value (siempre y cuando no sea significativa) mientras que también se
+añaden las covariables que no están presentes en el modelo con el fin de volver
+a agregarlas si alguna tiene un efecto significativo. En el anexo pueden
+encontrarse todos los pasos de dicho proceso, el modelo obtenido es el
+siguiente:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AGREGAR PROCESO AL ANEXO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{multline}
+	\label{modelo_simple}
+	\hat{y}_{ij} = 121.011\ +\ b_{0i}\ +\ 3.917\ sexo_i\ +\ 0.156\ edad_i\ -
+	\ 3.337\ diabetes_i \\
+	-\ 0.238\ mes_i\ -\ 0.689\ mes_i*diabetes_i\ +\ b_{1i}*mes_i\ +
+	\ \epsilon_{ij}
+\end{multline}
+
+\subsubsection{Modelo propuesto para la covariancia}
+
+En la figura \ref{semivariogram} puede notarse que la mayor parte de la
+variabilidad total está compuesta por el error de medición dado que la curva no
+inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
+serial también puede considerarse pequeña. Por último, como la curva no llega a
+la variancia total, esto nos indica que debe explicarse la variancia entre
+individuos agregando una ordenada aleatoria.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AGREGAR PROCESO AL ANEXO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{img/semivariogram.png}
+	\caption{Semivariograma}
+	\label{semivariogram}
+\end{figure}
+
+Además, se realizaron tests de hipótesis para probar la significación de los
+efectos aleatorios para la ordenada y la pendiente, resultando ambos
+significativos. Por lo que la estructura de covariancia elegida para el modelos
+es una estructura independiente con ordenada y pendiente aleatoria.
 
 \newpage
 \nocite{*}
