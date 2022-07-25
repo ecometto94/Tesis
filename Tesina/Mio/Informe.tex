@@ -720,41 +720,6 @@ mantienen la TAS más constante.
 	\label{TAS_with_adh}
 \end{figure}
 
-\subsection{Evaluación de la exogeneidad}
-
-Para evaluar la exogeneidad de la adherencia se ajustaron modelos de regresion
-logística en cada ocasión, usando como variable respuesta la adherencia en dicha
-ocasión y como covariables la TAS y la adherencia en la ocasión anterior y el
-promedio y proporción hasta la ocasión anterior. En la tabla \ref{exog_table} se
-presentan los valores de los coeficientes para cada covariable y en paréntesis
-el p-value asociado a cada uno. Como se puede notar, en ninguna ocasión la
-adherencia depende de valores anteriores de la TAS, por lo tanto puede
-considerarse como una covariable exógena.
-
-\begin{table}[H]
-	\label{exog_table}
-	\caption{Resultados de la prueba de exogeneidad}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
-		$\overline{y}_{t-2}$ \\
-		\hline
-		\hline
-		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
-		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
-		$0.0075\ (0.419)$ \\
-		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
-		$-0.017\ (0.138)$ \\
-		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
-		$-0.0141\ (0.307)$ \\
-		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
-		$<0.0001\ (0.996)$ \\
-		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
-		$-0.0072\ (0.678)$ \\
-		\hline
-	\end{tabular}
-\end{table}
-
 \subsection{Modelo propuesto}
 
 \subsubsection{Modelo propuesto para la media}
@@ -803,6 +768,133 @@ Además, se realizaron tests de hipótesis para probar la significación de los
 efectos aleatorios para la ordenada y la pendiente, resultando ambos
 significativos. Por lo que la estructura de covariancia elegida para el modelos
 es una estructura independiente con ordenada y pendiente aleatoria.
+
+Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
+\ref{modelo_propuesto}.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_propuesto}
+	\caption{Modelo propuesto}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15424.7921} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30869.584} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30932.323} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 121.011 & 2.357 & 51.352 & $>$ 0.001 \\
+		Sexo & 3.917 & 0.755 & 5.187 & $>$ 0.001 \\
+		Edad & 0.156 & 0.039 & 3.999 & $>$ 0.001 \\
+		DBT & 3.337 & 1.490 & 2.239 & 0.025 \\
+		tpo programa & -0.238 & 0.114 & -2.094 & 0.036 \\
+		tpo programa*DBT & -0.689 & 0.309 & -2.230 & 0.026 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Evaluación de la exogeneidad}
+
+Para evaluar la exogeneidad de la adherencia se ajustaron modelos de regresion
+logística en cada ocasión, usando como variable respuesta la adherencia en dicha
+ocasión y como covariables la TAS y la adherencia en la ocasión anterior y el
+promedio y proporción hasta la ocasión anterior. En la tabla \ref{exog_table} se
+presentan los valores de los coeficientes para cada covariable y en paréntesis
+el p-value asociado a cada uno. Como se puede notar, en ninguna ocasión la
+adherencia depende de valores anteriores de la TAS, por lo tanto puede
+considerarse como una covariable exógena.
+
+\begin{table}[H]
+	\centering
+	\label{exog_table}
+	\caption{Resultados de la prueba de exogeneidad}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
+		$\overline{y}_{t-2}$ \\
+		\hline
+		\hline
+		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
+		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
+		$0.0075\ (0.419)$ \\
+		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
+		$-0.017\ (0.138)$ \\
+		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
+		$-0.0141\ (0.307)$ \\
+		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
+		$<0.0001\ (0.996)$ \\
+		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
+		$-0.0072\ (0.678)$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Incorporación de la CVT}
+
+Como se mencionó anteriormente, hay más de una manera de incorporar una CVT a un
+modelo mixto, en esta sección compararemos algunas de éstas.
+
+\subsubsection{Incorporación de covariable fija}
+
+Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
+al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
+paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
+incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_1} que la
+covariable solo es significativa en la ordenada al origen.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_1}
+	\caption{Modelo propuesto}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15412.1077} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.215} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30923.501} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 121.442 & 2.341 & 51.874 & $>$ 0.001 \\
+		Sexo & 3.807 & 0.740 & 5.147 & $>$ 0.001 \\
+		Edad & 0.173 & 0.038 & 4.513 & $>$ 0.001 \\
+		DBT & 3.364 & 1.481 & 2.272 & 0.023 \\
+		Adherencia Perfecta & -2.792 & 1.015 & -2.750 & 0.006 \\
+		tpo programa & -0.108 & 0.154 & -0.702 & 0.483 \\
+		tpo programa*DBT & -0.683 & 0.308 & -2.215 & 0.027 \\
+		tpo programa*Adherencia Perfecta & -0.265 & 0.211 & -1.253 & 0.210 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Otra manera de incorporar la covariable fija sin perder tanta información es
+usar la proporción de adherencia correcta al final del estudio. Es decir, si de
+las 7 ocasiones el paciente adhirio correctamente al tratamiento en solo 5, el
+valor que se le asignará es 5/7 ($\approx 0.71$)
+
+\begin{table}[H]
+	\centering
+	\label{modelo_2}
+	\caption{Modelo propuesto}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15414.7464} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30853.492} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30928.779} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.805 & 2.843 & 43.193 & $>$ 0.001 \\
+		Sexo & 3.738 & 0.746 & 5.008 & $>$ 0.001 \\
+		Edad & 0.169 & 0.039 & 4.390 & $>$ 0.001 \\
+		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
+		Adherencia Total & -3.063 & 2.150 & 1.425 & 0.154 \\
+		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
+		tpo programa*DBT & -0.657 & 0.308 & 2.133 & 0.033 \\
+		tpo programa*Adherencia Total & -0.965 & 0.444 & 2.174 & 0.030 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \newpage
 \nocite{*}
