@@ -770,12 +770,12 @@ significativos. Por lo que la estructura de covariancia elegida para el modelos
 es una estructura independiente con ordenada y pendiente aleatoria.
 
 Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
-\ref{modelo_propuesto}.
+\ref{modelo_1}.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_propuesto}
-	\caption{Modelo propuesto}
+	\label{modelo_1}
+	\caption{Modelo 1: Modelo propuesto sin CVT}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15424.7921} \\
@@ -840,13 +840,13 @@ modelo mixto, en esta sección compararemos algunas de éstas.
 Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
 al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
 paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
-incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_1} que la
+incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_2} que la
 covariable solo es significativa en la ordenada al origen.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_1}
-	\caption{Modelo propuesto}
+	\label{modelo_2}
+	\caption{Modelo 2: Incorporación adherencia perfecta}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15412.1077} \\
@@ -874,8 +874,8 @@ valor que se le asignará es 5/7 ($\approx 0.71$)
 
 \begin{table}[H]
 	\centering
-	\label{modelo_2}
-	\caption{Modelo propuesto}
+	\label{modelo_3}
+	\caption{Modelo 3: incorporación adherencia total}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15414.7464} \\
@@ -888,13 +888,116 @@ valor que se le asignará es 5/7 ($\approx 0.71$)
 		Sexo & 3.738 & 0.746 & 5.008 & $>$ 0.001 \\
 		Edad & 0.169 & 0.039 & 4.390 & $>$ 0.001 \\
 		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
-		Adherencia Total & -3.063 & 2.150 & 1.425 & 0.154 \\
+		Adherencia Total & -3.063 & 2.150 & -1.425 & 0.154 \\
 		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
-		tpo programa*DBT & -0.657 & 0.308 & 2.133 & 0.033 \\
-		tpo programa*Adherencia Total & -0.965 & 0.444 & 2.174 & 0.030 \\
+		tpo programa*DBT & -0.657 & 0.308 & -2.133 & 0.033 \\
+		tpo programa*Adherencia Total & -0.965 & 0.444 & -2.174 & 0.030 \\
 		\hline
 	\end{tabular}
 \end{table}
+
+Puede notarse que ambas maneras de introducir la covariable ayudan para explicar
+el comportamiento de la TAS en el estudio (siendo la primera opción levemente
+mejor, ya que el AIC y el BIC son menores).
+
+\subsubsection{Incorporación como CVT}
+
+Como vimos anteriormente, la CVT puede considerarse exógena, por lo tanto puede
+introducirse al modelo en su forma natural.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_4}
+	\caption{Modelo 4: incorporación la adherencia en cada ocasión}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15388.2302} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.460} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30875.746} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.388 & 2.426 & 50.444 & $>$ 0.001 \\
+		Sexo & 3.768 & 0.746 & 5.054 & $>$ 0.001 \\
+		Edad & 0.164 & 0.038 & 4.271 & $>$ 0.001 \\
+		DBT & 3.212 & 1.485 & 2.163 & 0.031 \\
+		Adherencia & -2.321 & 0.922 & -2.517 & 0.012 \\
+		tpo programa & 0.442 & 0.242 & 1.828 & 0.067 \\
+		tpo programa*DBT & -0.584 & 0.306 & -1.906 & 0.057 \\
+		tpo programa*Adherencia & -0.783 & 0.262 & -2.984 & 0.003 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Al comparar los criterios de AIC y BIC de este modelo con los anteriores se
+puede notar que han disminuido en gran medida, lo cual quiere decir que este
+modelo explica la variación de la TAS de mejor manera. Además, ambos efectos de
+adherencia (ordenada y pendiente) son significativos en este modelo, lo cual no
+ocurria en los modelos anteriores. Este comportamiento es el esperado, dado que
+se está usando toda la información disponible de la CVT en cada momento en vez
+de resumirla.
+
+Además de incorporar la adherencia en cada ocasión, también puede acompañarse de
+la adherencia en momentos anteriores o algunas medidas resumenes, algunos
+ejemplos pueden observarse en las siguientes tablas.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_5}
+	\caption{Modelo 5: incorporación la adherencia en cada ocasión y en ocasión anterior}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1933} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.386} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.946} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.467 & 2.426 & 50.485 & $>$ 0.001 \\
+		Sexo & 3.755 & 0.745 & 5.038 & $>$ 0.001 \\
+		Edad & 0.166 & 0.038 & 4.309 & $>$ 0.001 \\
+		DBT & 3.205 & 1.486 & 2.157 & 0.031 \\
+		Adherencia & -2.527 & 0.933 & -2.709 & 0.007 \\
+		tpo programa & 0.543 & 0.252 & 2.157 & 0.031 \\
+		tpo programa*DBT & -0.579 & 0.307 & -1.888 & 0.059 \\
+		tpo programa*Adherencia & -0.671 & 0.274 & -2.451 & 0.014 \\
+		tpo programa*Adherencia lag1 & -0.232 & 0.161 & -1.440 & 0.150 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\label{modelo_6}
+	\caption{Modelo 6: incorporación la adherencia en cada ocasión y adherencia acumulada}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1802} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.360} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.920} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.454 & 2.425 & 50.503 & 0.000 \\
+		Sexo & 3.735 & 0.745 & 5.011 & 0.000 \\
+		Edad & 0.168 & 0.039 & 4.370 & 0.000 \\
+		DBT & 3.199 & 1.486 & 2.153 & 0.031 \\
+		Adherencia & -2.694 & 0.957 & -2.816 & 0.005 \\
+		tpo programa & 0.678 & 0.291 & 2.328 & 0.020 \\
+		tpo programa*DBT & -0.581 & 0.306 & -1.896 & 0.058 \\
+		tpo programa*Adherencia & -0.547 & 0.309 & -1.772 & 0.076 \\
+		tpo programa*Adherencia Acumulada & -0.527 & 0.364 & -1.450 & 0.147 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En las tablas \ref{modelo_5} y \ref{modelo_6} puede notarse que las covariables
+adicionales no son significativas. Otra forma de comparar estos modelos con el
+modelo 4 es a través del criterio BIC, que es mayor en ambos casos. Como
+conclusión, la mejor decisión hasta el momento es el modelo 4 que se mantiene
+más parsimonioso.
+
+\subsubsection{Incorporación dividiendo efecto entre e intra}
 
 \newpage
 \nocite{*}
