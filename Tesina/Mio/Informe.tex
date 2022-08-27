@@ -592,7 +592,7 @@ la variable respuesta asociado con cambios de la CVT entre personas
 \paragraph{Consideraciones con CVT dicotómicas} \mbox{} \\
 
 Cuando tenemos una CVT dicotómica, 0 indica la ausencia de la variable y 1
-indica la presencia, entonces $\overline{X}_i$ la proporción en la que una
+indica la presencia, entonces $\overline{X}_i$ es la proporción en la que una
 persona presentó dicha covariable, por lo que el método anterior resultará en
 valores extraños para $\beta_W$. Por ejemplo, si la CVT se presentó en el 50\%
 de las ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término
@@ -632,11 +632,12 @@ definieron un cuarto tipo de CVT.
 
 Se cuenta con un programa de atención y control de pacientes hipertensos
 iniciado en el año 2014 en Rosario que realiza un seguimiento exhaustivo de
-\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los
-cuales un 49.28\% son hombres. Las visitas se realizaron una vez por mes
-durante 7 meses desde la primera consulta y en cada una de ellas se registró si
-la persona estaba adhiriendo correctamente al tratamiento y el valor de la
-tensión arterial sistólica (TAS) (M=134.10, DS=16.07).
+\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los cuales
+un 49.28\% son hombres. Las visitas se realizaron una vez por mes durante 7
+meses desde asignado el tratamiento y en cada una de ellas se registró si la
+persona estaba adhiriendo correctamente al tratamiento y el valor de la tensión
+arterial sistólica (TAS) (M=134.10, DS=16.07). Es decir, el seguimiento comenzó
+a medirse luego de un mes de que los pacientes empezaron el tratamiento.
 
 A fines de centrarse en la CVT se dejaron de lado algunas covariables fijas
 derivadas de estudios de laboratorio, manteniendo solo algunas covariables
@@ -784,9 +785,9 @@ Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 121.011 & 2.357 & 51.352 & $>$ 0.001 \\
-		Sexo & 3.917 & 0.755 & 5.187 & $>$ 0.001 \\
-		Edad & 0.156 & 0.039 & 3.999 & $>$ 0.001 \\
+		Intercept & 121.011 & 2.357 & 51.352 & $<$ 0.001 \\
+		Sexo & 3.917 & 0.755 & 5.187 & $<$ 0.001 \\
+		Edad & 0.156 & 0.039 & 3.999 & $<$ 0.001 \\
 		DBT & 3.337 & 1.490 & 2.239 & 0.025 \\
 		tpo programa & -0.238 & 0.114 & -2.094 & 0.036 \\
 		tpo programa*DBT & -0.689 & 0.309 & -2.230 & 0.026 \\
@@ -841,7 +842,10 @@ Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
 al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
 paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
 incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_2} que la
-covariable solo es significativa en la ordenada al origen.
+covariable solo es significativa en la ordenada al origen. Este modelo indica
+que, controlando por el resto de las variables, los pacientes con adherencia
+perfecta tienen en promedio 2.792 menor TAS en el primer mes del tratamiento y
+continúa disminuyendo en 0.265 por cada mes.
 
 \begin{table}[H]
 	\centering
@@ -855,9 +859,9 @@ covariable solo es significativa en la ordenada al origen.
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 121.442 & 2.341 & 51.874 & $>$ 0.001 \\
-		Sexo & 3.807 & 0.740 & 5.147 & $>$ 0.001 \\
-		Edad & 0.173 & 0.038 & 4.513 & $>$ 0.001 \\
+		Intercept & 121.442 & 2.341 & 51.874 & $<$ 0.001 \\
+		Sexo & 3.807 & 0.740 & 5.147 & $<$ 0.001 \\
+		Edad & 0.173 & 0.038 & 4.513 & $<$ 0.001 \\
 		DBT & 3.364 & 1.481 & 2.272 & 0.023 \\
 		Adherencia Perfecta & -2.792 & 1.015 & -2.750 & 0.006 \\
 		tpo programa & -0.108 & 0.154 & -0.702 & 0.483 \\
@@ -870,7 +874,14 @@ covariable solo es significativa en la ordenada al origen.
 Otra manera de incorporar la covariable fija sin perder tanta información es
 usar la proporción de adherencia correcta al final del estudio. Es decir, si de
 las 7 ocasiones el paciente adhirio correctamente al tratamiento en solo 5, el
-valor que se le asignará es 5/7 ($\approx 0.71$)
+valor que se le asignará es 5/7 ($\approx 0.71$). Los coeficientes de este
+modelo indican que, controlando por el resto de las variables, los pacientes
+tienen en promedio un porcentaje de 3.063 menor TAS al primer mes de tratamiento
+equivalente al porcentaje de adherencia total, y continuará disminuyendo en un
+porcentaje de 0.965 por mes también equivalente al porcentaje de adherencia
+total. Por ejemplo, un paciente que adhirió correctamente sólo al 50\% del
+tratamiento, tendra una TAS en promedio un 1.5315 ($3.063 x 0.5$) menor que un
+paciente que no adhirio correctamente en ninguna ocasión.
 
 \begin{table}[H]
 	\centering
@@ -884,9 +895,9 @@ valor que se le asignará es 5/7 ($\approx 0.71$)
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 122.805 & 2.843 & 43.193 & $>$ 0.001 \\
-		Sexo & 3.738 & 0.746 & 5.008 & $>$ 0.001 \\
-		Edad & 0.169 & 0.039 & 4.390 & $>$ 0.001 \\
+		Intercept & 122.805 & 2.843 & 43.193 & $<$ 0.001 \\
+		Sexo & 3.738 & 0.746 & 5.008 & $<$ 0.001 \\
+		Edad & 0.169 & 0.039 & 4.390 & $<$ 0.001 \\
 		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
 		Adherencia Total & -3.063 & 2.150 & -1.425 & 0.154 \\
 		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
@@ -903,7 +914,9 @@ mejor, ya que el AIC y el BIC son menores).
 \subsubsection{Incorporación como CVT}
 
 Como vimos anteriormente, la CVT puede considerarse exógena, por lo tanto puede
-introducirse al modelo en su forma natural.
+introducirse al modelo en su forma natural. Los coeficientes de Adherencia de
+este modelo y de los siguientes no son fácilmente interpretables, dado que
+contienen los efectos tanto entre-persona como intra-persona.
 
 \begin{table}[H]
 	\centering
@@ -917,9 +930,9 @@ introducirse al modelo en su forma natural.
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 122.388 & 2.426 & 50.444 & $>$ 0.001 \\
-		Sexo & 3.768 & 0.746 & 5.054 & $>$ 0.001 \\
-		Edad & 0.164 & 0.038 & 4.271 & $>$ 0.001 \\
+		Intercept & 122.388 & 2.426 & 50.444 & $<$ 0.001 \\
+		Sexo & 3.768 & 0.746 & 5.054 & $<$ 0.001 \\
+		Edad & 0.164 & 0.038 & 4.271 & $<$ 0.001 \\
 		DBT & 3.212 & 1.485 & 2.163 & 0.031 \\
 		Adherencia & -2.321 & 0.922 & -2.517 & 0.012 \\
 		tpo programa & 0.442 & 0.242 & 1.828 & 0.067 \\
@@ -953,9 +966,9 @@ ejemplos pueden observarse en las siguientes tablas.
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 122.467 & 2.426 & 50.485 & $>$ 0.001 \\
-		Sexo & 3.755 & 0.745 & 5.038 & $>$ 0.001 \\
-		Edad & 0.166 & 0.038 & 4.309 & $>$ 0.001 \\
+		Intercept & 122.467 & 2.426 & 50.485 & $<$ 0.001 \\
+		Sexo & 3.755 & 0.745 & 5.038 & $<$ 0.001 \\
+		Edad & 0.166 & 0.038 & 4.309 & $<$ 0.001 \\
 		DBT & 3.205 & 1.486 & 2.157 & 0.031 \\
 		Adherencia & -2.527 & 0.933 & -2.709 & 0.007 \\
 		tpo programa & 0.543 & 0.252 & 2.157 & 0.031 \\
@@ -978,9 +991,9 @@ ejemplos pueden observarse en las siguientes tablas.
 		\hline
 		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
 		\hline
-		Intercept & 122.454 & 2.425 & 50.503 & 0.000 \\
-		Sexo & 3.735 & 0.745 & 5.011 & 0.000 \\
-		Edad & 0.168 & 0.039 & 4.370 & 0.000 \\
+		Intercept & 122.454 & 2.425 & 50.503 & $<$ 0.001 \\
+		Sexo & 3.735 & 0.745 & 5.011 & $<$ 0.001 \\
+		Edad & 0.168 & 0.039 & 4.370 & $<$ 0.001 \\
 		DBT & 3.199 & 1.486 & 2.153 & 0.031 \\
 		Adherencia & -2.694 & 0.957 & -2.816 & 0.005 \\
 		tpo programa & 0.678 & 0.291 & 2.328 & 0.020 \\
@@ -998,6 +1011,43 @@ conclusión, la mejor decisión hasta el momento es el modelo 4 que se mantiene
 más parsimonioso.
 
 \subsubsection{Incorporación dividiendo efecto entre e intra}
+
+El efecto de la CVT puede también dividirse en distintos coeficientes para el
+efecto entre-persona y el efecto intra-persona, los valores de éstos
+coeficientes pueden observarse en la tabla \ref{modelo_7}. El coeficiente -0.607
+quiere decir que, manteniendo constante la proporción de adherencia total al
+tratamiento, se espera que la TAS disminuya en promedio 0.607 los meses en los
+que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
+-0.481 se interpreta como, después de controlar por la adherencia al tratamiento
+en ese mes, se espera que la TAS disminuya en promedio en 0.481 relativo a la
+proporción de adherencia total.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_7}
+	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
+	intra persona}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.3388} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30802.677} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30890.511} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.542 & 2.841 & 43.141 & $<$ 0.001 \\
+		Sexo & 3.729 & 0.746 & 4.997 & $<$ 0.001 \\
+		Edad & 0.168 & 0.039 & 4.348 & $<$ 0.001 \\
+		DBT & 3.220 & 1.487 & 2.166 & 0.030 \\
+		Adherencia & -2.611 & 1.054 & -2.478 & 0.013 \\
+		Adherencia Total & -0.121 & 2.380 & -0.051 & 0.959 \\
+		tpo programa & 0.689 & 0.378 & 1.822 & 0.068 \\
+		tpo programa*DBT & -0.578 & 0.306 & -1.887 & 0.059 \\
+		tpo programa*Adherencia & -0.607 & 0.314 & -1.930 & 0.054 \\
+		tpo programa*Adherencia Total & -0.481 & 0.528 & -0.911 & 0.362 \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \newpage
 \nocite{*}
