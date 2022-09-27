@@ -85,69 +85,54 @@
 \newpage
 \section{Introducción}
 
-Los datos longitudinales tienen la particularidad de estar conformados por
-mediciones repetidas sobre una unidad, las cuales pueden surgir por ser medidas
-en diferentes momentos o conidiciones. Su principal interés es estudiar los
-cambios en el tiempo y los factores que influencian el cambio. 
+Los datos longitudinales están conformados por mediciones repetidas sobre una
+unidad, las cuales pueden surgir por ser medidas en diferentes momentos o
+condiciones. Su principal objetivo es estudiar los cambios en el tiempo y los
+factores que influencian el cambio. 
 
-Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
-respuesta es modelada por una parte sistemática que está formada por una
+Los modelos mixtos permiten ajustar datos con estas características, donde la
+respuesta se modela por una parte sistemática que está compuesta por una
 combinación de características poblacionales que son compartidas por todas las
-unidades (efectos fijos), y una parte aleatoria que está constituida por
-efectos específicos de cada unidad (efectos aleatorios) y por el error
-aleatorio.
+unidades (efectos fijos), y una parte aleatoria que está constituida por efectos
+específicos de cada unidad (efectos aleatorios) y por el error aleatorio, las
+cuales reflejan las múltiples fuentes de heterogeneidad y correlación entre y
+dentro de las unidades.
 
-Las covariables en los estudios longitudinales se pueden clasificar en dos
-categorias: fijas y variables en el tiempo. Las diferencias entre estos tipos
-de covariables pueden llevar a diferentes intereses de investigación,
-diferentes tipos de análisis y diferentes conclusiones.
+En estos modelos pueden incorporarse covariables. Las mismas se pueden clasficar
+en 2 categorías: covariables fijas y variables en el tiempo. La naturaleza
+diferente de estas covariables conduce a considerar distintos enfoques para cada
+una de ellas en el análisis.
 
 Las covariables fijas son variables independientes que no tienen variación
-intra-sujeto, lo que significa que el valor de la covariable no cambia para un
-individuo determinado en el estudio longitudinal. Este tipo de covariable se
-puede usar para realizar comparaciones entre poblaciones y describir diferentes
-tendencias en el tiempo, pero no permite una relación dinámica entre la
-covariable y la respuesta.
+intra-sujeto, es decir que el valor de la covariable no cambia para un individuo
+determinado en el estudio longitudinal. Este tipo de covariables se pueden
+utilizar para realizar comparaciones entre poblaciones y describir diferentes
+tendencias en el tiempo.
 
-Las covariables variables en el tiempo (CVT) son variables independientes que
-contienen ambas variaciones, intra y entre sujeto, lo que significa que el
-valor de la covariable cambia para un individuo determinado a lo largo del
-tiempo y además puede cambiar para diferentes sujetos. Una CVT se puede usar
-para hacer comparaciones entre poblaciones, describir tendencias en el tiempo y
-también la relación dinámica entre la CVT y la respuesta
+Las covariables que varían en el tiempo (CVT) son variables independientes que
+contienen ambas variaciones, intra y entre sujeto, es decir que el valor de la
+covariable cambia para un individuo determinado a lo largo del tiempo y además
+puede cambiar para diferentes sujetos. Este tipo de covariables tienen los
+mismos usos que las covariables fijas en el tiempo pero además describen la
+relación dinámica entre la CVT y la respuesta. Sin embargo, esta relación puede
+estar confundida por valores anteriores y/o posteriores de la covariable y en
+consecuencia esto puede conducir a inferencias engañosas sobre los parámetros
+del modelo. Esta tesina realiza una introducción a la problemática de
+incorporar covariables que varían con el tiempo en modelos mixtos para datos
+longitudinales, presentando diferentes definiciones de las mismas y enfoques
+metodológicos.
 
-Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones
-que las covariables fijas. Por ejemplo, covariables como la edad pueden cambiar
-a través del tiempo, pero cambian de manera predecible. Por otro lado,
-covariables como la precipitación diaria pueden cambiar a través del tiempo
-pero no pueden ser predecidas. En esos casos es importante considerar las
-relaciones entre la CVT y la respuesta a través del tiempo.
-
-En el presente informe se cuenta con un programa de atención y control de
-pacientes hipertensos iniciado en el año 2014 en Rosario. En cada visita se
-registra el seguimiento del tratamiento y los valores de la tensión arterial
-sistólica. En particular, se desea evaluar si la adherencia al tratamiento
-farmacológico influye en los valores de la tensión arterial sistólica (TAS) a
-lo largo del seguimiento. Como la variable “\fullcovname{}” es una CVT
-estocástica se evaluaran diferentes enfoques para incluirla en un modelo
-longitudinal que pueda explicar el cambio en la tensión arterial sistólica
-media a lo largo del tiempo.
-
-%%%%%%%%
-% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
-%%%%%%%%
-%%%%%%%%
-% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
-%%%%%%%%
-%%%%%%%%
-% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
-%%%%%%%%
-
-Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha
-otra información para obtener modelos que describan de mejor manera el
-comportamiento de la TAS, nos centraremos en modelos más simples con respecto a
-las covariables fijas con el fin de no perder de vista la relación entre la
-variable respuesta y la CVT.
+%%% REVISAR EL AÑO DE FINALIZACIÓN DEL ESTUDIO
+Se aplican estos conceptos al Programa de Atención y Control de pacientes
+hipertensos de Fundación ECLA. Este estudio observacional se se realizó entre
+2014 y XXXX en Rosario y realiza un seguimiento de pacientes hipertensos,
+registrando en cada visita el tratamiento farmacológico dado al paciente, los
+valores del tensión arterial sistólica (TAS) y la adherencia a dicho tratamiento
+entre otras características. Uno de los objetivos que persigue este estudio es
+evaluar si la adherencia al tratamiento influye en los valores de la TAS a lo
+largo del seguimiento. Como la variable adherencia es una CVT, se evaluarán
+diferentes enfoques para incluirla en un modelo longitudinal mixto que pueda
+explicar el cambio en la tensión arterial sistólica media a lo largo del tiempo.
 
 \newpage
 \section{Objetivos}
@@ -162,7 +147,7 @@ longitudinales.
 
 \begin{itemize}
 	\item Definir los tipos de covariables existentes.
-	\item Evaluar propuestas de incorporación de covariables que varían en el
+	\item Describir propuestas de incorporación de covariables que varían en el
 	tiempo en los modelos mixtos.
 	\item Aplicar los conceptos vistos en un estudio sobre la tendencia de la
 		  presión arterial en el tiempo para pacientes que siguen cierto
