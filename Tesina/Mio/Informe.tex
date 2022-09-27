@@ -85,42 +85,17 @@
 \newpage
 \section{Introducción}
 
-%% Tesis mara catalano, silvia camats y redacción mia
-
-Los datos longitudinales están conformados por mediciones repetidas de una
-misma variable realizadas a la misma unidad. Estas mediciones surgen de
-observar unidades en diferentes ocasiones, es decir en diferentes momentos o
-condiciones experimentales.
-
-Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
-longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
-los supuestos usuales acerca de la independencia entre las respuestas de cada
-unidad y la homogeneidad de variancias frecuentemente no son válidos
-
-El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio.
-
-Las ocasiones en las que se registran las mediciones repetidas no
-necesariamente serán iguales para todos los individuos, por lo tanto se pueden
-obtener tanto estudios balanceados (todos los individuos tienen el mismo número
-de mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la
-secuencia de tiempos de observaciones no es igual para todos los individuos).
-Otra característica de estos datos es que en ocasiones se pueden obtener
-valores perdidos, obteniendo datos incompletos aunque se cuente con un estudio
-balanceado.
+Los datos longitudinales tienen la particularidad de estar conformados por
+mediciones repetidas sobre una unidad, las cuales pueden surgir por ser medidas
+en diferentes momentos o conidiciones. Su principal interés es estudiar los
+cambios en el tiempo y los factores que influencian el cambio. 
 
 Los modelos mixtos permiten ajustar datos con estas particularidades, donde la
 respuesta es modelada por una parte sistemática que está formada por una
 combinación de características poblacionales que son compartidas por todas las
 unidades (efectos fijos), y una parte aleatoria que está constituida por
 efectos específicos de cada unidad (efectos aleatorios) y por el error
-aleatorio. Estos modelos permiten, además, hacer predicciones del perfil de una
-unidad específica. La selección de la estructura de covariancia apropiada
-produce estimadores más eficientes y consecuentemente, pruebas estadísticas más
-robustas para los efectos de interés
-
-%% Chapter lalonde
+aleatorio.
 
 Las covariables en los estudios longitudinales se pueden clasificar en dos
 categorias: fijas y variables en el tiempo. Las diferencias entre estos tipos
@@ -142,29 +117,31 @@ para hacer comparaciones entre poblaciones, describir tendencias en el tiempo y
 también la relación dinámica entre la CVT y la respuesta
 
 Se puede ver que las CVT permiten diferentes tipos de relaciones y conclusiones
-que las covariables fijas. Por ejemplo, una CVT puede estar involucrada en
-efectos acumulados para diferentes valores a través del tiempo (Fitzmaurice y
-Lard 1995). Además, ciertas CVT transmiten diferente información que otras. Por
-ejemplo, covariables como la edad pueden cambiar a través del tiempo, pero
-cambian de manera predecible. Por otro lado, covariables como la precipitación
-diaria pueden cambiar a través del tiempo pero no pueden ser predecidas. En
-esos casos es importante considerar las relaciones entre la CVT y la respuesta
-a través del tiempo.
-
-%% Redacción mia
+que las covariables fijas. Por ejemplo, covariables como la edad pueden cambiar
+a través del tiempo, pero cambian de manera predecible. Por otro lado,
+covariables como la precipitación diaria pueden cambiar a través del tiempo
+pero no pueden ser predecidas. En esos casos es importante considerar las
+relaciones entre la CVT y la respuesta a través del tiempo.
 
 En el presente informe se cuenta con un programa de atención y control de
-pacientes hipertensos iniciado en el año 2014 en Rosario que realiza un
-seguimiento exhaustivo de \npatients{} pacientes. Este programa contempla:
-efectores no médicos supervisados, tratamiento farmacológico genérico para la
-hipertensión y utilización de un algoritmo terapéutico sistematizado. En cada
-visita se registra el seguimiento del tratamiento y los valores de la tensión
-arterial sistólica. En particular, se desea evaluar si la adherencia al
-tratamiento farmacológico influye en los valores de la tensión arterial
-sistólica a lo largo del seguimiento. Como la variable “\fullcovname{}” es una
-CVT estocástica se evaluaran diferentes enfoques para incluirla en un modelo
+pacientes hipertensos iniciado en el año 2014 en Rosario. En cada visita se
+registra el seguimiento del tratamiento y los valores de la tensión arterial
+sistólica. En particular, se desea evaluar si la adherencia al tratamiento
+farmacológico influye en los valores de la tensión arterial sistólica (TAS) a
+lo largo del seguimiento. Como la variable “\fullcovname{}” es una CVT
+estocástica se evaluaran diferentes enfoques para incluirla en un modelo
 longitudinal que pueda explicar el cambio en la tensión arterial sistólica
 media a lo largo del tiempo.
+
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
+%%%%%%%%
+% ESTO QUIZAS CONVIENE PONERLO EN LOS RESULTADOS
+%%%%%%%%
 
 Un aspecto a tener en cuenta en este trabajo es que, si bien contamos con mucha
 otra información para obtener modelos que describan de mejor manera el
@@ -193,9 +170,7 @@ longitudinales.
 \end{itemize}
 
 \newpage
-\section{Metodología}
-
-\subsection{Los Datos Longitudinales}
+\section{Los Datos Longitudinales}
 
 Los datos longitudinales están conformados por mediciones repetidas de una
 misma variable realizadas a la misma unidad. Estas mediciones surgen de
@@ -204,10 +179,9 @@ condiciones experimentales.
 
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente.
-
-El objetivo principal de estos estudios es estudiar los cambios en el tiempo y
-los factores que influencian el cambio. 
+agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
+los supuestos usuales acerca de la independencia entre las respuestas de cada
+unidad y la homogeneidad de variancias frecuentemente no son válidos
 
 Las ocasiones en las que se registran las mediciones repetidas no
 necesariamente serán iguales para todos los individuos, por lo tanto se pueden
@@ -226,13 +200,17 @@ la variable en estudio, observadas en los tiempos $t_1, t_2, ..., t_n$, siendo
 entonces el número total de observaciones $N^*=Nn$. Se le llama $Y_{ij}$ a la
 medición sobre la unidad $i$ en la ocasión $j$, con $i=1, ..., N; j=1, ..., n$
 
-Asociadas a cada unidad se observan las covariables $X_{ij}$, de las cuales
-existen dos tipos: variables en el tiempo (estocásticas) e invariables en el
-tiempo (estacionarias)
+Asociadas a cada unidad se observan las covariables $X_{ij}$ medidas también
+sobre la unidad $i$ en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son
+simultáneamente medidas. Esto quiere decir que en un análisis de corte
+transversal, $Y_{ij}$ y $X_{ij}$ se correlacionan directamente. Sin embargo,
+para un análisis longitudinal se debe asumir que existe un orden
+pre-establecido:
+$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in_i}, Y_{in_i})$
 
-Existen estudios empíricos que llevan a pensar que existen tres fuentes
-potenciales de variabilidad que influyen sobre la correlación entre medidas
-repetidas:
+
+Existen tres fuentes potenciales de variabilidad que influyen sobre la
+correlación entre medidas repetidas:
 
 \begin{itemize}
 	\item \textit{Heterogeneidad entre las unidades:} Refleja la propensión
@@ -259,182 +237,7 @@ base a esto, surgen técnicas que consideran esa correlación modelando los dato
 considerando la modelación de dos estructuras: la parte media y la estructura
 de covariancia.
 
-% \subsection{Análisis exploratorio}
-
-% Antes de ajustar algún modelo, lo primero siempre es realizar un análisis
-% exploratorio para estudiar cómo se comportan los datos. A continuación se
-% presentan técnicas gráficas para cada estructura.
-
-% \textit{Evaluación de la parte media}
-
-% \begin{itemize}
-% 	\item \textit{Perfil individual:} Consiste en un gráfico de dispersión en
-% 	el cual se representan las respuestas vs las ocasiones. Cada respuesta
-% 	tiene un punto y se une con un segmento los puntos de la misma unidad.
-% 	Sirven para detectar si hay mucha variabilidad entre y dentro de las
-% 	unidades y si hay valores atípicos.
-% 	\item \textit{Perfiles promedio por grupo:} En general son más
-% 	informativos. Para cada tiempo calculamos un promedio para cada grupo y
-% 	luego se unen los puntos. Permiten ver la tendencia de las variables a
-% 	través de las ocasiones. Se superponen en un mismo gráfico los perfiles
-% 	promedio de cada grupo
-% \end{itemize}
-
-% \textit{Evaluación de la estructura de covariancia}
-
-% \begin{itemize}
-% 	\item \textit{Matriz de diagrama de dispersión:} Para cada par de ocasiones
-% 	se grafican los valores esperados de la respuesta y todos estos gráficos se
-% 	acomodan dentro de una matriz. En general se utiliza cuando las ocasiones
-% 	son las mismas para todas las unidades.
-% 	\item \textit{Gráfico de Draftman:} Es similar al gráfico anterior pero
-% 	utilizando variables estandarizadas. La utilización de la variable
-% 	respuesta estandarizada ayuda a eliminar la variabilidad de los datos
-% 	asociada con diferencias en las medias y variancias en el tiempo,
-% 	permitiendo visualizar más claramente el patrón de correlación.
-% 	\item \textit{Gráfico PRISM (Partial Regression on Intervenors Scatterplot
-% 	Matrix):} Utilizando la variable estandarizada se crea una matriz de
-% 	gráficos de dispersión. En la primera diagonal se encuentran gráficos de
-% 	dispersión entre la variable respuesta en los tiempos $t_j$ y $t_{j+1}$.
-% 	Luego, en la k-ésima diagonal, se obtienen gráficos de regresión parcial de
-% 	las respuestas en los tiempos $t_j$ y $t_{j+k}$, ajustadas por las
-% 	respuestas en los tiempos intermedios. Estos gráficos permiten ver con
-% 	mayor claridad ciertos tipos de estructuras seriales que se dan entre las
-% 	medidas repetidas.
-% 	\item \textit{Correlograma:} Representa las características que existen
-% 	entre las respuestas de los individuos de cada grupo en tiempos que están
-% 	separados una cantidad de periodos. Permite analizar cómo evoluciona la
-% 	correlación a medida que aumenta el número de rezagos.
-% 	\item \textit{Semivariograma:} Cuando los datos están desbalanceados, el
-% 	semivariograma permite distinguir las 3 fuentes de variabilidad. Después de
-% 	haber estimado un modelo, el mismo permite confirmar si la estructura de
-% 	correlación es adecuada. El semivariograma se define como una función:
-% 	\[ \gamma(u) = \frac{1}{2} E[(\varepsilon _{ij} - \varepsilon_{ij'})^2] \]
-% 	\[ u_{ijj'} = |t_{ij} - t_{ij'}| \]
-% 	\[ \widehat{\gamma(u)} = v_{ijj'} = \frac{1}{2} (r_{ij} - r_{ij'}) \] donde
-% 	$r_{ij}$ y $r_{ij'}$ son los residuos estandarizados obtenidos después de
-% 	ajustar un modelo de regresión considerando las observaciones
-% 	independientes.
-
-% 	Se va a obtener un gráfico donde la variabilidad total va a estar dividida
-% 	en 3 partes. Si la curva no empieza en cero significa que hay error de
-% 	medición, si tiene pendiente quiere decir que hay un error debido a una
-% 	causa biológica (correlación serial) y si la misma no llega a la variancia
-% 	total significa que se debe explicar la variabilidad entre.
-% \end{itemize}
-
-% \subsection{Modelo lineal general para datos longitudinales}
-
-% Si se piensa que existe una tendencia en el tiempo de las respuestas, y esta
-% tendencia se puede expresar como una función, se puede escribir o representar a
-% las medidas repetidas de una unidad en un vector $Y_i$. Entonces, un modelo
-% lineal para representar la evolución en el tiempo va a ser:
-% \[ Y_i = X_i\beta + \varepsilon_i; \quad i = 1, ..., N; \quad Y_i = (Y_{i1},
-% Y_{i2}, ..., Y_{in_{i}})' \] Donde:
-
-% \begin{itemize}
-% 	\item $Y_{ij}$: respuesta obtenida de la i-ésima unidad en la ocasión
-% 	$t_{ij}$.
-% 	\item $X_i$: matriz de diseño de la i-ésima unidad, de dimensión $(n_i*p)$
-% 	\item $\beta $: vector de parámetros de dimensión $(p*1)$
-% 	\item $\varepsilon_i$: vector de errores aleatorios de la i-ésima unidad,
-% 	de dimensión $(n_i*1)$, este mismo representa todas las fuentes de
-% 	variabilidad de los datos longitudinales
-% 	\[ \varepsilon_i \sim N_{n_i}(0, \varSigma_i(\theta )) \]
-% 	\item $\theta$: vector de parámetros desconocidos de covariancia, de
-% 	dimensión $(q*1)$
-% \end{itemize}
-
-% \subsection{Modelación de la estructura de covariancia}
-
-% Al tenerse tantos parámetros de variancia $(n)$ y covariancia $n(n-1)/2$ para
-% estimar, se proponen modelos específicos para la estructura de correlación. Se
-% trata de elegir una estructura que no tenga tantos parámetros. Sin embargo, se
-% debe tener cuidado de no seleccionar estructuras demasiado parcas con las que
-% se pierda información.
-
-% La matriz de covariancia de cada unidad va a ser función de $\theta$. El número
-% de parámetros de este vector depende de la estructura de la matriz.
-
-% A continuación se mencionan algunas estructuras que se pueden utilizar, se
-% llamará $R$ a la matriz de correlaciones
-
-% \subsubsection{Arbitraria o no estructurada (datos balanceados)}
-
-% Considera variancias y covariancias distintas entre las mediciones repetidas.
-% Siendo $\sigma_{jj'} = Cov(Y_{ij}Y_{ij'})$ se expresa como:
-% \[
-% \varSigma = 
-% \begin{bmatrix}
-% 	\sigma_{1}^2 & \sigma_{12}  & \dots  & \sigma_{1n} \\
-% 	\sigma_{21}  & \sigma_{2}^2 & \dots  & \sigma_{2n} \\
-% 	\vdots 		 & \vdots	    & \ddots & \vdots	   \\
-% 	\sigma_{n1}  & \sigma_{n2}  & \dots  & \sigma_{n}^2
-% \end{bmatrix}
-% \]
-% La ausencia de restricciones hace que haya que estimar una gran cantidad de
-% parámetros
-
-% \subsubsection{Simetria compuesta (datos balanceados o no balanceados)}
-
-% La correlación entre pares de observaciones es la misma, sin importar la
-% cantidad de rezagos entre ellas,
-% $Corr(Y_{ij}, Y_{ik}) = \rho $ para todo $j \neq k$
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho   & \dots  & \rho \\
-% 	\rho   & 1      & \dots  & \rho \\
-% 	\vdots & \vdots	& \ddots & \vdots \\
-% 	\rho   & \rho   & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Toeplitz (datos equiespaciados)}
-% Se plantea para que cualquier par de respuestas que estén igualmente separadas
-% en el tiempo la correlación es la misma, $Corr(Y_{ij},Y_{ij+k}) = \rho_{k}$
-% para todo $j$ y $k$.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho_1 	& \dots  & \rho_n \\
-% 	\rho_1 & 1     		& \dots  & \rho_{n-1} \\
-% 	\vdots & \vdots		& \ddots & \vdots \\
-% 	\rho_n & \rho_{n-1} & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Autorregresiva de primer orden (datos equiespaciados)}
-% Es un caso especial de la estructura anterior, en la que
-% $Corr(Y_{ij}, Y_{ij+k}) = \rho^k$. Esta estructura asume que la correlación
-% entre medidas repetidas disminuye a medida que aumenta el número de rezagos
-% entre ellas.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      & \rho 	    & \dots  & \rho^n \\
-% 	\rho   & 1     		& \dots  & \rho^{n-1} \\
-% 	\vdots & \vdots		& \ddots & \vdots \\
-% 	\rho^n & \rho^{n-1} & \dots  & 1
-% \end{bmatrix}
-% \]
-
-% \subsubsection{Markov (datos no equiespaciados)}
-
-% Es una generalización de la estructura autorregresiva para mediciones no
-% equiespaciadas. $Corr(Y_{ij}, Y_{ij'}) = \rho^{d_{jj'}}$, donde
-% $d_{jj'} = |t_{ij} - t_{ij'}|$ para todo $j \neq j'$.
-% \[
-% R_i =
-% \begin{bmatrix}
-% 	1      		  & \rho^{d_{12}} & \dots  & \rho^{d_{1n}} \\
-% 	\rho^{d_{21}} & 1     		  & \dots  & \rho^{n-1} \\
-% 	\vdots 		  & \vdots		  & \ddots & \vdots \\
-% 	\rho^n 		  & \rho^{n-1}    & \dots  & 1
-% \end{bmatrix}
-% \]
-
-\subsection{Modelos lineales mixtos}
+\section{Modelos lineales mixtos}
 
 En estos modelos, cada unidad tiene una trayectoria individual caracterizada
 por parámetros y un subconjunto de esos parámetros ahora se consideran
@@ -534,8 +337,6 @@ asintóticamente:
 \[ \hat{\beta} \sim N_p(\beta, V_{\beta}) \quad donde \quad V_{\beta} =
 (\sum_{i=1}^{N} X'_i\hat{\varSigma_i}^{-1}X_i)^{-1} \]
 
-% AGREGAR EL PROBLEMA CUANDO EL SUPUESTO NO SE CUMPLE
-
 \subsubsection{Método de máxima verosimilitud restringida (REML)}
 
 El inconveniente que posee el método de MV es que los parámetros de covariancia
@@ -566,242 +367,68 @@ Maximizando esta funcion con respecto a $\beta$ y $\theta$ se obtiene:
 
 Donde $\hat{\varSigma}_i$ es el estimador REML de ${\varSigma_i}$
 
-% \subsection{Pruebas de hipótesis}
-
-% Generalmente, la inferencia en estos modelos se centra en los parámetros de la
-% parte media. Es decir, en combinaciones lineales de los parámetros de $\beta$.
-% La hipótesis lineal general para los test se plantea construyendo dichas
-% combinaciones a través de $L'\beta$, siendo $L'$ una matriz de dimensión
-% $(r*p)$.
-
-% El estimador de $L'\beta$ resulta $L'\hat{\beta}$ y asintóticamente su
-% distribución muestral es aproximadamente:
-
-% \[ L'\beta \sim N_p(L'\beta, L'V_{\beta}L) \]
-
-% Para probar las hipótesis se proponen dos métodos basados en la función de
-% verosimilitud:
-
-% \subsubsection{Test de Wald}
-
-% Se plantean las hipótesis:
-
-% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
-
-% La estadística de prueba resulta:
-
-% \[ W = (L'\hat{\beta})' (L'\hat{V}_{\beta}L)^{-1} (L'\hat{\beta}) \]
-
-% Donde $W$ se distribuye aproximadamente como $\chi_r^2$.
-
-% Este test provee inferencias válidas cuando el $N$ es grande, ya que utiliza la
-% aproximación asintótica a la distribución Normal. Si el $N$ es chico se propone
-% reemplazar la distribución de la chi-cuadrado por una $F$ de Snedecor. El
-% problema con el uso de esta estadística es que no se conocen los grados de
-% libertad del denominador y deben ser calculados con los datos. 
-
-% %Algunos métodos para estimar los grados de libertad son: Contaiment,
-% %Within-Between, Satterthwaite y Kenward y Roger, entre otros
-% %(\textit{Fitzmaurice et al., 2004})
-
-% \subsubsection{Test de cociente de verosimilitud}
-
-% Se basa en la teoría asintótica y va a suplir las dificultades del test de
-% Wald. El test se obtiene comparando las verosimilitudes de dos modelos, uno de
-% los cuales incorpora la restricción $L'\beta = 0$ (modelo reducido) y el otro
-% no tiene restricciones (mdoelo completo). Estos dos modelos están anidados, ya
-% que el modelo reducido es un caso particular del modelo completo.
-
-% Al igual que anteriormente, se plantean las hipótesis:
-
-% \[ H_0) L'\beta = 0 \quad H_1) L'\beta \neq 0 \]
-
-% La función de log-verosimilitud maximizada del modelo completo es:
-
-% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% \frac{1}{2} \sum_{i=1}^{N} [(Y_i -
-% X_i\hat{\beta})' \varSigma_i^{-1} (Y_i - X_i\hat{\beta})] \]
-
-% Y la del modelo reducido es:
-
-% \[ -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\varSigma_i| -
-% \frac{1}{2} \sum_{i=1}^{N} [(Y_i - X_i\beta_0)' \varSigma_i^{-1}
-% (Y_i - X_i\beta_0)] \]
-
-% Donde $\beta_0$ es el vector de parámetros resultante de haber impuesto
-% $L'\beta = 0$.
-
-% Si el $N$ es grande, la distribución muestral aproximada de la estadística es:
-
-% \[ G^2 = -2 (\hat{l}_{red} - \hat{l}_{comp}) \sim \chi_v^2 \]
-
-% Donde $v$ es el número de parámetros del modelo completo menos el número de
-% parámetros del modelo reducido
-
-% Si lo que se quiere comparar mediante este test es la estructura media de dos
-% modelos, se recomienda estimar los parámetros mediante el método ML. En cambio,
-% si lo que se desea comparar son patrones de covariancia anidados entre dos
-% modelos se recomienda estimar los parámetros con el método REML.
-
-% Cuando se desea hacer inferencia sobre las componentes de variancia (por
-% ejemplo, postular que una variancia es nula), la diferencia entre los dos
-% modelos va a ser de $k+1$ parámetros (1 de variancia y $k$ de covariancia). Si
-% sucede esto, la distribución de la estadística $G^2$ ya no será una
-% chi-cuadrado común, si no que será una mezcla entre dos chi-cuadrado, una de
-% $k$ grados de libertad y otra de $k+1$ grados de libertad.
-
-% % Si bien hay tablas para esta estadística, se recomienda en general utilizar
-% % en vez de un nivel de significación del 5%, uno del 10%, para no tener
-% % problemas de elegir un modelo demasiado simple
-
-% \subsection{Elección entre modelos de covariancia}
-
-% Cuando los modelos no están anidados, como sucede generalmente cuando se
-% plantean modelos con distintas estructuras de covariancia, no se puede usar el
-% método del cociente de verosimilitud para compararlos.
-
-% Como en la matriz de covariancia siempre intervienen los residuos, y en ellos
-% aparecen los parámetros de la parte media del modelo, para asegurarse que la
-% parte media esté bien especificada se elige un modelo maximal (modelo con todos
-% los parámetros que queremos incorporar). Dado dicho modelo, se plantean
-% distintos modelos que se van a diferenciar únicamente en la estructura de la
-% matriz de covariancia.
-
-% Los enfoques que se proponen a continuación se basan en la comparación de
-% versiones penalizadas de las log-verosimilitudes de los modelos. Como es
-% conocido, a medida que se incorporan parámetros a los modelos, mayor va a ser
-% la verosimilitud. Para comparar modelos con distinto número de parámetros, se
-% penalizan a los mismos, surgiendo varios criterios A continuación se destacan
-% dos de estos:
-
-% \begin{itemize}
-% 	\item \textit{Criterio de Akaike (AIC)}: $-2\hat{l} + 2p$
-% 	\item \textit{Criterio bayesiano se Schwarz (BIC)}: $-2\hat{l} + p ln(N)$
-% \end{itemize}
-
-% Donde:
-
-% $\hat{l}$: log-verosimilitud maximizada del modelo
-
-% $p$: número de parámetros del modelo
-
-% El $BIC$ penaliza más la verosimilitud dando modelos más sencillos. El criterio
-% para seleccionar un modelo es aquel que minimice los valores de $AIC$ o $BIC$
-
-
-% \subsection{Predicción de los efectos aleatorios}
-
-% En muchas aplicaciones la inferencia está centrada solamente en los efectos
-% fijos. Estos parámetros se interpretan como los cambios de la respuesta media
-% en el tiempo, pero muchas veces se desea conocer además los perfiles
-% individuales, por lo que necesitamos conocer los valores de $b_i$. Como $b_i$
-% es una cantidad aleatoria se habla de predicción de $b_i$.
-
-% Llamando $c(Y_i)$ al predictor de los efectos aleatorios, se debe minimizar
-% $E[b_i - c(Y_i)]^2$. La función $c(Y_i)$ que hace que esa esperanza sea lo más
-% chica posible se llama esperanza condicional de $b_i$ dado $Y_i$ y se
-% simboliza:
-
-% \[ E(b_i/Y_i) = D_iZ'_i\varSigma_i^{-1} (Y_i - X_i\beta) \]
-
-% Esto se conoce como mejor predicción lineal insesgada (BLUP) y el BLUP empírico
-% (EBLUP) o estimador empírico de Bayes resulta:
-
-% \[ \hat{b_i} = \hat{D_i}Z'_i\hat{\varSigma_i}^{-1} (Y_i - X_i\hat{\beta}) \]
-
-% A través de esto se pueden conocer los perfiles individuales, siendo
-% $\hat{Y_i} = X_i\hat{\beta} + Z_i\hat{b_i}$,
-% operando algebraicamente se llega a la expresión:
-
-% \[ \hat{Y_i} = (\hat{R_i}\hat{\varSigma_i}^{-1}) X_i\beta + (I_n -
-% \hat{R_i}\hat{\varSigma_i}^{-1}) Y_i \]
-
-% Resulta que el perfil individual estimado es un promedio ponderado entre el
-% perfil de la respuesta media poblacional ($X_i\hat{\beta}$) y el perfil de la
-% respuesta observada en la unidad $i$ $(Y_i)$.
-
-% \subsection{Examen de residuos}
-
-% Como en todo análisis de datos en donde se utiliza un modelo estadístico, es
-% necesario realizar un estudio del cumplimiento de los supuestos del modelo
-% utilizando los gráficos de residuos.
-
-% El modelo lineal mixto para la unidad $i$ es:
-
-% \[ Y_i = X_i\beta + Z_i\beta + \varepsilon_i \]
-
-% Con $b_i$ y $\varepsilon_i$ independientes y
-% $\varepsilon \sim N_{n_i}(0, R_i)$, $b_i \sim N_k(0, D_i)$.
-
-% En los modelos lineales mixtos se va a distinguir entre tres tipos de residuos:
-
-% \subsubsection{Residuos marginales}
-
-% Se definen como la diferencia entre el vector de respuestas y su media marginal
-% estimada.
-
-% \[ r_{iM} = Y_i - \widehat{E(Y_i)} = Y_i - X_i\hat{\beta} \]
-
-% \subsubsection{Residuos condicionales}
-
-% Se definen como la diferencia entre el vector de respuestas y su media
-% condicional estimada.
-
-% \[ r_{iC} = Y_i - \widehat{E(Y_i/b_i)} = Y_i - X_i\hat{\beta} - Z_i\hat{b_i} \]
-
-% \subsubsection{Residuos de los efectos aleatorios}
-
-% \[ r_{iEA} = \widehat{E(Y_i/b_i)} - \widehat{E(Y_i)} = Z_i\hat{b_i} \]
-
-% Estos residuos así calculados reciben el nombre de residuos ordinarios, van a
-% estar correlacionados y sus variancias no van a ser necesariamente contrastes.
-% Para evitar este inconveniente es necesario realizar una estandarización de los
-% mismos:
-
-% \begin{itemize}
-% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(r_i)}}$ se obtienen
-% 	los residuos estudentizados.
-% 	\item Si se divide el residuo por $\sqrt{\widehat{Var(Y_i)}}$ se obtienen
-% 	los residuos de Pearson.
-% \end{itemize}
-
-% Se define como residuo puro al residuo que depende de solo los componentes
-% fijos y del error que predice, y residuo confundido si además de depender de
-% las componentes fijas y del error que predicen están en función de otros
-% residuos.
-
-% En el word hay una tabla que explica como usar cada residuo
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DIGGLE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Problemas con la estimación}
+
+Pepe y Anderson (1994) mostraron que estas ecuaciones llegan a cero solo si la
+data cumple con el supuesto
+
+\begin{equation}
+\label{estimation_issue}
+	E[Y_{ij} | X_{ij}] = E[Y_{ij} | X_{ij}, j = 1, ..., T]
+\end{equation}
+
+Esto quiere decir que la media condicional de la variable respuesta en una
+determinada ocasión, dados todos los valores de la covariable, depende solo del
+valor de la covariable en esa ocasión. Este supuesto se cumple tanto con
+covariables no variables del tiempo como con covariables variables en el tiempo
+no estocáticas. Sin embargo, para las CVT estocásticas puede no necesariamente
+cumplirse: valores anteriores o posteriores de la CVT pueden confundir la
+relacion entre la variable respuesta y la CVT en una determinada ocasión. En
+consecuencia, esto puede conducir a estimaciones sesgadas de los efectos fijos
+del modelo.
+
+Frente a este escenario, varios autores recomendaron plantear el modelo
+longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
+estimación generalizadas) con estructura de correlación independiente o bien
+utilizar el GMM (método generalizado de los momentos), donde es posible
+incorporar información sobre la naturaleza de la CVT que se está analizando.
 
 \newpage
-\section{Covariables que varían en el tiempo}
+
+\section{Covariables en datos longitudinales}
 
 En los estudios longitudinales, las variables independientes pueden ser
-clasificadas en dos categorías: covariables fijas en el tiempo, es decir que no
-varían en el tiempo (CNVT) o covariables que varían en el tiempo (CVT). La
-diferencia entre ellas puede conducir a diferentes enfoques de análisis así
-como también a diferentes conclusiones.
-
-Las CNVT son variables independientes que no presentan variación intra-sujeto,
-es decir, los valores de estas covariables no cambian a lo largo del estudio
-para un individuo en particular. Por ejemplo, el sexo biológico de una persona
-o el grupo de tratamiento.
-
-Las CVT son variables independientes que incluyen tanto la variación
-intra-sujeto y la variación entre-sujetos. Esto significa que, para un
-individuo en particular, el valor de la covariable cambia a través del tiempo y
-puede cambiar también entre diferentes individuos. Por ejemplo, valor de la
-presión arterial o condición de fumar (si/no).
+clasificadas en dos categorías: covariables fijas, es decir que no varían en el
+tiempo (CNVT) o covariables que varían en el tiempo (CVT). La diferencia entre
+ellas puede conducir a diferentes enfoques de análisis así como también a
+diferentes conclusiones.
 
 Tanto las CNVT y las CVT ueden ser utilizadas para realizar comparaciones entre
 poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
 embargo, sólo las CVT permiten describir una relación dinámica entre la
 covariable y la variable respuesta.
 
-\subsection{Covariables estocásticas y no estocásticas}
+\subsection{Covariables fijas}
+
+Las CNVT son variables independientes que no presentan variación intra-sujeto,
+es decir, los valores de estas covariables no cambian a lo largo del estudio
+para un individuo en particular.
+
+Éstas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
+biológico de una persona o el grupo de tratamiento) o pueden ser covariables
+basales (es decir, medidas al inicio del estudio). Las covariables basales son
+fijas por definición pero pueden ser variables en el tiempo por naturaleza, por
+ejemplo, la edad varia en el tiempo pero la edad basal es fija.
+
+\subsection{Covariables variables en el tiempo}
+
+Las CVT son variables independientes que incluyen tanto la variación
+intra-sujeto como la variación entre-sujetos. Esto significa que, para un
+individuo en particular, el valor de la covariable cambia a través del tiempo y
+puede cambiar también entre diferentes individuos. Por ejemplo, valor de la
+presión arterial o condición de fumar (si/no).
+
+\subsubsection{Covariables estocásticas y no estocásticas}
 
 Las CVT no estocásticas son covariables que varían sistemáticamente a través
 del tiempo pero son fijas por diseño del estudio o bien su valor puede
@@ -809,10 +436,10 @@ predecirse. En cambio, las CVT estocásticas son covariables que varían
 aleatoriamente a través del tiempo, es decir, los valores en cualquier ocasión
 no pueden ser estimados ya que son gobernados por un mecanismo aleatorio.
 Ejemplos de las primeras son: tiempo desde la visita basal, edad, grupo de
-tratamiento en los estudios cross-over. Ejemplos de las segunas son: valor del
+tratamiento en los estudios cross-over. Ejemplos de las segundas son: valor del
 colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 
-\subsection{Covariables exógenas y endógenas}
+\subsubsection{Covariables exógenas y endógenas}
 
 Se dice que una CVT es exógena cuando los valores actuales y anteriores de la
 respuesta en la ocasión $j (Y_{i1}, ..., Y_{ij})$, dados los valores actuales y
@@ -841,12 +468,16 @@ en una determinada ocasión dependa de los niveles observados previamente, pero
 no se espera que dependa de los niveles de la función pulmonar observados
 previamente en el sujeto.
 
-Una CVT que no es exógena se define como endógena. Por ejemplo, cuando se
-evalúa si la cantidad de actividad física está asociada al nivel de glicemia.
-El nivel de actividad física en un determinado momento puede estar (o no)
-asociado a niveles previos y también puede estar asociado a valores previos de
-la glicemia (un paciente con valor de glicemia alto en una visita puede decidir
-aumentar su nivel de actividad física para reducir este valor)
+Una CVT que no es exógena se define como endógena. Una variable endógena es una
+variable estocásticamente relacionada con otros factores medidos en el estudio.
+Esta también puede definirse como una variable generada por un proceso
+relacionado con el individuo en estudio. En otras palabras, las CVT endógenas
+están asociadas con un efecto individual y, a menudo, pueden explicarse por
+otras variables en el estudio. Cuando el proceso estocástico de una CVT
+endógena puede ser (al menos parcialmente) explicado por la variable de
+respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
+endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
+longitudinal.
 
 Es posible examinar empíricamente la suposición de que una CVT es exógena al
 considerar modelos de regresión para la dependencia de $X_{ij}$ en
@@ -861,82 +492,7 @@ A los parámetros de regresión se les puede dar una interpretación causal sól
 cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta.
 
-\subsection{Otros tipos de CVT}
-
-Trabajos más recientes han definido una nueva categorización de las CVT para
-facilitar las interpretaciones y los métodos de estimación adecuados para el
-modelo. Se pueden definir cuatro tipos de CVT relacionados con el grado de no
-exogeneidad con respecto a la respuesta.
-
-\subsubsection{CVT tipo I}
-
-Se clasifica una CVT como de tipo I si satisface:
-
-\begin{equation}
-	\label{CVT tipo I}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij})
-\end{equation}
-
-En otras palabras, una CVT se considera de tipo I si la variable respuesta en
-la j-ésima ocasión es independiente de todos los valores de la CVT en
-diferentes momentos, aún de los previos a la ocasión. Variables que involucran
-cambios predecibles en el tiempo son tratadas como CVT tipo I, por ejemplo la
-edad o el momento de observación.
-
-\subsubsection{CVT tipo II}
-
-Una CVT se clasficia de tipo II si:
-
-\begin{equation}
-	\label{CVT tipo II}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
-\end{equation}
-
-Cabe destacar que la clase de covariables de tipo I es un subconjunto de la
-clase de covariables de tipo II. Esta condición dice que el proceso de la CVT
-$X_{ij+1}, ..., X_{in_i}$ no se ve afectado por la respuesta $Y_{ij}$.
-
-En otras palabras, la variable respuesta en la j-ésima ocasión puede estar
-asociada a valores previos de la CVT. Esta definición es similar pero no
-equivalente a la definición de exogeneidad. Se puede demostrar que la
-exogeneidad es suficiente es condición suficiente para que una CVT sea de tipo
-II. Este tipo de CVT incluyen covariables que pueden tener una asociación
-rezagada con la respuesta (los valores anteriores de la CVT pueden afectar a la
-respuesta actual) pero los valores de la covariable en un momento determinado
-no se verán afectados por los valores previos de la variable respuesta. Un
-ejemplo de este tipo de CVT es el ``tratamiento farmacológico para la
-hipertensión arterial'' con la variable respuesta ``presión arterial''.
-
-\subsubsection{CVT tipo III}
-
-Se clasifica a una CVT como de tipo III si no es de tipo II. No se asume
-independencia entre la respuesta y la covariable, por lo tanto, uede existir un
-\textit{feedback} entre ambas en donde los valores de la CVT pueden estar
-afectados por valores previos de la variable respuesta. Un ejemplo de este tipo
-de CVT es el ``tratamiento farmacológico para la hipertensión arterial'' con la
-variable respuesta ``infarto de miocardio''. Mientras que es esperable que la
-medicación impacte en la probabilidad de tener un infarto de miocardio, también
-tener un infarto de miocardio puede impactar en el cambio del tratamiento
-farmacológico.
-
-\subsubsection{CVT tipo IV}
-
-Una CVT se define como de tipo IV si:
-
-\begin{equation}
-	\label{CVT tipo IV}
-	E(Y_{ij}|X_{i1}, ..., X_{in_i}) = E(Y_{ij}|X_{ij+1}, ..., X_{in_i})
-\end{equation}
-
-La CVT puede estar asociada con valores previos de la variable respuesta, pero
-la variable respuesta no está asociada con valores previos de la covariable,
-está sólo asociada con el valor observado de la covariable en la misma ocasión.
-Un ejemplo de este tipo de CVT es ``presión arterial'' con la variable
-respuesta ``peso''. En una determinada ocasión hay relación entre ambas
-variables, es esperable que valores previos del peso impacten en la presión
-arterial pero no al revés
-
-\subsection{Covariables rezagadas}
+\section{Transformaciones de interés de CVT}
 
 En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
 antes del tiempo $t$ para predecir $Y_{it}$. Sin embargo, en algunas
@@ -946,10 +502,14 @@ pequeño subconjunto de las mediciones más recientes son usados, ya que se
 supone que el efecto en la respuesta está concentrado en ellas. En cualquier
 caso, el uso de más de una covariable rezagada puede llevar a predictores
 altamente correlacionados, lo que lleva a preguntarse sobre la elección de
-cuantos predictores rezagados utiliar y sobre la estructura de sus
+cuantos predictores rezagados utilizar y sobre la estructura de sus
 coeficientes.
 
-\subsubsection{Una sola covariable rezagada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACA NOE DIJO DE AGREGAR UNA SECCION DE COVARIABLES SIN TRANSFORMAR PERO NO ME PARECIO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Una sola covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
 en un solo rezago $k$ momentos antes de la medición de la respuesta. Por
@@ -959,7 +519,7 @@ covariable es exógena, puede ajustarse el modelo mixto sin más consideraciones
 Lo más común es que se desconozca el valor $k$ apropiado y se consideren varias
 opciones diferentes.
 
-\subsubsection{Múltiples covaribales rezagadas}
+\subsection{Múltiples covaribales rezagadas}
 
 La literatura de series de tiempo ha considerado modelos tanto para infinitos o
 finitos rezagos de la covariable. Dado que los datos longitudinales son
@@ -975,530 +535,114 @@ coeficientes de regresión suaves.
 \[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
 
 A pesar de que los modelos rezagados distribuidos permiten modelar
-parsimoniosamente las covariables rezagadas múltiples, la especificación de del
+parsimoniosamente las covariables rezagadas múltiples, la especificación del
 número de rezagos, $L$, y el órden del modelo para el coeficiente, $p$, deben
 ser consideradas. Ésto puede realizarse a través de tests para modelos
 anidados, como el test del cociente de verosimilitud o el test de Wald.
 
-\subsection{Confusores variables en el tiempo}
+\subsection{Funcion de las covariables rezagadas}
 
-El análisis de regresión epidemiológica tradicional considera una clasificación
-de variables que están relacionadas tanto con una exposición de interés como
-con el resultado, ya sea como confusoras o intermedias. Una confusora se define
-vagamente como una variable asociada tanto con la exposición de interés como
-con la respuesta, y que, si se ignora en el análisis, conducirá a estimaciones
-sesgadas del efecto de la exposición. Una variable intermedia es aquella que se
-encuentra en la vía causal desde la exposición hasta el resultado y un análisis
-no debe controlar dicha variable, ya que se pierde el efecto de la exposición
-mediado por la variable intermedia.
+Una alternativa cuando se quiere utilizar la información de las covariables
+rezagadas pero quiere mantenerse un modelo parsimonioso, es decir, con el menor
+número posible de variables independientes, es resumir a través de una función
+la información de éstas en una sola covariable. Un ejemplo puede ser el valor
+promedio o acumulado hasta la ocasión actual. Sin embargo, la elección de está
+funcion dependerá del tipo de problema a analizar. Cabe destacar que, al igual
+que con toda medida resumen, al usar este tipo de covariables se pierde
+parte de la información.
 
-Por ejemplo, en un estudio observacional de pacientes con hipertensión elevada,
-podemos esperar determinar la magnitud del beneficio (o daño) atribuible a un
-tratamiento en la supervivencia del paciente o medidas longitudinales como la
-hipertensión en cierto momento. Sin embargo, podemos encontrar que la
-hipertensión en el tiempo $t$ prediga tanto la hipertensión en momentos
-posteriores como las opciones de tratamiento posteriores. En este caso, la
-hipertensión en el momento $s < t$ es la variable de respuesta para las
-opciones de tratamiento recibidas antes de $s$, pero también es un predictor y,
-por lo tanto, un factor de confusión potencial para el tratamiento administrado
-en momentos futuros, $t > s$.
+\section{Formas de introducir una CVT al modelo}
 
-\subsubsection{Feedback}
+\subsection{Convertirla en CNVT}
 
-Para aclarar los problemas que surgen con las covariables dependientes del
-tiempo, se consiidera un solo par de tiempos de estudio, $t = 0, 1$, con
-medidas de exposición y respuesta $(X_{t-1}, Y_t)$. Sea $Y_t$ un indicador de
-gravedad de la enfermedad o de los síntomas (1 = enfermedad/síntomas presentes,
-0 = enfermedad/síntomas ausentes) y sea $X_t = 1$ si se administra tratamiento
-y $0$ en caso contrario. Se supone que la exposición $X_{t-1}$ precede a $Y_t$
-para $t = 1, 2$ y que $Y_t$ precede o se mide simultáneamente con $X_t$. La
-figura 1 presenta un grafo que representa los modelos secuenciales
-condicionales:
+Una solución rápida al problema de las CVT es transformarla en una CNVT, esto
+se puede lograr resumiendo la información de la misma mediante alguna función
+como el promedio de los valores de cada individuo y dejarlo fijo a través del
+tiempo. También podria usarse su valor máximo, mínimo o cualquier
+transformación que resulte de interés en el estudio. El problema de este
+enfoque es que se pierde mucha información, dado que se usa una covariable más
+simple que no refleja la relación dinámica entre la covariable y la respuesta
+en el tiempo.
 
-\begin{equation}
-	\label{feedback_1}
-	logit \ E(Y_1 / X_0 = x_0) = -0.5 - 0.5x_0,
-\end{equation}
-\begin{equation}
-	\label{feedback_2}
-	logit \ E(X_1 / Y_1 = y_1, X_0 = x_0) = -0.5 + 1y_1,
-\end{equation}
-\begin{equation}
-	\label{feedback_3}
-	logit \ E(Y_2 / H_1^X = h_1^X, Y_1 = y_1) = -1 + 1.5y_1 - 0.5x_1,
-\end{equation}
-\[ donde \ H_1^x = \{ X_0, X_1 \} \ y \ h_1^X = \{ x_0, x_1 \} \]
+\subsection{CVT exógena}
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
-	\node[main] (X0) {$X_0$};
-	\node[main] (Y1) [right of=X0] {$Y_1$};
-	\node[main] (X1) [below of=X0] {$X_1$};
-	\node[main] (Y2) [below of=Y1] {$Y_2$};
-	\draw [->] (X0) to (Y1);
-	\draw [->] (Y1) to (X1);
-	\draw [->] (Y1) to (Y2);
-	\draw [->] (X1) to (Y2);
-\end{tikzpicture}
-\caption{Covariable variable en el tiempo, $X_{t-1}$, y respuesta $Y_t$.}
-\end{figure}
+Si la CVT es exógena se puede introducirse al modelo en su forma original o con
+cualquiera de sus transformaciones mencionadas en la sección anterios, dado que
+no habrá problemas con la estimación de los parámetros y pueden recibir una
+interpretación causal
 
-Estos modelos especifican un efecto beneficioso del tratamiento $X_0$ sobre el
-resultado en el momento 1 con una razón de odds logarítmica de -0,5 en el
-modelo $[Y_1|X_0]$. Sin embargo, el segundo modelo especifica que el
-tratamiento recibido en el momento 2 depende en gran medida del resultado en el
-momento uno. Para $X_0 = 0$ o $X_0 = 1$, si los pacientes tienen una respuesta
-inicial deficiente $(Y_1 = 1)$, es más probable que reciban tratamiento en el
-momento 2 que si respondieran bien $(Y_1 = 0)$. Finalmente, la respuesta en el
-segundo tiempo está fuertemente correlacionada con la respuesta inicial y está
-influenciada por el tratamiento en el tiempo 2.
+\subsubsection{Dividir su efecto en efecto entre-persona e intra-persona}
 
-\begin{table}[H]
-	\label{feedback_table}
-	\caption{Recuentos esperados cuando se tratan inicialmente 500 sujetos,
-	$X_0 = 1$, y 500 sujetos no reciben tratamiento, $X_0 = 0$, cuando el
-	tratamiento en el momento 2, $X_1$, se predice por el resultado en el
-	momento 1, $Y_1$, según el modelo dado por
-	\ref{feedback_1}-\ref{feedback_3}}
-	\begin{tabular}{*{17}{c}}
-		\hline
-		$X_0$ & \multicolumn{8}{c}{\bf{0}} & \multicolumn{8}{c}{\bf{1}} \\[-3mm]
+Cuando se consideran CVT, el modelo lineal mixto puede ser ajustado considerando
+dos componentes que reflejen tanto la variación intra-persona y la variación
+entre-persona respecto a la CVT. Por lo tanto, el término del modelo que
+representa a la covariable se puede descomponer en dos términos:
 
-		$n$ & \multicolumn{8}{c}{500} & \multicolumn{8}{c}{500} \\
+\[
+	\beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i)
+	+ \beta_B \overline{X}_i
+\]
 
-		$Y_1$ & \multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} &
-		\multicolumn{4}{c}{\bf{0}} & \multicolumn{4}{c}{\bf{1}} \\[-3mm]
+Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
+en el tiempo de la CVT para el individuo $i$, $\beta_W$ representa el cambio
+esperado en la media de la variable respuesta asociado con cambios de la CVT
+dentro de las persona y $\beta_B$ representa el cambio esperado en la media de
+la variable respuesta asociado con cambios de la CVT entre personas
 
-		$n$ & \multicolumn{4}{c}{311} & \multicolumn{4}{c}{189} &
-		\multicolumn{4}{c}{365} & \multicolumn{4}{c}{135} \\
+\paragraph{Consideraciones con CVT dicotómicas} \mbox{} \\
 
-		$X_1$ & \multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} &
-		\multicolumn{2}{c}{\bf{0}} & \multicolumn{2}{c}{\bf{1}} \\[-3mm]
+Cuando tenemos una CVT dicotómica, 0 indica la ausencia de la variable y 1
+indica la presencia, entonces $\overline{X}_i$ es la proporción en la que una
+persona presentó dicha covariable, por lo que el método anterior resultará en
+valores extraños para $\beta_W$. Por ejemplo, si la CVT se presentó en el 50\%
+de las ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término
+que acompaña a $\beta_W$ será de -0.5 en las ocasiones que la CVT dicotómica no
+se presente y 0.5 en las que se presente. En términos de la estimación del
+modelo esto no genera ningún problema, pero será raro en la interpretación de
+los parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
+estará acompañado de un 0). Una forma de evitar esto es diviviendo el efecto
+entre-persona e intra-persona de la siguiente manera:
 
-		$n$ & \multicolumn{2}{c}{194} & \multicolumn{2}{c}{117} &
-		\multicolumn{2}{c}{71} & \multicolumn{2}{c}{118} &
-		\multicolumn{2}{c}{227} & \multicolumn{2}{c}{138} &
-		\multicolumn{2}{c}{51} & \multicolumn{2}{c}{84} \\
+\[
+	\beta X_{ij} \rightarrow \beta_W X_{ij} + \beta_B \overline{X}_i
+\]
 
-		$Y_2$ & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} & \bf{0} &
-		\bf{1} & \bf{0} & \bf{1} & \bf{0} & \bf{1} &
-		\bf{0} & \bf{1} & \bf{0} & \bf{1} \\[-3mm]
+\subsection{CVT endógena}
 
-		$n$ & 142 & 52 & 96 & 21 & 27 & 44 & 59 & 59 & 166 & 61 & 113 & 25 &
-		19 & 32 & 42 & 42 \\
+Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
+longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
+estimación generalizadas) con estructura de correlación independiente ya que
+este es siempre consistente, por lo que es una opción ``segura''. La estructura
+de correlación independiente generalmente tiene una alta eficiencia para la
+estimación de los coeficientes asociados a CNVT. Sin embargo, para las CVT,
+Fitzmaurice (1995) muestra que esta estructura puede resultar en una pérdida
+sustancial de eficiencia para la estimación de los coeficientes asociados a las
+CVT y proporciona un ejemplo en el que es sólo un 60\% eficiente en relación con
+la estructura de correlación verdadera.
 
-		\multicolumn{17}{l}{$ E(Y_2|x_0 = 1, x_1 = 1) =
-		(25 + 42) / (138 + 84) = 0.30 $} \\
-
-		\multicolumn{17}{l}{$ E(Y_2|x_0 = 1, x_1 = 0) =
-		(61 + 32) / (227 + 51) = 0.33 $} \\
-
-		\multicolumn{17}{l}{$ E(Y_2|x_0 = 0, x_1 = 1) =
-		(21 + 59) / (117 + 118) = 0.34 $} \\
-
-		\multicolumn{17}{l}{$ E(Y_2|x_0 = 0, x_1 = 0) =
-		(52 + 44) / (194 + 71) = 0.36 $} \\
-		
-		\hline
-	\end{tabular}
-\end{table}
-
-La tabla \ref{feedback_table} muestra los recuentos esperados para cada camino
-de tratamiento/resultado si 500 sujetos recibieron tratamiento inicialmente y
-500 sujetos no. Esta tabla ilustra el beneficio del tratamiento en el momento 1
-en la primera respuesta, $Y_1$, y muestra que solo se espera que 134 sujetos
-(27\%) tengan síntomas si reciben tratamiento inicial en comparación con 189
-sujetos (38\%) entre los que no reciben tratamiento. El beneficio aparente del
-tratamiento disminuye en el segundo tiempo de medición con un 30\% de pacientes
-que muestran síntomas entre los que reciben tratamiento en ambos momentos
-($X_0 = X_1 = 1$) frente a un 36\% entre los que no reciben tratamiento en
-ningún momento ($X_0 = X_1 = 0$).
-
-Las distribuciones condicionales en \ref{feedback_1}-\ref{feedback_3} conducen
-a una distribución marginal de $Y_2$ condicional al tratamiento en los tiempos
-1 y 2 representado por la estructura de regresión:
-
-\begin{equation}
-	\label{feedback_4}
-	logit \ E(Y_2|H_1^X = h_1^x) = -0.56 - 0.13x_0 -0.1x_1 - 0.04x_0x_1
-\end{equation}
-
-Este modelo indica un impacto beneficioso del tratamiento entre aquellos
-sujetos que se observó que recibieron tratamiento en el momento 1 y en el
-momento 2. Tenga en cuenta que la expectativa marginal se calcula tomando
-promedios sobre la distribución del resultado intermedio. Dado que la variable
-intermedia influye tanto en el segundo resultado como en la asignación del
-tratamiento, necesitamos promediar $Y_1$ para obtener ambos $Pr(Y_2|X_0, X_1)$
-y $Pr(X_1|X_0)$:
-
-\[ \mu_2(x_0, x_1) = Pr(Y_2 = 1|X_0 = x_0, X_1 = x_1), \]
-\[\mu_2(1, 1) = \frac{Pr(Y_2 = 1, X_1 = 1 | X_0 = 1)}{Pr(X_1 = 1 | X_0 = 1)},\]
-\[ Pr(Y_2 = 1, X_1 = 1 | X_0 = 1) = \sum_{y_1 = 0, 1}
-Pr(Y_2 = 1 | X_1 = 1, Y_1 = y_1, X_0 = 1) \]
-\[ X \ Pr(X_1 = 1 | Y_1 = y_1, X_0 = 1) \]
-\[ X \ Pr(Y_1 = y_1 | X_0 = 1), \]
-\[ Pr(X_1 = 1 | X_0 = 1) = \sum_{y_1 = 0, 1} Pr(X_1 = 1 | Y_1 = y_1, X_0 = 1)\]
-\[ X \ Pr(Y_1 = y_1 | X_0 = 1) \]
-
-Suponga que el objetivo científico es determinar el efecto del tratamiento en
-el momento 1 y el momento 2 en el estado final del paciente, $Y_2$. Podemos
-considerar reportar las medias marginales observadas $\mu(x_0, x_1)$. Sin
-embargo, dado que $Y_1$ está correlacionado tanto con $X_1$ como con $Y_2$,
-reconocemos que estos efectos marginales observados no explican el factor de
-confusión $Y_1$ y, por lo tanto, no reflejan el efecto causal del tratamiento.
-La estructura marginal refleja un pequeño efecto beneficioso del tratamiento en
-el momento 1 además del momento 2, con el coeficiente de $X_0$ en
-\ref{feedback_4} igual a $-0.13$. Por otro lado, si el análisis controlara
-$Y_1$, entonces obtendríamos el modelo condicional \ref{feedback_3} que generó
-los datos. En este modelo que ajusta por $Y_1$ no hay efecto de $X_0$ sobre la
-media (condicional) de $Y_2$ ya que hemos condicionado la variable intermedia
-$Y_1$ y bloqueado el efecto de $X_0$. Por lo tanto, el análisis que ajusta por
-$Y_1$ no refleja el efecto causal tanto de $X_0$ como de $X_1$ ya que al
-condicionar a una variable intermedia solo caracteriza efectos directos.
-
-Esta simple ilustración muestra que con exposiciones longitudinales
-(tratamientos) y resultados longitudinales, una variable puede ser tanto una
-variable de confusión como una variable intermedia. Entonces no se pueden usar
-métodos de regresión estándar para obtener declaraciones causales.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%LESSA HOFFMAN
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
+de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
+y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
+definieron un cuarto tipo de CVT.
 
 \newpage
-\section{Consideraciones al usar modelos longitudinales con CVT}
 
-Las CVT suelen medirse en las mismas ocasiones que la variable respuesta,
-aunque no tiene por qué ser así. Por ejemplo, si interesa un efecto retrasado
-de una CVT, entonces un investigador puede compensar deliberadamente la
-recopilación de los datos de la respuesta correspondientes por un rezago de
-tiempo predeterminado para examinar la relación temporal específica esperada.
-Sin embargo, será más útil tener una correspondencia temporal directa entre las
-covariables y las respuestas que varíen con el tiempo. Por ejemplo, si una
-covariable se mide diariamente pero una respuesta se mide solo semanalmente,
-entonces los valores de la covariable diaria tendrían que agregarse o resumirse
-de alguna manera a la semana más cercana para que se examine su efecto en un
-resultado semanal. Al considerar el escenario inverso en el que una covariable
-se evalúa semanalmente pero una respuesta se evalúa diariamente, la covariable
-solo podría tener un efecto a nivel de semana (p. ej., podría predecir el
-resultado medio entre días durante la semana en la que se midió el predictor).
-Por lo tanto, en general, aunque las CVT y los resultados no necesariamente
-deben recopilarse en el mismo \textit{momento} exacto, deben utilizatse dentro
-del mismo \textit{marco}.
-
-\subsection{CVT con valores faltantes}
-
-Antes de continuar, debemos reconocer el impacto de la presencia de valores
-faltantes en las CVT al estimar modelos longitudinales. La forma en que la
-mayoría del software ``maneja'' los datos faltantes es exigir que un caso sea
-\textit{completo} (debe incluir \textit{todas} las covariables y las respuestas
-del modelo) para que el caso sea incluido en el modelo. La eliminación de casos
-en los que falta alguna CVT o respuesta crea tres problemas: estadísticas de
-ajuste incomparables si los modelos se basan en casos diferentes, una reducción
-en el poder estadístico y la posibilidad de resultados sesgados del modelo. Los
-dos primeros problemas se pueden abordar mediante la estimación de modelos
-longitudinales a través de software más avanzado para modelos de ecuaciones
-estructurales. Estos modelos permitirán que los casos en los que falten
-covariables variables en el tiempo permanezcan en el modelo, dadas las
-suposiciones específicas sobre las distribuciones de la CVT y las razones de
-sus datos incompletos.
-
-Con respecto al tercer problema de sesgo potencial, la eliminación de casos con
-CVT o respuestas faltantes dará como resultado efectos sesgados si los datos no
-faltan al azar (MAR - Missing at random), una condición en la que la falta es
-predecible a partir de los otros datos de la persona. Aunque es muy importante
-para la mayoría de los métodos modernos poder abordar los datos faltantes,
-desafortunadamente la suposición de MAR no es comprobable, pero incluir las
-otras ocasiones completas de la persona, así como cualquier covariable
-relacionada con la falta (es decir, incluso si no está relacionada con la
-respuesta) puede hacer más plausible la suposición de MAR.
-
-\subsection{Las CVT contienen información entre-persona e intra-persona}
-
-Como es sabido, todas las covariables fijas deben estar centradas y tener un
-valor de 0 significativo para que el intercepto del modelo sea interpretable.
-El mismo requerimiento aplica al modelar el efecto de las CVT, excepto que las
-decisiones relacionadas con el centrado puede ser mucho más complicado cuando
-se aplica a una CVT. La razón de esto, como se explica a continuación, es que
-aunque las CVT se miden a nivel de tiempo (es decir, en cada ocasión), por lo
-general también contienen una variación sistemática en niveles más altos de
-muestreo (es decir, variación invariable en el tiempo). Es decir, \textit{Las
-CVT contienen información tanto entre personas como dentro de la persona}. En
-consecuencia, ambas fuentes de variación deben estar representadas
-explícitamente (y centradas apropiadamente) dentro de un modelo longitudinal.
-
-Considere el ejemplo en el que el estrés predice un estado de ánimo negativo.
-Aunque los niveles de estrés variarán a lo largo de los días, en la medida en
-que algunas personas tiendan a reportar más estrés todos los días, el estrés
-también variará sistemáticamente entre \textit{personas}. Es decir, aunque el
-estrés variable en el tiempo se mida a lo largo del tiempo, lo más probable es
-que contenga \textbf{variación entre-persona} (es decir, diferencias de persona
-a persona en los niveles medios de estrés a lo largo de los días) así como
-\textbf{variación intra-persona} (es decir, variación en torno al nivel medio
-de un persona, tener más o menos estrés de lo habitual en un momento dado).
-Debido a que las variables longitudinales generalmente contienen variaciones
-tanto entre personas como dentro de las personas, como resultado, generalmente
-son dos variables en lugar de una. Cada fuente de variación (variación de
-persona a persona y variación de tiempo a tiempo) puede tener un efecto
-diferente en la respuesta (un \textbf{efecto entre-persona} y un \textbf{efecto
-intra-persona}, respectivamente. En el ejemplo del estrés y el estado de ánimo
-negativo, las personas con \textit{mayor estrés en promedio} (que otras
-personas) pueden reportar \textit{mayor estado de ánimo negativo en promedio};
-este efecto entre personas se consideraría como un \textbf{rasgo} o efecto
-crónico. Además, en momentos en que el \textit{estrés es más alto de lo
-habitual}, el estado de ánimo negativo también puede ser \textit{mayor de lo
-habitual}; este efecto dentro de la persona se consideraría un \textbf{estado}
-o efecto agudo.
-
-Un precursor lógico para examinar los efectos entre-persona e intra-persona de
-una CVT es estimar qué parte de su variación se debe a cada fuente. Para
-determinar esto, podemos tratar la CVT como una respuesta y usar un modelo de
-intercepción aleatoria de medias vacías para cuantificar su cantidad de
-variación entre personas (como la varianza de la intercepción aleatoria
-$\tau^2_{U_0}$) y la variación dentro de la persona (como la varianza residual
-$\sigma^2_e$) con el fin de calcular una correlación intraclase como
-$ICC = \tau^2_{U_0} / (\tau^2_{U_0} + \sigma^2_e)$. El ICC indica la proporción
-de la variancia total que existe entre las personas en sus niveles medios de
-respuesta a lo largo del tiempo (es decir, debido a $\tau^2_{U_0}$). Si esa
-variación entre personas ($\tau^2_{U_0}$) es significativamente mayor que 0 se
-puede evaluar mediante la prueba de razón de verosimilitud.
-
-El tamaño del ICC dictará qué efectos puede mostrar potencialmente la CVT.
-Primero (y más probable), si hay una variación significativa entre-persona en
-la CVT (es decir, $\tau^2_{U_0} > 0$), entonces esa variación entre-persona
-puede mostrar potencialmente un correspondiente efecto entre-persona.
-Alternativamente, si la CVT \textit{no} tiene una variación significativa
-entre-personas (es decir, $\tau^2_{U_0} \approx 0$), esto significa que solo
-tiene variación intra-persona y, por lo tanto, la CVT solo podría mostrar un
-efecto intra-persona. Un ejemplo de cuándo es probable que ocurra lo último es
-cuando se modela el cambio a lo largo de un tiempo balanceado. Si todos en la
-muestra tienen el mismo conjunto de observaciones de tiempo balanceado,
-entonces el predictor de \textit{tiempo} solo tendrá una variación
-intra-persona y, por lo tanto, solo puede mostrar un efecto intra-persona. Sin
-embargo, cuando el \textit{tiempo} está desbalanceado de tal manera que su ICC
-es mayor que 0 (p. ej., las personas difieren al comienzo de un estudio en edad
-o nivel de grado), entonces ese \textit{tiempo} predictor de tiempo
-desbalanceado (p. ej., edad o grado) tiene el potencial de mostrar efectos
-diferenciales entre-persona e intra-persona. Finalmente, también es posible que
-una CVT tenga un $ICC \approx 1$, lo que indica poca o ninguna variación
-intra-persona (y en cuyo caso es esencialmente una covariable invariable en el
-tiempo). Desafortunadamente, por lo general, no existen maneras sencillas en la
-mayoría de los softwares para probar si la cantidad de variación intra-persona
-es significativamente mayor que 0 (es decir, $\sigma^2_e > 0$ and $ICC < 1$).
-Sin embargo, si $ICC \approx 1$, la CVT debe tratarse como una covariable
-invariante en el tiempo, por ejemplo, incluyendo solo su valor en el tiempo 0.
-
-\subsection{Las CVT pueden tener efecto entre-persona y/o intra-persona}
-
-El tipo de variación que tiene una CVT (entre personas y/o dentro de una
-persona) dictará los tipos de efectos que puede mostrar. Para ilustrar mejor
-estos diferentes efectos, en la figura \ref{lessa_1} se muestran cuatro
-conjuntos de efectos hipotéticos de estrés variable en el tiempo (en el eje x)
-que predicen un estado de ánimo negativo variable en el tiempo (en el eje y).
-
-\begin{figure}
-	\centering
-	\includegraphics{img/lessa1.png}
-	\caption{Efectos hipotéticos entre-persona (como la pendiente de la línea
-	discontinua a través de la media de la persona) y efectos intra-persona
-	(como la pendiente de la línea completa para la media = 5; marcadores
-	triangulares) del estrés variable en el tiempo sobre el estado de ánimo
-	negativo variable en el tiempo.}
-	\label{lessa_1}
-\end{figure}
-
-Aquí el estrés y el estado de ánimo negativo son variables continuas con una
-media de 5 para facilitar la explicación, y se trazan trayectorias separadas
-para personas con una puntuación media de estrés a lo largo del tiempo de 4, 5
-o 6. Nótese que el \textit{tiempo} no es necesario en \ref{lessa_1}: una vez
-que se hayan incluido en el modelo los efectos fijos y aleatorios necesarios
-relacionados con el tiempo, probablemente ya no importará en qué ocasión se
-trate al considerar los efectos de CVT. Aquí, lo que necesitamos saber es cuál
-fue el valor de estrés en cada ocasión, y no necesariamente \textit{cuándo} se
-informó ese valor de estrés (sin embargo, en qué ocasión puede importar si el
-efecto de la CVT cambia con el tiempo). Críticamente, tanto el estrés como el
-estado de ánimo negativo tienen variación entre-persona y variación
-intra-persona y, por lo tanto, existe la posibilidad de que el estrés muestre
-un efecto tanto entre-persona como intra-persona, \ref{lessa_1} fue diseñado
-para ilustrar diferentes patrones de estos efectos.
-
-Para comenzar, el panel superior izquierdo de \ref{lessa_1} muestra un efecto
-de estrés que es completamente \textit{entre-persona}: hay una pendiente
-positiva de 1 a través de la media de estrés de la persona (como lo muestra la
-línea discontinua a través de el centro de las trayectorias individuales), lo
-que indica que por cada unidad mayor de \textit{estrés medio de la persona} se
-espera que el estado de ánimo negativo medio sea superior a 1. O dicho de
-manera más simple, las personas que reportan más estrés en promedio que otras
-personas tienden a ser más gruñonas en promedio que otras personas. Sin
-embargo, no hay efecto de estrés dentro de las personas (las trayectorias
-individuales tienen una pendiente de 0), lo que indica que reportar \textit{más
-estrés que su propia media} no tiene ningún efecto sobre el estado de ánimo
-negativo de esa ocasión. Esto significa que el efecto del estrés en el panel
-superior izquierdo es completamente \textit{transversal}: las diferencias
-individuales en el estrés promedio a lo largo del tiempo se relacionan con el
-estado de ánimo negativo promedio, pero la variación intraindividual en el
-estrés no se relaciona con el estado de ánimo negativo de esa ocasión.
-
-A continuación, considere el panel superior derecho de \ref{lessa_1}, que
-muestra un efecto del estrés que es completamente \textit{intra-persona}: hay
-una pendiente positiva de 1 en cada trayectoria de estrés individual, lo que
-indica que para cada unidad \textit{más estrés que su propia media} (cualquiera
-que sea su propia media), se espera que el estado de ánimo negativo de esa
-ocasión sea 1 más alto. O dicho de manera más simple, se predice que el estado
-de ánimo negativo será más alto de lo habitual en los días en que las personas
-reportan más estrés de lo habitual. Sin embargo, esta vez no hay efecto del
-estrés entre-persona: el estrés medio de la persona no predice el estado de
-ánimo negativo medio de la persona. Entonces, el efecto del estrés en el panel
-superior derecho es completamente \textit{longitudinal}: no es que las personas
-crónicamente estresadas sean más gruñonas que otras personas, es que cada vez
-que las personas reportan más estrés de lo normal (independientemente de lo que
-sea ``habitua'', como lo indica el estrés medio de su persona), también son más
-gruñones de lo habitual.
-
-Sin embargo, rara vez encontramos solo un efecto entre-persona o solo un efecto
-intra-persona de una CVT, es más probable que ambos efectos se observen hasta
-cierto punto. Para ilustrar, considere el panel inferior izquierdo de
-\ref{lessa_1}, que muestra los efectos de estrés positivos de ambos tipos. Pero
-aquí el efecto entre-persona de 2 es mayor que el efecto intra-persona de 0.5:
-la pendiente de la línea a través de las medias de las personas tiene una
-pendiente de 1.5 más pronunciada que la pendiente de las trayectorias de estrés
-individuales. En consecuencia, por cada unidad de \textit{estrés de una persona
-sobre otras personas}, se espera que el estado de ánimo negativo sea 2 veces
-más alto, pero por cada unidad de \textit{más estrés que la propia media}, se
-espera que el estado de ánimo negativo de esa ocasión sea más alto en 0.5. Dada
-la misma variabilidad tanto para el estrés como para el estado de ánimo
-negativo (es decir, ICC de 0.5 para cada variable), este resultado significaría
-que ser una persona más estresada (que otras personas) es más importante para
-predecir el estado de ánimo negativo que tener una ocasión más estresante (de
-lo habitual), pero aquí tanto las diferencias individuales como la variación
-intraindividual en el estrés son importantes hasta cierto punto.
-
-Hasta ahora, los efectos hipotéticos del estrés han sido aditivos en todos los
-niveles, pero este no tiene por qué ser el caso. Para ilustrar, considere el
-panel inferior derecho de \ref{lessa_1} en el que también está presente una
-interacción entre el estrés entre-persona y el estrés intra-persona. En
-consecuencia, los dos efectos principales del estrés ahora están condicionados
-el uno al otro: el efecto de estrés entre-persona de 2 se aplica
-\textit{específicamente cuando las personas están en sus propios niveles medios
-de estrés} (p. ej., como lo muestra la línea discontinua a través de la estrés
-medio de la persona), y el efecto de estrés intra-persona de 1 se aplica
-\textit{específicamente para las personas en el valor central del estrés medio
-de la persona} (p. ej., el estrés medio de la persona = 5 aquí, como lo indican
-los triángulos). La interacción entre el estrés entre-persona y el estrés
-intra-persona de -0.5 se puede interpretar de dos maneras equivalentes. Primero
-(y más intuitivamente), significa que el \textit{efecto dentro-persona} de
-reportar más estrés de lo habitual en una ocasión dada (que era 1 dado el
-estrés medio de una persona = 5) \textit{se vuelve menos positivo por 0.5 por
-cada unidad mayor del estrés medio de esa persona:} el efecto de reportar más
-estrés de lo habitual importa \textit{menos} para las personas que tienen más
-estrés en general. Alternativamente, la interacción entre el estrés
-entre-persona y el estrés intra-persona de -0.5 también significa que el
-\textit{efecto entre-persona} de reportar un mayor estrés medio que otras
-personas (que es 2 cuando el estrés variable en el tiempo está en la media de
-la persona) \textit{se vuelve menos positivo en 0.5 por cada unidad más de
-estrés que lo habitual:} las diferencias entre las personas debido al estrés
-medio son menos pronunciadas cuando las personas están más estresadas que lo
-habitual.
-
-Para resumir, es probable que las CVT sean informativas en múltiples niveles de
-análisis porque casi siempre contienen variancia tanto entre-persona como
-intra-persona, y es probable que cada fuente de variación tenga un efecto
-diferente sobre el resultado. Estos efectos pueden ser aditivos o interactivos
-(y cada uno de ellos también puede interactuar con otros predictores). La
-experiencia sugiere que \textit{es la regla, más que la excepción, que los
-efectos entre-persona e intra-persona de las CVT diferirán entre sí}, y hay (al
-menos) dos razones para esto. La primera razón se relaciona con los constructos
-teóricos medidos por la covariable en el análisis. En el ejemplo del estrés,
-una confluencia de varios factores crónicos puede resultar en que un individuo
-determinado sea una persona con "mucho estrés" o "bajo estrés", tales como
-variables de personalidad, diferencias en el estilo de vida, etc. Sin embargo,
-es probable que factores diferentes y más reales sean la razón por la que
-algunos días son más estresantes que otros, como las desviaciones específicas
-temporales de las rutinas normales de trabajo, familia o salud. Por lo tanto,
-dado que la variación entre-personae intra-persona probablemente represente dos
-constructos teóricos diferentes, su efecto sobre un resultado dado a menudo
-será de diferentes magnitudes o incluso de diferentes direcciones. Pero además
-de las diferencias en los constructos que reflejan, sin embargo, la segunda
-razón por la cual los efectos entre-persona e intra-persona probablemente
-difieran entre sí es simplemente porque son coeficientes no estandarizados. Es
-decir, cantidades desiguales de variación entre-persona versus intra-persona
-darán como resultado efectos fijos que se estiman en diferentes escalas
-numéricas.
-
-\subsection{El rol de las CVT en los modelos para la parte media}
-
-Ahora consideramos los roles potenciales que pueden desempeñar las CVT en cada
-parte del modelo. Se cree comúnmente que el papel de los efectos fijos de las
-CVT en el modelo de las medias es aportar a la varianza residual intra-persona
-($\sigma_e^2$). Si bien esto es cierto, no es toda la historia, porque los
-predictores que varían en el tiempo deberán estar representados por dos
-covariables separadas que distingan sus fuentes de variación entre-persona e
-intra-persona para distinguir adecuadamente su potencial efecto entre-persona e
-intra-persona en un resultado longitudinal. Por lo tanto, para ser más
-específicos, es la parte \textit{intra-persona de la CVT} la que potencialmente
-podría explicar la variancia $\sigma_e^2$ intra-persona. De manera similar, las
-interacciones entre las partes intra-persona de dos o más CVT también
-reducirían $\sigma_e^2$. En contraste, la parte \textit{entre personas de la
-CVT} es en realidad una covariable \textit{invariante en el tiempo}. Y, como ua
-sabemos, las covariables invariantes en el tiempo pueden modificar cualquier
-término para la intersección, la asíntota, el cambio en el tiempo o el efecto
-de cualquier CVT.
-
-%%% NO ENTIENDO ESTO
-% Al hacerlo, explican la variancia aleatoria de nivel 2 en el efecto de nivel
-% 1 si el efecto de nivel 1 es aleatorio, o bien la varianza residual de nivel
-% 1 si el efecto de nivel 1 no es aleatorio.
-
-\subsection{El rol de las CVT en los modelos para la covariancia}
-
-Además de los efectos fijos en el modelo de la parte media que pueden explicar
-la variancia de la respuesta, una CVT puede contribuir al modelo de la
-variancia de dos formas. Primero, los predictores variables en el tiempo pueden
-tener \textit{efectos aleatorios}, es decir, cada persona puede necesitar su
-propia pendiente para el efecto de la CVT. Por ejemplo, \textit{el efecto de
-tener más estrés de lo normal} en el estado de ánimo negativo podría diferir
-aleatoriamente entre las personas. Las diferencias individuales en las
-pendientes se convertirían entonces en otra cantidad de variancia a predecir
-(es decir, mediante interacciones entre niveles de la CVT con la pendiente
-aleatoria con una o más covariables invariantes en el tiempo, tal como vimos en
-secciones anteriores)
-
-En segundo lugar, las CVT también se pueden usar para predecir la
-heterogeneidad de la variancia en la respuesta. La \textit{parte entre-persona}
-de una CVT puede predecir la heterogeneidad de la variancia entre persona (es
-decir, cantidades diferenciales de las variancias de efectos aleatorios entre
-personas) o la heterogeneidad de la variancia residual intra-persona (es decir,
-cantidades diferenciales de fluctuación intra-persona entre personas). Pero la
-\textit{parte intra-persona} de una CVT solo puede predecir la heterogeneidad
-de la variancia residual intra-persona. En resumen, especificar y evaluar
-correctamente las muchas contribuciones de una CVT (y todas sus partes aditivas
-e interactivas) en un modelo longitudinal puede ser una tarea bastante
-compleja.
-
-%%%
-% ACA IRIA EL CAPITULO 1.F DE LESSA HOFFMAN PERO NO LO ENTENDI
-%%%
-
-% Lessa Hoffman terminado
-
-\newpage
 \section{Aplicación}
 
 Se cuenta con un programa de atención y control de pacientes hipertensos
 iniciado en el año 2014 en Rosario que realiza un seguimiento exhaustivo de
-\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los
-cuales un 49.28\% son hombres. Las visitas se realizaron una vez por mes
-durante 7 meses desde la primera consulta y en cada una de ellas se registró si
-la persona estaba adhiriendo correctamente al tratamiento y el valor de la
-tensión arterial sistólica (TAS) (M=134.10, DS=16.07).
+\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los cuales
+un 49.28\% son hombres. Las visitas se realizaron una vez por mes durante 7
+meses desde asignado el tratamiento y en cada una de ellas se registró si la
+persona estaba adhiriendo correctamente al tratamiento y el valor de la tensión
+arterial sistólica (TAS) (M=134.10, DS=16.07). Es decir, el seguimiento comenzó
+a medirse luego de un mes de que los pacientes empezaron el tratamiento.
 
 A fines de centrarse en la CVT se dejaron de lado algunas covariables fijas
 derivadas de estudios de laboratorio, manteniendo solo algunas covariables
 sociodemográficas de interés para lograr una estabilidad entre modelos
-interpretables pero no demasiado complejos sin perder el objetivo principal de
+interpretables pero no demasiado complejos, sin perder el objetivo principal de
 este informe.
 
 \subsection{Análisis descriptivo}
@@ -1539,23 +683,394 @@ Otro gráfico que resulta de interés es observar la evolución de la TAS a trav
 del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
 expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
 utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
-Podemos observar que, ya sea en mayor o en menor medida, estas covariables
-parecen tener un efecto en la ordenada al origen pero no en la pendiente.
-Teniendo menor TAS los pacientes con IMC más bajo, los más jóvenes, los que no
-padecieron diabetes, y las mujeres. Este es el comportamiento esperado en las
-respectivas primeras 3 covariables mencionadas, ya que es de público
-conocimiento que los grupos mencionados con menor TAS se consideran más
-saludables.
+Podemos observar que en general la TAS disminuye, ya sea en mayor o menor
+medida, a los largo del tiempo. Analizando las covariables de a una, el IMC
+parece no tener un efecto significativo, dado que, aunque los pacientes con
+menor IMC presentan menor TAS, los promedios en cada tiempo caen dentro de los
+intervalos de confianza de ambos grupos. En cuanto a la edad y el sexo, no
+parece haber una diferencia significativa en las pendientes pero si parece haber
+una leve diferencia en las ordenadas al origen, presentando menor TAS los
+pacientes más jóvenes y de sexo femenino. Por último, los pacientes con
+antecedentes de diabetes parecen tener una TAS mayor en un comienzo con una
+pendiente negativa a través del tiempo, mientras que los pacientes que no tienen
+antecedentes de diabetes comienzan con una TAS mas inferior manteniendola más
+constante.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/TAS_vs_tpo_with_covs.png}
-	\caption{TAS a través del tiempo sobre grupos de covariables}
+	\caption{TAS a través del tiempo según grupos de covariables}
 	\label{TAS_with_covs}
 \end{figure}
 
+Por último, la figura \ref{TAS_with_adh} refleja el efecto de la adherencia al
+tratamiento sobre la TAS. Para mantener perfiles no variables en el tiempo, se
+usa la adherencia total al tratamiento y al igual que antes se divide en base a
+su mediana, teniendo por un lado los pacientes que adhieren correctamente a más
+del 86\% del tratamiento (al menos 6 de las 7 ocasiones) y por el otro a los
+pacientes que adhieren correctamente menos del 86\% del tratamiento (hasta 5 de
+las 7 ocasiones). Aqui se puede observar que los pacientes que adhieren
+correctamente al tratamiento parecen tener una pendiente negativa en la TAS a
+través del tiempo, mientras que los pacientes que no adhieren correctamente
+mantienen la TAS más constante.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia.png}
+	\caption{TAS a través del tiempo según adherencia al tratamiento}
+	\label{TAS_with_adh}
+\end{figure}
 
+\subsection{Modelo propuesto}
+
+\subsubsection{Modelo propuesto para la media}
+
+El modelo \ref{modelo_simple} se obtuvo mediante el método stepwise, el cual
+consiste en ajustar un modelo con todas las covariables y en cada paso quitar la
+de mayor p-value (siempre y cuando no sea significativa) mientras que también se
+añaden las covariables que no están presentes en el modelo con el fin de volver
+a agregarlas si alguna tiene un efecto significativo. En el anexo pueden
+encontrarse todos los pasos de dicho proceso, el modelo obtenido es el
+siguiente:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AGREGAR PROCESO AL ANEXO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{multline}
+	\label{modelo_simple}
+	\hat{y}_{ij} = 121.011\ +\ b_{0i}\ +\ 3.917\ sexo_i\ +\ 0.156\ edad_i\ -
+	\ 3.337\ diabetes_i \\
+	-\ 0.238\ mes_i\ -\ 0.689\ mes_i*diabetes_i\ +\ b_{1i}*mes_i\ +
+	\ \epsilon_{ij}
+\end{multline}
+
+\subsubsection{Modelo propuesto para la covariancia}
+
+En la figura \ref{semivariogram} puede notarse que la mayor parte de la
+variabilidad total está compuesta por el error de medición dado que la curva no
+inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
+serial también puede considerarse pequeña. Por último, como la curva no llega a
+la variancia total, esto nos indica que debe explicarse la variancia entre
+individuos agregando una ordenada aleatoria.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AGREGAR PROCESO AL ANEXO %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{img/semivariogram.png}
+	\caption{Semivariograma}
+	\label{semivariogram}
+\end{figure}
+
+Además, se realizaron tests de hipótesis para probar la significación de los
+efectos aleatorios para la ordenada y la pendiente, resultando ambos
+significativos. Por lo que la estructura de covariancia elegida para el modelos
+es una estructura independiente con ordenada y pendiente aleatoria.
+
+Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
+\ref{modelo_1}.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_1}
+	\caption{Modelo 1: Modelo propuesto sin CVT}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15424.7921} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30869.584} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30932.323} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 121.011 & 2.357 & 51.352 & $<$ 0.001 \\
+		Sexo & 3.917 & 0.755 & 5.187 & $<$ 0.001 \\
+		Edad & 0.156 & 0.039 & 3.999 & $<$ 0.001 \\
+		DBT & 3.337 & 1.490 & 2.239 & 0.025 \\
+		tpo programa & -0.238 & 0.114 & -2.094 & 0.036 \\
+		tpo programa*DBT & -0.689 & 0.309 & -2.230 & 0.026 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Evaluación de la exogeneidad}
+
+Para evaluar la exogeneidad de la adherencia se ajustaron modelos de regresion
+logística en cada ocasión, usando como variable respuesta la adherencia en dicha
+ocasión y como covariables la TAS y la adherencia en la ocasión anterior y el
+promedio y proporción hasta la ocasión anterior. En la tabla \ref{exog_table} se
+presentan los valores de los coeficientes para cada covariable y en paréntesis
+el p-value asociado a cada uno. Como se puede notar, en ninguna ocasión la
+adherencia depende de valores anteriores de la TAS, por lo tanto puede
+considerarse como una covariable exógena.
+
+\begin{table}[H]
+	\centering
+	\label{exog_table}
+	\caption{Resultados de la prueba de exogeneidad}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
+		$\overline{y}_{t-2}$ \\
+		\hline
+		\hline
+		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
+		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
+		$0.0075\ (0.419)$ \\
+		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
+		$-0.017\ (0.138)$ \\
+		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
+		$-0.0141\ (0.307)$ \\
+		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
+		$<0.0001\ (0.996)$ \\
+		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
+		$-0.0072\ (0.678)$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Incorporación de la CVT}
+
+Como se mencionó anteriormente, hay más de una manera de incorporar una CVT a un
+modelo mixto, en esta sección compararemos algunas de éstas.
+
+\subsubsection{Incorporación de covariable fija}
+
+Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
+al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
+paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
+incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_2} que la
+covariable solo es significativa en la ordenada al origen. Este modelo indica
+que, controlando por el resto de las variables, los pacientes con adherencia
+perfecta tienen en promedio 2.792 menor TAS en el primer mes del tratamiento y
+continúa disminuyendo en 0.265 por cada mes.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_2}
+	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15412.1077} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.215} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30923.501} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 121.442 & 2.341 & 51.874 & $<$ 0.001 \\
+		Sexo & 3.807 & 0.740 & 5.147 & $<$ 0.001 \\
+		Edad & 0.173 & 0.038 & 4.513 & $<$ 0.001 \\
+		DBT & 3.364 & 1.481 & 2.272 & 0.023 \\
+		Adherencia Perfecta & -2.792 & 1.015 & -2.750 & 0.006 \\
+		tpo programa & -0.108 & 0.154 & -0.702 & 0.483 \\
+		tpo programa*DBT & -0.683 & 0.308 & -2.215 & 0.027 \\
+		tpo programa*Adherencia Perfecta & -0.265 & 0.211 & -1.253 & 0.210 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Otra manera de incorporar la covariable fija sin perder tanta información es
+usar la proporción de adherencia correcta al final del estudio. Es decir, si de
+las 7 ocasiones el paciente adhirio correctamente al tratamiento en solo 5, el
+valor que se le asignará es 5/7 ($\approx 0.71$). Los coeficientes de este
+modelo indican que, controlando por el resto de las variables, los pacientes
+tienen en promedio un porcentaje de 3.063 menor TAS al primer mes de tratamiento
+equivalente al porcentaje de adherencia total, y continuará disminuyendo en un
+porcentaje de 0.965 por mes también equivalente al porcentaje de adherencia
+total. Por ejemplo, un paciente que adhirió correctamente sólo al 50\% del
+tratamiento, tendra una TAS en promedio un 1.5315 ($3.063 x 0.5$) menor que un
+paciente que no adhirio correctamente en ninguna ocasión.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_3}
+	\caption{Modelo 3: incorporación adherencia total}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15414.7464} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30853.492} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30928.779} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.805 & 2.843 & 43.193 & $<$ 0.001 \\
+		Sexo & 3.738 & 0.746 & 5.008 & $<$ 0.001 \\
+		Edad & 0.169 & 0.039 & 4.390 & $<$ 0.001 \\
+		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
+		Adherencia Total & -3.063 & 2.150 & -1.425 & 0.154 \\
+		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
+		tpo programa*DBT & -0.657 & 0.308 & -2.133 & 0.033 \\
+		tpo programa*Adherencia Total & -0.965 & 0.444 & -2.174 & 0.030 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Puede notarse que ambas maneras de introducir la covariable ayudan para explicar
+el comportamiento de la TAS en el estudio (siendo la primera opción levemente
+mejor, ya que el AIC y el BIC son menores).
+
+\subsubsection{Incorporación como CVT}
+
+Como vimos anteriormente, la CVT puede considerarse exógena, por lo tanto puede
+introducirse al modelo en su forma natural. Los coeficientes de Adherencia de
+este modelo y de los siguientes no son fácilmente interpretables, dado que
+contienen los efectos tanto entre-persona como intra-persona.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_4}
+	\caption{Modelo 4: incorporación la adherencia en cada ocasión}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15388.2302} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.460} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30875.746} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.388 & 2.426 & 50.444 & $<$ 0.001 \\
+		Sexo & 3.768 & 0.746 & 5.054 & $<$ 0.001 \\
+		Edad & 0.164 & 0.038 & 4.271 & $<$ 0.001 \\
+		DBT & 3.212 & 1.485 & 2.163 & 0.031 \\
+		Adherencia & -2.321 & 0.922 & -2.517 & 0.012 \\
+		tpo programa & 0.442 & 0.242 & 1.828 & 0.067 \\
+		tpo programa*DBT & -0.584 & 0.306 & -1.906 & 0.057 \\
+		tpo programa*Adherencia & -0.783 & 0.262 & -2.984 & 0.003 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Al comparar los criterios de AIC y BIC de este modelo con los anteriores se
+puede notar que han disminuido en gran medida, lo cual quiere decir que este
+modelo explica la variación de la TAS de mejor manera. Además, ambos efectos de
+adherencia (ordenada y pendiente) son significativos en este modelo, lo cual no
+ocurria en los modelos anteriores. Este comportamiento es el esperado, dado que
+se está usando toda la información disponible de la CVT en cada momento en vez
+de resumirla.
+
+Además de incorporar la adherencia en cada ocasión, también puede acompañarse de
+la adherencia en momentos anteriores o algunas medidas resumenes, algunos
+ejemplos pueden observarse en las siguientes tablas.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_5}
+	\caption{Modelo 5: incorporación la adherencia en cada ocasión y en ocasión anterior}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1933} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.386} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.946} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.467 & 2.426 & 50.485 & $<$ 0.001 \\
+		Sexo & 3.755 & 0.745 & 5.038 & $<$ 0.001 \\
+		Edad & 0.166 & 0.038 & 4.309 & $<$ 0.001 \\
+		DBT & 3.205 & 1.486 & 2.157 & 0.031 \\
+		Adherencia & -2.527 & 0.933 & -2.709 & 0.007 \\
+		tpo programa & 0.543 & 0.252 & 2.157 & 0.031 \\
+		tpo programa*DBT & -0.579 & 0.307 & -1.888 & 0.059 \\
+		tpo programa*Adherencia & -0.671 & 0.274 & -2.451 & 0.014 \\
+		tpo programa*Adherencia lag1 & -0.232 & 0.161 & -1.440 & 0.150 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\label{modelo_6}
+	\caption{Modelo 6: incorporación la adherencia en cada ocasión y adherencia acumulada}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1802} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.360} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.920} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.454 & 2.425 & 50.503 & $<$ 0.001 \\
+		Sexo & 3.735 & 0.745 & 5.011 & $<$ 0.001 \\
+		Edad & 0.168 & 0.039 & 4.370 & $<$ 0.001 \\
+		DBT & 3.199 & 1.486 & 2.153 & 0.031 \\
+		Adherencia & -2.694 & 0.957 & -2.816 & 0.005 \\
+		tpo programa & 0.678 & 0.291 & 2.328 & 0.020 \\
+		tpo programa*DBT & -0.581 & 0.306 & -1.896 & 0.058 \\
+		tpo programa*Adherencia & -0.547 & 0.309 & -1.772 & 0.076 \\
+		tpo programa*Adherencia Acumulada & -0.527 & 0.364 & -1.450 & 0.147 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En las tablas \ref{modelo_5} y \ref{modelo_6} puede notarse que las covariables
+adicionales no son significativas. Otra forma de comparar estos modelos con el
+modelo 4 es a través del criterio BIC, que es mayor en ambos casos. Como
+conclusión, la mejor decisión hasta el momento es el modelo 4 que se mantiene
+más parsimonioso.
+
+\subsubsection{Incorporación dividiendo efecto entre e intra}
+
+El efecto de la CVT puede también dividirse en distintos coeficientes para el
+efecto entre-persona y el efecto intra-persona, los valores de éstos
+coeficientes pueden observarse en la tabla \ref{modelo_7}. El coeficiente -0.607
+quiere decir que, manteniendo constante la proporción de adherencia total al
+tratamiento, se espera que la TAS disminuya en promedio 0.607 los meses en los
+que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
+-0.481 se interpreta como, después de controlar por la adherencia al tratamiento
+en ese mes, se espera que la TAS disminuya en promedio en 0.481 relativo a la
+proporción de adherencia total.
+
+\begin{table}[H]
+	\centering
+	\label{modelo_7}
+	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
+	intra persona}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.3388} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30802.677} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30890.511} \\
+		\hline
+		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		\hline
+		Intercept & 122.542 & 2.841 & 43.141 & $<$ 0.001 \\
+		Sexo & 3.729 & 0.746 & 4.997 & $<$ 0.001 \\
+		Edad & 0.168 & 0.039 & 4.348 & $<$ 0.001 \\
+		DBT & 3.220 & 1.487 & 2.166 & 0.030 \\
+		Adherencia & -2.611 & 1.054 & -2.478 & 0.013 \\
+		Adherencia Total & -0.121 & 2.380 & -0.051 & 0.959 \\
+		tpo programa & 0.689 & 0.378 & 1.822 & 0.068 \\
+		tpo programa*DBT & -0.578 & 0.306 & -1.887 & 0.059 \\
+		tpo programa*Adherencia & -0.607 & 0.314 & -1.930 & 0.054 \\
+		tpo programa*Adherencia Total & -0.481 & 0.528 & -0.911 & 0.362 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Conclusiones}
+
+Tradicionalmente, los modelos longitudinales fueron pensados para ser ajustados
+sobre covariables fijas a través del tiempo, pero esto no es algo que suceda
+siempre en la vida real.
+
+En este informe se ha introducido una manera de categorizar a las covariables
+variables en el tiempo, específicamente como \textit{exógenas} o
+\textit{endógenas}, como así también un método para verificar esta clasificación
+a través de ajustar disintos modelos individualmente para cada ocasión.
+
+Cuando las variables son exógenas pueden añadirse al modelo de la manera
+tradicional. Sin embargo, se han propuesto diversas transformaciones que pueden
+ayudar tanto a ajustar de mejor manera los datos como a la interpretación de los
+coeficientes.
+
+Como futuros pasos se propone estudiar de manera más profunda la incorporación
+de variables endógenas. Dado que muchas de las técnicas existentes hasta el
+momento no están basadas en el ajuste de modelos lineales mixtos, quedan fuera
+del alcance de esta tesina.
 
 \newpage
 \nocite{*}
