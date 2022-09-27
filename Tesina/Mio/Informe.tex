@@ -155,44 +155,16 @@ longitudinales.
 \end{itemize}
 
 \newpage
-\section{Los Datos Longitudinales}
+\section{Datos Longitudinales}
 
-Los datos longitudinales están conformados por mediciones repetidas de una
-misma variable realizadas a la misma unidad. Estas mediciones surgen de
-observar unidades en diferentes ocasiones, es decir en diferentes momentos o
-condiciones experimentales.
+Los datos longitudinales están conformados por mediciones repetidas de una misma
+variable realizadas a la misma unidad en diferentes momentos o condiciones
+experimentales.
 
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente. Por lo tanto,
-los supuestos usuales acerca de la independencia entre las respuestas de cada
-unidad y la homogeneidad de variancias frecuentemente no son válidos
-
-Las ocasiones en las que se registran las mediciones repetidas no
-necesariamente serán iguales para todos los individuos, por lo tanto se pueden
-obtener tanto estudios balanceados (todos los individuos tienen el mismo número
-de mediciones durante un conjunto de ocasiones comunes) como desbalanceados (la
-secuencia de tiempos de observaciones no es igual para todos los individuos).
-Otra característica de estos datos es que en ocasiones se pueden obtener
-valores perdidos, obteniendo datos incompletos aunque se cuente con un estudio
-balanceado.
-
-Con el fin de simplificar la notación, se asumirá que los tiempos de medición
-son los mismos para todas las unidades y que no hay datos faltantes.
-
-Se obtiene una muestra de $N$ unidades cada una con $n$ mediciones repetidas de
-la variable en estudio, observadas en los tiempos $t_1, t_2, ..., t_n$, siendo
-entonces el número total de observaciones $N^*=Nn$. Se le llama $Y_{ij}$ a la
-medición sobre la unidad $i$ en la ocasión $j$, con $i=1, ..., N; j=1, ..., n$
-
-Asociadas a cada unidad se observan las covariables $X_{ij}$ medidas también
-sobre la unidad $i$ en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son
-simultáneamente medidas. Esto quiere decir que en un análisis de corte
-transversal, $Y_{ij}$ y $X_{ij}$ se correlacionan directamente. Sin embargo,
-para un análisis longitudinal se debe asumir que existe un orden
-pre-establecido:
-$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in_i}, Y_{in_i})$
-
+agrupamiento generalmente están correlacionadas positivamente. Por lo tanto, los
+supuestos usuales de independencia y homogeneidad de variancias no son válidos
 
 Existen tres fuentes potenciales de variabilidad que influyen sobre la
 correlación entre medidas repetidas:
@@ -204,15 +176,29 @@ correlación entre medidas repetidas:
 	\item \textit{Variación biológica intra-unidad:} Se piensa que la secuencia
 	de medidas repetidas de una unidad tiene un comportamiento determinado, que
 	produce que las mediciones más cercanas sean más parecidas.
-	\item \textit{Error de medición:} Surge debido a los errores de medida, se
-	puede disminuir usando instrumentos de medición más precisos
+	\item \textit{Error de medición:} Surge debido a los errores de medida.
 \end{itemize}
 
 Estas tres fuentes de variación pueden clasificarse en \textit{``variabilidad
-entre''}, es decir, la variación entre las unidades (heterogeneidad entre
-unidades) y \textit{``variabilidad intra''}, es decir, la variación entre las
-mediciones de las misma unidad (variación biológica intra-unidad y error de
-medición)
+entre unidades''}, es decir, la variación entre las unidades (heterogeneidad
+entre unidades) y \textit{``variabilidad intraunidades''}, es decir, la
+variación entre las mediciones de las misma unidad (variación biológica
+intra-unidad y error de medición)
+
+Con el fin de simplificar la notación, se asumirá que los tiempos de medición
+son los mismos para todas las unidades y que no hay datos faltantes.
+
+Se obtiene una muestra de $N$ unidades cada una con $n$ mediciones repetidas de
+la variable en estudio, observadas en los tiempos $t_1, t_2, ..., t_n$, siendo
+entonces el número total de observaciones $N^*=Nn$. Se denomina $Y_{ij}$ a la
+medición sobre la unidad $i$ en la ocasión $j$, con $i=1, ..., N; j=1, ..., n$
+
+A cada unidad se le observan las covariables $X_{ij}$ medidas sobre la unidad $i$
+en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son simultáneamente medidas.
+Esto quiere decir que en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$
+se correlacionan directamente. Sin embargo, para un análisis longitudinal se
+debe asumir que existe un orden pre-establecido: $(X_{i1}, Y_{i1}), (X_{i2},
+Y_{i2}), ..., (X_{in_i}, Y_{in_i})$
 
 Dado que, como se mencionó anteriormente, las mediciones están correlacionadas
 entre sí, si se utilizaran las técnicas habituales basadas en la independencia
