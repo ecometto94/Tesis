@@ -346,21 +346,19 @@ solo si los datos cumplen con el supuesto:
 	E[\bm{Y}_{ij} | \bm{X}_{ij}] = E[\bm{Y}_{ij} | \bm{X}_{ij}, j = 1, ..., n]
 \end{equation}
 
-Esto quiere decir que la media condicional de la variable respuesta en una
-determinada ocasión, dados todos los valores de la covariable, depende solo del
-valor de la covariable en esa ocasión. Este supuesto se cumple tanto con
-covariables no variables del tiempo como con covariables variables en el tiempo
-no estocáticas. Sin embargo, para las CVT estocásticas puede no necesariamente
-cumplirse: valores anteriores o posteriores de la CVT pueden confundir la
-relacion entre la variable respuesta y la CVT en una determinada ocasión. En
-consecuencia, esto puede conducir a estimaciones sesgadas de los efectos fijos
-del modelo.
+Con las covariables fijas en el tiempo, esta suposición se mantiene
+necesariamente ya que $X_{ij} = X_{ik}$ para todas las ocasiones $k \neq j$. Con
+covariables variables en el tiempo (CVT) que se fijan por diseño del estudio
+(por ejemplo, indicador de grupo de tratamiento en una prueba cruzada), la
+suposición también se cumple ya que los valores de las covariables en cualquier
+ocasión se determinan a priori por diseño del estudio y de manera completamente
+no relacionado con la respuesta longitudinal. Sin embargo, cuando una covariable
+es variable en el tiempo, puede que no necesariamente se mantenga.
 
-Frente a este escenario, varios autores recomendaron plantear el modelo
-longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente o bien
-utilizar el GMM (método generalizado de los momentos), donde es posible
-incorporar información sobre la naturaleza de la CVT que se está analizando.
+En general, cuando (\ref{estimation_issue}) no se cumple, los valores
+precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
+$X_{ij}$, esto puede llevar a estimaciones sesgadas de los parámetros del
+modelo.
 
 \newpage
 
