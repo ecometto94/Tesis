@@ -173,10 +173,9 @@ correlación entre medidas repetidas:
 	\item \textit{Heterogeneidad entre las unidades:} Refleja la propensión
 	natural de las unidades a responder. Los individuos tienen diferentes
 	reacciones frente a los mismos estímulos.
-	\item \textit{Variación biológica intra-unidad:} Se piensa que existe algún
-	proceso que genera las respuestas de una unidad, el cual cambia en forma
-	continua y suave a través del tiempo produciendo que las medidas más
-	cercanas sean más parecidas.
+	\item \textit{Variación biológica intra-unidad:} Se espera que la secuencia
+	de medidas repetidas de una unidad tenga un comportamiento determinado, que
+	produce que las mediciones más cercanas sean más parecidas.
 	\item \textit{Error de medición:} Surge debido a los errores de medida.
 \end{itemize}
 
@@ -338,8 +337,8 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994) mostraron que las ecuaciones anteriores llegan a cero
-solo si los datos cumplen con el supuesto:
+Pepe y Anderson (1994) mostraron que las ecuaciones \ref{ML} y \ref{REML} llegan a cero
+solo si se cumple con el supuesto:
 
 \begin{equation}
 \label{estimation_issue}
@@ -363,6 +362,8 @@ modelo.
 \newpage
 
 \section{Covariables en datos longitudinales}
+
+%%%% chequear que estoy volviendo a definir las siglas
 
 En los estudios longitudinales, las variables independientes pueden ser
 clasificadas en dos categorías: covariables fijas, es decir que no varían en el
@@ -468,6 +469,11 @@ que la CVT es exógena.
 Cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta, se puede dar una interpretación causal a los parámetros de regresión.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REESCRIBIR TODA ESTA SECCION (VER DIGGLE) %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Transformaciones de interés de CVT}
 
 En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
@@ -478,19 +484,15 @@ otras, solo un pequeño subconjunto de las mediciones más recientes son usados,
 ya que se supone que el efecto en la respuesta está concentrado en ellas. En
 cualquier caso, el uso de más de una covariable rezagada puede llevar a
 predictores altamente correlacionados, lo que lleva a preguntarse sobre la
-elección de cuantos predictores rezagados utilizar y sobre la estructura de sus
-coeficientes.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ACA NOE DIJO DE AGREGAR UNA SECCION DE COVARIABLES SIN TRANSFORMAR PERO NO ME PARECIO %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+elección de cuantos predictores rezagados utilizar.
 
 \subsection{Una sola covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
 en un el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo,
 muchos agentes farmacológicos son rápidamente limpiados del cuerpo, por lo que
-sólo mantienen efectos por una corta duración. En este caso, si la covariable es
+sólo mantienen efectos por una corta duración y podria interesarnos solo su
+valor en el rezago anterior al actual. En este caso, si la covariable es
 exógena, puede ajustarse el modelo mixto sin más consideraciones. Lo más común
 es que se desconozca el valor $k$ apropiado y se consideren varias opciones
 diferentes.
@@ -541,11 +543,16 @@ en el tiempo.
 
 \subsection{CVT exógena}
 
+%%% si cuando se evalua la exogeneidad de la manera vista en ... se puede
+%introducir al modelo sin ningun problema ya sea la var original o alguna de sus
+%transformaciones. Buscar alguna forma de poner ejemplos de como queda el modelo
+
+%%% traer las transformaciones acá
+
 Si la CVT es exógena se puede introducir en el modelo en su forma original o con
 cualquiera de sus transformaciones mencionadas en la sección anterior, dado que
 no habrá problemas con la estimación de los parámetros, debido a que se cumple
-el supuesto de independencia condicional y pueden recibir una interpretación
-causal.
+el supuesto de independencia condicional.
 
 Otra forma de incorporar la CVT exógena es dividiéndola en dos componentes que
 reflejen la variación intra-sujeto y la variación entre-sujeto respecto
@@ -562,17 +569,22 @@ esperado en la media de la variable respuesta asociado con cambios de la CVT
 dentro de las persona y $\beta_B$ representa el cambio esperado en la media de
 la variable respuesta asociado con cambios de la CVT entre personas
 
+%%%%%%%%%%%%%%%%
+% explicarlo en la aplicación
+%%%%%%%%%%%%%%%%
+
 Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
 presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
-presentó dicha covariable, por lo que el método anterior resultará en valores
-extraños para $\beta_W$. Por ejemplo, si la CVT se presentó en el 50\% de las
-ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
-acompaña a $\beta_W$ será de -0.5 en las ocasiones que la CVT dicotómica no se
-presente y 0.5 en las que se presente. En términos de la estimación del modelo
-esto no genera ningún problema, pero será raro en la interpretación de los
-parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
-estará acompañado de un 0). Una forma de evitar esto es dividiendo el efecto
-entre-persona e intra-persona de la siguiente manera:
+presentó el valor codigicado con 1 de dicha covariable, por lo que el método
+anterior resultará en valores extraños para $\beta_W$. Por ejemplo, si el valor
+1 de la CVT se presentó en el 50\% de las ocasiones, $\overline{X}_i$ tendrá un
+valor de 0.5 y entonces el término que acompaña a $\beta_W$ será de -0.5 en las
+ocasiones que la CVT dicotómica no se presente y 0.5 en las que se presente. En
+términos de la estimación del modelo esto no genera ningún problema, pero será
+raro en la interpretación de los parámetros, dado que el parámetro $\beta_W$
+estará siempre presente (nunca estará acompañado de un 0). Una forma de evitar
+esto es dividiendo el efecto entre-persona e intra-persona de la siguiente
+manera:
 
 \[
 	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
@@ -583,19 +595,25 @@ entre-persona e intra-persona de la siguiente manera:
 Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
 longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
 estimación generalizadas) con estructura de correlación independiente ya que
-este es siempre consistente, por lo que es una opción ``segura''. La estructura
-de correlación independiente generalmente tiene una alta eficiencia para la
-estimación de los coeficientes asociados a CNVT. Sin embargo, para las CVT,
-Fitzmaurice (1995) muestra que esta estructura puede resultar en una pérdida
-sustancial de eficiencia para la estimación de los coeficientes asociados a las
-CVT y proporciona un ejemplo en el que es sólo un 60\% eficiente en relación con
-la estructura de correlación verdadera.
+este es siempre consistente. La estructura de correlación independiente
+generalmente tiene una alta eficiencia para la estimación de los coeficientes
+asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
+estructura puede resultar en una pérdida sustancial de eficiencia para la
+estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
+el que es sólo un 60\% eficiente en relación con la estructura de correlación
+verdadera.
 
 Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
 de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
 incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
 y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
 definieron un cuarto tipo de CVT.
+
+Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
+al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
+``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando
+según su tipo.
 
 \newpage
 
