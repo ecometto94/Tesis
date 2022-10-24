@@ -39,10 +39,10 @@
 \def\covname{\textit{adherencia}}
 \def\cvt{covariable que varía en el tiempo}
 \def\xseqj{$X_{i1}, ..., X_{ij}$}
-\def\xseqn{$X_{i1}, ..., X_{in_i}$}
+\def\xseqn{$X_{i1}, ..., X_{in}$}
 \def\xseqjminus{$X_{i1}, ..., X_{ij-1}$}
 \def\yseqj{$Y_{i1}, ..., Y_{ij}$}
-\def\yseqn{$Y_{i1}, ..., Y_{in_i}$}
+\def\yseqn{$Y_{i1}, ..., Y_{in}$}
 \def\yseqjminus{$Y_{i1}, ..., Y_{ij-1}$}
 
 %% FOR PDF METADATA
@@ -195,7 +195,7 @@ en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son simultáneamente medida
 Esto quiere decir que en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$
 se correlacionan directamente. Sin embargo, para un análisis longitudinal se
 debe asumir que existe un orden pre-establecido: $(X_{i1}, Y_{i1}), (X_{i2},
-Y_{i2}), ..., (X_{in_i}, Y_{in_i})$
+Y_{i2}), ..., (X_{in}, Y_{in})$
 
 Dado que estas fuentes de variabilidad introducen correlación entre las
 mediciones repetidas, no se pueden utilizar las técnicas habituales, ya que
@@ -219,28 +219,28 @@ como:
 \[
 	\bm{Y}_i = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i + \bm{\varepsilon}_i;
 	\quad i = 1, ..., N;
-	\quad \bm{Y}_i = (Y_{i1}, Y_{i2}, ... Y_{in_{i}})'
+	\quad \bm{Y}_i = (Y_{i1}, Y_{i2}, ... Y_{in})'
 \]
 
 Donde:
 
 \begin{itemize}
 	\item $\bm{Y}_i$: Vector de la variable respuesta de la i-ésima unidad, de
-	dimensión $(n_i \times 1)$
+	dimensión $(n \times 1)$
 	\item $\bm{X}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la
-	parte sistemática de la respuesta, de dimensión $(n_i \times p)$
+	parte sistemática de la respuesta, de dimensión $(n \times p)$
 	\item $\bm{\beta}$: Vector de parámetros de dimensión $(p \times 1)$
 	\item $\bm{Z}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la
-	parte aleatoria de la respuesta, de dimensión $(n_i \times k)$
+	parte aleatoria de la respuesta, de dimensión $(n \times k)$
 	\item $\bm{b}_i$: Vector de efectos aleatorios de la i-ésima unidad, de
 	dimensión $(k \times 1)$
 	\item $\bm{\varepsilon}_i$: Vector de errores aleatorios de la i-ésima unidad,
-	de dimensión $(n_i \times 1)$
+	de dimensión $(n \times 1)$
 \end{itemize}
 
 Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 
-\[ \bm{\varepsilon}_i \sim N_{n_i}(0, \bm{R}_i) \]
+\[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \]
 \[ \bm{b}_i \sim N_k(0, \bm{D}) \]
 
 $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
@@ -270,14 +270,14 @@ y los de las estructuras de covariancia los métodos de máxima verosimilitud
 
 \subsubsection{Método de máxima verosimilitud (ML)}
 
-Bajo el supuesto de que $\bm{Y}_i \sim N_{n_i}(\bm{X}_i \bm{\beta},
+Bajo el supuesto de que $\bm{Y}_i \sim N_n(\bm{X}_i \bm{\beta},
 \bm{\varSigma}_i)$ y las $\bm{Y}_i$
 son independientes entre sí, se obtiene la siguiente función de
 log-verosimilitud:
 
 \begin{equation}
 \label{ML}
-	l = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
+	l = -\frac{1}{2} \sum_{i=1}^{N}n ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
 	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})]
 \end{equation}
@@ -321,7 +321,7 @@ log-verosimilitud restringida que se propone es:
 
 \begin{equation}
 \label{REML}
-	\bm{l}^* = -\frac{1}{2} \sum_{i=1}^{N}n_i ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
+	\bm{l}^* = -\frac{1}{2} \sum_{i=1}^{N}n ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
 	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})] -
 	- \frac{1}{2} ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}_i^{-1} \bm{X}_i}|
@@ -344,14 +344,14 @@ solo si se cumple con el supuesto:
 	E[\bm{Y}_{ij} | \bm{X}_{ij}] = E[\bm{Y}_{ij} | \bm{X}_{ij}, j = 1, ..., n]
 \end{equation}
 
-Con las covariables fijas en el tiempo, esta suposición se mantiene
-necesariamente ya que $X_{ij} = X_{ik}$ para todas las ocasiones $k \neq j$. Con
-covariables variables en el tiempo (CVT) que se fijan por diseño del estudio
-(por ejemplo, indicador de grupo de tratamiento en una prueba cruzada), la
-suposición también se cumple ya que los valores de las covariables en cualquier
-ocasión se determinan a priori por diseño del estudio y de manera completamente
-no relacionado con la respuesta longitudinal. Sin embargo, cuando una covariable
-es variable en el tiempo, puede que no necesariamente se mantenga.
+Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
+X_{ik}$ para todas las ocasiones $k \neq j$. Con las CVT que se fijan por diseño
+del estudio (por ejemplo, indicador de grupo de tratamiento en una prueba
+cruzada), la suposición también se cumple ya que los valores de las covariables
+en cualquier ocasión se determinan a priori por diseño del estudio y de manera
+completamente no relacionado con la respuesta longitudinal. Sin embargo, cuando
+una covariable es variable en el tiempo, puede que no necesariamente se
+mantenga.
 
 En general, cuando (\ref{estimation_issue}) no se cumple, los valores
 precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
@@ -431,7 +431,7 @@ Y en consecuencia:
 
 \begin{equation}
 	\label{exogeneidad debil}
-	E(\bm{Y}_i|\bm{X}_i) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{in_i}) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{ij})
+	E(\bm{Y}_i|\bm{X}_i) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{in}) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{ij})
 \end{equation}
 
 Esta definición implica que la respuesta en cualquier momento puede depender de
@@ -477,7 +477,7 @@ respuesta, se puede dar una interpretación causal a los parámetros de regresi�
 
 En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
 antes de la ocasión $j$ para predecir $\bm{Y}_{ij}$. Sin embargo, en algunas
-aplicaciones, el historial completo de la covariable $X_{i1}, ..., X_{in_i}$
+aplicaciones, el historial completo de la covariable $X_{i1}, ..., X_{in}$
 está disponible y es considerado como potencial predictor de la respuesta. En
 otras, solo un pequeño subconjunto de las mediciones más recientes son usados,
 ya que se supone que el efecto en la respuesta está concentrado en ellas. En
