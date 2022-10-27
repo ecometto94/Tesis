@@ -201,6 +201,164 @@ Dado que estas fuentes de variabilidad introducen correlación entre las
 mediciones repetidas, no se pueden utilizar las técnicas habituales, ya que
 llevarían a inferencias incorrectas sobre los parámetros del modelo.
 
+\section{Covariables en datos longitudinales}
+
+En los estudios longitudinales, las variables independientes pueden ser
+clasificadas en dos categorías: CNVT y CVT. La diferencia entre
+ellas puede conducir a diferentes enfoques de análisis así como también a
+diferentes conclusiones.
+
+Tanto las CNVT como las CVT se pueden utilizar para realizar comparaciones entre
+poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
+embargo, sólo las CVT permiten describir una relación dinámica entre la
+covariable y la variable respuesta.
+
+\subsection{Covariables fijas en el tiempo}
+
+Las CNVT son variables independientes que no presentan variación intra-unidad,
+es decir, los valores de estas covariables no cambian a lo largo del estudio
+para una unidad en particular.
+
+Éstas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
+biológico de una persona o el grupo de tratamiento) o pueden ser covariables
+basales (es decir, medidas al inicio del estudio). Las covariables basales son
+fijas por definición pero pueden ser variables en el tiempo por naturaleza, por
+ejemplo, la edad varia en el tiempo pero la edad basal es fija.
+
+\subsection{Covariables variables en el tiempo}
+
+Las CVT son variables independientes que incluyen tanto la variación
+intra-unidad como la variación entre-unidad. Esto significa que, para una
+unidad en particular, el valor de la covariable cambia a través del tiempo y
+puede cambiar también entre diferentes unidades. Por ejemplo, el valor de la
+presión arterial o la condición de fumador (si/no).
+
+A continuación se describen diferentes tipos de CVT.
+
+\subsubsection{Covariables estocásticas y no estocásticas}
+
+Las CVT pueden clasificarse en estocásticas y no estocásticas. Las CVT no
+estocásticas son covariables que varían sistemáticamente a través del tiempo
+pero son fijas por diseño del estudio o bien su valor puede predecirse. En
+cambio, las CVT estocásticas son covariables que varían aleatoriamente a través
+del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados
+ya que son gobernados por un mecanismo aleatorio. Ejemplos de las primeras son:
+tiempo desde la visita basal, edad, grupo de tratamiento. Ejemplos de las
+segundas son: valor del colesterol, ingesta de alcohol (si/no), ingesta de
+grasas, etc.
+
+\subsubsection{Covariables exógenas y endógenas}
+\label{seccion_de_exogeneidad}
+
+Otra clasificación de las CVT es en exógenas y endógenas.
+
+\paragraph{Covariables exógenas} \mbox{} \\
+
+Se dice que una CVT es
+exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
+$j (\bm{Y}_{i1}, ..., \bm{Y}_{ij})$, dados los valores actuales y precedentes de
+la CVT $(\bm{X}_{i1}, ..., \bm{X}_{ij})$, no predicen el valor posterior de
+$\bm{X}_{ij+1}$. Formalmente, una CVT es exógena cuando:
+
+\begin{equation}
+	\label{exogeneidad}
+	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij}, \bm{Y}_{i1}, ..., \bm{Y}_{ij}) =
+	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij})
+\end{equation}
+
+Y en consecuencia:
+
+\begin{equation}
+	\label{exogeneidad debil}
+	E(\bm{Y}_i|\bm{X}_i) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{in}) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{ij})
+\end{equation}
+
+Esta definición implica que la respuesta en cualquier momento puede depender de
+los valores previos de la variable respuesta y de la CVT, pero será
+independiente de todos los demás valores de la covariable. Por ejemplo, en un
+estudio longitudinal en donde se evalúa si el nivel de polución en el aire está
+asociado a la función pulmonar, es de esperar que el nivel de polución del aire
+en una determinada ocasión dependa de los niveles observados previamente, pero
+no se espera que dependa de los niveles de la función pulmonar observados
+previamente en el sujeto.
+
+Es posible examinar empíricamente la suposición de que una CVT es exógena al
+considerar modelos de regresión para la dependencia de $X_{ij}$ en
+$Y_{i1}, ..., Y_{ij-1}$ (o en alguna función conocida de
+$Y_{i1}, ..., Y_{ij-1}$) y $X_{i1}, ..., X_{ij-1}$ (o en alguna función conocida
+de $X_{i1}, ..., X_{ij-1}$). La ausencia de cualquier relación entre $X_{ij}$ y
+$Y_{i1}, ..., Y_{ij-1}$, dado el perfil de la covariable anterior
+$X_{i1}, ..., X_{ij-1}$, proporciona soporte para la validez de la suposición de
+que la CVT es exógena.
+
+Cuando se puede asumir que las CVT son exógenas con respecto a la variable
+respuesta, se puede dar una interpretación causal a los parámetros de regresión.
+
+\paragraph{Covariables endógenas} \mbox{} \\
+
+\colorbox{yellow}{Ver que estoy hablando de modelos antes de definir el modelo 
+lineal mixto}
+
+Una CVT que no es exógena se define como endógena. Una variable endógena es una
+variable estocásticamente relacionada con otros factores medidos en el estudio.
+Esta también puede definirse como una variable generada por un proceso
+estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
+endógenas están asociadas con un efecto individual y, a menudo, pueden
+explicarse por otras variables en el estudio. Cuando el proceso estocástico de
+una CVT endógena puede ser (al menos parcialmente) explicado por la variable de
+respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
+endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
+longitudinal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% aca estoy hablando de modelos antes de hablar de modelo lineal mixto
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
+longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
+estimación generalizadas) con estructura de correlación independiente ya que
+este es siempre consistente. La estructura de correlación independiente
+generalmente tiene una alta eficiencia para la estimación de los coeficientes
+asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
+estructura puede resultar en una pérdida sustancial de eficiencia para la
+estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
+el que es sólo un 60\% eficiente en relación con la estructura de correlación
+verdadera.
+
+Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
+de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
+y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
+definieron un cuarto tipo de CVT.
+
+Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
+al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
+``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando
+según su tipo.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% aca tambien hablo un poco de coeficientes y modelos y aun no defini nada
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Covariables rezagadas}
+
+En muchas aplicaciones, el historial completo de la CVT
+($X_{i1}, X_{i2}, ..., X_{ij}$) está disponible y es considerado como un
+potencial predictor de la
+respuesta $Y_{ij}$. En epidemiología, en el estudio de enfermedades crónicas, es
+común utilizar la exposición acumulada $X^*_{ij} = \sum_{s<j} X_{is}$, como por
+ejemplo los paquetes de cigarrillo fumados al año, como resumen apropiado del
+historial de exposición. En otros casos, solo se utiliza un pequeño subconjunto
+de valores recientes, $X_{ij-1}, X_{ij-2}, ..., X_{ij-k}$, ya que se supone que
+el efecto en la respuesta está concentrado en ellas (Samet et al,. 2000). En
+cualquier caso, el uso de más de un único valor de covariable rezagada puede dar
+lugar a predictores altamente correlacionados, a preguntas sobre la elección del
+número de covariables retrasadas y a la especificación de la estructura de los
+coeficientes de las covariables rezagadas.
+
+
 \section{Modelos lineales mixtos}
 
 Los modelos lineales mixtos se utilizan habitualmente para analizar los datos
@@ -255,7 +413,6 @@ modelo se obtiene:
 	\item $Cov(\bm{Y}_i) = \bm{Z}_i \bm{D}_i \bm{Z}'_i + \bm{R}_i = \bm{\varSigma}_i$ (variancia marginal)
 \end{itemize}
 
-%%%% CONSULTAR POR LA ULTIMA ORACION, CUALQUIER OTRA ESTRUCTURA?
 Generalmente, la matriz $\bm{D}$ adopta una estructura de covariancia arbitraria,
 mientras que la matriz $\bm{R}_i$ adopta cualquier otra estructura.
 
@@ -336,8 +493,8 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994) mostraron que las ecuaciones \ref{ML} y \ref{REML} llegan a cero
-solo si se cumple con el supuesto:
+Pepe y Anderson (1994) mostraron que las ecuaciones \ref{ML} y \ref{REML} llegan
+a cero solo si se cumple con el supuesto:
 
 \begin{equation}
 \label{estimation_issue}
@@ -360,130 +517,28 @@ modelo.
 
 \newpage
 
-\section{Covariables en datos longitudinales}
-
-%%%% chequear que estoy volviendo a definir las siglas
-
-En los estudios longitudinales, las variables independientes pueden ser
-clasificadas en dos categorías: covariables fijas, es decir que no varían en el
-tiempo (CNVT) o covariables que varían en el tiempo (CVT). La diferencia entre
-ellas puede conducir a diferentes enfoques de análisis así como también a
-diferentes conclusiones.
-
-Tanto las CNVT como las CVT se pueden utilizar para realizar comparaciones entre
-poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
-embargo, sólo las CVT permiten describir una relación dinámica entre la
-covariable y la variable respuesta.
-
-\subsection{Covariables fijas en el tiempo}
-
-Las CNVT son variables independientes que no presentan variación intra-sujeto,
-es decir, los valores de estas covariables no cambian a lo largo del estudio
-para un individuo en particular.
-
-Éstas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
-biológico de una persona o el grupo de tratamiento) o pueden ser covariables
-basales (es decir, medidas al inicio del estudio). Las covariables basales son
-fijas por definición pero pueden ser variables en el tiempo por naturaleza, por
-ejemplo, la edad varia en el tiempo pero la edad basal es fija.
-
-\subsection{Covariables variables en el tiempo}
-
-Las CVT son variables independientes que incluyen tanto la variación
-intra-sujeto como la variación entre-sujetos. Esto significa que, para un
-individuo en particular, el valor de la covariable cambia a través del tiempo y
-puede cambiar también entre diferentes individuos. Por ejemplo, el valor de la
-presión arterial o la condición de fumador (si/no).
-
-A continuación se describen diferentes tipos de CVT.
-
-\subsubsection{Covariables estocásticas y no estocásticas}
-
-Las CVT pueden clasificarse en estocásticas y no estocásticas. Las CVT no
-estocásticas son covariables que varían sistemáticamente a través del tiempo
-pero son fijas por diseño del estudio o bien su valor puede predecirse. En
-cambio, las CVT estocásticas son covariables que varían aleatoriamente a través
-del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados
-ya que son gobernados por un mecanismo aleatorio. Ejemplos de las primeras son:
-tiempo desde la visita basal, edad, grupo de tratamiento. Ejemplos de las
-segundas son: valor del colesterol, ingesta de alcohol (si/no), ingesta de
-grasas, etc.
-
-\subsubsection{Covariables exógenas y endógenas}
-
-Otra clasificación de las CVT es en exógenas y endógenas.
-
-\paragraph{Covariables exógenas} \mbox{} \\
-
-Se dice que una CVT es
-exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
-$j (\bm{Y}_{i1}, ..., \bm{Y}_{ij})$, dados los valores actuales y precedentes de
-la CVT $(\bm{X}_{i1}, ..., \bm{X}_{ij})$, no predicen el valor posterior de
-$\bm{X}_{ij+1}$. Formalmente, una CVT es exógena cuando:
-
-\begin{equation}
-	\label{exogeneidad}
-	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij}, \bm{Y}_{i1}, ..., \bm{Y}_{ij}) =
-	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij})
-\end{equation}
-
-Y en consecuencia:
-
-\begin{equation}
-	\label{exogeneidad debil}
-	E(\bm{Y}_i|\bm{X}_i) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{in}) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{ij})
-\end{equation}
-
-Esta definición implica que la respuesta en cualquier momento puede depender de
-los valores previos de la variable respuesta y de la CVT, pero será
-independiente de todos los demás valores de la covariable. Por ejemplo, en un
-estudio longitudinal en donde se evalúa si el nivel de polución en el aire está
-asociado a la función pulmonar, es de esperar que el nivel de polución del aire
-en una determinada ocasión dependa de los niveles observados previamente, pero
-no se espera que dependa de los niveles de la función pulmonar observados
-previamente en el sujeto.
-
-\paragraph{Covariables endógenas} \mbox{} \\
-
-Una CVT que no es exógena se define como endógena. Una variable endógena es una
-variable estocásticamente relacionada con otros factores medidos en el estudio.
-Esta también puede definirse como una variable generada por un proceso
-estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
-endógenas están asociadas con un efecto individual y, a menudo, pueden
-explicarse por otras variables en el estudio. Cuando el proceso estocástico de
-una CVT endógena puede ser (al menos parcialmente) explicado por la variable de
-respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
-endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
-longitudinal.
-
-Es posible examinar empíricamente la suposición de que una CVT es exógena al
-considerar modelos de regresión para la dependencia de $X_{ij}$ en
-$Y_{i1}, ..., Y_{ij-1}$ (o en alguna función conocida de
-$Y_{i1}, ..., Y_{ij-1}$) y $X_{i1}, ..., X_{ij-1}$ (o en alguna función conocida
-de $X_{i1}, ..., X_{ij-1}$). La ausencia de cualquier relación entre $X_{ij}$ y
-$Y_{i1}, ..., Y_{ij-1}$, dado el perfil de la covariable anterior
-$X_{i1}, ..., X_{ij-1}$, proporciona soporte para la validez de la suposición de
-que la CVT es exógena.
-
-Cuando se puede asumir que las CVT son exógenas con respecto a la variable
-respuesta, se puede dar una interpretación causal a los parámetros de regresión.
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REESCRIBIR TODA ESTA SECCION (VER DIGGLE) %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Transformaciones de interés de CVT}
+\section{Formas de introducir una CVT al modelo}
 
-En la mayoria de los casos, se suele utilizar solo la exposición que ocurre
-antes de la ocasión $j$ para predecir $\bm{Y}_{ij}$. Sin embargo, en algunas
-aplicaciones, el historial completo de la covariable $X_{i1}, ..., X_{in}$
-está disponible y es considerado como potencial predictor de la respuesta. En
-otras, solo un pequeño subconjunto de las mediciones más recientes son usados,
-ya que se supone que el efecto en la respuesta está concentrado en ellas. En
-cualquier caso, el uso de más de una covariable rezagada puede llevar a
-predictores altamente correlacionados, lo que lleva a preguntarse sobre la
-elección de cuantos predictores rezagados utilizar.
+Si al evaluar el tipo de la CVT de la manera vista en
+\ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
+modelo en su forma original o con cualquiera de sus transformaciones. Esto se
+debe a que no habrá problemas con la estimación de los parámetros, ya que
+se cumple el supuesto de independencia condicional.
+
+\subsection{Convertirla en CNVT}
+
+Una solución rápida al problema de las CVT es transformarla en una CNVT, esto
+se puede lograr resumiendo la información de la misma mediante alguna función
+como el promedio de los valores de cada individuo y dejarlo fijo a través del
+tiempo. También podria usarse su valor máximo, mínimo o cualquier
+transformación que resulte de interés en el estudio. El problema de este
+enfoque es que se pierde mucha información, dado que se usa una covariable más
+simple que no refleja la relación dinámica entre la covariable y la respuesta
+en el tiempo.
 
 \subsection{Una sola covariable rezagada}
 
@@ -494,7 +549,14 @@ sólo mantienen efectos por una corta duración y podria interesarnos solo su
 valor en el rezago anterior al actual. En este caso, si la covariable es
 exógena, puede ajustarse el modelo mixto sin más consideraciones. Lo más común
 es que se desconozca el valor $k$ apropiado y se consideren varias opciones
-diferentes.
+diferentes. El modelo lineal mixto se definiría de la siguiente manera:
+
+\[
+	Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \bm{\beta'_2} \bm{W_i}
+\]
+
+Donde $\bm{W_i}$ representa una colección adicional de CNVT. En este modelo, el
+coeficiente $\beta_{1k}$ depende explícitamente de la elección del rezago $k$.
 
 \subsection{Múltiples covariables rezagadas}
 
@@ -511,7 +573,7 @@ orden $p$, con $p < k$ para obtener coeficientes de regresión suaves.
 \[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
 
 A pesar de que estos modelos permiten modelar parsimoniosamente las covariables
-rezagadas múltiples, la especificación del número de rezagos, $kx$, y el órden
+rezagadas múltiples, la especificación del número de rezagos, $k$, y el órden
 del modelo para el coeficiente, $p$, deben ser consideradas. Ésto puede
 realizarse a través de tests para modelos anidados, como el test del cociente de
 verosimilitud o el test de Wald.
@@ -527,31 +589,7 @@ funcion dependerá del tipo de problema a analizar. Cabe destacar que, al igual
 que con toda medida resumen, al usar este tipo de covariables se pierde
 parte de la información.
 
-\section{Formas de introducir una CVT al modelo}
-
-\subsection{Convertirla en CNVT}
-
-Una solución rápida al problema de las CVT es transformarla en una CNVT, esto
-se puede lograr resumiendo la información de la misma mediante alguna función
-como el promedio de los valores de cada individuo y dejarlo fijo a través del
-tiempo. También podria usarse su valor máximo, mínimo o cualquier
-transformación que resulte de interés en el estudio. El problema de este
-enfoque es que se pierde mucha información, dado que se usa una covariable más
-simple que no refleja la relación dinámica entre la covariable y la respuesta
-en el tiempo.
-
-\subsection{CVT exógena}
-
-%%% si cuando se evalua la exogeneidad de la manera vista en ... se puede
-%introducir al modelo sin ningun problema ya sea la var original o alguna de sus
-%transformaciones. Buscar alguna forma de poner ejemplos de como queda el modelo
-
-%%% traer las transformaciones acá
-
-Si la CVT es exógena se puede introducir en el modelo en su forma original o con
-cualquiera de sus transformaciones mencionadas en la sección anterior, dado que
-no habrá problemas con la estimación de los parámetros, debido a que se cumple
-el supuesto de independencia condicional.
+\subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
 Otra forma de incorporar la CVT exógena es dividiéndola en dos componentes que
 reflejen la variación intra-sujeto y la variación entre-sujeto respecto
@@ -588,31 +626,6 @@ manera:
 \[
 	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
 \]
-
-\subsection{CVT endógena}
-
-Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
-longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente ya que
-este es siempre consistente. La estructura de correlación independiente
-generalmente tiene una alta eficiencia para la estimación de los coeficientes
-asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
-estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
-el que es sólo un 60\% eficiente en relación con la estructura de correlación
-verdadera.
-
-Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
-de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
-y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
-definieron un cuarto tipo de CVT.
-
-Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
-al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
-``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando
-según su tipo.
 
 \newpage
 
