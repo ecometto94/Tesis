@@ -124,7 +124,7 @@ mismas y enfoques metodológicos.
 %%% REVISAR EL AÑO DE FINALIZACIÓN DEL ESTUDIO
 Se aplican estos conceptos al Programa de Atención y Control de pacientes
 hipertensos de Fundación ECLA. Este estudio observacional se se realizó entre
-2014 y XXXX en Rosario y realiza un seguimiento de pacientes hipertensos,
+2014 y 2019 en Rosario y realiza un seguimiento de pacientes hipertensos,
 registrando en cada visita el tratamiento farmacológico dado al paciente, los
 valores del tensión arterial sistólica (TAS) y la adherencia a dicho tratamiento
 entre otras características. Uno de los objetivos que persigue este estudio es
@@ -296,9 +296,6 @@ respuesta, se puede dar una interpretación causal a los parámetros de regresi�
 
 \paragraph{Covariables endógenas} \mbox{} \\
 
-\colorbox{yellow}{Ver que estoy hablando de modelos antes de definir el modelo 
-lineal mixto}
-
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
 variable estocásticamente relacionada con otros factores medidos en el estudio.
 Esta también puede definirse como una variable generada por un proceso
@@ -307,36 +304,12 @@ endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
 una CVT endógena puede ser (al menos parcialmente) explicado por la variable de
 respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
-endógena. Este tipo de relación debe tenerse en cuenta en cualquier modelo
-longitudinal.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% aca estoy hablando de modelos antes de hablar de modelo lineal mixto
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
-longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente ya que
-este es siempre consistente. La estructura de correlación independiente
-generalmente tiene una alta eficiencia para la estimación de los coeficientes
-asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
-estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
-el que es sólo un 60\% eficiente en relación con la estructura de correlación
-verdadera.
-
-Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
-de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
-y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
-definieron un cuarto tipo de CVT.
-
-Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
-al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
-``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando
-según su tipo.
-
+endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física está
+asociada al nivel de glicemia. El nivel de actividad física en un determinado
+momento puede estar (o no) asociado a niveles previos y también puede estar
+asociado a valores previos de glicemia (un paciente con valor de glicemia alto
+en una visita puede decidir aumentar su nivel de actividad fística para ver si
+este valor se reduce).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % aca tambien hablo un poco de coeficientes y modelos y aun no defini nada
@@ -359,7 +332,7 @@ número de covariables retrasadas y a la especificación de la estructura de los
 coeficientes de las covariables rezagadas.
 
 
-\section{Modelos lineales mixtos}
+\section{Modelo lineal mixto}
 
 Los modelos lineales mixtos se utilizan habitualmente para analizar los datos
 longitudinales, debido a que permiten modelar las distintas fuentes de
@@ -515,6 +488,29 @@ precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
 $X_{ij}$, esto puede llevar a estimaciones sesgadas de los parámetros del
 modelo.
 
+Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
+longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
+estimación generalizadas) con estructura de correlación independiente ya que
+este es siempre consistente. La estructura de correlación independiente
+generalmente tiene una alta eficiencia para la estimación de los coeficientes
+asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
+estructura puede resultar en una pérdida sustancial de eficiencia para la
+estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
+el que es sólo un 60\% eficiente en relación con la estructura de correlación
+verdadera.
+
+Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
+de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
+y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
+definieron un cuarto tipo de CVT.
+
+Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
+al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
+``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
+incorporar información sobre la naturaleza de la CVT que se está analizando
+según su tipo.
+
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -540,6 +536,9 @@ enfoque es que se pierde mucha información, dado que se usa una covariable más
 simple que no refleja la relación dinámica entre la covariable y la respuesta
 en el tiempo.
 
+\subsection{Covariable variable en el tiempo}
+completar...
+
 \subsection{Una sola covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
@@ -558,36 +557,15 @@ diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 Donde $\bm{W_i}$ representa una colección adicional de CNVT. En este modelo, el
 coeficiente $\beta_{1k}$ depende explícitamente de la elección del rezago $k$.
 
-\subsection{Múltiples covariables rezagadas}
-
-La literatura de series de tiempo ha considerado modelos para infinitos o
-finitos rezagos de la covariable. Dado que los datos longitudinales son series
-de tiempo cortas, se puede proponer un modelo de menor dimensión para los
-coeficientes de las covariables rezagadas. En este modelo, se asume que los
-coeficientes rezagados siguen una función paramétrica suave de orden inferior.
-Por ejemplo, para un rezago finito $k$, se puede usar un modelo polinomial de
-orden $p$, con $p < k$ para obtener coeficientes de regresión suaves.
-
-\[ Y_{ij} = \beta_0 + \beta_1 X_{ij-1} + \beta_2 X_{ij-2} + ... +
-\beta_k X_{ij-k}, \]
-\[ \beta_j = \gamma_0 + \gamma_1 j + \gamma_2 j^2 + ... + \gamma_p j^p \]
-
-A pesar de que estos modelos permiten modelar parsimoniosamente las covariables
-rezagadas múltiples, la especificación del número de rezagos, $k$, y el órden
-del modelo para el coeficiente, $p$, deben ser consideradas. Ésto puede
-realizarse a través de tests para modelos anidados, como el test del cociente de
-verosimilitud o el test de Wald.
 
 \subsection{Funcion de las covariables rezagadas}
 
 Una alternativa cuando se quiere utilizar la información de las covariables
-rezagadas pero quiere mantenerse un modelo parsimonioso, es decir, con el menor
-número posible de variables independientes, es resumir a través de una función
-la información de éstas en una sola covariable. Un ejemplo puede ser el valor
-promedio o acumulado hasta la ocasión actual. Sin embargo, la elección de está
-funcion dependerá del tipo de problema a analizar. Cabe destacar que, al igual
-que con toda medida resumen, al usar este tipo de covariables se pierde
-parte de la información.
+rezagadas es resumir a través de una función la información de éstas en una
+sola covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la
+ocasión actual. Sin embargo, la elección de está funcion dependerá del tipo de
+problema a analizar. Cabe destacar que, al igual que con toda medida resumen, al
+usar este tipo de covariables se pierde parte de la información.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
