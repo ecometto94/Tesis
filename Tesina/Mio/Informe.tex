@@ -497,9 +497,13 @@ cumplir la condicion de exogeneidad
 
 Si al evaluar el tipo de la CVT de la manera vista en
 \ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
-modelo en su forma original o con cualquiera de sus transformaciones. Esto se
-debe a que no habrá problemas con la estimación de los parámetros, ya que
-se cumple el supuesto de independencia condicional.
+modelo mixto sin consideraciones adicionales. Esto se debe a que no habrá problemas
+con la estimación de los parámetros, ya que se cumple el supuesto de
+independencia condicional.
+
+A continuación, se presentan distintas maneras de introducir la CVT exógena al
+modelo mixto. De manera de ejemplo, se tomará un caso en el que la variable
+respuesta ``Y'' es la tensión arterial y la CVT ``X'' es el IMC en la ocasión j.
 
 \subsection{Convertirla en CNVT}
 
@@ -512,9 +516,25 @@ enfoque es que se pierde mucha información, dado que se usa una covariable más
 simple que no refleja la relación dinámica entre la covariable y la respuesta
 en el tiempo.
 
-\subsection{Covariable variable en el tiempo}
-completar...
+En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
+cada uno de los individuos y el modelo resultaría:
 
+$ Y_{ij} = \beta_0 + \beta_1 \bar{X}_i + \epsilon_{i} $
+
+El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
+cada cambio de una unidad en el IMC promedio del individuo.
+
+\subsection{Covariable variable en el tiempo}
+
+Dado que la CVT es exógena, puede incorporarse sin ninguna transformación, el
+modelo resultaría:
+
+$ Y_{ij} = \beta_0 + \beta_1 X_{ij} t_j + \epsilon_{i} $
+
+Si bien la incorporación de la covariable al modelo es válida, la interpretación
+de su coeficiente al ser incluida de esta manera es un poco confusa.
+
+%%%% LESSA HOFFMAN PAGINA 345
 
 % \subsubsection{Covariables rezagadas}
 
