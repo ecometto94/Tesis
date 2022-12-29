@@ -311,27 +311,6 @@ asociado a valores previos de glicemia (un paciente con valor de glicemia alto
 en una visita puede decidir aumentar su nivel de actividad fística para ver si
 este valor se reduce).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% aca tambien hablo un poco de coeficientes y modelos y aun no defini nada
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{Covariables rezagadas}
-
-En muchas aplicaciones, el historial completo de la CVT
-($X_{i1}, X_{i2}, ..., X_{ij}$) está disponible y es considerado como un
-potencial predictor de la
-respuesta $Y_{ij}$. En epidemiología, en el estudio de enfermedades crónicas, es
-común utilizar la exposición acumulada $X^*_{ij} = \sum_{s<j} X_{is}$, como por
-ejemplo los paquetes de cigarrillo fumados al año, como resumen apropiado del
-historial de exposición. En otros casos, solo se utiliza un pequeño subconjunto
-de valores recientes, $X_{ij-1}, X_{ij-2}, ..., X_{ij-k}$, ya que se supone que
-el efecto en la respuesta está concentrado en ellas (Samet et al,. 2000). En
-cualquier caso, el uso de más de un único valor de covariable rezagada puede dar
-lugar a predictores altamente correlacionados, a preguntas sobre la elección del
-número de covariables retrasadas y a la especificación de la estructura de los
-coeficientes de las covariables rezagadas.
-
-
 \section{Modelo lineal mixto}
 
 Los modelos lineales mixtos se utilizan habitualmente para analizar los datos
@@ -499,17 +478,14 @@ estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
 el que es sólo un 60\% eficiente en relación con la estructura de correlación
 verdadera.
 
-Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
-de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
-y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
-definieron un cuarto tipo de CVT.
-
 Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
 al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
 ``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
 incorporar información sobre la naturaleza de la CVT que se está analizando
 según su tipo.
+
+En conclusión, para poder utilizar las CVT en un modelo lineal mixto, esta debe
+cumplir la condicion de exogeneidad
 
 \newpage
 
@@ -539,6 +515,23 @@ en el tiempo.
 \subsection{Covariable variable en el tiempo}
 completar...
 
+
+% \subsubsection{Covariables rezagadas}
+
+% En muchas aplicaciones, el historial completo de la CVT
+% ($X_{i1}, X_{i2}, ..., X_{ij}$) está disponible y es considerado como un
+% potencial predictor de la
+% respuesta $Y_{ij}$. En epidemiología, en el estudio de enfermedades crónicas, es
+% común utilizar la exposición acumulada $X^*_{ij} = \sum_{s<j} X_{is}$, como por
+% ejemplo los paquetes de cigarrillo fumados al año, como resumen apropiado del
+% historial de exposición. En otros casos, solo se utiliza un pequeño subconjunto
+% de valores recientes, $X_{ij-1}, X_{ij-2}, ..., X_{ij-k}$, ya que se supone que
+% el efecto en la respuesta está concentrado en ellas (Samet et al,. 2000). En
+% cualquier caso, el uso de más de un único valor de covariable rezagada puede dar
+% lugar a predictores altamente correlacionados, a preguntas sobre la elección del
+% número de covariables retrasadas y a la especificación de la estructura de los
+% coeficientes de las covariables rezagadas.
+
 \subsection{Una sola covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
@@ -556,8 +549,6 @@ diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
 Donde $\bm{W_i}$ representa una colección adicional de CNVT. En este modelo, el
 coeficiente $\beta_{1k}$ depende explícitamente de la elección del rezago $k$.
-
-
 \subsection{Funcion de las covariables rezagadas}
 
 Una alternativa cuando se quiere utilizar la información de las covariables
