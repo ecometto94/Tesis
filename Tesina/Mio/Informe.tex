@@ -497,8 +497,8 @@ cumplir la condicion de exogeneidad
 
 Si al evaluar el tipo de la CVT de la manera vista en
 \ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
-modelo mixto sin consideraciones adicionales. Esto se debe a que no habrá problemas
-con la estimación de los parámetros, ya que se cumple el supuesto de
+modelo mixto sin consideraciones adicionales. Esto se debe a que no habrá
+problemas con la estimación de los parámetros, ya que se cumple el supuesto de
 independencia condicional.
 
 A continuación, se presentan distintas maneras de introducir la CVT exógena al
@@ -519,7 +519,7 @@ en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-$ Y_{ij} = \beta_0 + \beta_1 \bar{X}_i + \epsilon_{i} $
+\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_i + \epsilon_{i} \]
 
 El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
 cada cambio de una unidad en el IMC promedio del individuo.
@@ -529,92 +529,68 @@ cada cambio de una unidad en el IMC promedio del individuo.
 Dado que la CVT es exógena, puede incorporarse sin ninguna transformación, el
 modelo resultaría:
 
-$ Y_{ij} = \beta_0 + \beta_1 X_{ij} t_j + \epsilon_{i} $
+\[ Y_{ij} = \beta_0 + \beta_1 X_{ij} + \epsilon_{i} \]
 
-Si bien la incorporación de la covariable al modelo es válida, la interpretación
-de su coeficiente al ser incluida de esta manera es un poco confusa.
+Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
+entre-unidad, sin embargo el modelo mixto va a tener solo un coeficiente
+$\beta_1$. Por lo tanto, el modelo mixto asume convergencia entre los efectos
+intra-unidad y entre-unidad (es decir, que son equivalentes y ambos pueden ser
+representados como un único efecto). Si bien el modelo es válido, para obtener
+una interpretación clara del efecto de la CVT se necesita dividir su efecto en
+dos coeficientes, como se explicará en la sección \ref{Dividiendo efecto
+entre-unidad y efecto intra-unidad}
 
 %%%% LESSA HOFFMAN PAGINA 345
 
-% \subsubsection{Covariables rezagadas}
-
-% En muchas aplicaciones, el historial completo de la CVT
-% ($X_{i1}, X_{i2}, ..., X_{ij}$) está disponible y es considerado como un
-% potencial predictor de la
-% respuesta $Y_{ij}$. En epidemiología, en el estudio de enfermedades crónicas, es
-% común utilizar la exposición acumulada $X^*_{ij} = \sum_{s<j} X_{is}$, como por
-% ejemplo los paquetes de cigarrillo fumados al año, como resumen apropiado del
-% historial de exposición. En otros casos, solo se utiliza un pequeño subconjunto
-% de valores recientes, $X_{ij-1}, X_{ij-2}, ..., X_{ij-k}$, ya que se supone que
-% el efecto en la respuesta está concentrado en ellas (Samet et al,. 2000). En
-% cualquier caso, el uso de más de un único valor de covariable rezagada puede dar
-% lugar a predictores altamente correlacionados, a preguntas sobre la elección del
-% número de covariables retrasadas y a la especificación de la estructura de los
-% coeficientes de las covariables rezagadas.
-
-\subsection{Una sola covariable rezagada}
+\subsection{Covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
 en un el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo,
-muchos agentes farmacológicos son rápidamente limpiados del cuerpo, por lo que
-sólo mantienen efectos por una corta duración y podria interesarnos solo su
-valor en el rezago anterior al actual. En este caso, si la covariable es
-exógena, puede ajustarse el modelo mixto sin más consideraciones. Lo más común
-es que se desconozca el valor $k$ apropiado y se consideren varias opciones
-diferentes. El modelo lineal mixto se definiría de la siguiente manera:
+podría interesarnos conocer el efecto del IMC en la ocasión anterior a la
+actual. Lo más común es que se desconozca el valor $k$ apropiado y se consideren
+varias opciones diferentes. El modelo mixto se definiría de la siguiente manera:
 
-\[
-	Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \bm{\beta'_2} \bm{W_i}
-\]
+\[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} \]
 
-Donde $\bm{W_i}$ representa una colección adicional de CNVT. En este modelo, el
-coeficiente $\beta_{1k}$ depende explícitamente de la elección del rezago $k$.
+En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
+elección del rezago $k$.
+
 \subsection{Funcion de las covariables rezagadas}
 
 Una alternativa cuando se quiere utilizar la información de las covariables
-rezagadas es resumir a través de una función la información de éstas en una
-sola covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la
-ocasión actual. Sin embargo, la elección de está funcion dependerá del tipo de
-problema a analizar. Cabe destacar que, al igual que con toda medida resumen, al
-usar este tipo de covariables se pierde parte de la información.
+rezagadas es resumir a través de una función la información de éstas en una sola
+covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
+actual. Sin embargo, la elección de está funcion dependerá del tipo de problema
+a analizar. Cabe destacar que, al igual que con toda medida resumen, al usar
+este tipo de covariables se pierde parte de la información. En el ejemplo
+mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
+resultando el modelo:
+
+\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_{ij} + \epsilon_{i} \]
+
+Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
+\label{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
-Otra forma de incorporar la CVT exógena es dividiéndola en dos componentes que
-reflejen la variación intra-sujeto y la variación entre-sujeto respecto
-a la CVT. Entonces, el término del modelo que representa a la covariable se
-puede descomponer en dos términos:
+Otra forma de incorporar la CVT es dividiéndola en dos componentes que reflejen
+la variación intra-unidad y la variación entre-unidad. Entonces, el coeficiente
+del modelo que representa a la covariable se puede descomponer en dos:
 
-\[
-	\beta X_{ij} = \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i
-\]
+\[ \beta X_{ij} = \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i \]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
-en el tiempo de la CVT para el individuo $i$, $\beta_W$ representa el cambio
+en el tiempo de la CVT para la unidad $i$, $\beta_W$ representa el cambio
 esperado en la media de la variable respuesta asociado con cambios de la CVT
-dentro de las persona y $\beta_B$ representa el cambio esperado en la media de
-la variable respuesta asociado con cambios de la CVT entre personas
+dentro de la unidad y $\beta_B$ representa el cambio esperado en la media de
+la variable respuesta asociado con cambios de la CVT entre unidades
 
-%%%%%%%%%%%%%%%%
-% explicarlo en la aplicación
-%%%%%%%%%%%%%%%%
-
-Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
-presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
-presentó el valor codigicado con 1 de dicha covariable, por lo que el método
-anterior resultará en valores extraños para $\beta_W$. Por ejemplo, si el valor
-1 de la CVT se presentó en el 50\% de las ocasiones, $\overline{X}_i$ tendrá un
-valor de 0.5 y entonces el término que acompaña a $\beta_W$ será de -0.5 en las
-ocasiones que la CVT dicotómica no se presente y 0.5 en las que se presente. En
-términos de la estimación del modelo esto no genera ningún problema, pero será
-raro en la interpretación de los parámetros, dado que el parámetro $\beta_W$
-estará siempre presente (nunca estará acompañado de un 0). Una forma de evitar
-esto es dividiendo el efecto entre-persona e intra-persona de la siguiente
-manera:
-
-\[
-	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
-\]
+En el ejemplo del IMC y la tensión arterial, $\beta_W$ se interpreta como el
+cambio en la tensión arterial por cada cambio de una unidad en el IMC,
+manteniendo constante el IMC de las ocasiones restantes. Por otro lado,
+$\beta_B$ se interpreta como el cambio en la tensión arterial por cada cambio de
+una unidad en el IMC promedio de la unidad, controlando por el valor del IMC de
+la ocasión $j$.
 
 \newpage
 
@@ -906,7 +882,7 @@ mejor, ya que el AIC y el BIC son menores).
 Como vimos anteriormente, la CVT puede considerarse exógena, por lo tanto puede
 introducirse al modelo en su forma natural. Los coeficientes de Adherencia de
 este modelo y de los siguientes no son fácilmente interpretables, dado que
-contienen los efectos tanto entre-persona como intra-persona.
+contienen los efectos tanto entre-unidad como intra-unidad.
 
 \begin{table}[H]
 	\centering
@@ -1003,7 +979,7 @@ más parsimonioso.
 \subsubsection{Incorporación dividiendo efecto entre e intra}
 
 El efecto de la CVT puede también dividirse en distintos coeficientes para el
-efecto entre-persona y el efecto intra-persona, los valores de éstos
+efecto entre-unidad y el efecto intra-unidad, los valores de éstos
 coeficientes pueden observarse en la tabla \ref{modelo_7}. El coeficiente -0.607
 quiere decir que, manteniendo constante la proporción de adherencia total al
 tratamiento, se espera que la TAS disminuya en promedio 0.607 los meses en los
@@ -1011,6 +987,27 @@ que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
 -0.481 se interpreta como, después de controlar por la adherencia al tratamiento
 en ese mes, se espera que la TAS disminuya en promedio en 0.481 relativo a la
 proporción de adherencia total.
+
+%%%%%%%%%%%%%%%%
+% explicarlo en la aplicación
+%%%%%%%%%%%%%%%%
+
+% Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
+% presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
+% presentó el valor codigicado con 1 de dicha covariable, por lo que el método
+% anterior resultará en valores extraños para $\beta_W$. Por ejemplo, si el valor
+% 1 de la CVT se presentó en el 50\% de las ocasiones, $\overline{X}_i$ tendrá un
+% valor de 0.5 y entonces el término que acompaña a $\beta_W$ será de -0.5 en las
+% ocasiones que la CVT dicotómica no se presente y 0.5 en las que se presente. En
+% términos de la estimación del modelo esto no genera ningún problema, pero será
+% raro en la interpretación de los parámetros, dado que el parámetro $\beta_W$
+% estará siempre presente (nunca estará acompañado de un 0). Una forma de evitar
+% esto es dividiendo el efecto entre-unidad e intra-unidad de la siguiente
+% manera:
+
+% \[
+% 	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
+% \]
 
 \begin{table}[H]
 	\centering
