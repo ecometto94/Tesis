@@ -586,11 +586,16 @@ dentro de la unidad y $\beta_B$ representa el cambio esperado en la media de
 la variable respuesta asociado con cambios de la CVT entre unidades
 
 En el ejemplo del IMC y la tensión arterial, $\beta_W$ se interpreta como el
-cambio en la tensión arterial por cada cambio de una unidad en el IMC,
-manteniendo constante el IMC de las ocasiones restantes. Por otro lado,
-$\beta_B$ se interpreta como el cambio en la tensión arterial por cada cambio de
-una unidad en el IMC promedio de la unidad, controlando por el valor del IMC de
-la ocasión $j$.
+cambio en la tensión arterial por cada diferencia de una unidad en el IMC de la
+ocasión $j$ comparado con el IMC promedio de la persona, manteniendo constante
+el IMC de las ocasiones restantes. Por otro lado, $\beta_B$ se interpreta como
+el cambio en la tensión arterial por cada cambio de una unidad en el IMC
+promedio de la unidad, controlando por el valor del IMC de la ocasión $j$.
+
+Estos dos efectos permiten medir entonces si la tensión arterial aumenta cuando
+una persona tiene un IMC mayor que el promedio de la población, y también
+permiten medir el cambio en la tensión arterial si dicha persona tiene IMC mayor
+que su promedio habitual.
 
 \newpage
 
@@ -613,12 +618,12 @@ este informe.
 
 \subsection{Análisis descriptivo}
 
-En esta sección se presentaran diversos gráficos para ayudar a entender un poco
-mejor la población en estudio.
+En esta sección se presentaran diversos gráficos con el fin de describir la
+población en estudio.
 
 En la figura \ref{TAS_vs_tpo} se puede observar que en general la TAS se
 mantiene constante (o con una muy leve pendiente decreciente) a través del
-tiempo. Esto a simple vista no resultaría muy alentador, dado que el propósito
+tiempo. Esto a simple vista podría resultar desalentador, dado que el propósito
 del tratamiento es disminuir la TAS a niveles más saludables. Sin embargo, como
 se mencionó anteriormente, los pacientes no adhirieron al 100\% el tratamiento,
 este efecto es el que estudiaremos más adelante. Cabe destacar que las
@@ -650,7 +655,7 @@ del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
 expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
 utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
 Podemos observar que en general la TAS disminuye, ya sea en mayor o menor
-medida, a los largo del tiempo. Analizando las covariables de a una, el IMC
+medida, a los largo del tiempo. Analizando las covariables una por una, el IMC
 parece no tener un efecto significativo, dado que, aunque los pacientes con
 menor IMC presentan menor TAS, los promedios en cada tiempo caen dentro de los
 intervalos de confianza de ambos grupos. En cuanto a la edad y el sexo, no
@@ -691,24 +696,15 @@ mantienen la TAS más constante.
 
 \subsubsection{Modelo propuesto para la media}
 
-El modelo \ref{modelo_simple} se obtuvo mediante el método stepwise, el cual
-consiste en ajustar un modelo con todas las covariables y en cada paso quitar la
-de mayor p-value (siempre y cuando no sea significativa) mientras que también se
-añaden las covariables que no están presentes en el modelo con el fin de volver
-a agregarlas si alguna tiene un efecto significativo. En el anexo pueden
-encontrarse todos los pasos de dicho proceso, el modelo obtenido es el
-siguiente:
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% AGREGAR PROCESO AL ANEXO %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+El modelo propuesto \ref{modelo_simple} es un modelo simple sin interacciones
+entre covariables, a pesar de que algunas de ellas podían resultar
+significativas, con fines de facilitar las interpretaciones de las distintas
+maneras de incluir la CVT al modelo.
 
 \begin{multline}
 	\label{modelo_simple}
-	\hat{y}_{ij} = 121.011\ +\ b_{0i}\ +\ 3.917\ sexo_i\ +\ 0.156\ edad_i\ -
-	\ 3.337\ diabetes_i \\
-	-\ 0.238\ mes_i\ -\ 0.689\ mes_i*diabetes_i\ +\ b_{1i}*mes_i\ +
-	\ \epsilon_{ij}
+	\hat{y}_{ij} = 121.311\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
+	-\ 0.332\ mes_i\ +\ b_{1i}*mes_i\
 \end{multline}
 
 \subsubsection{Modelo propuesto para la covariancia}
@@ -736,6 +732,10 @@ efectos aleatorios para la ordenada y la pendiente, resultando ambos
 significativos. Por lo que la estructura de covariancia elegida para el modelos
 es una estructura independiente con ordenada y pendiente aleatoria.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ESTA MAL EL NUMERO DE LA TABLA %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 \ref{modelo_1}.
 
@@ -745,18 +745,16 @@ Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 	\caption{Modelo 1: Modelo propuesto sin CVT}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15424.7921} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30869.584} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30932.323} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15427.7627} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30871.52} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30921.72} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable   & Coef.   & Std. Err. & z      & $P<|z|$    \\
 		\hline
-		Intercept & 121.011 & 2.357 & 51.352 & $<$ 0.001 \\
-		Sexo & 3.917 & 0.755 & 5.187 & $<$ 0.001 \\
-		Edad & 0.156 & 0.039 & 3.999 & $<$ 0.001 \\
-		DBT & 3.337 & 1.490 & 2.239 & 0.025 \\
-		tpo programa & -0.238 & 0.114 & -2.094 & 0.036 \\
-		tpo programa*DBT & -0.689 & 0.309 & -2.230 & 0.026 \\
+		Intercept    & 121.311 & 2.355     & 51.520 & $<0.000$   \\
+		Sexo         & 3.911   & 0.756     & 5.174  & $<0.000$   \\
+		Edad         & 0.158   & 0.039     & 4.074  & $<0.000$   \\
+		tpo programa & -0.332  & 0.106     & -3.122 & $0.002$    \\
 		\hline
 	\end{tabular}
 \end{table}

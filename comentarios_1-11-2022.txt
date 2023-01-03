@@ -2,20 +2,12 @@ ver si puedo expandir un poco mas la seccion de problemas con la estimacion y
 terminar aclarando tipo "en consecuencia para poder utilizar las CVT en un
 modelo lineal mixto, esta debe cumplir la condicion de exogeneidad"
 
-en formas de introducir: agregar un ejemplo y como queda el modelo para cada
-subseccion
-
-funcion de covariables rezagadas: aclarar que es hasta el punto j, unirlo con lo
-de covaribales rezagadas dentro de tipos de covariables en datos longitudinales
-
 en la aplicacion, en vez de ir comparando cada forma de introducir la CVT con la
 forma anterior, agregar una tabla resumen de todos los modelos al final y
 concluir en base a eso
 
 no usar la interaccion entre el tiempo y la diabetes en los modelos y tampoco la
 adherencia basal
-
-mostrar el spaghetti plot entero, no solo en 15 pacientes
 
 revisar la parte de la estructura de covariancia, ordenada al origen aleatoria y
 pendiente aleatoria o alguna estructura
