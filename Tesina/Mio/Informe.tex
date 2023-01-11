@@ -732,17 +732,13 @@ efectos aleatorios para la ordenada y la pendiente, resultando ambos
 significativos. Por lo que la estructura de covariancia elegida para el modelos
 es una estructura independiente con ordenada y pendiente aleatoria.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ESTA MAL EL NUMERO DE LA TABLA %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 \ref{modelo_1}.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_1}
 	\caption{Modelo 1: Modelo propuesto sin CVT}
+	\label{modelo_1}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15427.7627} \\
@@ -751,9 +747,9 @@ Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 		\hline
 		Covariable   & Coef.   & Std. Err. & z      & $P<|z|$    \\
 		\hline
-		Intercept    & 121.311 & 2.355     & 51.520 & $<0.000$   \\
-		Sexo         & 3.911   & 0.756     & 5.174  & $<0.000$   \\
-		Edad         & 0.158   & 0.039     & 4.074  & $<0.000$   \\
+		Intercept    & 121.311 & 2.355     & 51.520 & $<0.001$   \\
+		Sexo         & 3.911   & 0.756     & 5.174  & $<0.001$   \\
+		Edad         & 0.158   & 0.039     & 4.074  & $<0.001$   \\
 		tpo programa & -0.332  & 0.106     & -3.122 & $0.002$    \\
 		\hline
 	\end{tabular}
@@ -772,12 +768,12 @@ considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
-	\label{exog_table}
 	\caption{Resultados de la prueba de exogeneidad}
+	\label{exog_table}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
-		$\overline{y}_{t-2}$ \\
+		Ocasión\ (t) & $Adherencia_{t-1}$ & $\overline{Adherencia}_{t-2}$ & $TAS_{t-1}$ &
+		$\overline{TAS}_{t-2}$ \\
 		\hline
 		\hline
 		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
@@ -798,82 +794,72 @@ considerarse como una covariable exógena.
 \subsection{Incorporación de la CVT}
 
 Como se mencionó anteriormente, hay más de una manera de incorporar una CVT a un
-modelo mixto, en esta sección compararemos algunas de éstas.
+modelo mixto, en esta sección compararemos algunas de ellas.
 
 \subsubsection{Incorporación de covariable fija}
 
-Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
-al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
-paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
-incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_2} que la
-covariable solo es significativa en la ordenada al origen. Este modelo indica
-que, controlando por el resto de las variables, los pacientes con adherencia
-perfecta tienen en promedio 2.792 menor TAS en el primer mes del tratamiento y
-continúa disminuyendo en 0.265 por cada mes.
+Una de las transformaciones que puede aplicarse sobre la covariable ``adherencia
+al tratamiento'' es convertirla en una variable dicotómica, cuyo valor es 1 si
+el paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
+incorrecta en algún mes. Este modelo indica que, controlando por el resto de las
+variables, los pacientes con adherencia perfecta presentan una disminución
+promedio sobre la TAS de 0.666.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_2}
 	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\label{modelo_2}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15412.1077} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.215} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30923.501} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.7275} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.455} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.92} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable						 & Coef.   & Std. Err. & z      & $P<|z|$ \\
 		\hline
-		Intercept & 121.442 & 2.341 & 51.874 & $<$ 0.001 \\
-		Sexo & 3.807 & 0.740 & 5.147 & $<$ 0.001 \\
-		Edad & 0.173 & 0.038 & 4.513 & $<$ 0.001 \\
-		DBT & 3.364 & 1.481 & 2.272 & 0.023 \\
-		Adherencia Perfecta & -2.792 & 1.015 & -2.750 & 0.006 \\
-		tpo programa & -0.108 & 0.154 & -0.702 & 0.483 \\
-		tpo programa*DBT & -0.683 & 0.308 & -2.215 & 0.027 \\
-		tpo programa*Adherencia Perfecta & -0.265 & 0.211 & -1.253 & 0.210 \\
+		Intercept                        & 120.719 & 2.320 	   & 52.038 & $<0.001$  \\
+		Sexo                             & 3.845   & 0.743     & 5.176  & $<0.001$  \\
+		Edad                             & 0.169   & 0.038     & 4.414  & $<0.001$  \\
+		tpo programa                     & -0.002  & 0.131 	   & -0.017 & $0.986$   \\
+		tpo programa*Adherencia Perfecta & -0.666  & 0.155     & -4.286 & $<0.001$  \\
 		\hline
 	\end{tabular}
 \end{table}
 
-Otra manera de incorporar la covariable fija sin perder tanta información es
-usar la proporción de adherencia correcta al final del estudio. Es decir, si de
-las 7 ocasiones el paciente adhirio correctamente al tratamiento en solo 5, el
-valor que se le asignará es 5/7 ($\approx 0.71$). Los coeficientes de este
+Otra manera de incorporar la covariable fija conservando más información es usar
+la proporción de adherencia correcta al final del estudio. Es decir, si de las 7
+ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
+que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes de este
 modelo indican que, controlando por el resto de las variables, los pacientes
-tienen en promedio un porcentaje de 3.063 menor TAS al primer mes de tratamiento
-equivalente al porcentaje de adherencia total, y continuará disminuyendo en un
-porcentaje de 0.965 por mes también equivalente al porcentaje de adherencia
-total. Por ejemplo, un paciente que adhirió correctamente sólo al 50\% del
-tratamiento, tendra una TAS en promedio un 1.5315 ($3.063 x 0.5$) menor que un
-paciente que no adhirio correctamente en ninguna ocasión.
+presentan una disminución promedio en la TAS por mes de 1.410 proporcional a la
+adherencia correcta al tratamiento. Por ejemplo, un paciente que adhiere
+correctamente sólo al 50\% del tratamiento, tendrá una disminución promedio en
+su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \begin{table}[H]
 	\centering
-	\label{modelo_3}
 	\caption{Modelo 3: incorporación adherencia total}
+	\label{modelo_3}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15414.7464} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30853.492} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30928.779} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.5232} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.046} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.511} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable 					  & Coef.   & Std. Err. & z 	 & $P<|z|$ \\
 		\hline
-		Intercept & 122.805 & 2.843 & 43.193 & $<$ 0.001 \\
-		Sexo & 3.738 & 0.746 & 5.008 & $<$ 0.001 \\
-		Edad & 0.169 & 0.039 & 4.390 & $<$ 0.001 \\
-		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
-		Adherencia Total & -3.063 & 2.150 & -1.425 & 0.154 \\
-		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
-		tpo programa*DBT & -0.657 & 0.308 & -2.133 & 0.033 \\
-		tpo programa*Adherencia Total & -0.965 & 0.444 & -2.174 & 0.030 \\
+		Intercept                     & 120.754 & 2.331     & 51.814 & $<0.000$ \\
+		Sexo                          & 3.776   & 0.747     &  5.054 & $<0.000$ \\
+		Edad                          & 0.169   & 0.038     &  4.391 & $<0.000$ \\
+		tpo programa                  & 0.826   & 0.287     &  2.876 & $0.004$  \\
+		tpo programa*Adherencia Total & -1.410  & 0.325     & -4.335 & $<0.000$ \\
 		\hline
 	\end{tabular}
 \end{table}
 
-Puede notarse que ambas maneras de introducir la covariable ayudan para explicar
-el comportamiento de la TAS en el estudio (siendo la primera opción levemente
-mejor, ya que el AIC y el BIC son menores).
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% SEGUIR DE ACA %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Incorporación como CVT}
 
@@ -884,8 +870,8 @@ contienen los efectos tanto entre-unidad como intra-unidad.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_4}
 	\caption{Modelo 4: incorporación la adherencia en cada ocasión}
+	\label{modelo_4}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15388.2302} \\
@@ -920,8 +906,8 @@ ejemplos pueden observarse en las siguientes tablas.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_5}
 	\caption{Modelo 5: incorporación la adherencia en cada ocasión y en ocasión anterior}
+	\label{modelo_5}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1933} \\
@@ -945,8 +931,8 @@ ejemplos pueden observarse en las siguientes tablas.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_6}
 	\caption{Modelo 6: incorporación la adherencia en cada ocasión y adherencia acumulada}
+	\label{modelo_6}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1802} \\
@@ -1009,8 +995,8 @@ proporción de adherencia total.
 
 \begin{table}[H]
 	\centering
-	\label{modelo_7}
 	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
+	\label{modelo_7}
 	intra persona}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
