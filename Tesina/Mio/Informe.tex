@@ -16,6 +16,7 @@
 \usepackage{tikz} 				% for graphs
 \usepackage{multirow}			% for tables
 \usepackage{float}				% to manually select placement of tables
+\usepackage{autobreak}          % to automatically fit equations to page width
 
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
 \renewcommand{\baselinestretch}{1.5}
@@ -704,7 +705,7 @@ maneras de incluir la CVT al modelo.
 \begin{multline}
 	\label{modelo_simple}
 	\hat{y}_{ij} = 121.311\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
-	-\ 0.332\ mes_i\ +\ b_{1i}*mes_i\
+	-\ 0.332\ mes_j\ +\ b_{1i}*mes_j\
 \end{multline}
 
 \subsubsection{Modelo propuesto para la covariancia}
@@ -802,13 +803,19 @@ Una de las transformaciones que puede aplicarse sobre la covariable ``adherencia
 al tratamiento'' es convertirla en una variable dicotómica, cuyo valor es 1 si
 el paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
 incorrecta en algún mes. En base a los resultados presentados en la tabla
-\ref{modelo_2}, controlando por el resto de las variables, los pacientes con
+\ref{modelo_2_tabla}, controlando por el resto de las variables, los pacientes con
 adherencia perfecta presentan una disminución promedio sobre la TAS de 0.666.
+
+\begin{multline}
+	\label{modelo_2}
+	\hat{y}_{ij} = 120.719\ +\ b_{0i}\ +\ 3.845\ sexo_i\ +\ 0.169\ edad_i\ \\
+	-\ 0.002\ mes_j\ -\ 0.666\ mes_j*adherencia\ perfecta_i\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 2: Incorporación adherencia perfecta}
-	\label{modelo_2}
+	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.7275} \\
@@ -830,16 +837,22 @@ Otra manera de incorporar la covariable fija conservando más información es us
 la proporción de adherencia correcta al final del estudio. Es decir, si de las 7
 ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
 que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes
-presentados en la tabla \ref{modelo_3} indican que, controlando por el resto de
+presentados en la tabla \ref{modelo_3_tabla} indican que, controlando por el resto de
 las variables, los pacientes presentan una disminución promedio en la TAS por
 mes de 1.410 proporcional a la adherencia correcta al tratamiento. Por ejemplo,
 un paciente que adhiere correctamente sólo al 50\% del tratamiento, tendrá una
 disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
+\begin{multline}
+	\label{modelo_3}
+	\hat{y}_{ij} = 120.754\ +\ b_{0i}\ +\ 3.776\ sexo_i\ +\ 0.169\ edad_i\ \\
+	+\ 0.826\ mes_j\ -\ 1.410\ mes_j*adherencia\ total_i\ \ +\ b_{1i}*mes_j\
+\end{multline}
+
 \begin{table}[H]
 	\centering
 	\caption{Modelo 3: incorporación adherencia total}
-	\label{modelo_3}
+	\label{modelo_3_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.5232} \\
@@ -863,12 +876,18 @@ La manera más simple de introducir una CVT exógena a un modelo mixto es en su
 forma natural. Sin embargo, como se mencionó anteriormente, su coeficiente no
 será interpretable y no será dificil sacar conclusiones sobre como afecta la
 adherencia a la TAS. Los resultados pueden observarse en la tabla.
-\ref{modelo_4}.
+\ref{modelo_4_tabla}.
+
+\begin{multline}
+	\label{modelo_4}
+	\hat{y}_{ij} = 120.911\ +\ b_{0i}\ +\ 3.772\ sexo_i\ +\ 0.165\ edad_i\ \\
+	+\ 0.791\ mes_j\ -\ 1.316\ mes_j*adherencia_{ij}\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 4: incorporación adherencia en cada ocasión}
-	\label{modelo_4}
+	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.8815} \\
@@ -889,12 +908,18 @@ adherencia a la TAS. Los resultados pueden observarse en la tabla.
 Otra opción, en lugar de considerar la adherencia en la ocasión actual, es
 considerarla en la ocasión anterior. Esto permitiria investigar si el
 tratamiento afecta a la TAS en un determinado intervalo de tiempo y no de manera
-instantánea. Los resultados se presentan en la tabla \ref{modelo_5}.
+instantánea. Los resultados se presentan en la tabla \ref{modelo_5_tabla}.
+
+\begin{multline}
+	\label{modelo_5}
+	\hat{y}_{ij} = 121.089\ +\ b_{0i}\ +\ 3.870\ sexo_i\ +\ 0.162\ edad_i\ \\
+	+\ 0.089\ mes_j\ -\ 0.501\ mes_j*adherencia_{ij-1}\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 5: incorporación adherencia en la ocasión anterior}
-	\label{modelo_5}
+	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.5776} \\
@@ -917,12 +942,18 @@ hasta la ocasión actual. Es decir, si en la ocasión 4 un paciente adhirio
 correctamente solo en 2 ocasiones, su adherencia promedio será de $\frac{2}{4}$
 ($0.5$). Sin embargo, si adhiere correctamente en la ocasión 5, entonces la
 adherencia promedio en esa ocasión será $\frac{3}{5}$ ($0.6$). Los resultados se
-presentan en la tabla \ref{modelo_6}.
+presentan en la tabla \ref{modelo_6_tabla}.
+
+\begin{multline}
+	\label{modelo_6}
+	\hat{y}_{ij} = 120.570\ +\ b_{0i}\ +\ 3.777\ sexo_i\ +\ 0.171\ edad_i\ \\
+	+\ 0.899\ mes_j\ -\ 1.499\ mes_j*adherencia\ acumulada_{ij}\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 6: incorporación adherencia acumulada}
-	\label{modelo_6}
+	\label{modelo_6_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.2415} \\
@@ -940,49 +971,39 @@ presentan en la tabla \ref{modelo_6}.
 	\end{tabular}
 \end{table}
 
-%%%%%%%%%%%%%%
-% SEGUIR ACA %
-%%%%%%%%%%%%%%
-
 \subsubsection{Incorporación dividiendo efecto entre e intra}
 
-%%%%%%%%%%%%%%%%
-% explicarlo en la aplicación
-%%%%%%%%%%%%%%%%
+Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
+presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
+presentó el valor codificado con 1 de dicha covariable, por lo que el método
+anterior resultará en valores extraños para $\beta_W$ si usamos $X_i -
+\overline{X}_i$. Por ejemplo, si el valor 1 de la CVT se presentó en el 50\% de
+las ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
+acompaña a $\beta_W$ será de -0.5 en las ocasiones que la CVT dicotómica no se
+presente y 0.5 en las que se presente. En términos de la estimación del modelo
+esto no genera ningún problema, pero será raro en la interpretación de los
+parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
+estará acompañado de un 0). Por lo tanto, el efecto intra-unidad estará
+acompañado solo de $X_i$
 
-% Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
-% presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
-% presentó el valor codificado con 1 de dicha covariable, por lo que el método
-% anterior resultará en valores extraños para $\beta_W$. Por ejemplo, si el valor
-% 1 de la CVT se presentó en el 50\% de las ocasiones, $\overline{X}_i$ tendrá un
-% valor de 0.5 y entonces el término que acompaña a $\beta_W$ será de -0.5 en las
-% ocasiones que la CVT dicotómica no se presente y 0.5 en las que se presente. En
-% términos de la estimación del modelo esto no genera ningún problema, pero será
-% raro en la interpretación de los parámetros, dado que el parámetro $\beta_W$
-% estará siempre presente (nunca estará acompañado de un 0). Una forma de evitar
-% esto es dividiendo el efecto entre-unidad e intra-unidad de la siguiente
-% manera:
+Los resultados pueden observarse en la tabla \ref{modelo_7_tabla}. El coeficiente
+-1.261 quiere decir que, manteniendo constante la proporción de adherencia total
+al tratamiento, se espera que la TAS disminuya en promedio 1.261 los meses en
+los que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
+-0.246 quiere decir que, después de controlar por la adherencia al tratamiento
+en ese mes, se espera que la TAS disminuya en promedio en 0.246 relativo a la
+proporción de adherencia total.
 
-El efecto de la CVT puede dividirse en distintos coeficientes para el efecto
-entre-unidad y el efecto intra-unidad, los valores de éstos coeficientes pueden
-observarse en la tabla \ref{modelo_7}. El coeficiente -1.261 quiere decir que,
-manteniendo constante la proporción de adherencia total al tratamiento, se
-espera que la TAS disminuya en promedio 1.261 los meses en los que se adhiere
-correctamente al tratamiento. Por otro lado, el coeficiente -0.246 se interpreta
-como, después de controlar por la adherencia al tratamiento en ese mes, se
-espera que la TAS disminuya en promedio en 0.246 relativo a la proporción de
-adherencia total.
-
-
-
-% \[
-% 	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
-% \]
+\begin{multline}
+	\label{modelo_7}
+	\hat{y}_{ij} = 120.832\ +\ b_{0i}\ +\ 3.754\ sexo_i\ +\ 0.167\ edad_i\ \\
+	+\ 0.946\ mes_j\ -\ 1.261\ mes_j*adherencia_{ij}\ -\ 0.246\ mes_j*adherencia\ total_i\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
-	\label{modelo_7}
+	\label{modelo_7_tabla}
 	intra persona}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -1001,6 +1022,10 @@ adherencia total.
 		\hline
 	\end{tabular}
 \end{table}
+
+%%%%%%%%%%%%%%
+% SEGUIR ACA %
+%%%%%%%%%%%%%%
 
 \newpage
 
