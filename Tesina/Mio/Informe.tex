@@ -715,7 +715,8 @@ variabilidad total está compuesta por el error de medición dado que la curva n
 inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
 serial también puede considerarse pequeña. Por último, como la curva no llega a
 la variancia total, esto nos indica que debe explicarse la variancia entre
-individuos agregando una ordenada aleatoria.
+individuos agregando una ordenada aleatoria (ver Anexo
+\ref{eleccion_efectos_aleatorios}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AGREGAR PROCESO AL ANEXO %
@@ -1003,8 +1004,8 @@ proporción de adherencia total.
 \begin{table}[H]
 	\centering
 	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
-	\label{modelo_7_tabla}
 	intra persona}
+	\label{modelo_7_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.6515} \\
@@ -1023,9 +1024,34 @@ proporción de adherencia total.
 	\end{tabular}
 \end{table}
 
-%%%%%%%%%%%%%%
-% SEGUIR ACA %
-%%%%%%%%%%%%%%
+\subsubsection{Comparación de los métodos}
+
+\begin{table}[H]
+	\centering
+	\caption{Comparación de modelos}
+	\label{comparacion}
+	\begin{tabular}{*{4}{|c}|}
+		\hline
+		Modelo   & Log-Likelihood & AIC       & BIC       \\
+		\hline
+		Modelo 1 & -15427.763     & 30871.525 & 30921.716 \\
+		Modelo 2 & -15418.727     & 30855.455 & 30911.92  \\
+		Modelo 3 & -15418.523     & 30855.046 & 30911.511 \\
+		Modelo 4 & -15393.881     & 30805.763 & 30862.228 \\
+		Modelo 5 & -15422.578     & 30863.155 & 30919.62  \\
+		Modelo 6 & -15415.241     & 30848.483 & 30904.948 \\
+		Modelo 7 & -15393.6515    & 30807.303 & 30870.042 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En la tabla \ref{comparacion} puede observarse que contemplando los criterios de
+Log-Likelihood, AIC y BIC, los modelos que mejor ajustan los datos son el Modelo
+4 y el Modelo 7, siendo el Modelo 4 ligeramente mejor. Esto tiene sentido ya que
+el Modelo 4 es el que incorpora la covariable en su manera original, es decir,
+sin realizar ninguna transformación ni perder parte de su información. Por otro
+lado, el Modelo 7 realiza algo similar pero de manera interpretable dividiendo
+su efecto en 2 coeficientes.
 
 \newpage
 
@@ -1045,10 +1071,88 @@ tradicional. Sin embargo, se han propuesto diversas transformaciones que pueden
 ayudar tanto a ajustar de mejor manera los datos como a la interpretación de los
 coeficientes.
 
-Como futuros pasos se propone estudiar de manera más profunda la incorporación
+También se mostró un ejemplo con un caso de estudio de pacientes de un programa
+de atención y control de pacientes hipertensos. En base a estos datos se
+ajustaron diferentes modelos con las distintas formas mencionadas de introducir
+la CVT y se realizó una comparación de los mismos.
+
+Como futuros pasos se propone estudiar más en profundida la incorporación
 de variables endógenas. Dado que muchas de las técnicas existentes hasta el
 momento no están basadas en el ajuste de modelos lineales mixtos, quedan fuera
 del alcance de esta tesina.
+
+\newpage
+
+\section{Anexo}
+
+\subsection{Elección de efectos aleatorios}
+\label{eleccion_efectos_aleatorios}
+
+Para probar la siginificación de los efectos aleatorios se ajustaron 3 modelos,
+uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
+solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
+con el método de máxima verosimilitud restringida, los resultados pueden
+observarse en las tablas \ref{modelo_both}, \ref{modelo_ordenada} y
+\ref{modelo_pendiente}.
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con ambos efectos aleatorios}
+	\label{modelo_both}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15430.8279} \\
+		\multicolumn{3}{|c}{Var(Intercept)} & \multicolumn{2}{|c|}{93.866} \\
+		\multicolumn{3}{|c}{Var(tpo programa)} & \multicolumn{2}{|c|}{2.219} \\
+		\multicolumn{3}{|c}{Cov(Intercept, tpo programa)} & \multicolumn{2}{|c|}{-8.287} \\
+		\hline
+		Covariable   & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercept    & 121.310 & 2.361     & 51.384 & $<0.001$ \\
+		Sexo         & 3.911   & 0.758     & 5.160  & $<0.001$ \\
+		Edad         & 0.158   & 0.039     & 4.063  & $<0.001$ \\
+		tpo programa & -0.332  & 0.106     & -3.119 & $0.002$  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con ordenada aleatoria}
+	\label{modelo_ordenada}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15456.0774} \\
+		\multicolumn{3}{|c}{Var(Intercept)} & \multicolumn{2}{|c|}{62.634} \\
+		\hline
+		Covariable   & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercept    & 121.431 & 2.356     & 51.547 & $<0.001$ \\
+		Sexo         & 3.909   & 0.760     & 5.143  & $<0.001$ \\
+		Edad         & 0.156   & 0.039     & 4.002  & $<0.001$ \\
+		tpo programa & -0.332  & 0.089     & -3.707 & $<0.001$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con pendiente aleatoria}
+	\label{modelo_pendiente}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15661.8792} \\
+		\multicolumn{3}{|c}{Var(tpo programa)} & \multicolumn{2}{|c|}{3.017} \\
+		\hline
+		Covariable   & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercept    & 121.941 & 1.636     & 74.516 & $<0.001$ \\
+		Sexo         & 3.899   & 0.526     & 7.414  & $<0.001$ \\
+		Edad         & 0.148   & 0.027     & 5.466  & $<0.001$ \\
+		tpo programa & 0.332   & 0.122     & -2.719 & $0.007$  \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \newpage
 \nocite{*}
