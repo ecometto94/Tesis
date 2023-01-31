@@ -998,7 +998,7 @@ proporción de adherencia total.
 \begin{multline}
 	\label{modelo_7}
 	\hat{y}_{ij} = 120.832\ +\ b_{0i}\ +\ 3.754\ sexo_i\ +\ 0.167\ edad_i\ \\
-	+\ 0.946\ mes_j\ -\ 1.261\ mes_j*adherencia_{ij}\ -\ 0.246\ mes_j*adherencia\ total_i\ b_{1i}*mes_j\
+	+\ 0.946\ mes_j\ -\ 1.261\ mes_j*adherencia_{ij}\ -\ 0.246\ mes_j*adherencia\ total_i\  +\ b_{1i}*mes_j\
 \end{multline}
 
 \begin{table}[H]
@@ -1091,9 +1091,15 @@ del alcance de esta tesina.
 Para probar la siginificación de los efectos aleatorios se ajustaron 3 modelos,
 uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
 solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
-con el método de máxima verosimilitud restringida, los resultados pueden
-observarse en las tablas \ref{modelo_both}, \ref{modelo_ordenada} y
-\ref{modelo_pendiente}.
+con el método de máxima verosimilitud restringida, el primer modelo es uno con
+ordenada y pendiente aletoria y sus resultados pueden observarse en la tabla
+\ref{modelo_both}.
+
+\begin{multline}
+	\label{modelo_both_equation}
+	\hat{y}_{ij} = 121.310\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
+	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
@@ -1116,6 +1122,61 @@ observarse en las tablas \ref{modelo_both}, \ref{modelo_ordenada} y
 	\end{tabular}
 \end{table}
 
+Donde \[
+	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
+	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
+\]
+
+Se ajusta un modelo solo con pendiente aleatoria obteniéndose los siguientes
+resultados:
+
+\begin{multline}
+	\label{modelo_pendiente_equation}
+	\hat{y}_{ij} = 121.941\ +\ 3.899\ sexo_i\ +\ 0.148\ edad_i\
+	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con pendiente aleatoria}
+	\label{modelo_pendiente}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15661.8792} \\
+		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{3.017} \\
+		\hline
+		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercepto & 121.941 & 1.636     & 74.516 & $<0.001$ \\
+		Sexo       & 3.899   & 0.526     & 7.414  & $<0.001$ \\
+		Edad       & 0.148   & 0.027     & 5.466  & $<0.001$ \\
+		Mes 	   & .0.332  & 0.122     & -2.719 & $0.007$  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Y se plantea el siguiente test de hipótesis:
+
+$ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
+
+Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
+reducido obtenemos:
+
+$ G^2(MR) - G^2(MC) = 31323.7584 - 30861.6558 = 462.1026 $
+
+Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
+por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
+ordenada al origen aleatoria.
+
+Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
+obtiene:
+
+\begin{multline}
+	\label{modelo_ordenada_equation}
+	\hat{y}_{ij} = 121.431\ +\ b_{0i}\ +\ 3.909\ sexo_i\ +\ 0.156\ edad_i\
+	-\ 0.332\ mes_j\
+\end{multline}
+
 \begin{table}[H]
 	\centering
 	\caption{Modelo con ordenada aleatoria}
@@ -1135,24 +1196,20 @@ observarse en las tablas \ref{modelo_both}, \ref{modelo_ordenada} y
 	\end{tabular}
 \end{table}
 
-\begin{table}[H]
-	\centering
-	\caption{Modelo con pendiente aleatoria}
-	\label{modelo_pendiente}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15661.8792} \\
-		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{3.017} \\
-		\hline
-		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		Intercepto & 121.941 & 1.636     & 74.516 & $<0.001$ \\
-		Sexo       & 3.899   & 0.526     & 7.414  & $<0.001$ \\
-		Edad       & 0.148   & 0.027     & 5.466  & $<0.001$ \\
-		Mes 	   & 0.332   & 0.122     & -2.719 & $0.007$  \\
-		\hline
-	\end{tabular}
-\end{table}
+Se vuelve a plantear el test de hipótesis pero esta vez para la pendiente:
+
+$ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
+
+Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
+reducido obtenemos:
+
+$ G^2(MR) - G^2(MC) = 30912.1548 - 30861.6558 = 50.499 $
+
+Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
+por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
+pendiente aleatoria.
+
+En conclusión, ambos efectos aleatorios son añadidos al modelo.
 
 \newpage
 \nocite{*}
