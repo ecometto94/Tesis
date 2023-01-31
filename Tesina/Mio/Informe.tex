@@ -16,6 +16,7 @@
 \usepackage{tikz} 				% for graphs
 \usepackage{multirow}			% for tables
 \usepackage{float}				% to manually select placement of tables
+\usepackage{autobreak}          % to automatically fit equations to page width
 
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
 \renewcommand{\baselinestretch}{1.5}
@@ -311,27 +312,6 @@ asociado a valores previos de glicemia (un paciente con valor de glicemia alto
 en una visita puede decidir aumentar su nivel de actividad fística para ver si
 este valor se reduce).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% aca tambien hablo un poco de coeficientes y modelos y aun no defini nada
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{Covariables rezagadas}
-
-En muchas aplicaciones, el historial completo de la CVT
-($X_{i1}, X_{i2}, ..., X_{ij}$) está disponible y es considerado como un
-potencial predictor de la
-respuesta $Y_{ij}$. En epidemiología, en el estudio de enfermedades crónicas, es
-común utilizar la exposición acumulada $X^*_{ij} = \sum_{s<j} X_{is}$, como por
-ejemplo los paquetes de cigarrillo fumados al año, como resumen apropiado del
-historial de exposición. En otros casos, solo se utiliza un pequeño subconjunto
-de valores recientes, $X_{ij-1}, X_{ij-2}, ..., X_{ij-k}$, ya que se supone que
-el efecto en la respuesta está concentrado en ellas (Samet et al,. 2000). En
-cualquier caso, el uso de más de un único valor de covariable rezagada puede dar
-lugar a predictores altamente correlacionados, a preguntas sobre la elección del
-número de covariables retrasadas y a la especificación de la estructura de los
-coeficientes de las covariables rezagadas.
-
-
 \section{Modelo lineal mixto}
 
 Los modelos lineales mixtos se utilizan habitualmente para analizar los datos
@@ -499,17 +479,14 @@ estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
 el que es sólo un 60\% eficiente en relación con la estructura de correlación
 verdadera.
 
-Por otro lado, Lai y Small (2007) propusieron utilizar el ``Método generalizado
-de los momento'' (GMM) (Hansen, 1982). En este método de estimación se puede
-incorporar información sobre la naturaleza de la CVT que se está analizando. Lai
-y Small (2007) definieron 3 tipos de CVT y luego Lalonde et. al (2014)
-definieron un cuarto tipo de CVT.
-
 Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
 al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
 ``Método generalizado de los momento'' (GMM) (Hansen, 1982) en el cual se puede
 incorporar información sobre la naturaleza de la CVT que se está analizando
 según su tipo.
+
+En conclusión, para poder utilizar las CVT en un modelo lineal mixto, esta debe
+cumplir la condicion de exogeneidad
 
 \newpage
 
@@ -521,9 +498,13 @@ según su tipo.
 
 Si al evaluar el tipo de la CVT de la manera vista en
 \ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
-modelo en su forma original o con cualquiera de sus transformaciones. Esto se
-debe a que no habrá problemas con la estimación de los parámetros, ya que
-se cumple el supuesto de independencia condicional.
+modelo mixto sin consideraciones adicionales. Esto se debe a que no habrá
+problemas con la estimación de los parámetros, ya que se cumple el supuesto de
+independencia condicional.
+
+A continuación, se presentan distintas maneras de introducir la CVT exógena al
+modelo mixto. De manera de ejemplo, se tomará un caso en el que la variable
+respuesta ``Y'' es la tensión arterial y la CVT ``X'' es el IMC en la ocasión j.
 
 \subsection{Convertirla en CNVT}
 
@@ -536,74 +517,86 @@ enfoque es que se pierde mucha información, dado que se usa una covariable más
 simple que no refleja la relación dinámica entre la covariable y la respuesta
 en el tiempo.
 
-\subsection{Covariable variable en el tiempo}
-completar...
+En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
+cada uno de los individuos y el modelo resultaría:
 
-\subsection{Una sola covariable rezagada}
+\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_i + \epsilon_{i} \]
+
+El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
+cada cambio de una unidad en el IMC promedio del individuo.
+
+\subsection{Covariable variable en el tiempo}
+
+Dado que la CVT es exógena, puede incorporarse sin ninguna transformación, el
+modelo resultaría:
+
+\[ Y_{ij} = \beta_0 + \beta_1 X_{ij} + \epsilon_{i} \]
+
+Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
+entre-unidad, sin embargo el modelo mixto va a tener solo un coeficiente
+$\beta_1$. Por lo tanto, el modelo mixto asume convergencia entre los efectos
+intra-unidad y entre-unidad (es decir, que son equivalentes y ambos pueden ser
+representados como un único efecto). Si bien el modelo es válido, para obtener
+una interpretación clara del efecto de la CVT se necesita dividir su efecto en
+dos coeficientes, como se explicará en la sección \ref{Dividiendo efecto
+entre-unidad y efecto intra-unidad}
+
+%%%% LESSA HOFFMAN PAGINA 345
+
+\subsection{Covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
 en un el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo,
-muchos agentes farmacológicos son rápidamente limpiados del cuerpo, por lo que
-sólo mantienen efectos por una corta duración y podria interesarnos solo su
-valor en el rezago anterior al actual. En este caso, si la covariable es
-exógena, puede ajustarse el modelo mixto sin más consideraciones. Lo más común
-es que se desconozca el valor $k$ apropiado y se consideren varias opciones
-diferentes. El modelo lineal mixto se definiría de la siguiente manera:
+podría interesarnos conocer el efecto del IMC en la ocasión anterior a la
+actual. Lo más común es que se desconozca el valor $k$ apropiado y se consideren
+varias opciones diferentes. El modelo mixto se definiría de la siguiente manera:
 
-\[
-	Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \bm{\beta'_2} \bm{W_i}
-\]
+\[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} \]
 
-Donde $\bm{W_i}$ representa una colección adicional de CNVT. En este modelo, el
-coeficiente $\beta_{1k}$ depende explícitamente de la elección del rezago $k$.
-
+En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
+elección del rezago $k$.
 
 \subsection{Funcion de las covariables rezagadas}
 
 Una alternativa cuando se quiere utilizar la información de las covariables
-rezagadas es resumir a través de una función la información de éstas en una
-sola covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la
-ocasión actual. Sin embargo, la elección de está funcion dependerá del tipo de
-problema a analizar. Cabe destacar que, al igual que con toda medida resumen, al
-usar este tipo de covariables se pierde parte de la información.
+rezagadas es resumir a través de una función la información de éstas en una sola
+covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
+actual. Sin embargo, la elección de está funcion dependerá del tipo de problema
+a analizar. Cabe destacar que, al igual que con toda medida resumen, al usar
+este tipo de covariables se pierde parte de la información. En el ejemplo
+mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
+resultando el modelo:
+
+\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_{ij} + \epsilon_{i} \]
+
+Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
+\label{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
-Otra forma de incorporar la CVT exógena es dividiéndola en dos componentes que
-reflejen la variación intra-sujeto y la variación entre-sujeto respecto
-a la CVT. Entonces, el término del modelo que representa a la covariable se
-puede descomponer en dos términos:
+Otra forma de incorporar la CVT es dividiéndola en dos componentes que reflejen
+la variación intra-unidad y la variación entre-unidad. Entonces, el coeficiente
+del modelo que representa a la covariable se puede descomponer en dos:
 
-\[
-	\beta X_{ij} = \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i
-\]
+\[ Y_{ij} = \beta_0 + \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i + \epsilon_{i} \]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
-en el tiempo de la CVT para el individuo $i$, $\beta_W$ representa el cambio
+en el tiempo de la CVT para la unidad $i$, $\beta_W$ representa el cambio
 esperado en la media de la variable respuesta asociado con cambios de la CVT
-dentro de las persona y $\beta_B$ representa el cambio esperado en la media de
-la variable respuesta asociado con cambios de la CVT entre personas
+dentro de la unidad y $\beta_B$ representa el cambio esperado en la media de
+la variable respuesta asociado con cambios de la CVT entre unidades
 
-%%%%%%%%%%%%%%%%
-% explicarlo en la aplicación
-%%%%%%%%%%%%%%%%
+En el ejemplo del IMC y la tensión arterial, $\beta_W$ se interpreta como el
+cambio en la tensión arterial por cada diferencia de una unidad en el IMC de la
+ocasión $j$ comparado con el IMC promedio de la persona, manteniendo constante
+el IMC de las ocasiones restantes. Por otro lado, $\beta_B$ se interpreta como
+el cambio en la tensión arterial por cada cambio de una unidad en el IMC
+promedio de la unidad, controlando por el valor del IMC de la ocasión $j$.
 
-Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
-presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
-presentó el valor codigicado con 1 de dicha covariable, por lo que el método
-anterior resultará en valores extraños para $\beta_W$. Por ejemplo, si el valor
-1 de la CVT se presentó en el 50\% de las ocasiones, $\overline{X}_i$ tendrá un
-valor de 0.5 y entonces el término que acompaña a $\beta_W$ será de -0.5 en las
-ocasiones que la CVT dicotómica no se presente y 0.5 en las que se presente. En
-términos de la estimación del modelo esto no genera ningún problema, pero será
-raro en la interpretación de los parámetros, dado que el parámetro $\beta_W$
-estará siempre presente (nunca estará acompañado de un 0). Una forma de evitar
-esto es dividiendo el efecto entre-persona e intra-persona de la siguiente
-manera:
-
-\[
-	\beta X_{ij} = \beta_W X_{ij} + \beta_B \overline{X}_i
-\]
+Estos dos efectos permiten medir entonces si la tensión arterial aumenta cuando
+una persona tiene un IMC mayor que el promedio de la población, y también
+permiten medir el cambio en la tensión arterial si dicha persona tiene IMC mayor
+que su promedio habitual.
 
 \newpage
 
@@ -626,12 +619,12 @@ este informe.
 
 \subsection{Análisis descriptivo}
 
-En esta sección se presentaran diversos gráficos para ayudar a entender un poco
-mejor la población en estudio.
+En esta sección se presentaran diversos gráficos con el fin de describir la
+población en estudio.
 
 En la figura \ref{TAS_vs_tpo} se puede observar que en general la TAS se
 mantiene constante (o con una muy leve pendiente decreciente) a través del
-tiempo. Esto a simple vista no resultaría muy alentador, dado que el propósito
+tiempo. Esto a simple vista podría resultar desalentador, dado que el propósito
 del tratamiento es disminuir la TAS a niveles más saludables. Sin embargo, como
 se mencionó anteriormente, los pacientes no adhirieron al 100\% el tratamiento,
 este efecto es el que estudiaremos más adelante. Cabe destacar que las
@@ -663,7 +656,7 @@ del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
 expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
 utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
 Podemos observar que en general la TAS disminuye, ya sea en mayor o menor
-medida, a los largo del tiempo. Analizando las covariables de a una, el IMC
+medida, a los largo del tiempo. Analizando las covariables una por una, el IMC
 parece no tener un efecto significativo, dado que, aunque los pacientes con
 menor IMC presentan menor TAS, los promedios en cada tiempo caen dentro de los
 intervalos de confianza de ambos grupos. En cuanto a la edad y el sexo, no
@@ -704,24 +697,15 @@ mantienen la TAS más constante.
 
 \subsubsection{Modelo propuesto para la media}
 
-El modelo \ref{modelo_simple} se obtuvo mediante el método stepwise, el cual
-consiste en ajustar un modelo con todas las covariables y en cada paso quitar la
-de mayor p-value (siempre y cuando no sea significativa) mientras que también se
-añaden las covariables que no están presentes en el modelo con el fin de volver
-a agregarlas si alguna tiene un efecto significativo. En el anexo pueden
-encontrarse todos los pasos de dicho proceso, el modelo obtenido es el
-siguiente:
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% AGREGAR PROCESO AL ANEXO %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+El modelo propuesto \ref{modelo_simple} es un modelo simple sin interacciones
+entre covariables, a pesar de que algunas de ellas podían resultar
+significativas, con fines de facilitar las interpretaciones de las distintas
+maneras de incluir la CVT al modelo.
 
 \begin{multline}
 	\label{modelo_simple}
-	\hat{y}_{ij} = 121.011\ +\ b_{0i}\ +\ 3.917\ sexo_i\ +\ 0.156\ edad_i\ -
-	\ 3.337\ diabetes_i \\
-	-\ 0.238\ mes_i\ -\ 0.689\ mes_i*diabetes_i\ +\ b_{1i}*mes_i\ +
-	\ \epsilon_{ij}
+	\hat{y}_{ij} = 121.311\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
+	-\ 0.332\ mes_j\ +\ b_{1i}*mes_j\
 \end{multline}
 
 \subsubsection{Modelo propuesto para la covariancia}
@@ -731,7 +715,8 @@ variabilidad total está compuesta por el error de medición dado que la curva n
 inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
 serial también puede considerarse pequeña. Por último, como la curva no llega a
 la variancia total, esto nos indica que debe explicarse la variancia entre
-individuos agregando una ordenada aleatoria.
+individuos agregando una ordenada aleatoria (ver Anexo
+\ref{eleccion_efectos_aleatorios}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AGREGAR PROCESO AL ANEXO %
@@ -754,22 +739,20 @@ Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 
 \begin{table}[H]
 	\centering
-	\label{modelo_1}
 	\caption{Modelo 1: Modelo propuesto sin CVT}
+	\label{modelo_1}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15424.7921} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30869.584} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30932.323} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15427.7627} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30871.525} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30921.716} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable & Coef.   & Std. Err. & z      & $P<|z|$    \\
 		\hline
-		Intercept & 121.011 & 2.357 & 51.352 & $<$ 0.001 \\
-		Sexo & 3.917 & 0.755 & 5.187 & $<$ 0.001 \\
-		Edad & 0.156 & 0.039 & 3.999 & $<$ 0.001 \\
-		DBT & 3.337 & 1.490 & 2.239 & 0.025 \\
-		tpo programa & -0.238 & 0.114 & -2.094 & 0.036 \\
-		tpo programa*DBT & -0.689 & 0.309 & -2.230 & 0.026 \\
+		Intercepto & 121.311 & 2.355     & 51.520 & $<0.001$   \\
+		Sexo       & 3.911   & 0.756     & 5.174  & $<0.001$   \\
+		Edad       & 0.158   & 0.039     & 4.074  & $<0.001$   \\
+		Mes 	   & -0.332  & 0.106     & -3.122 & $0.002$    \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -787,12 +770,12 @@ considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
-	\label{exog_table}
 	\caption{Resultados de la prueba de exogeneidad}
+	\label{exog_table}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		Ocasión\ (t) & $x_{t-1}$ & $\overline{x}_{t-2}$ & $y_{t-1}$ &
-		$\overline{y}_{t-2}$ \\
+		Ocasión\ (t) & $Adherencia_{t-1}$ & $\overline{Adherencia}_{t-2}$ & $TAS_{t-1}$ &
+		$\overline{TAS}_{t-2}$ \\
 		\hline
 		\hline
 		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
@@ -812,221 +795,263 @@ considerarse como una covariable exógena.
 
 \subsection{Incorporación de la CVT}
 
-Como se mencionó anteriormente, hay más de una manera de incorporar una CVT a un
-modelo mixto, en esta sección compararemos algunas de éstas.
+Como se mencionó anteriormente, hay más de una manera de incorporar una CVT
+exógena a un modelo mixto, en esta sección compararemos algunas de ellas.
 
 \subsubsection{Incorporación de covariable fija}
 
-Una de las transformaciones que puede aplicarse sobre la covariable "adherencia
-al tratamiento" es convertirla en una variable dicotómica, cuyo valor es 1 si el
-paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
-incorrecta en algún mes. Puede observarse en la tabla \ref{modelo_2} que la
-covariable solo es significativa en la ordenada al origen. Este modelo indica
-que, controlando por el resto de las variables, los pacientes con adherencia
-perfecta tienen en promedio 2.792 menor TAS en el primer mes del tratamiento y
-continúa disminuyendo en 0.265 por cada mes.
+Una de las transformaciones que puede aplicarse sobre la covariable ``adherencia
+al tratamiento'' es convertirla en una variable dicotómica, cuyo valor es 1 si
+el paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
+incorrecta en algún mes. En base a los resultados presentados en la tabla
+\ref{modelo_2_tabla}, controlando por el resto de las variables, los pacientes con
+adherencia perfecta presentan una disminución promedio sobre la TAS de 0.666.
 
-\begin{table}[H]
-	\centering
+\begin{multline}
 	\label{modelo_2}
-	\caption{Modelo 2: Incorporación adherencia perfecta}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15412.1077} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.215} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30923.501} \\
-		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
-		\hline
-		Intercept & 121.442 & 2.341 & 51.874 & $<$ 0.001 \\
-		Sexo & 3.807 & 0.740 & 5.147 & $<$ 0.001 \\
-		Edad & 0.173 & 0.038 & 4.513 & $<$ 0.001 \\
-		DBT & 3.364 & 1.481 & 2.272 & 0.023 \\
-		Adherencia Perfecta & -2.792 & 1.015 & -2.750 & 0.006 \\
-		tpo programa & -0.108 & 0.154 & -0.702 & 0.483 \\
-		tpo programa*DBT & -0.683 & 0.308 & -2.215 & 0.027 \\
-		tpo programa*Adherencia Perfecta & -0.265 & 0.211 & -1.253 & 0.210 \\
-		\hline
-	\end{tabular}
-\end{table}
-
-Otra manera de incorporar la covariable fija sin perder tanta información es
-usar la proporción de adherencia correcta al final del estudio. Es decir, si de
-las 7 ocasiones el paciente adhirio correctamente al tratamiento en solo 5, el
-valor que se le asignará es 5/7 ($\approx 0.71$). Los coeficientes de este
-modelo indican que, controlando por el resto de las variables, los pacientes
-tienen en promedio un porcentaje de 3.063 menor TAS al primer mes de tratamiento
-equivalente al porcentaje de adherencia total, y continuará disminuyendo en un
-porcentaje de 0.965 por mes también equivalente al porcentaje de adherencia
-total. Por ejemplo, un paciente que adhirió correctamente sólo al 50\% del
-tratamiento, tendra una TAS en promedio un 1.5315 ($3.063 x 0.5$) menor que un
-paciente que no adhirio correctamente en ninguna ocasión.
+	\hat{y}_{ij} = 120.719\ +\ b_{0i}\ +\ 3.845\ sexo_i\ +\ 0.169\ edad_i\ \\
+	-\ 0.002\ mes_j\ -\ 0.666\ mes_j*adherencia\ perfecta_i\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
-	\label{modelo_3}
-	\caption{Modelo 3: incorporación adherencia total}
+	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15414.7464} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30853.492} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30928.779} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.7275} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.455} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.92} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable				& Coef.   & Std. Err. & z      & $P<|z|$ \\
 		\hline
-		Intercept & 122.805 & 2.843 & 43.193 & $<$ 0.001 \\
-		Sexo & 3.738 & 0.746 & 5.008 & $<$ 0.001 \\
-		Edad & 0.169 & 0.039 & 4.390 & $<$ 0.001 \\
-		DBT & 3.412 & 1.489 & 2.291 & 0.022 \\
-		Adherencia Total & -3.063 & 2.150 & -1.425 & 0.154 \\
-		tpo programa & 0.549 & 0.380 & 1.448 & 0.148 \\
-		tpo programa*DBT & -0.657 & 0.308 & -2.133 & 0.033 \\
-		tpo programa*Adherencia Total & -0.965 & 0.444 & -2.174 & 0.030 \\
+		Intercepto              & 120.719 & 2.320 	  & 52.038 & $<0.001$  \\
+		Sexo                    & 3.845   & 0.743     & 5.176  & $<0.001$  \\
+		Edad                    & 0.169   & 0.038     & 4.414  & $<0.001$  \\
+		Mes                     & -0.002  & 0.131 	  & -0.017 & $0.986$   \\
+		Mes*Adherencia Perfecta & -0.666  & 0.155     & -4.286 & $<0.001$  \\
 		\hline
 	\end{tabular}
 \end{table}
 
-Puede notarse que ambas maneras de introducir la covariable ayudan para explicar
-el comportamiento de la TAS en el estudio (siendo la primera opción levemente
-mejor, ya que el AIC y el BIC son menores).
+Otra manera de incorporar la covariable fija conservando más información es usar
+la proporción de adherencia correcta al final del estudio. Es decir, si de las 7
+ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
+que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes
+presentados en la tabla \ref{modelo_3_tabla} indican que, controlando por el resto de
+las variables, los pacientes presentan una disminución promedio en la TAS por
+mes de 1.410 proporcional a la adherencia correcta al tratamiento. Por ejemplo,
+un paciente que adhiere correctamente sólo al 50\% del tratamiento, tendrá una
+disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
+
+\begin{multline}
+	\label{modelo_3}
+	\hat{y}_{ij} = 120.754\ +\ b_{0i}\ +\ 3.776\ sexo_i\ +\ 0.169\ edad_i\ \\
+	+\ 0.826\ mes_j\ -\ 1.410\ mes_j*adherencia\ total_i\ \ +\ b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo 3: incorporación adherencia total}
+	\label{modelo_3_tabla}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.5232} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.046} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.511} \\
+		\hline
+		Covariable 			 & Coef.   & Std. Err. & z 	    & $P<|z|$  \\
+		\hline
+		Intercepto           & 120.754 & 2.331     & 51.814 & $<0.001$ \\
+		Sexo                 & 3.776   & 0.747     &  5.054 & $<0.001$ \\
+		Edad                 & 0.169   & 0.038     &  4.391 & $<0.001$ \\
+		Mes                  & 0.826   & 0.287     &  2.876 & $0.004$  \\
+		Mes*Adherencia Total & -1.410  & 0.325     & -4.335 & $<0.001$ \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsubsection{Incorporación como CVT}
 
-Como vimos anteriormente, la CVT puede considerarse exógena, por lo tanto puede
-introducirse al modelo en su forma natural. Los coeficientes de Adherencia de
-este modelo y de los siguientes no son fácilmente interpretables, dado que
-contienen los efectos tanto entre-persona como intra-persona.
+La manera más simple de introducir una CVT exógena a un modelo mixto es en su
+forma natural. Sin embargo, como se mencionó anteriormente, su coeficiente no
+será interpretable y no será dificil sacar conclusiones sobre como afecta la
+adherencia a la TAS. Los resultados pueden observarse en la tabla.
+\ref{modelo_4_tabla}.
 
-\begin{table}[H]
-	\centering
+\begin{multline}
 	\label{modelo_4}
-	\caption{Modelo 4: incorporación la adherencia en cada ocasión}
+	\hat{y}_{ij} = 120.911\ +\ b_{0i}\ +\ 3.772\ sexo_i\ +\ 0.165\ edad_i\ \\
+	+\ 0.791\ mes_j\ -\ 1.316\ mes_j*adherencia_{ij}\ +\ b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo 4: incorporación adherencia en cada ocasión}
+	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15388.2302} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.460} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30875.746} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.8815} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30805.763} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30862.228} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable 	   & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercept & 122.388 & 2.426 & 50.444 & $<$ 0.001 \\
-		Sexo & 3.768 & 0.746 & 5.054 & $<$ 0.001 \\
-		Edad & 0.164 & 0.038 & 4.271 & $<$ 0.001 \\
-		DBT & 3.212 & 1.485 & 2.163 & 0.031 \\
-		Adherencia & -2.321 & 0.922 & -2.517 & 0.012 \\
-		tpo programa & 0.442 & 0.242 & 1.828 & 0.067 \\
-		tpo programa*DBT & -0.584 & 0.306 & -1.906 & 0.057 \\
-		tpo programa*Adherencia & -0.783 & 0.262 & -2.984 & 0.003 \\
+		Intercepto     & 120.911 & 2.329 	 & 51.912 & $<0.001$ \\
+		Sexo           & 3.772   & 0.747 	 & 5.046  & $<0.001$ \\
+		Edad           & 0.165   & 0.038 	 & 4.297  & $<0.001$ \\
+		Mes            & 0.791   & 0.171 	 & 4.613  & $<0.001$ \\
+		Mes*Adherencia & -1.316  & 0.159 	 & -8.279 & $<0.001$ \\
 		\hline
 	\end{tabular}
 \end{table}
 
-Al comparar los criterios de AIC y BIC de este modelo con los anteriores se
-puede notar que han disminuido en gran medida, lo cual quiere decir que este
-modelo explica la variación de la TAS de mejor manera. Además, ambos efectos de
-adherencia (ordenada y pendiente) son significativos en este modelo, lo cual no
-ocurria en los modelos anteriores. Este comportamiento es el esperado, dado que
-se está usando toda la información disponible de la CVT en cada momento en vez
-de resumirla.
+Otra opción, en lugar de considerar la adherencia en la ocasión actual, es
+considerarla en la ocasión anterior. Esto permitiria investigar si el
+tratamiento afecta a la TAS en un determinado intervalo de tiempo y no de manera
+instantánea. Los resultados se presentan en la tabla \ref{modelo_5_tabla}.
 
-Además de incorporar la adherencia en cada ocasión, también puede acompañarse de
-la adherencia en momentos anteriores o algunas medidas resumenes, algunos
-ejemplos pueden observarse en las siguientes tablas.
-
-\begin{table}[H]
-	\centering
+\begin{multline}
 	\label{modelo_5}
-	\caption{Modelo 5: incorporación la adherencia en cada ocasión y en ocasión anterior}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1933} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.386} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.946} \\
-		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
-		\hline
-		Intercept & 122.467 & 2.426 & 50.485 & $<$ 0.001 \\
-		Sexo & 3.755 & 0.745 & 5.038 & $<$ 0.001 \\
-		Edad & 0.166 & 0.038 & 4.309 & $<$ 0.001 \\
-		DBT & 3.205 & 1.486 & 2.157 & 0.031 \\
-		Adherencia & -2.527 & 0.933 & -2.709 & 0.007 \\
-		tpo programa & 0.543 & 0.252 & 2.157 & 0.031 \\
-		tpo programa*DBT & -0.579 & 0.307 & -1.888 & 0.059 \\
-		tpo programa*Adherencia & -0.671 & 0.274 & -2.451 & 0.014 \\
-		tpo programa*Adherencia lag1 & -0.232 & 0.161 & -1.440 & 0.150 \\
-		\hline
-	\end{tabular}
-\end{table}
+	\hat{y}_{ij} = 121.089\ +\ b_{0i}\ +\ 3.870\ sexo_i\ +\ 0.162\ edad_i\ \\
+	+\ 0.089\ mes_j\ -\ 0.501\ mes_j*adherencia_{ij-1}\ +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
-	\label{modelo_6}
-	\caption{Modelo 6: incorporación la adherencia en cada ocasión y adherencia acumulada}
+	\caption{Modelo 5: incorporación adherencia en la ocasión anterior}
+	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.1802} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30800.360} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30881.920} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.5776} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30863.155} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30919.62} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable 		   & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercept & 122.454 & 2.425 & 50.503 & $<$ 0.001 \\
-		Sexo & 3.735 & 0.745 & 5.011 & $<$ 0.001 \\
-		Edad & 0.168 & 0.039 & 4.370 & $<$ 0.001 \\
-		DBT & 3.199 & 1.486 & 2.153 & 0.031 \\
-		Adherencia & -2.694 & 0.957 & -2.816 & 0.005 \\
-		tpo programa & 0.678 & 0.291 & 2.328 & 0.020 \\
-		tpo programa*DBT & -0.581 & 0.306 & -1.896 & 0.058 \\
-		tpo programa*Adherencia & -0.547 & 0.309 & -1.772 & 0.076 \\
-		tpo programa*Adherencia Acumulada & -0.527 & 0.364 & -1.450 & 0.147 \\
+		Intercepto         & 121.089 & 2.341     & 51.716 & $<0.001$ \\
+		Sexo               & 3.870   & 0.751     & 5.152  & $<0.001$ \\
+		Edad               & 0.162   & 0.039     & 4.193  & $<0.001$ \\
+		Mes                & 0.089   & 0.168     & 0.531  & $0.595$  \\
+		Mes*Adherencia lag & -0.501  & 0.155     & -3.228 & $0.001$  \\
 		\hline
 	\end{tabular}
 \end{table}
 
-En las tablas \ref{modelo_5} y \ref{modelo_6} puede notarse que las covariables
-adicionales no son significativas. Otra forma de comparar estos modelos con el
-modelo 4 es a través del criterio BIC, que es mayor en ambos casos. Como
-conclusión, la mejor decisión hasta el momento es el modelo 4 que se mantiene
-más parsimonioso.
+Otra opción podría ser transformar la CVT e incorporar la adherencia promedio
+hasta la ocasión actual. Es decir, si en la ocasión 4 un paciente adhirio
+correctamente solo en 2 ocasiones, su adherencia promedio será de $\frac{2}{4}$
+($0.5$). Sin embargo, si adhiere correctamente en la ocasión 5, entonces la
+adherencia promedio en esa ocasión será $\frac{3}{5}$ ($0.6$). Los resultados se
+presentan en la tabla \ref{modelo_6_tabla}.
+
+\begin{multline}
+	\label{modelo_6}
+	\hat{y}_{ij} = 120.570\ +\ b_{0i}\ +\ 3.777\ sexo_i\ +\ 0.171\ edad_i\ \\
+	+\ 0.899\ mes_j\ -\ 1.499\ mes_j*adherencia\ acumulada_{ij}\ +\ b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo 6: incorporación adherencia acumulada}
+	\label{modelo_6_tabla}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.2415} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.483} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30904.948} \\
+		\hline
+		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$ \\
+		\hline
+		Intercepto               & 120.570 & 2.333     & 51.669 & $<0.001$ \\
+		Sexo                     & 3.777   & 0.748     & 5.053  & $<0.001$ \\
+		Edad                     & 0.171   & 0.039     & 4.448  & $<0.001$ \\
+		Mes                      & 0.899   & 0.267     & 3.367  & $0.001$  \\
+		Mes*Adherencia Acumulada & -1.499  & 0.298     & -5.022 & $<0.001$ \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsubsection{Incorporación dividiendo efecto entre e intra}
 
-El efecto de la CVT puede también dividirse en distintos coeficientes para el
-efecto entre-persona y el efecto intra-persona, los valores de éstos
-coeficientes pueden observarse en la tabla \ref{modelo_7}. El coeficiente -0.607
-quiere decir que, manteniendo constante la proporción de adherencia total al
-tratamiento, se espera que la TAS disminuya en promedio 0.607 los meses en los
-que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
--0.481 se interpreta como, después de controlar por la adherencia al tratamiento
-en ese mes, se espera que la TAS disminuya en promedio en 0.481 relativo a la
+Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
+presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
+presentó el valor codificado con 1 de dicha covariable, por lo que el método
+anterior resultará en valores extraños para $\beta_W$ si usamos $X_i -
+\overline{X}_i$. Por ejemplo, si el valor 1 de la CVT se presentó en el 50\% de
+las ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
+acompaña a $\beta_W$ será de -0.5 en las ocasiones que la CVT dicotómica no se
+presente y 0.5 en las que se presente. En términos de la estimación del modelo
+esto no genera ningún problema, pero será raro en la interpretación de los
+parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
+estará acompañado de un 0). Por lo tanto, el efecto intra-unidad estará
+acompañado solo de $X_i$
+
+Los resultados pueden observarse en la tabla \ref{modelo_7_tabla}. El coeficiente
+-1.261 quiere decir que, manteniendo constante la proporción de adherencia total
+al tratamiento, se espera que la TAS disminuya en promedio 1.261 los meses en
+los que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
+-0.246 quiere decir que, después de controlar por la adherencia al tratamiento
+en ese mes, se espera que la TAS disminuya en promedio en 0.246 relativo a la
 proporción de adherencia total.
+
+\begin{multline}
+	\label{modelo_7}
+	\hat{y}_{ij} = 120.832\ +\ b_{0i}\ +\ 3.754\ sexo_i\ +\ 0.167\ edad_i\ \\
+	+\ 0.946\ mes_j\ -\ 1.261\ mes_j*adherencia_{ij}\ -\ 0.246\ mes_j*adherencia\ total_i\  +\ b_{1i}*mes_j\
+\end{multline}
 
 \begin{table}[H]
 	\centering
-	\label{modelo_7}
 	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
+	\label{modelo_7_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15387.3388} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30802.677} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30890.511} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.6515} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30807.303} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30870.042} \\
 		\hline
-		Covariable & Coef. & Std. Err. & z & $P<|z|$ \\
+		Covariable 			 & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercept & 122.542 & 2.841 & 43.141 & $<$ 0.001 \\
-		Sexo & 3.729 & 0.746 & 4.997 & $<$ 0.001 \\
-		Edad & 0.168 & 0.039 & 4.348 & $<$ 0.001 \\
-		DBT & 3.220 & 1.487 & 2.166 & 0.030 \\
-		Adherencia & -2.611 & 1.054 & -2.478 & 0.013 \\
-		Adherencia Total & -0.121 & 2.380 & -0.051 & 0.959 \\
-		tpo programa & 0.689 & 0.378 & 1.822 & 0.068 \\
-		tpo programa*DBT & -0.578 & 0.306 & -1.887 & 0.059 \\
-		tpo programa*Adherencia & -0.607 & 0.314 & -1.930 & 0.054 \\
-		tpo programa*Adherencia Total & -0.481 & 0.528 & -0.911 & 0.362 \\
+		Intercepto           & 120.832 & 2.330     & 51.855 & $<0.001$ \\
+		Sexo                 & 3.754   & 0.747     &  5.023 & $<0.001$ \\
+		Edad                 & 0.167   & 0.039     &  4.333 & $<0.001$ \\
+		Mes                  & 0.946   & 0.286     &  3.307 & $0.001$  \\
+		Mes*Adherencia       & -1.261  & 0.178     & -7.078 & $<0.001$ \\
+		Mes*Adherencia Total & -0.246  & 0.363     & -0.678 & $0.498$  \\
 		\hline
 	\end{tabular}
 \end{table}
+
+\subsubsection{Comparación de los métodos}
+
+\begin{table}[H]
+	\centering
+	\caption{Comparación de modelos}
+	\label{comparacion}
+	\begin{tabular}{*{4}{|c}|}
+		\hline
+		Modelo   & Log-Likelihood & AIC       & BIC       \\
+		\hline
+		Modelo 1 & -15427.763     & 30871.525 & 30921.716 \\
+		Modelo 2 & -15418.727     & 30855.455 & 30911.92  \\
+		Modelo 3 & -15418.523     & 30855.046 & 30911.511 \\
+		Modelo 4 & -15393.881     & 30805.763 & 30862.228 \\
+		Modelo 5 & -15422.578     & 30863.155 & 30919.62  \\
+		Modelo 6 & -15415.241     & 30848.483 & 30904.948 \\
+		Modelo 7 & -15393.6515    & 30807.303 & 30870.042 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En la tabla \ref{comparacion} puede observarse que contemplando los criterios de
+Log-Likelihood, AIC y BIC, los modelos que mejor ajustan los datos son el Modelo
+4 y el Modelo 7, siendo el Modelo 4 ligeramente mejor. Esto tiene sentido ya que
+el Modelo 4 es el que incorpora la covariable en su manera original, es decir,
+sin realizar ninguna transformación ni perder parte de su información. Por otro
+lado, el Modelo 7 realiza algo similar pero de manera interpretable dividiendo
+su efecto en 2 coeficientes.
 
 \newpage
 
@@ -1046,10 +1071,145 @@ tradicional. Sin embargo, se han propuesto diversas transformaciones que pueden
 ayudar tanto a ajustar de mejor manera los datos como a la interpretación de los
 coeficientes.
 
-Como futuros pasos se propone estudiar de manera más profunda la incorporación
+También se mostró un ejemplo con un caso de estudio de pacientes de un programa
+de atención y control de pacientes hipertensos. En base a estos datos se
+ajustaron diferentes modelos con las distintas formas mencionadas de introducir
+la CVT y se realizó una comparación de los mismos.
+
+Como futuros pasos se propone estudiar más en profundida la incorporación
 de variables endógenas. Dado que muchas de las técnicas existentes hasta el
 momento no están basadas en el ajuste de modelos lineales mixtos, quedan fuera
 del alcance de esta tesina.
+
+\newpage
+
+\section{Anexo}
+
+\subsection{Elección de efectos aleatorios}
+\label{eleccion_efectos_aleatorios}
+
+Para probar la siginificación de los efectos aleatorios se ajustaron 3 modelos,
+uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
+solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
+con el método de máxima verosimilitud restringida, el primer modelo es uno con
+ordenada y pendiente aletoria y sus resultados pueden observarse en la tabla
+\ref{modelo_both}.
+
+\begin{multline}
+	\label{modelo_both_equation}
+	\hat{y}_{ij} = 121.310\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
+	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con ambos efectos aleatorios}
+	\label{modelo_both}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15430.8279} \\
+		\multicolumn{3}{|c}{Var(Intercepto)} & \multicolumn{2}{|c|}{93.866} \\
+		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{2.219} \\
+		\multicolumn{3}{|c}{Cov(Intercepto, Mes)} & \multicolumn{2}{|c|}{-8.287} \\
+		\hline
+		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercepto & 121.310 & 2.361     & 51.384 & $<0.001$ \\
+		Sexo       & 3.911   & 0.758     & 5.160  & $<0.001$ \\
+		Edad       & 0.158   & 0.039     & 4.063  & $<0.001$ \\
+		Mes 	   & -0.332  & 0.106     & -3.119 & $0.002$  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Donde \[
+	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
+	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
+\]
+
+Se ajusta un modelo solo con pendiente aleatoria obteniéndose los siguientes
+resultados:
+
+\begin{multline}
+	\label{modelo_pendiente_equation}
+	\hat{y}_{ij} = 121.941\ +\ 3.899\ sexo_i\ +\ 0.148\ edad_i\
+	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con pendiente aleatoria}
+	\label{modelo_pendiente}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15661.8792} \\
+		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{3.017} \\
+		\hline
+		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercepto & 121.941 & 1.636     & 74.516 & $<0.001$ \\
+		Sexo       & 3.899   & 0.526     & 7.414  & $<0.001$ \\
+		Edad       & 0.148   & 0.027     & 5.466  & $<0.001$ \\
+		Mes 	   & .0.332  & 0.122     & -2.719 & $0.007$  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Y se plantea el siguiente test de hipótesis:
+
+$ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
+
+Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
+reducido obtenemos:
+
+$ G^2(MR) - G^2(MC) = 31323.7584 - 30861.6558 = 462.1026 $
+
+Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
+por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
+ordenada al origen aleatoria.
+
+Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
+obtiene:
+
+\begin{multline}
+	\label{modelo_ordenada_equation}
+	\hat{y}_{ij} = 121.431\ +\ b_{0i}\ +\ 3.909\ sexo_i\ +\ 0.156\ edad_i\
+	-\ 0.332\ mes_j\
+\end{multline}
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con ordenada aleatoria}
+	\label{modelo_ordenada}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15456.0774} \\
+		\multicolumn{3}{|c}{Var(Intercepto)} & \multicolumn{2}{|c|}{62.634} \\
+		\hline
+		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		Intercepto & 121.431 & 2.356     & 51.547 & $<0.001$ \\
+		Sexo       & 3.909   & 0.760     & 5.143  & $<0.001$ \\
+		Edad       & 0.156   & 0.039     & 4.002  & $<0.001$ \\
+		Mes 	   & -0.332  & 0.089     & -3.707 & $<0.001$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Se vuelve a plantear el test de hipótesis pero esta vez para la pendiente:
+
+$ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
+
+Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
+reducido obtenemos:
+
+$ G^2(MR) - G^2(MC) = 30912.1548 - 30861.6558 = 50.499 $
+
+Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
+por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
+pendiente aleatoria.
+
+En conclusión, ambos efectos aleatorios son añadidos al modelo.
 
 \newpage
 \nocite{*}
