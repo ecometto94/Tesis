@@ -185,24 +185,24 @@ Estas tres fuentes de variación pueden clasificarse en \textit{``variabilidad
 entre unidades''} (heterogeneidad entre unidades) y \textit{``variabilidad
 intra unidades''} (variación biológica intra-unidad y error de medición)
 
-Con el fin de simplificar la notación, se asumirá que los tiempos de medición
-son los mismos para todas las unidades y que no hay datos faltantes.
-
-Se obtiene una muestra de $N$ unidades cada una con $n$ mediciones repetidas de
-la variable en estudio, observadas en los tiempos $t_1, t_2, ..., t_n$, siendo
-entonces el número total de observaciones $N^*=Nn$. Se denomina $Y_{ij}$ a la
-medición sobre la unidad $i$ en la ocasión $j$, con $i=1, ..., N; j=1, ..., n$
-
-A cada unidad se le observan las covariables $X_{ij}$ medidas sobre la unidad $i$
-en la ocasión $j$. Se asume que $Y_{ij}$ y $X_{ij}$ son simultáneamente medidas.
-Esto quiere decir que en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$
-se correlacionan directamente. Sin embargo, para un análisis longitudinal se
-debe asumir que existe un orden pre-establecido: $(X_{i1}, Y_{i1}), (X_{i2},
-Y_{i2}), ..., (X_{in}, Y_{in})$
-
 Dado que estas fuentes de variabilidad introducen correlación entre las
 mediciones repetidas, no se pueden utilizar las técnicas habituales, ya que
 llevarían a inferencias incorrectas sobre los parámetros del modelo.
+
+Con el fin de simplificar la notación, se asumirá que los tiempos de medición
+son los mismos para todas las unidades y que no hay datos faltantes.
+
+Sean $Y_{ij}$ el valor de la variable respuesta y $X_{ij}$ las covariables,
+medidas sobre la unidad $i$ en la ocasión $j$, se obtiene una muestra de $N$
+unidades cada una con $n$ mediciones repetidas de la variable en estudio,
+observadas en los tiempos $t_1, t_2, ..., t_n$, siendo entonces el número total
+de observaciones $N^*=Nn$, con $i=1, ..., N; j=1, ..., n$.
+
+Se asume que $Y_{ij}$ y $X_{ij}$ son simultáneamente medidas. Esto quiere decir
+que en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$ se correlacionan
+directamente. Sin embargo, para un análisis longitudinal se debe asumir que
+existe un orden pre-establecido:
+$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
 
 \section{Covariables en datos longitudinales}
 
@@ -231,10 +231,10 @@ ejemplo, la edad varia en el tiempo pero la edad basal es fija.
 \subsection{Covariables variables en el tiempo}
 
 Las CVT son variables independientes que incluyen tanto la variación
-intra-unidad como la variación entre-unidad. Esto significa que, para una
-unidad en particular, el valor de la covariable cambia a través del tiempo y
-puede cambiar también entre diferentes unidades. Por ejemplo, el valor de la
-presión arterial o la condición de fumador (si/no).
+intra-unidad como la variación entre-unidad. Esto significa que, para una unidad
+en particular, el valor de la covariable cambia a través del tiempo y puede
+cambiar también entre diferentes unidades. Por ejemplo, el valor del colesterol
+o la condición de fumador (si/no).
 
 A continuación se describen diferentes tipos de CVT.
 
@@ -246,9 +246,8 @@ pero son fijas por diseño del estudio o bien su valor puede predecirse. En
 cambio, las CVT estocásticas son covariables que varían aleatoriamente a través
 del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados
 ya que son gobernados por un mecanismo aleatorio. Ejemplos de las primeras son:
-tiempo desde la visita basal, edad, grupo de tratamiento. Ejemplos de las
-segundas son: valor del colesterol, ingesta de alcohol (si/no), ingesta de
-grasas, etc.
+tiempo desde la visita basal o edad. Ejemplos de las segundas son: valor del
+colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 
 \subsubsection{Covariables exógenas y endógenas}
 \label{seccion_de_exogeneidad}
