@@ -256,23 +256,22 @@ Otra clasificación de las CVT es en exógenas y endógenas.
 
 \paragraph{Covariables exógenas} \mbox{} \\
 
-Se dice que una CVT es
-exógena cuando los valores actuales y anteriores de la respuesta en la ocasión
-$j (\bm{Y}_{i1}, ..., \bm{Y}_{ij})$, dados los valores actuales y precedentes de
-la CVT $(\bm{X}_{i1}, ..., \bm{X}_{ij})$, no predicen el valor posterior de
-$\bm{X}_{ij+1}$. Formalmente, una CVT es exógena cuando:
+Una CVT se define como exógena, respecto a la variable respuesta, si el valor de
+la covariable en un determinado momento es condicionalmente independiente de
+todos los valores precedentes de la variable respuesta. Formalmente, para la
+unidad $i$ en la ocasión $j$:  
 
 \begin{equation}
 	\label{exogeneidad}
-	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij}, \bm{Y}_{i1}, ..., \bm{Y}_{ij}) =
-	f(\bm{X}_{ij+1}|\bm{X}_{i1}, ..., \bm{X}_{ij})
+	f(X_{ij}|X_{i1}, ..., X_{ij-1}, Y_{i1}, ..., Y_{ij}) =
+	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
 
 Y en consecuencia:
 
 \begin{equation}
 	\label{exogeneidad debil}
-	E(\bm{Y}_i|\bm{X}_i) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{in}) = E(\bm{Y}_i|\bm{X}_{i1}, ..., \bm{X}_{ij})
+	E(\bm{Y_i}|\bm{X_i}) = E(\bm{Y_i}|X_{i1}, ..., X_{in}) = E(\bm{Y_i}|X_{i1}, ..., X_{ij})
 \end{equation}
 
 Esta definición implica que la respuesta en cualquier momento puede depender de
@@ -304,7 +303,7 @@ Esta también puede definirse como una variable generada por un proceso
 estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
 endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
-una CVT endógena puede ser (al menos parcialmente) explicado por la variable de
+una CVT endógena puede ser (al menos parcialmente) explicado por la variable
 respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
 endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física está
 asociada al nivel de glicemia. El nivel de actividad física en un determinado
@@ -317,13 +316,12 @@ este valor se reduce).
 
 Los modelos lineales mixtos se utilizan habitualmente para analizar los datos
 longitudinales, debido a que permiten modelar las distintas fuentes de
-variabilidad presentes en los mismos. Cada unidad tiene una trayectoria
-individual caracterizada por parámetros y un subconjunto de esos parámetros se
-consideran aleatorios.
+variabilidad presentes en los mismos.
 
-La respuesta media es modelada como una combinación de características
-poblacionales que son comunes a todos los individuos (efectos fijos) y efectos
-específicos de la unidad que son únicos de ella (efectos aleatorios).
+En estos modelos, la respuesta media se modela como una combinación de
+características poblacionales que son comunes a todos los individuos (efectos
+fijos) y efectos específicos de la unidad que son únicos de ella (efectos
+aleatorios).
 
 El modelo lineal mixto para la unidad $i$ se puede expresar en forma matricial
 como:
@@ -331,14 +329,13 @@ como:
 \[
 	\bm{Y}_i = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i + \bm{\varepsilon}_i;
 	\quad i = 1, ..., N;
-	\quad \bm{Y}_i = (Y_{i1}, Y_{i2}, ... Y_{in})'
 \]
 
 Donde:
 
 \begin{itemize}
 	\item $\bm{Y}_i$: Vector de la variable respuesta de la i-ésima unidad, de
-	dimensión $(n \times 1)$
+	dimensión $(n \times 1)$, siendo $\bm{Y}_i = (Y_{i1}, Y_{i2}, ... Y_{in})'$
 	\item $\bm{X}_i$: Matriz de diseño de la i-ésima unidad, que caracteriza la
 	parte sistemática de la respuesta, de dimensión $(n \times p)$
 	\item $\bm{\beta}$: Vector de parámetros de dimensión $(p \times 1)$
@@ -367,8 +364,9 @@ modelo se obtiene:
 	\item $Cov(\bm{Y}_i) = \bm{Z}_i \bm{D}_i \bm{Z}'_i + \bm{R}_i = \bm{\varSigma}_i$ (variancia marginal)
 \end{itemize}
 
-Generalmente, la matriz $\bm{D}$ adopta una estructura de covariancia arbitraria,
-mientras que la matriz $\bm{R}_i$ adopta cualquier otra estructura.
+Generalmente, la matriz $\bm{D}$ adopta una estructura de covariancia
+arbitraria, mientras que la matriz $\bm{R}_i$ adopta otra estructura que modela
+apropiadamente la variabilidad intra individuo.
 
 \subsection{Estimación de los parámetros del modelo}
 
@@ -417,12 +415,12 @@ puede demostrar que asintóticamente (Fitzmaurice et al., 2004):
 
 El inconveniente que posee el método de ML es que los parámetros de covariancia
 resultan sesgados. Es decir, a pesar de que $\bm{\hat{\beta}}$ es un estimador
-insesgado de $\bm{\beta}$, no pasa lo mismo con $\bm{\theta}$. Si el tamaño de
-muestra es chico, los parámetros que representan las variancias van a ser
-demasiado pequeños, dando así una visión muy optimista de la variabilidad de las
-mediciones, es decir, se subestiman los parámetros de covariancia. El sesgo se
-debe a que en la estimación MV no se tiene en cuenta que $\bm{\beta}$ es
-estimado a partir de los datos.
+insesgado de $\bm{\beta}$, no pasa lo mismo con $\bm{\hat{\theta}}$. Si el
+tamaño de muestra es chico, los parámetros que representan las variancias van a
+ser demasiado pequeños, dando así una visión muy optimista de la variabilidad de
+las mediciones, es decir, se subestiman los parámetros de covariancia. El sesgo
+se debe a que en la estimación ML de $\bm{\theta}$ no se tiene en cuenta que
+$\bm{\beta}$ es estimado a partir de los datos.
 
 Distintos autores proponen el método de REML para estimar los parámetros del
 modelo. Este método es una modificación del método de máxima verosimilitud, en
@@ -448,7 +446,7 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$
 \subsubsection{Problemas con la estimación}
 
 Pepe y Anderson (1994) mostraron que las ecuaciones \ref{ML} y \ref{REML} llegan
-a cero solo si se cumple con el supuesto:
+a cero solo si se cumple con el supuesto de independencia condicional:
 
 \begin{equation}
 \label{estimation_issue}
@@ -456,13 +454,13 @@ a cero solo si se cumple con el supuesto:
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
-X_{ik}$ para todas las ocasiones $k \neq j$. Con las CVT que se fijan por diseño
-del estudio (por ejemplo, indicador de grupo de tratamiento en una prueba
-cruzada), la suposición también se cumple ya que los valores de las covariables
-en cualquier ocasión se determinan a priori por diseño del estudio y de manera
-completamente no relacionado con la respuesta longitudinal. Sin embargo, cuando
-una covariable es variable en el tiempo, puede que no necesariamente se
-mantenga.
+X_{ik}$ para todas las ocasiones $k \neq j$. Con las CVT estocásticas, que se
+fijan por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en
+una prueba cruzada), la suposición también se cumple ya que los valores de las
+covariables en cualquier ocasión se determinan a priori por diseño del estudio y
+de manera completamente no relacionado con la respuesta longitudinal. Sin
+embargo, cuando una covariable es variable en el tiempo no estocástica, puede
+que no necesariamente se mantenga.
 
 En general, cuando (\ref{estimation_issue}) no se cumple, los valores
 precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
@@ -486,8 +484,10 @@ al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
 incorporar información sobre la naturaleza de la CVT que se está analizando
 según su tipo.
 
-En conclusión, para poder utilizar las CVT en un modelo lineal mixto, esta debe
-cumplir la condicion de exogeneidad
+En conclusión, para poder utilizar una CVT en un modelo lineal mixto, esta debe
+cumplir la condicion de exogeneidad. En el siguiente apartado se describen
+diferentes formas en las que se puede incluir la CVT exógena al modelo lineal
+mixto.
 
 \newpage
 
@@ -505,18 +505,19 @@ independencia condicional.
 
 A continuación, se presentan distintas maneras de introducir la CVT exógena al
 modelo mixto. De manera de ejemplo, se tomará un caso en el que la variable
-respuesta ``Y'' es la tensión arterial y la CVT ``X'' es el IMC en la ocasión j.
+respuesta $Y_{ij}$ y la CVT $X_{ij}$ son la tensión arterial y el IMC,
+respectivamente, del paciente $i$ en la ocasión $j$.
 
 \subsection{Convertirla en CNVT}
 
-Una solución rápida al problema de las CVT es transformarla en una CNVT, esto
-se puede lograr resumiendo la información de la misma mediante alguna función
-como el promedio de los valores de cada individuo y dejarlo fijo a través del
-tiempo. También podria usarse su valor máximo, mínimo o cualquier
-transformación que resulte de interés en el estudio. El problema de este
-enfoque es que se pierde mucha información, dado que se usa una covariable más
-simple que no refleja la relación dinámica entre la covariable y la respuesta
-en el tiempo.
+Una solución rápida al problema de las CVT, sea exógena o endógena, es
+transformarla en una CNVT, esto se puede lograr resumiendo la información de la
+misma mediante alguna función como el promedio de los valores de cada individuo
+y dejarlo fijo a través del tiempo. También podria usarse su valor máximo,
+mínimo o cualquier transformación que resulte de interés en el estudio. El
+problema de este enfoque es que se pierde mucha información, dado que se usa una
+covariable más simple que no refleja la relación dinámica entre la covariable y
+la respuesta en el tiempo.
 
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
@@ -524,12 +525,12 @@ cada uno de los individuos y el modelo resultaría:
 \[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_i + \epsilon_{i} \]
 
 El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
-cada cambio de una unidad en el IMC promedio del individuo.
+cada cambio unitario en el IMC promedio del individuo.
 
 \subsection{Covariable variable en el tiempo}
 
-Dado que la CVT es exógena, puede incorporarse sin ninguna transformación, el
-modelo resultaría:
+Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
+transformación. El modelo resultante es,
 
 \[ Y_{ij} = \beta_0 + \beta_1 X_{ij} + \epsilon_{i} \]
 
@@ -547,12 +548,13 @@ entre-unidad y efecto intra-unidad}
 \subsection{Covariable rezagada}
 
 En algunas aplicaciones hay justificacion previa para considerar la covariable
-en un el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo,
-podría interesarnos conocer el efecto del IMC en la ocasión anterior a la
-actual. Lo más común es que se desconozca el valor $k$ apropiado y se consideren
-varias opciones diferentes. El modelo mixto se definiría de la siguiente manera:
+en el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo, el
+efecto del IMC sobre la tensión arterial probablemente no sea inmediato, por lo
+que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más común es
+que se desconozca el valor $k$ apropiado y se consideren varias opciones
+diferentes. El modelo mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} \]
+\[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \epsilon_{i} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
@@ -575,9 +577,10 @@ Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 \label{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
-Otra forma de incorporar la CVT es dividiéndola en dos componentes que reflejen
-la variación intra-unidad y la variación entre-unidad. Entonces, el coeficiente
-del modelo que representa a la covariable se puede descomponer en dos:
+Otra forma de incorporar la CVT es dividiendo el efecto en dos componentes que
+reflejen la variación intra-unidad y la variación entre-unidad. Entonces, el
+coeficiente del modelo que representa a la covariable se puede descomponer en
+dos:
 
 \[ Y_{ij} = \beta_0 + \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i + \epsilon_{i} \]
 
@@ -605,12 +608,13 @@ que su promedio habitual.
 
 Se cuenta con un programa de atención y control de pacientes hipertensos
 iniciado en el año 2014 en Rosario que realiza un seguimiento exhaustivo de
-\npatients{} pacientes de entre 30 y 86 años (M=58.84, DS=9.87) y, de los cuales
-un 49.28\% son hombres. Las visitas se realizaron una vez por mes durante 7
-meses desde asignado el tratamiento y en cada una de ellas se registró si la
-persona estaba adhiriendo correctamente al tratamiento y el valor de la tensión
-arterial sistólica (TAS) (M=134.10, DS=16.07). Es decir, el seguimiento comenzó
-a medirse luego de un mes de que los pacientes empezaron el tratamiento.
+\npatients{} pacientes de entre 30 y 86 años, con una edad media de 58.84 y
+desvío estándar de 9.87 años, de los cuales un 49.28\% son hombres. Las visitas
+se realizaron una vez por mes durante 7 meses desde asignado el tratamiento y en
+cada una de ellas se registró si la persona estaba adhiriendo correctamente al
+tratamiento y el valor de la tensión arterial sistólica (TAS) (M=134.10,
+DS=16.07). Es decir, el seguimiento comenzó a medirse luego de un mes de que los
+pacientes empezaron el tratamiento.
 
 A fines de centrarse en la CVT se dejaron de lado algunas covariables fijas
 derivadas de estudios de laboratorio, manteniendo solo algunas covariables
