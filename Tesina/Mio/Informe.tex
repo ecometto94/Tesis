@@ -1,10 +1,9 @@
+
 \documentclass[spanish]{article}
-\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
-                                % for page size and margin settings
+\usepackage[a4paper]{geometry}  % for page size and margin settings
+\geometry{left=3.5cm, right=1cm, top=3cm, bottom=1.5cm}
 \usepackage{graphicx}		    % for insert images
 \usepackage[es-tabla]{babel} 	% for spanish titles
-\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry} 
-								% for page size and margin settings
 \usepackage{mathtools}          % for greek math symbol formatting
 \usepackage{enumitem}           % for control of 'enumerate' numbering
 \usepackage{listings}           % for control of 'itemize' spacing
@@ -18,8 +17,9 @@
 \usepackage{float}				% to manually select placement of tables
 \usepackage{autobreak}          % to automatically fit equations to page width
 
+
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
-\renewcommand{\baselinestretch}{1.5}
+\doublespacing					% for use double interline spacing
 \bibliographystyle{ieeetr}
 \numberwithin{figure}{subsection}
 \numberwithin{equation}{subsection}
@@ -258,8 +258,8 @@ Otra clasificación de las CVT es en exógenas y endógenas.
 
 Una CVT se define como exógena, respecto a la variable respuesta, si el valor de
 la covariable en un determinado momento es condicionalmente independiente de
-todos los valores precedentes de la variable respuesta. Formalmente, para la
-unidad $i$ en la ocasión $j$:  
+todos los valores precedentes de la variable respuesta (Diggle et al., 2002).
+Formalmente, para la unidad $i$ en la ocasión $j$:  
 
 \begin{equation}
 	\label{exogeneidad}
@@ -271,7 +271,7 @@ Y en consecuencia:
 
 \begin{equation}
 	\label{exogeneidad debil}
-	E(\bm{Y_i}|\bm{X_i}) = E(\bm{Y_i}|X_{i1}, ..., X_{in}) = E(\bm{Y_i}|X_{i1}, ..., X_{ij})
+	E(Y_{ij}|X_{i1}, ..., X_{in}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
 \end{equation}
 
 Esta definición implica que la respuesta en cualquier momento puede depender de
@@ -499,12 +499,12 @@ mixto.
 
 Si al evaluar el tipo de la CVT de la manera vista en
 \ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
-modelo mixto sin consideraciones adicionales. Esto se debe a que no habrá
+modelo lineal mixto sin consideraciones adicionales. Esto se debe a que no habrá
 problemas con la estimación de los parámetros, ya que se cumple el supuesto de
 independencia condicional.
 
 A continuación, se presentan distintas maneras de introducir la CVT exógena al
-modelo mixto. De manera de ejemplo, se tomará un caso en el que la variable
+modelo lineal mixto. De manera de ejemplo, se tomará un caso en el que la variable
 respuesta $Y_{ij}$ y la CVT $X_{ij}$ son la tensión arterial y el IMC,
 respectivamente, del paciente $i$ en la ocasión $j$.
 
@@ -535,8 +535,8 @@ transformación. El modelo resultante es,
 \[ Y_{ij} = \beta_0 + \beta_1 X_{ij} + \epsilon_{i} \]
 
 Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
-entre-unidad, sin embargo el modelo mixto va a tener solo un coeficiente
-$\beta_1$. Por lo tanto, el modelo mixto asume convergencia entre los efectos
+entre-unidad, sin embargo el modelo lineal mixto va a tener solo un coeficiente
+$\beta_1$. Por lo tanto, el modelo lineal mixto asume convergencia entre los efectos
 intra-unidad y entre-unidad (es decir, que son equivalentes y ambos pueden ser
 representados como un único efecto). Si bien el modelo es válido, para obtener
 una interpretación clara del efecto de la CVT se necesita dividir su efecto en
@@ -552,7 +552,7 @@ en el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo, el
 efecto del IMC sobre la tensión arterial probablemente no sea inmediato, por lo
 que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más común es
 que se desconozca el valor $k$ apropiado y se consideren varias opciones
-diferentes. El modelo mixto se definiría de la siguiente manera:
+diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
 \[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \epsilon_{i} \]
 
@@ -606,17 +606,16 @@ que su promedio habitual.
 
 \section{Aplicación}
 
-Se cuenta con un programa de atención y control de pacientes hipertensos
-iniciado en el año 2014 en Rosario que realiza un seguimiento exhaustivo de
-\npatients{} pacientes de entre 30 y 86 años, con una edad media de 58.84 y
-desvío estándar de 9.87 años, de los cuales un 49.28\% son hombres. A todos
-estos pacientes se les indicó un tratamiento antihipertensivo al incio del
-seguimiento (visita basal). Durante 7 meses se agendaron visitas mensuales en
-donde se registraron, entre otras características, el valor de la TAS y la
-adherencia al tratamiento. Esta última variable surge de la evaluación del
-cuestionario Morisky (1986) que arroja como resultado: adhiere al tratamiento,
-no adhiere al tratamiento. Al ser evaluada en todas las visitas mensuales, esta
-variable dicotómica es una CVT.
+A partir del programa de atención y control de pacientes hipertensos iniciado en
+el año 2014 en Rosario que realiza un seguimiento exhaustivo de \npatients{}
+pacientes de entre 30 y 86 años, con una edad media de 58.84 y desvío estándar
+de 9.87 años, de los cuales un 49.28\% son hombres. A todos estos pacientes se
+les indicó un tratamiento antihipertensivo al incio del seguimiento (visita
+basal). Durante 7 meses se agendaron visitas mensuales en donde se registraron,
+entre otras características, el valor de la TAS y la adherencia al tratamiento.
+Esta última variable surge de la evaluación del cuestionario Morisky (1986) que
+arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al ser
+evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia al
 tratamiento influye en los valores de la TAS a lo largo del seguimiento.
@@ -630,33 +629,14 @@ al tratamiento y otras variables relevantes como variables explicativas.
 En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
-En la figura \ref{TAS_vs_tpo} se puede observar que en general la TAS se
-mantiene constante (o con una muy leve pendiente decreciente) a través del
-tiempo. Esto a simple vista podría resultar desalentador, dado que el propósito
-del tratamiento es disminuir la TAS a niveles más saludables. Sin embargo, como
-se mencionó anteriormente, los pacientes no adhirieron al 100\% el tratamiento,
-este efecto es el que estudiaremos más adelante. Cabe destacar que las
-mediciones de los pacientes son equiespaciadas en el tiempo, las desviaciones
-del eje en el tiempo se deben a una técnica llamada ``jitter'' que nos permite
-mover levemente los puntos en el eje x para poder observar mejor la densidad de
-los mismos. 
+En la figura \ref{TAS_vs_tpo} se puede observar que la TAS en general disminuye
+durante el transcurso del tratamiento
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo.png}
 	\caption{TAS de cada paciente en cada tiempo}
 	\label{TAS_vs_tpo}
-\end{figure}
-
-En la figura \ref{spaghetti} se pueden observar las trayectorias individuales
-de 15 pacientes seleccionados al azar, las pendientes son muy similares entre
-sí, sin embargo hay variación en la ordenada al origen.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/spaghetti_plot.png}
-	\caption{TAS a través del tiempo de 15 pacientes al azar}
-	\label{spaghetti}
 \end{figure}
 
 Otro gráfico que resulta de interés es observar la evolución de la TAS a través
@@ -767,14 +747,14 @@ Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
 
 \subsection{Evaluación de la exogeneidad}
 
-Para evaluar la exogeneidad de la adherencia se ajustaron modelos de regresion
-logística en cada ocasión, usando como variable respuesta la adherencia en dicha
-ocasión y como covariables la TAS y la adherencia en la ocasión anterior y el
-promedio y proporción hasta la ocasión anterior. En la tabla \ref{exog_table} se
-presentan los valores de los coeficientes para cada covariable y en paréntesis
-el p-value asociado a cada uno. Como se puede notar, en ninguna ocasión la
-adherencia depende de valores anteriores de la TAS, por lo tanto puede
-considerarse como una covariable exógena.
+Para evaluar la exogeneidad de la variable adherencia se ajustaron modelos de
+regresion logística en cada ocasión, usando como variable respuesta la
+adherencia en dicha ocasión y como covariables la TAS y la adherencia en la
+ocasión anterior y el promedio y proporción hasta la ocasión anterior. En la
+tabla \ref{exog_table} se presentan los valores de los coeficientes para cada
+covariable y en paréntesis el p-value asociado a cada uno. Como se puede notar,
+en ninguna ocasión la adherencia depende de valores anteriores de la TAS, por lo
+tanto puede considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
@@ -804,7 +784,7 @@ considerarse como una covariable exógena.
 \subsection{Incorporación de la CVT}
 
 Como se mencionó anteriormente, hay más de una manera de incorporar una CVT
-exógena a un modelo mixto, en esta sección compararemos algunas de ellas.
+exógena a un modelo lineal mixto, en esta sección compararemos algunas de ellas.
 
 \subsubsection{Incorporación de covariable fija}
 
@@ -881,9 +861,9 @@ disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \subsubsection{Incorporación como CVT}
 
-La manera más simple de introducir una CVT exógena a un modelo mixto es en su
-forma natural. Sin embargo, como se mencionó anteriormente, su coeficiente no
-será interpretable y no será dificil sacar conclusiones sobre como afecta la
+La manera más simple de introducir una CVT exógena a un modelo lineal mixto es
+en su forma natural. Sin embargo, como se mencionó anteriormente, su coeficiente
+no será interpretable y no será dificil sacar conclusiones sobre como afecta la
 adherencia a la TAS. Los resultados pueden observarse en la tabla.
 \ref{modelo_4_tabla}.
 
