@@ -1,1 +1,12 @@
-citar todo lo que se pueda
+citar todo lo que se pueda, poner paginas no eh?
+
+borré los vectores, ahora negrita matrices y no negrita escalares
+
+ampliar la parte de problemas con la estimacion en lo posible, prestarle
+atencion a lalonde que fue el ultimo
+
+consultar sobre el tiempo y el intercepto en el modelo matricial
+
+preguntar si esta bien la TAS medida en mmHg
+
+revisar que en la aplicacion esten definidas todas las variables

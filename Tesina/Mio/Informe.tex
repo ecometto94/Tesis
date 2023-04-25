@@ -387,7 +387,7 @@ log-verosimilitud:
 
 \begin{equation}
 \label{ML}
-	l = -\frac{1}{2} \sum_{i=1}^{N}n ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
+	l = -\frac{1}{2} \sum_{i=1}^{N}n \ln(2\pi) - \frac{1}{2}\ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
 	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})]
 \end{equation}
@@ -431,18 +431,18 @@ log-verosimilitud restringida que se propone es:
 
 \begin{equation}
 \label{REML}
-	\bm{l}^* = -\frac{1}{2} \sum_{i=1}^{N}n ln(2\pi) - \frac{1}{2}ln|\bm{\varSigma}_i| -
+	\bm{l}^* = -\frac{1}{2} \sum_{i=1}^{N}n \ln(2\pi) - \frac{1}{2}\ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
 	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})] -
-	- \frac{1}{2} ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}_i^{-1} \bm{X}_i}|
+	- \frac{1}{2} \ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}_i^{-1} \bm{X}_i}|
 \end{equation}
 
 Maximizando esta funcion con respecto a $\bm{\beta}$ y $\bm{\theta}$ se obtiene:
 
-\[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} X_i)^{-1}
+\[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i)^{-1}
 \sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{Y}_i\]
 
-Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$
+Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fitzmaurice et al., 2004).
 
 \subsubsection{Problemas con la estimación}
 
@@ -451,7 +451,7 @@ a cero solo si se cumple con el supuesto de independencia condicional:
 
 \begin{equation}
 \label{estimation_issue}
-	E[\bm{Y}_{ij} | \bm{X}_{ij}] = E[\bm{Y}_{ij} | \bm{X}_{ij}, j = 1, ..., n]
+	E[Y_{ij} | X_{ij}] = E[Y_{ij} | X_{ij}, j = 1, ..., n]
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
@@ -523,7 +523,7 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_i + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_i + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
 
 El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
 cada cambio unitario en el IMC promedio del individuo.
@@ -533,16 +533,14 @@ cada cambio unitario en el IMC promedio del individuo.
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
 transformación. El modelo resultante es,
 
-\[ Y_{ij} = \beta_0 + \beta_1 X_{ij} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 X_{ij} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
 
 Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
 entre-unidad, sin embargo el modelo lineal mixto va a tener solo un coeficiente
-$\beta_1$. Por lo tanto, el modelo lineal mixto asume convergencia entre los efectos
-intra-unidad y entre-unidad (es decir, que son equivalentes y ambos pueden ser
-representados como un único efecto). Si bien el modelo es válido, para obtener
-una interpretación clara del efecto de la CVT se necesita dividir su efecto en
-dos coeficientes, como se explicará en la sección \ref{Dividiendo efecto
-entre-unidad y efecto intra-unidad}
+$\beta_1$. Si bien el modelo es válido, para obtener una interpretación clara
+del efecto de la CVT se necesita dividir su efecto en dos coeficientes, como se
+explicará en la sección \ref{Dividiendo efecto entre-unidad y efecto
+intra-unidad} (Hoffman, 2015).
 
 %%%% LESSA HOFFMAN PAGINA 345
 
@@ -555,7 +553,7 @@ que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más comú
 que se desconozca el valor $k$ apropiado y se consideren varias opciones
 diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + \beta_{1k} X_{ij-k} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k} X_{ij-k} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
@@ -571,7 +569,7 @@ este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + \beta_1 \overline{X}_{ij} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_{ij} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 
@@ -583,7 +581,10 @@ reflejen la variación intra-unidad y la variación entre-unidad. Entonces, el
 coeficiente del modelo que representa a la covariable se puede descomponer en
 dos:
 
-\[ Y_{ij} = \beta_0 + \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i + \epsilon_{i} \]
+\[ 
+	Y_{ij} = \beta_0 + b_{0i} + \beta_W (X_{ij} - \overline{X}_i) + \beta_B
+	\overline{X}_i + \beta_2 t_j + b_{1i} + \epsilon_{i}
+\]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, $\beta_W$ representa el cambio
@@ -623,15 +624,38 @@ tratamiento influye en los valores de la TAS a lo largo del seguimiento.
 
 Para dar respuesta a este interrogante se propuso ajustar un modelo longitudinal
 de efectos mixtos considerando a la TAS como variable respuesta y la adherencia
-al tratamiento y otras variables relevantes como variables explicativas.
+al tratamiento, sexo y edad como variables explicativas.
+
+\subsection{Variables a utilizar}
+
+\begin{itemize}
+	\item $TAS_{ij}$: tension arterial sistólica (mmHg) del paciente $i$ en el
+	mes $j$.
+	\item $\overline{TAS}_{i}$: tension arterial sistólica (mmHg) promedio del
+	paciente $i$ ($\sum_{j=0}^n \frac{TAS_{ij}}{n}$).
+	\item $\overline{TAS}_{ij}$: tension arterial sistólica (mmHg) promedio del
+	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ij}}{n}$).
+	\item $sexo_i$: sexo del paciente $i$ medido en la ocasión basal (mes 0).
+	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
+	\item $adherencia_{ij}$: adherencia al tratamiento, medida con el
+	cuestionario Morisky, del paciente $i$ en el mes $j$.
+	\item $\overline{adherencia}_i$: adherencia total al tratamiento, medida con
+	el cuestionario Morisky, del paciente $i$ ($\sum_{j=0}^n
+	\frac{adherencia_{ij}}{n}$).
+	\item $\overline{adherencia}_{ij}$: adherencia total al tratamiento, medida
+	con el cuestionario Morisky, del paciente $i$ hasta el mes $j$
+	($\sum_{k=0}^j \frac{adherencia_{ij}}{n}$).
+	\item $adherencia perfecta_i$: variable indicadora, $=1$ si el paciente
+	adhirió al tratamiento todos los meses, $=0$ en otro caso.
+\end{itemize}
 
 \subsection{Análisis descriptivo}
 
 En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
-En la figura \ref{TAS_vs_tpo} se puede observar que la TAS en general disminuye
-durante el transcurso del tratamiento
+En la figura \ref{TAS_vs_tpo} se puede observar que la TAS promedio disminuye
+durante el transcurso del tratamiento.
 
 \begin{figure}[H]
 	\centering
@@ -641,21 +665,11 @@ durante el transcurso del tratamiento
 \end{figure}
 
 Otro gráfico que resulta de interés es observar la evolución de la TAS a través
-del tiempo pero sobre cada grupo de las covariables fijas, el resultado se
-expresa en la figura \ref{TAS_with_covs}. Para las variables continuas, se
-utilizó como punto de corte para segmentar en grupos la mediana de sus valores.
-Podemos observar que en general la TAS disminuye, ya sea en mayor o menor
-medida, a los largo del tiempo. Analizando las covariables una por una, el IMC
-parece no tener un efecto significativo, dado que, aunque los pacientes con
-menor IMC presentan menor TAS, los promedios en cada tiempo caen dentro de los
-intervalos de confianza de ambos grupos. En cuanto a la edad y el sexo, no
-parece haber una diferencia significativa en las pendientes pero si parece haber
-una leve diferencia en las ordenadas al origen, presentando menor TAS los
-pacientes más jóvenes y de sexo femenino. Por último, los pacientes con
-antecedentes de diabetes parecen tener una TAS mayor en un comienzo con una
-pendiente negativa a través del tiempo, mientras que los pacientes que no tienen
-antecedentes de diabetes comienzan con una TAS mas inferior manteniendola más
-constante.
+del tiempo sobre cada grupo de las covariables fijas, el resultado es presentado
+en la figura \ref{TAS_with_covs}. Todos los perfiles presentan (en general) una
+pendiente decreciente de la TAS promedio a través del tiempo, siendo esta menor
+en cuanto a la ordenada al origen en el grupo mas jóven y los pacientes de sexo
+femenino. 
 
 \begin{figure}[H]
 	\centering
