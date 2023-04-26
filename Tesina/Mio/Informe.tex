@@ -523,7 +523,7 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_i + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_i + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
 
 El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
 cada cambio unitario en el IMC promedio del individuo.
@@ -533,7 +533,7 @@ cada cambio unitario en el IMC promedio del individuo.
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
 transformación. El modelo resultante es,
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 X_{ij} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 X_{ij} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
 
 Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
 entre-unidad, sin embargo el modelo lineal mixto va a tener solo un coeficiente
@@ -553,7 +553,7 @@ que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más comú
 que se desconozca el valor $k$ apropiado y se consideren varias opciones
 diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k} X_{ij-k} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k} X_{ij-k} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
@@ -569,7 +569,7 @@ este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_{ij} + \beta_2 t_j + b_{1i} + \epsilon_{i} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_{ij} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 
@@ -583,7 +583,7 @@ dos:
 
 \[ 
 	Y_{ij} = \beta_0 + b_{0i} + \beta_W (X_{ij} - \overline{X}_i) + \beta_B
-	\overline{X}_i + \beta_2 t_j + b_{1i} + \epsilon_{i}
+	\overline{X}_i + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij}
 \]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
@@ -637,6 +637,8 @@ al tratamiento, sexo y edad como variables explicativas.
 	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ij}}{n}$).
 	\item $sexo_i$: sexo del paciente $i$ medido en la ocasión basal (mes 0).
 	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
+	\item $mes_j$: meses transcurridos desde el inicio del tratamiento en la
+	ocasión $j$.
 	\item $adherencia_{ij}$: adherencia al tratamiento, medida con el
 	cuestionario Morisky, del paciente $i$ en el mes $j$.
 	\item $\overline{adherencia}_i$: adherencia total al tratamiento, medida con
@@ -645,7 +647,7 @@ al tratamiento, sexo y edad como variables explicativas.
 	\item $\overline{adherencia}_{ij}$: adherencia total al tratamiento, medida
 	con el cuestionario Morisky, del paciente $i$ hasta el mes $j$
 	($\sum_{k=0}^j \frac{adherencia_{ij}}{n}$).
-	\item $adherencia perfecta_i$: variable indicadora, $=1$ si el paciente
+	\item $adherencia\ perfecta_i$: variable indicadora, $=1$ si el paciente
 	adhirió al tratamiento todos los meses, $=0$ en otro caso.
 \end{itemize}
 
@@ -668,8 +670,8 @@ Otro gráfico que resulta de interés es observar la evolución de la TAS a trav
 del tiempo sobre cada grupo de las covariables fijas, el resultado es presentado
 en la figura \ref{TAS_with_covs}. Todos los perfiles presentan (en general) una
 pendiente decreciente de la TAS promedio a través del tiempo, siendo esta menor
-en cuanto a la ordenada al origen en el grupo mas jóven y los pacientes de sexo
-femenino. 
+en cuanto a la ordenada al origen en el grupo de pacientes de mayor edad y de
+sexo femenino. 
 
 \begin{figure}[H]
 	\centering
@@ -678,21 +680,19 @@ femenino.
 	\label{TAS_with_covs}
 \end{figure}
 
-Por último, la figura \ref{TAS_with_adh} refleja el efecto de la adherencia al
-tratamiento sobre la TAS. Para mantener perfiles no variables en el tiempo, se
-usa la adherencia total al tratamiento y al igual que antes se divide en base a
-su mediana, teniendo por un lado los pacientes que adhieren correctamente a más
-del 86\% del tratamiento (al menos 6 de las 7 ocasiones) y por el otro a los
-pacientes que adhieren correctamente menos del 86\% del tratamiento (hasta 5 de
-las 7 ocasiones). Aqui se puede observar que los pacientes que adhieren
-correctamente al tratamiento parecen tener una pendiente negativa en la TAS a
-través del tiempo, mientras que los pacientes que no adhieren correctamente
-mantienen la TAS más constante.
+Para poder visualizar el efecto de la adherencia sobre la TAS es necesario
+convertir la CVT en una CNVT. Para eso, se dividieron distintos perfiles de
+pacientes según la cantidad de meses que adhirieron al tratamiento, formando los
+grupos: 3 meses o menos, entre 4 y 6 meses o todos los meses (7). Se puede
+observar que para grupo de pacientes que adhirieron al tratamiento 3 meses o
+menos la TAS presenta una pendiente creciente a lo largo del estudio. Para los
+otros 2 grupos, la TAS disminuye a lo largo del tratamiento, siendo menor para
+el grupo de pacientes que adhirieron la totalidad de los meses.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia.png}
-	\caption{TAS a través del tiempo según adherencia al tratamiento}
+	\caption{TAS a través del tiempo según perfiles de adherencia al tratamiento}
 	\label{TAS_with_adh}
 \end{figure}
 
@@ -700,16 +700,23 @@ mantienen la TAS más constante.
 
 \subsubsection{Modelo propuesto para la media}
 
-El modelo propuesto \ref{modelo_simple} es un modelo simple sin interacciones
-entre covariables, a pesar de que algunas de ellas podían resultar
-significativas, con fines de facilitar las interpretaciones de las distintas
-maneras de incluir la CVT al modelo.
+En una primera instancia, se propone un modelo lineal de efectos mixtos sin
+considerar a la CVT, ya que primero debe definirse la estructura de covariancia
+y probar su exogeneidad.
 
-\begin{multline}
-	\label{modelo_simple}
-	\hat{y}_{ij} = 121.311\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
-	-\ 0.332\ mes_j\ +\ b_{1i}*mes_j\
-\end{multline}
+\[
+	\hat{Y}_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
+	\beta_3 mes_j + \varepsilon_{ij}
+\]
+
+Donde 
+
+\[
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+\]
+
+
+Siendo $\bm{R}_i$ la matriz de variancias y covariancias del vector $\bm{\varepsilon}_i$.
 
 \subsubsection{Modelo propuesto para la covariancia}
 
