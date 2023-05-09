@@ -20,3 +20,5 @@ deberian estar o no? o se plantea sin, y si despues se prueba que deberian estar
 se añaden?
 
 estan bien los supuestos del modelo teorico planteado?
+
+la prueba de exogeneidad se hace con REML? los logit? no encontre como

@@ -619,14 +619,15 @@ Esta última variable surge de la evaluación del cuestionario Morisky (1986) qu
 arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al ser
 evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT.
 
-Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia al
-tratamiento influye en los valores de la TAS a lo largo del seguimiento.
+Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
+influye en los valores de la TAS a lo largo del seguimiento.
 
 Para dar respuesta a este interrogante se propuso ajustar un modelo longitudinal
-de efectos mixtos considerando a la TAS como variable respuesta y la adherencia
-al tratamiento, sexo y edad como variables explicativas.
+de efectos mixtos considerando a la TAS como variable respuesta y la adherencia,
+sexo y edad como variables explicativas.
 
 \subsection{Variables a utilizar}
+\label{variables}
 
 \begin{itemize}
 	\item $TAS_{ij}$: tension arterial sistólica (mmHg) del paciente $i$ en el
@@ -705,7 +706,7 @@ considerar a la CVT, ya que primero debe definirse la estructura de covariancia
 y probar su exogeneidad.
 
 \[
-	\hat{Y}_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
+	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
 	\beta_3 mes_j + \varepsilon_{ij}
 \]
 
@@ -725,8 +726,7 @@ variabilidad total está compuesta por el error de medición dado que la curva n
 inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
 serial también puede considerarse pequeña. Por último, como la curva no llega a
 la variancia total, esto nos indica que debe explicarse la variancia entre
-individuos agregando una ordenada aleatoria (ver Anexo
-\ref{eleccion_efectos_aleatorios}).
+individuos agregando una ordenada aleatoria.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AGREGAR PROCESO AL ANEXO %
@@ -741,51 +741,54 @@ individuos agregando una ordenada aleatoria (ver Anexo
 
 Además, se realizaron tests de hipótesis para probar la significación de los
 efectos aleatorios para la ordenada y la pendiente, resultando ambos
-significativos. Por lo que la estructura de covariancia elegida para el modelos
-es una estructura independiente con ordenada y pendiente aleatoria.
+significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
+estructura de covariancia elegida para el modelos es una estructura
+independiente con ordenada y pendiente aleatoria.
 
-Los resultados obtenidos con el modelo propuesto pueden observarse en la tabla
-\ref{modelo_1}.
+El modelo resultante se escribe:
 
-\begin{table}[H]
-	\centering
-	\caption{Modelo 1: Modelo propuesto sin CVT}
-	\label{modelo_1}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15427.7627} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30871.525} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30921.716} \\
-		\hline
-		Covariable & Coef.   & Std. Err. & z      & $P<|z|$    \\
-		\hline
-		Intercepto & 121.311 & 2.355     & 51.520 & $<0.001$   \\
-		Sexo       & 3.911   & 0.756     & 5.174  & $<0.001$   \\
-		Edad       & 0.158   & 0.039     & 4.074  & $<0.001$   \\
-		Mes 	   & -0.332  & 0.106     & -3.122 & $0.002$    \\
-		\hline
-	\end{tabular}
-\end{table}
+\[
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i +
+	\beta_3 mes_j + b_{1i} t_j + \varepsilon_{ij}
+\]
+
+Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
+
+\[ 
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+\]
+\[
+	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
+\]
+
+$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 
 \subsection{Evaluación de la exogeneidad}
 
 Para evaluar la exogeneidad de la variable adherencia se ajustaron modelos de
-regresion logística en cada ocasión, usando como variable respuesta la
-adherencia en dicha ocasión y como covariables la TAS y la adherencia en la
-ocasión anterior y el promedio y proporción hasta la ocasión anterior. En la
-tabla \ref{exog_table} se presentan los valores de los coeficientes para cada
-covariable y en paréntesis el p-value asociado a cada uno. Como se puede notar,
-en ninguna ocasión la adherencia depende de valores anteriores de la TAS, por lo
-tanto puede considerarse como una covariable exógena.
+regresion logística en cada mes $j$, usando como variable respuesta la
+adherencia en cada mes ($adherencia_{ij}$) y como variables explicativas a:
+$adherencia_{ij-1}$, $\overline{adherencia}_{ij-2}$, $TAS_{ij-1}$,
+$\overline{TAS}_{ij-2}$ (definidas en \ref{variables}). Al usar estas
+covariables, se le da más peso a los valores de adherencia y TAS del mes
+anterior, ya que se asume que las mediciones más cercanas entre sí están más
+correlacionadas, mientras que la información del resto de los meses anteriores
+se resume en un promedio.
+
+En la tabla \ref{exog_table} se presentan los valores de los coeficientes para
+cada covariable y en paréntesis el p-value asociado a cada uno. Como se puede
+notar, en ninguna ocasión la adherencia depende de valores anteriores de la TAS,
+por lo tanto puede considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
-	\caption{Resultados de la prueba de exogeneidad}
+	\caption{Estimación de coeficientes de los modelos logit y sus respectivos p-value}
 	\label{exog_table}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		Ocasión\ (t) & $Adherencia_{t-1}$ & $\overline{Adherencia}_{t-2}$ & $TAS_{t-1}$ &
-		$\overline{TAS}_{t-2}$ \\
+		Ocasión\ (t) & $Adherencia_{j-1}$ & $\overline{Adherencia}_{j-2}$ & $TAS_{j-1}$ &
+		$\overline{TAS}_{j-2}$ \\
 		\hline
 		\hline
 		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
@@ -807,26 +810,34 @@ tanto puede considerarse como una covariable exógena.
 
 Como se mencionó anteriormente, hay más de una manera de incorporar una CVT
 exógena a un modelo lineal mixto, en esta sección compararemos algunas de ellas.
+Dado que que la CVT adherencia solo existe a lo largo del tratamiento, se sabe
+apriori que solo afectara a la pendiente del modelo y no a la ordenada al
+origen.
 
 \subsubsection{Incorporación de covariable fija}
 
-Una de las transformaciones que puede aplicarse sobre la covariable ``adherencia
-al tratamiento'' es convertirla en una variable dicotómica, cuyo valor es 1 si
-el paciente adhirio correctamente en todo el estudio y 0 si adhirio de manera
-incorrecta en algún mes. En base a los resultados presentados en la tabla
-\ref{modelo_2_tabla}, controlando por el resto de las variables, los pacientes con
-adherencia perfecta presentan una disminución promedio sobre la TAS de 0.666.
+Hay diversas formas de convertir una CVT en CNVT, en este apartado se mostrarán
+2 que resultan de interés para el estudio. Es importante destacar que éstas
+transformaciones se pueden utilizar para incorporar CVT tanto exógenas como
+endógenas.
+
+Una de las transformaciones que puede aplicarse sobre la covariable adherencia
+es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
+adhirió en todo el tratamiento y 0 en otro caso. En base a los resultados
+presentados en la tabla \ref{modelo_1_tabla}, controlando por el resto de las
+variables, los pacientes con adherencia perfecta presentan una disminución
+promedio sobre la TAS de 0.666.
 
 \begin{multline}
-	\label{modelo_2}
-	\hat{y}_{ij} = 120.719\ +\ b_{0i}\ +\ 3.845\ sexo_i\ +\ 0.169\ edad_i\ \\
-	-\ 0.002\ mes_j\ -\ 0.666\ mes_j*adherencia\ perfecta_i\ +\ b_{1i}*mes_j\
+	\label{modelo_1}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*adherencia\ perfecta_i + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 2: Incorporación adherencia perfecta}
-	\label{modelo_2_tabla}
+	\label{modelo_1_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.7275} \\
@@ -845,25 +856,25 @@ adherencia perfecta presentan una disminución promedio sobre la TAS de 0.666.
 \end{table}
 
 Otra manera de incorporar la covariable fija conservando más información es usar
-la proporción de adherencia correcta al final del estudio. Es decir, si de las 7
+la proporción de adherencia al final del estudio. Es decir, si de las 7
 ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
 que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes
-presentados en la tabla \ref{modelo_3_tabla} indican que, controlando por el resto de
-las variables, los pacientes presentan una disminución promedio en la TAS por
-mes de 1.410 proporcional a la adherencia correcta al tratamiento. Por ejemplo,
-un paciente que adhiere correctamente sólo al 50\% del tratamiento, tendrá una
-disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
+presentados en la tabla \ref{modelo_2_tabla} indican que, controlando por el
+resto de las variables, los pacientes presentan una disminución promedio en la
+TAS por mes de 1.410 proporcional a la adherencia. Por
+ejemplo, un paciente que adhiere correctamente sólo al 50\% del tratamiento,
+tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \begin{multline}
-	\label{modelo_3}
-	\hat{y}_{ij} = 120.754\ +\ b_{0i}\ +\ 3.776\ sexo_i\ +\ 0.169\ edad_i\ \\
-	+\ 0.826\ mes_j\ -\ 1.410\ mes_j*adherencia\ total_i\ \ +\ b_{1i}*mes_j\
+	\label{modelo_2}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*\overline{adherencia}_i + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 3: incorporación adherencia total}
-	\label{modelo_3_tabla}
+	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.5232} \\
@@ -883,22 +894,26 @@ disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \subsubsection{Incorporación como CVT}
 
-La manera más simple de introducir una CVT exógena a un modelo lineal mixto es
-en su forma natural. Sin embargo, como se mencionó anteriormente, su coeficiente
-no será interpretable y no será dificil sacar conclusiones sobre como afecta la
-adherencia a la TAS. Los resultados pueden observarse en la tabla.
-\ref{modelo_4_tabla}.
+Se proponen dos maneras de incorporar la CVT al modelo, la adherencia en el mes
+actual y la adherencia en el mes anterior, ya que podria pensarse que el
+tratamiento no es de efecto inmediato y la TAS podria estar influenciada por la
+adherencia en meses anteriores.
+
+Los resultados pueden del modelo incorporando la adherencia en el mes actual
+pueden observarse en la tabla. \ref{modelo_3_tabla}. Como se mencionó
+anteriormente, su coeficiente no será interpretable y será dificil sacar
+conclusiones sobre como afecta la adherencia a la TAS.
 
 \begin{multline}
-	\label{modelo_4}
-	\hat{y}_{ij} = 120.911\ +\ b_{0i}\ +\ 3.772\ sexo_i\ +\ 0.165\ edad_i\ \\
-	+\ 0.791\ mes_j\ -\ 1.316\ mes_j*adherencia_{ij}\ +\ b_{1i}*mes_j\
+	\label{modelo_3}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 4: incorporación adherencia en cada ocasión}
-	\label{modelo_4_tabla}
+	\label{modelo_3_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.8815} \\
@@ -919,18 +934,18 @@ adherencia a la TAS. Los resultados pueden observarse en la tabla.
 Otra opción, en lugar de considerar la adherencia en la ocasión actual, es
 considerarla en la ocasión anterior. Esto permitiria investigar si el
 tratamiento afecta a la TAS en un determinado intervalo de tiempo y no de manera
-instantánea. Los resultados se presentan en la tabla \ref{modelo_5_tabla}.
+instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 
 \begin{multline}
-	\label{modelo_5}
-	\hat{y}_{ij} = 121.089\ +\ b_{0i}\ +\ 3.870\ sexo_i\ +\ 0.162\ edad_i\ \\
-	+\ 0.089\ mes_j\ -\ 0.501\ mes_j*adherencia_{ij-1}\ +\ b_{1i}*mes_j\
+	\label{modelo_4}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij-1} + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 5: incorporación adherencia en la ocasión anterior}
-	\label{modelo_5_tabla}
+	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.5776} \\
@@ -953,18 +968,18 @@ hasta la ocasión actual. Es decir, si en la ocasión 4 un paciente adhirio
 correctamente solo en 2 ocasiones, su adherencia promedio será de $\frac{2}{4}$
 ($0.5$). Sin embargo, si adhiere correctamente en la ocasión 5, entonces la
 adherencia promedio en esa ocasión será $\frac{3}{5}$ ($0.6$). Los resultados se
-presentan en la tabla \ref{modelo_6_tabla}.
+presentan en la tabla \ref{modelo_5_tabla}.
 
 \begin{multline}
-	\label{modelo_6}
-	\hat{y}_{ij} = 120.570\ +\ b_{0i}\ +\ 3.777\ sexo_i\ +\ 0.171\ edad_i\ \\
-	+\ 0.899\ mes_j\ -\ 1.499\ mes_j*adherencia\ acumulada_{ij}\ +\ b_{1i}*mes_j\
+	\label{modelo_5}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*\overline{adherencia}_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 6: incorporación adherencia acumulada}
-	\label{modelo_6_tabla}
+	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.2415} \\
@@ -997,25 +1012,25 @@ parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
 estará acompañado de un 0). Por lo tanto, el efecto intra-unidad estará
 acompañado solo de $X_i$
 
-Los resultados pueden observarse en la tabla \ref{modelo_7_tabla}. El coeficiente
--1.261 quiere decir que, manteniendo constante la proporción de adherencia total
-al tratamiento, se espera que la TAS disminuya en promedio 1.261 los meses en
+Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. El
+coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
+adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
 los que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
--0.246 quiere decir que, después de controlar por la adherencia al tratamiento
-en ese mes, se espera que la TAS disminuya en promedio en 0.246 relativo a la
-proporción de adherencia total.
+-0.246 quiere decir que, después de controlar por la adherencia en ese mes, se
+espera que la TAS disminuya en promedio en 0.246 relativo a la proporción de
+adherencia total.
 
 \begin{multline}
-	\label{modelo_7}
-	\hat{y}_{ij} = 120.832\ +\ b_{0i}\ +\ 3.754\ sexo_i\ +\ 0.167\ edad_i\ \\
-	+\ 0.946\ mes_j\ -\ 1.261\ mes_j*adherencia_{ij}\ -\ 0.246\ mes_j*adherencia\ total_i\  +\ b_{1i}*mes_j\
+	\label{modelo_6}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
+	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + \beta_4*mes_j*\overline{adherencia}_i + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
-	\label{modelo_7_tabla}
+	\label{modelo_6_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.6515} \\
@@ -1101,15 +1116,13 @@ del alcance de esta tesina.
 Para probar la siginificación de los efectos aleatorios se ajustaron 3 modelos,
 uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
 solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
-con el método de máxima verosimilitud restringida, el primer modelo es uno con
-ordenada y pendiente aletoria y sus resultados pueden observarse en la tabla
-\ref{modelo_both}.
+con el método de máxima verosimilitud restringida. El modelo completo es el
+siguiente y sus resultados pueden observarse en la tabla \ref{modelo_both}.
 
-\begin{multline}
-	\label{modelo_both_equation}
-	\hat{y}_{ij} = 121.310\ +\ b_{0i}\ +\ 3.911\ sexo_i\ +\ 0.158\ edad_i\
-	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
-\end{multline}
+\[
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i
+	+ \beta_3 mes_j + b_{1i}*mes_j + \varepsilon_{ij}
+\]
 
 \begin{table}[H]
 	\centering
@@ -1137,76 +1150,35 @@ Donde \[
 	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
 \]
 
-Se ajusta un modelo solo con pendiente aleatoria obteniéndose los siguientes
-resultados:
+Se ajusta un modelo reducido solo con pendiente aleatoria:
 
-\begin{multline}
-	\label{modelo_pendiente_equation}
-	\hat{y}_{ij} = 121.941\ +\ 3.899\ sexo_i\ +\ 0.148\ edad_i\
-	-\ 0.332\ mes_j\ + b_{1i}*mes_j\
-\end{multline}
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo con pendiente aleatoria}
-	\label{modelo_pendiente}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15661.8792} \\
-		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{3.017} \\
-		\hline
-		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		Intercepto & 121.941 & 1.636     & 74.516 & $<0.001$ \\
-		Sexo       & 3.899   & 0.526     & 7.414  & $<0.001$ \\
-		Edad       & 0.148   & 0.027     & 5.466  & $<0.001$ \\
-		Mes 	   & .0.332  & 0.122     & -2.719 & $0.007$  \\
-		\hline
-	\end{tabular}
-\end{table}
+\[
+	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i
+	+ \beta_3 mes_j + b_{1i}*mes_j + \varepsilon_{ij}
+\]
 
 Y se plantea el siguiente test de hipótesis:
 
 $ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
 
-Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
+Siendo $G^2 = (-2)*LogLikelihood$, MC el modelo completo y MR el modelo
 reducido obtenemos:
 
 $ G^2(MR) - G^2(MC) = 31323.7584 - 30861.6558 = 462.1026 $
 
-Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
-por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
+Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ resulta mayor, por
+lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
 ordenada al origen aleatoria.
 
 Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
 obtiene:
 
-\begin{multline}
-	\label{modelo_ordenada_equation}
-	\hat{y}_{ij} = 121.431\ +\ b_{0i}\ +\ 3.909\ sexo_i\ +\ 0.156\ edad_i\
-	-\ 0.332\ mes_j\
-\end{multline}
+\[
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i
+	+ \beta_3 mes_j + \varepsilon_{ij}
+\]
 
-\begin{table}[H]
-	\centering
-	\caption{Modelo con ordenada aleatoria}
-	\label{modelo_ordenada}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15456.0774} \\
-		\multicolumn{3}{|c}{Var(Intercepto)} & \multicolumn{2}{|c|}{62.634} \\
-		\hline
-		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		Intercepto & 121.431 & 2.356     & 51.547 & $<0.001$ \\
-		Sexo       & 3.909   & 0.760     & 5.143  & $<0.001$ \\
-		Edad       & 0.156   & 0.039     & 4.002  & $<0.001$ \\
-		Mes 	   & -0.332  & 0.089     & -3.707 & $<0.001$ \\
-		\hline
-	\end{tabular}
-\end{table}
-
-Se vuelve a plantear el test de hipótesis pero esta vez para la pendiente:
+Se plantea el test de hipótesis:
 
 $ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
 
