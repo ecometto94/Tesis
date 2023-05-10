@@ -836,7 +836,7 @@ promedio sobre la TAS de 0.666.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\caption{Modelo 1: Incorporación adherencia perfecta}
 	\label{modelo_1_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -846,17 +846,17 @@ promedio sobre la TAS de 0.666.
 		\hline
 		Covariable				& Coef.   & Std. Err. & z      & $P<|z|$ \\
 		\hline
-		Intercepto              & 120.719 & 2.320 	  & 52.038 & $<0.001$  \\
-		Sexo                    & 3.845   & 0.743     & 5.176  & $<0.001$  \\
-		Edad                    & 0.169   & 0.038     & 4.414  & $<0.001$  \\
-		Mes                     & -0.002  & 0.131 	  & -0.017 & $0.986$   \\
-		Mes*Adherencia Perfecta & -0.666  & 0.155     & -4.286 & $<0.001$  \\
+		$intercepto$                   & 120.719 & 2.320 	  & 52.038 & $<0.001$ \\
+		$sexo_i$                       & 3.845   & 0.743     & 5.176  & $<0.001$  \\
+		$edad_i$                       & 0.169   & 0.038     & 4.414  & $<0.001$  \\
+		$mes_j$                        & -0.002  & 0.131 	  & -0.017 & $0.986$  \\
+		$mes_j*adherencia\ perfecta_i$ & -0.666  & 0.155     & -4.286 & $<0.001$  \\
 		\hline
 	\end{tabular}
 \end{table}
 
 Otra manera de incorporar la covariable fija conservando más información es usar
-la proporción de adherencia al final del estudio. Es decir, si de las 7
+la proporción de adherencia total al final del estudio. Es decir, si de las 7
 ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
 que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes
 presentados en la tabla \ref{modelo_2_tabla} indican que, controlando por el
@@ -873,7 +873,7 @@ tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 3: incorporación adherencia total}
+	\caption{Modelo 2: incorporación adherencia total}
 	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -883,11 +883,11 @@ tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 		\hline
 		Covariable 			 & Coef.   & Std. Err. & z 	    & $P<|z|$  \\
 		\hline
-		Intercepto           & 120.754 & 2.331     & 51.814 & $<0.001$ \\
-		Sexo                 & 3.776   & 0.747     &  5.054 & $<0.001$ \\
-		Edad                 & 0.169   & 0.038     &  4.391 & $<0.001$ \\
-		Mes                  & 0.826   & 0.287     &  2.876 & $0.004$  \\
-		Mes*Adherencia Total & -1.410  & 0.325     & -4.335 & $<0.001$ \\
+		$intercepto$                    & 120.754 & 2.331     & 51.814 & $<0.001$ \\
+		$sexo_i$                        & 3.776   & 0.747     &  5.054 & $<0.001$ \\
+		$edad_i$                        & 0.169   & 0.038     &  4.391 & $<0.001$ \\
+		$mes_j$                         & 0.826   & 0.287     &  2.876 & $0.004$  \\
+		$mes_j*\overline{adherencia}_i$ & -1.410  & 0.325     & -4.335 & $<0.001$ \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -912,7 +912,7 @@ conclusiones sobre como afecta la adherencia a la TAS.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 4: incorporación adherencia en cada ocasión}
+	\caption{Modelo 3: incorporación adherencia}
 	\label{modelo_3_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -922,11 +922,11 @@ conclusiones sobre como afecta la adherencia a la TAS.
 		\hline
 		Covariable 	   & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercepto     & 120.911 & 2.329 	 & 51.912 & $<0.001$ \\
-		Sexo           & 3.772   & 0.747 	 & 5.046  & $<0.001$ \\
-		Edad           & 0.165   & 0.038 	 & 4.297  & $<0.001$ \\
-		Mes            & 0.791   & 0.171 	 & 4.613  & $<0.001$ \\
-		Mes*Adherencia & -1.316  & 0.159 	 & -8.279 & $<0.001$ \\
+		$intercepto$            & 120.911 & 2.329 	 & 51.912 & $<0.001$ \\
+		$sexo_i$                & 3.772   & 0.747 	 & 5.046  & $<0.001$ \\
+		$edad_i$                & 0.165   & 0.038 	 & 4.297  & $<0.001$ \\
+		$mes_j$                 & 0.791   & 0.171 	 & 4.613  & $<0.001$ \\
+		$mes_j*adherencia_{ij}$ & -1.316  & 0.159 	 & -8.279 & $<0.001$ \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -944,7 +944,7 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 5: incorporación adherencia en la ocasión anterior}
+	\caption{Modelo 4: incorporación adherencia en el mes anterior}
 	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -954,11 +954,11 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 		\hline
 		Covariable 		   & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercepto         & 121.089 & 2.341     & 51.716 & $<0.001$ \\
-		Sexo               & 3.870   & 0.751     & 5.152  & $<0.001$ \\
-		Edad               & 0.162   & 0.039     & 4.193  & $<0.001$ \\
-		Mes                & 0.089   & 0.168     & 0.531  & $0.595$  \\
-		Mes*Adherencia lag & -0.501  & 0.155     & -3.228 & $0.001$  \\
+		$intercepto$              & 121.089 & 2.341     & 51.716 & $<0.001$ \\
+		$sexo_i$                  & 3.870   & 0.751     & 5.152  & $<0.001$ \\
+		$edad_i$                  & 0.162   & 0.039     & 4.193  & $<0.001$ \\
+		$mes_j$                   & 0.089   & 0.168     & 0.531  & $0.595$  \\
+		$mes_j*adherencia_{ij-1}$ & -0.501  & 0.155     & -3.228 & $0.001$  \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -978,7 +978,7 @@ presentan en la tabla \ref{modelo_5_tabla}.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 6: incorporación adherencia acumulada}
+	\caption{Modelo 5: incorporación adherencia acumulada}
 	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
@@ -988,11 +988,11 @@ presentan en la tabla \ref{modelo_5_tabla}.
 		\hline
 		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$ \\
 		\hline
-		Intercepto               & 120.570 & 2.333     & 51.669 & $<0.001$ \\
-		Sexo                     & 3.777   & 0.748     & 5.053  & $<0.001$ \\
-		Edad                     & 0.171   & 0.039     & 4.448  & $<0.001$ \\
-		Mes                      & 0.899   & 0.267     & 3.367  & $0.001$  \\
-		Mes*Adherencia Acumulada & -1.499  & 0.298     & -5.022 & $<0.001$ \\
+		$intercepto$                     & 120.570 & 2.333     & 51.669 & $<0.001$ \\
+		$sexo_i$                         & 3.777   & 0.748     & 5.053  & $<0.001$ \\
+		$edad_i$                         & 0.171   & 0.039     & 4.448  & $<0.001$ \\
+		$mes_j$                          & 0.899   & 0.267     & 3.367  & $0.001$  \\
+		$mes*\overline{adherencia}_{ij}$ & -1.499  & 0.298     & -5.022 & $<0.001$ \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -1028,7 +1028,7 @@ adherencia total.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 7: incorporación la adherencia dividiendo efecto entre e
+	\caption{Modelo 6: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
 	\label{modelo_6_tabla}
 	\begin{tabular}{*{5}{|c}|}
@@ -1039,12 +1039,12 @@ adherencia total.
 		\hline
 		Covariable 			 & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercepto           & 120.832 & 2.330     & 51.855 & $<0.001$ \\
-		Sexo                 & 3.754   & 0.747     &  5.023 & $<0.001$ \\
-		Edad                 & 0.167   & 0.039     &  4.333 & $<0.001$ \\
-		Mes                  & 0.946   & 0.286     &  3.307 & $0.001$  \\
-		Mes*Adherencia       & -1.261  & 0.178     & -7.078 & $<0.001$ \\
-		Mes*Adherencia Total & -0.246  & 0.363     & -0.678 & $0.498$  \\
+		$intercepto$           & 120.832 & 2.330     & 51.855 & $<0.001$ \\
+		$sexo_i$                 & 3.754   & 0.747     &  5.023 & $<0.001$ \\
+		$edad_i$                 & 0.167   & 0.039     &  4.333 & $<0.001$ \\
+		$mes_j$                  & 0.946   & 0.286     &  3.307 & $0.001$  \\
+		$mes_j*adherencia_{ij}$       & -1.261  & 0.178     & -7.078 & $<0.001$ \\
+		$mes_j*\overline{adherencia}_i$ & -0.246  & 0.363     & -0.678 & $0.498$  \\
 		\hline
 	\end{tabular}
 \end{table}
