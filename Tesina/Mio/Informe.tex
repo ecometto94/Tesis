@@ -1037,13 +1037,13 @@ adherencia total.
 		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30807.303} \\
 		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30870.042} \\
 		\hline
-		Covariable 			 & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		Covariable 			 			& Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		$intercepto$           & 120.832 & 2.330     & 51.855 & $<0.001$ \\
-		$sexo_i$                 & 3.754   & 0.747     &  5.023 & $<0.001$ \\
-		$edad_i$                 & 0.167   & 0.039     &  4.333 & $<0.001$ \\
-		$mes_j$                  & 0.946   & 0.286     &  3.307 & $0.001$  \\
-		$mes_j*adherencia_{ij}$       & -1.261  & 0.178     & -7.078 & $<0.001$ \\
+		$intercepto$           			& 120.832 & 2.330     & 51.855 & $<0.001$ \\
+		$sexo_i$                 		& 3.754   & 0.747     &  5.023 & $<0.001$ \\
+		$edad_i$                 		& 0.167   & 0.039     &  4.333 & $<0.001$ \\
+		$mes_j$                  		& 0.946   & 0.286     &  3.307 & $0.001$  \\
+		$mes_j*adherencia_{ij}$         & -1.261  & 0.178     & -7.078 & $<0.001$ \\
 		$mes_j*\overline{adherencia}_i$ & -0.246  & 0.363     & -0.678 & $0.498$  \\
 		\hline
 	\end{tabular}
@@ -1053,32 +1053,53 @@ adherencia total.
 
 \begin{table}[H]
 	\centering
-	\caption{Comparación de modelos}
+	\caption{Coeficientes estimados con sus respectivos p-values y criterio de Akaike de cada modelo}
 	\label{comparacion}
 	\begin{tabular}{*{7}{|c}|}
 		\hline
-		Variable 						   & Modelo 1 			 & Modelo 2 		   & Modelo 3 		     & Modelo 4 		   & Modelo 5 			 & Modelo 6 		   \\
+		Variable 						   				    & Modelo 1    & Modelo 2    & Modelo 3    & Modelo 4    & Modelo 5    & Modelo 6   \\
 		\hline
-		$intercepto$ 					   & $120.719\ (<0.001)$ & $120.754\ (<0.001)$ & $120.911\ (<0.001)$ & $121.089\ (<0.001)$ & $120.570\ (<0.001)$ & $120.832\ (<0.001)$ \\
-		$sexo_i$ 						   & $3.845\ (<0.001)$   & $3.776\ (<0.001)$   & $3.772\ (<0.001)$   & $3.870\ (<0.001)$   & $3.777\ (<0.001)$   & $3.754\ (<0.001)$   \\
-		$edad_i$ 						   & $0.169\ (<0.001)$   & $0.169\ (<0.001)$   & $0.165\ (<0.001)$   & $0.162\ (<0.001)$   & $0.171\ (<0.001)$   & $0.167\ (<0.001)$   \\
-		$mes_j$ 						   & $-0.002\ (0.986)$   & $0.826\ (0.004)$    & $0.791\ (<0.001)$   & $0.089\ (0,595)$    & $0.899\ (0.001)$    & $0.946\ (0.001)$    \\
-		$mes_j*adherencia\ perfecta_i$ 	   & $-0.666\ (<0.001)$  & - 				   & - 				     & - 				   & - 					 & - 				   \\
-		$mes_j*\overline{adherencia}_i$    & -					 & $-1.410\ (<0.001)$  & - 				     & - 				   & - 					 & - 				   \\
-		$mes_j*adherencia_{ij}$ 		   & -					 & - 				   & $-1.316\ (<0.001)$  & - 				   & - 					 & $-1.261\ (<0.001)$  \\
-		$mes_j*adherencia_{ij-1}$ 		   & - 				     & - 				   & - 				     & $-0.501\ (0.001)$   & - 					 & - 				   \\
-		$mes_j*\overline{adherencia}_{ij}$ & -					 & - 				   & - 				     & - 				   & $-1.499\ (<0.001)$  & $-0.246\ (0,498)$   \\
+		\multirow{2}{*}{$intercepto$} 	   				    & $120.719$   & $120.754$   & $120.911$   & $121.089$   & $120.570$   & $120.832$  \\
+										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
+		\hline
+		\multirow{2}{*}{$sexo_i$} 		   				    & $3.845$     & $3.776$     & $3.772$     & $3.870$     & $3.777$     & $3.754$    \\
+										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
+		\hline
+		\multirow{2}{*}{$edad_i$}		   				    & $0.169$     & $0.169$     & $0.165$     & $0.162$     & $0.171$     & $0.167$    \\
+										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
+		\hline
+		\multirow{2}{*}{$mes_j$} 		   				    & $-0.002$    & $0.826$     & $0.791$     & $0.089$     & $0.899$     & $0.946$    \\
+										   				    & $(0.986)$   & $(0.004)$   & $(<0.001)$  & $(0.595)$   & $(0.001)$   & $(0.001)$  \\
+		\hline
+		\multirow{2}{*}{$mes_j*adherencia\ perfecta_i$}     & $-0.666$    & - 		    & - 		  & -		 	& - 		  & - 		   \\
+														    & $(<0.001)$  & -			& - 		  & - 		    & - 		  & - 		   \\
+		\hline
+		\multirow{2}{*}{$mes_j*\overline{adherencia}_i$}    & -		 	  & $-1.410$    & - 		  & -           & - 		  & $-0.246$   \\
+														    & - 		  & $(<0.001)$  & - 		  & - 			& - 		  & $(0.498)$  \\
+		\hline
+		\multirow{2}{*}{$mes_j*adherencia_{ij}$}            & -		 	  & -           & $-1.316$    & - 			& - 		  & $-1.261$   \\
+														    & - 		  & - 		    & $(<0.001)$  & - 			& - 		  & $(<0.001)$ \\
+		\hline
+		\multirow{2}{*}{$mes_j*adherencia_{ij-1}$} 		    & - 		  & -           & - 		  & $-0.501$    & - 		  & - 		   \\
+														    & - 		  & - 			& - 		  & $(0.001)$	& - 		  & -		   \\
+		\hline
+		\multirow{2}{*}{$mes_j*\overline{adherencia}_{ij}$} & -			  & - 	   		& - 		  & -		    & $-1.499$    & -		   \\
+															& -			  & -			& -			  & -			& $(<0.001)$  & -		   \\
+		\hline
+		\hline
+		AIC													& $30855.455$ & $30855.046$ & $30805.763$ & $30863.155$ & $30848.483$ & $30807.303$ \\
 		\hline
 	\end{tabular}
 \end{table}
 
-En la tabla \ref{comparacion} puede observarse que contemplando los criterios de
-Log-Likelihood, AIC y BIC, los modelos que mejor ajustan los datos son el Modelo
-4 y el Modelo 7, siendo el Modelo 4 ligeramente mejor. Esto tiene sentido ya que
-el Modelo 4 es el que incorpora la covariable en su manera original, es decir,
-sin realizar ninguna transformación ni perder parte de su información. Por otro
-lado, el Modelo 7 realiza algo similar pero de manera interpretable dividiendo
-su efecto en 2 coeficientes.
+En la tabla \ref{comparacion} pueden observarse los cambios en los coeficientes
+estimados del modelo según los distintos métodos para incorporar la CVT
+adherencia. Basándose en el AIC, los modelos que mejor ajustan los datos son los
+modelos 3 y 6, es decir, los modelos que incorporan la CVT en su manera natural
+sin aplicarse ninguna transformación. El modelo 6 presenta un AIC un poco
+superior al del modelo 3, esto se debe a que se agrega el coeficiente de
+$mes_j*\overline{adherencia}_i$ aunque este no sea significativo, ya que
+facilita su interpretación.
 
 \newpage
 
@@ -1103,7 +1124,7 @@ de atención y control de pacientes hipertensos. En base a estos datos se
 ajustaron diferentes modelos con las distintas formas mencionadas de introducir
 la CVT y se realizó una comparación de los mismos.
 
-Como futuros pasos se propone estudiar más en profundida la incorporación
+Como futuros pasos se propone estudiar más en profundidad la incorporación
 de variables endógenas. Dado que muchas de las técnicas existentes hasta el
 momento no están basadas en el ajuste de modelos lineales mixtos, quedan fuera
 del alcance de esta tesina.
