@@ -9,12 +9,6 @@ consultar sobre el tiempo y el intercepto en el modelo matricial
 
 preguntar si esta bien la TAS medida en mmHg
 
-revisar que en la aplicacion esten definidas todas las variables
-
-no decir adhiere correctamente, usar adhiere/no adhiere
-
-usar la misma escala en todos los graficos
-
 el primer modelo propuesto lleva efectos aleatorios y despues se comprueba si
 deberian estar o no? o se plantea sin, y si despues se prueba que deberian estar
 se añaden?
@@ -22,5 +16,3 @@ se añaden?
 estan bien los supuestos del modelo teorico planteado?
 
 la prueba de exogeneidad se hace con REML? los logit? no encontre como
-
-como escribir los nombres de las variables en las tablas
