@@ -1,7 +1,5 @@
 citar todo lo que se pueda, poner paginas no eh?
 
-borré los vectores, ahora negrita matrices y no negrita escalares
-
 ampliar la parte de problemas con la estimacion en lo posible, prestarle
 atencion a lalonde que fue el ultimo
 
@@ -16,3 +14,7 @@ se añaden?
 estan bien los supuestos del modelo teorico planteado?
 
 la prueba de exogeneidad se hace con REML? los logit? no encontre como
+
+esta bien la interpretacion de los parametros cuando tengo efectos aleatorios?
+
+lalonde pagina 9 seccion 4
