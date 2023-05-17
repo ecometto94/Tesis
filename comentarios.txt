@@ -1,3 +1,5 @@
+estimar todo con REML si hay efectos aleatorios...
+
 citar todo lo que se pueda, poner paginas no eh?
 
 ampliar la parte de problemas con la estimacion en lo posible, prestarle
