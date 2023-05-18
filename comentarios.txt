@@ -1,22 +1,13 @@
-estimar todo con REML si hay efectos aleatorios...
-
-citar todo lo que se pueda, poner paginas no eh?
+estimar todo con REML si hay efectos aleatorios? puedo calcular el AIC y el BIC?
+como comparo modelos?
 
 ampliar la parte de problemas con la estimacion en lo posible, prestarle
-atencion a lalonde que fue el ultimo
+atencion a lalonde que fue el ultimo -> no dice nada mas interesante
 
-consultar sobre el tiempo y el intercepto en el modelo matricial
+el primer modelo propuesto va sin efectos aleatorios no? solo la parte media,
+despues en la parte de la covariancia los "agrego" en base al variograma y tests
+de hipotesis
 
-preguntar si esta bien la TAS medida en mmHg
-
-el primer modelo propuesto lleva efectos aleatorios y despues se comprueba si
-deberian estar o no? o se plantea sin, y si despues se prueba que deberian estar
-se añaden?
-
-estan bien los supuestos del modelo teorico planteado?
-
-la prueba de exogeneidad se hace con REML? los logit? no encontre como
+la prueba de exogeneidad se hace con REML? los logit?
 
 esta bien la interpretacion de los parametros cuando tengo efectos aleatorios?
-
-lalonde pagina 9 seccion 4
