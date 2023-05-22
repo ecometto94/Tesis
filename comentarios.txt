@@ -11,3 +11,5 @@ de hipotesis
 la prueba de exogeneidad se hace con REML? los logit?
 
 esta bien la interpretacion de los parametros cuando tengo efectos aleatorios?
+
+puedo tener interaccion con el tiempo y no en ordenada al origen???

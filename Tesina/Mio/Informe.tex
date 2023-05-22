@@ -609,15 +609,16 @@ que su promedio habitual.
 \section{Aplicación}
 
 A partir del programa de atención y control de pacientes hipertensos iniciado en
-el año 2014 en Rosario que realiza un seguimiento exhaustivo de \npatients{}
-pacientes de entre 30 y 86 años, con una edad media de 58.84 y desvío estándar
-de 9.87 años, de los cuales un 49.28\% son hombres. A todos estos pacientes se
-les indicó un tratamiento antihipertensivo al incio del seguimiento (visita
-basal). Durante 7 meses se agendaron visitas mensuales en donde se registraron,
-entre otras características, el valor de la TAS y la adherencia al tratamiento.
-Esta última variable surge de la evaluación del cuestionario Morisky (1986) que
-arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al ser
-evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT.
+el año 2014 en Rosario se obtienen datos de \npatients{} pacientes de entre 30 y
+86 años, con una edad media de 58.84 y desvío estándar de 9.87 años, de los
+cuales un 49.28\% son hombres. A todos estos pacientes se les indicó un
+tratamiento antihipertensivo al incio del seguimiento (visita basal). Durante 7
+meses se agendaron visitas mensuales en donde se registraron, entre otras
+características, el valor de la TAS y la adherencia al tratamiento. Esta última
+variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986)
+que arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al
+ser evaluada en todas las visitas mensuales, esta variable dicotómica es una
+CVT.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
 influye en los valores de la TAS a lo largo del seguimiento.
@@ -742,8 +743,8 @@ individuos agregando una ordenada aleatoria.
 Además, se realizaron tests de hipótesis para probar la significación de los
 efectos aleatorios para la ordenada y la pendiente, resultando ambos
 significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
-estructura de covariancia elegida para el modelos es una estructura
-independiente con ordenada y pendiente aleatoria.
+estructura de covariancia elegida para el modelo es una estructura independiente
+con ordenada y pendiente aleatoria.
 
 El modelo resultante se escribe:
 
@@ -826,7 +827,7 @@ es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
 adhirió en todo el tratamiento y 0 en otro caso. En base a los resultados
 presentados en la tabla \ref{modelo_1_tabla}, controlando por el resto de las
 variables, los pacientes con adherencia perfecta presentan una disminución
-promedio sobre la TAS de 0.666.
+promedio sobre la TAS de 0.666 por mes.
 
 \begin{multline}
 	\label{modelo_1}
@@ -894,15 +895,15 @@ tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 
 \subsubsection{Incorporación como CVT}
 
-Se proponen dos maneras de incorporar la CVT al modelo, la adherencia en el mes
-actual y la adherencia en el mes anterior, ya que podria pensarse que el
-tratamiento no es de efecto inmediato y la TAS podria estar influenciada por la
-adherencia en meses anteriores.
+Se proponen tres maneras de incorporar la CVT al modelo, la adherencia en el mes
+actual, la adherencia en el mes anterior y la adherencia promedio hasta el mes
+actual, ya que podria pensarse que el tratamiento no es de efecto inmediato y la
+TAS podria estar influenciada por la adherencia en meses anteriores.
 
-Los resultados pueden del modelo incorporando la adherencia en el mes actual
-pueden observarse en la tabla. \ref{modelo_3_tabla}. Como se mencionó
-anteriormente, su coeficiente no será interpretable y será dificil sacar
-conclusiones sobre como afecta la adherencia a la TAS.
+Los resultados del modelo incorporando la adherencia en el mes actual pueden
+observarse en la tabla \ref{modelo_3_tabla}. Como se mencionó anteriormente, su
+coeficiente no será interpretable y será dificil sacar conclusiones sobre como
+afecta la adherencia a la TAS.
 
 \begin{multline}
 	\label{modelo_3}
@@ -931,8 +932,8 @@ conclusiones sobre como afecta la adherencia a la TAS.
 	\end{tabular}
 \end{table}
 
-Otra opción, en lugar de considerar la adherencia en la ocasión actual, es
-considerarla en la ocasión anterior. Esto permitiria investigar si el
+Otra opción, en lugar de considerar la adherencia en la mes actual, es
+considerarla en la mes anterior. Esto permitiria investigar si el
 tratamiento afecta a la TAS en un determinado intervalo de tiempo y no de manera
 instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 
@@ -964,11 +965,11 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 \end{table}
 
 Otra opción podría ser transformar la CVT e incorporar la adherencia promedio
-hasta la ocasión actual. Es decir, si en la ocasión 4 un paciente adhirio
-correctamente solo en 2 ocasiones, su adherencia promedio será de $\frac{2}{4}$
-($0.5$). Sin embargo, si adhiere correctamente en la ocasión 5, entonces la
-adherencia promedio en esa ocasión será $\frac{3}{5}$ ($0.6$). Los resultados se
-presentan en la tabla \ref{modelo_5_tabla}.
+hasta la mes actual. Es decir, si en el mes 4 un paciente adhirio solo en 2
+meses, su adherencia promedio será de $\frac{2}{4}$ ($0.5$). Sin embargo, si
+adhiere en la ocasión 5, entonces la adherencia promedio en ese mes será
+$\frac{3}{5}$ ($0.6$). Los resultados se presentan en la tabla
+\ref{modelo_5_tabla}.
 
 \begin{multline}
 	\label{modelo_5}
@@ -1002,23 +1003,23 @@ presentan en la tabla \ref{modelo_5_tabla}.
 Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
 presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
 presentó el valor codificado con 1 de dicha covariable, por lo que el método
-anterior resultará en valores extraños para $\beta_W$ si usamos $X_i -
-\overline{X}_i$. Por ejemplo, si el valor 1 de la CVT se presentó en el 50\% de
-las ocasiones, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
-acompaña a $\beta_W$ será de -0.5 en las ocasiones que la CVT dicotómica no se
-presente y 0.5 en las que se presente. En términos de la estimación del modelo
-esto no genera ningún problema, pero será raro en la interpretación de los
+presentado en la sección \ref{Dividiendo efecto entre-unidad y efecto
+intra-unidad} resultará en valores extraños para $\beta_W$ si usamos $X_i -
+\overline{X}_i$. En este caso, si paciente adhirio al tratamiento en el 50\% de
+los meses, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
+acompaña a $\beta_W$ será de -0.5 en los meses que el paciente no adhiera y 0.5
+en los meses que si adhiera. En términos de la estimación del modelo esto no
+genera ningún problema, pero será confuso en la interpretación de los
 parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
-estará acompañado de un 0). Por lo tanto, el efecto intra-unidad estará
-acompañado solo de $X_i$
+estará acompañado de un 0). Por lo tanto, para evitar esto, el efecto
+intra-unidad estará acompañado solo de $X_{ij}$
 
 Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. El
 coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
 adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
-los que se adhiere correctamente al tratamiento. Por otro lado, el coeficiente
--0.246 quiere decir que, después de controlar por la adherencia en ese mes, se
-espera que la TAS disminuya en promedio en 0.246 relativo a la proporción de
-adherencia total.
+los que se adhiere al tratamiento. Por otro lado, el coeficiente -0.246 quiere
+decir que, después de controlar por la adherencia en ese mes, se espera que la
+TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total.
 
 \begin{multline}
 	\label{modelo_6}
