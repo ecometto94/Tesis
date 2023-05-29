@@ -1,15 +1,3 @@
-estimar todo con REML si hay efectos aleatorios? puedo calcular el AIC y el BIC?
-como comparo modelos?
-
 ampliar la parte de problemas con la estimacion en lo posible, prestarle
-atencion a lalonde que fue el ultimo -> no dice nada mas interesante
-
-el primer modelo propuesto va sin efectos aleatorios no? solo la parte media,
-despues en la parte de la covariancia los "agrego" en base al variograma y tests
-de hipotesis
-
-la prueba de exogeneidad se hace con REML? los logit?
-
-esta bien la interpretacion de los parametros cuando tengo efectos aleatorios?
-
-puedo tener interaccion con el tiempo y no en ordenada al origen???
+atencion a lalonde que fue el ultimo -> poner mas enfasis en lalonde y que lo
+mejor es identificar el tipo de CVT y usar el GMM

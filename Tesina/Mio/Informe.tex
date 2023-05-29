@@ -476,8 +476,8 @@ generalmente tiene una alta eficiencia para la estimación de los coeficientes
 asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
 estructura puede resultar en una pérdida sustancial de eficiencia para la
 estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
-el que es sólo un 60\% eficiente en relación con la estructura de correlación
-verdadera.
+el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
+con la estructura de correlación verdadera.
 
 Por otro lado, Lai y Small (2007) definieron 3 tipos de CVT y luego Lalonde et.
 al (2014) definieron un cuarto tipo de CVT. Además, propusieron utilizar el
@@ -617,8 +617,10 @@ meses se agendaron visitas mensuales en donde se registraron, entre otras
 características, el valor de la TAS y la adherencia al tratamiento. Esta última
 variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986)
 que arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al
-ser evaluada en todas las visitas mensuales, esta variable dicotómica es una
-CVT.
+ser evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT
+que captura como fue la adherencia durante el periodo desde la visita previa
+hasta la visita actual. Como para la visita basal no se cuenta con información
+de adherencia, se toman los datos desde el primer mes de tratamiento.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
 influye en los valores de la TAS a lo largo del seguimiento.
@@ -627,30 +629,38 @@ Para dar respuesta a este interrogante se propuso ajustar un modelo longitudinal
 de efectos mixtos considerando a la TAS como variable respuesta y la adherencia,
 sexo y edad como variables explicativas.
 
-\subsection{Variables a utilizar}
+Para todas las decisiones de esta sección se utilizará un nivel de significación
+del 5\%.
+
+\subsection{Nomenclatura}
 \label{variables}
+
+A continuación se describen las variables originales que se encuentran en el
+dataset y sus distintas transformaciones transformaciones.
+
+Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 
 \begin{itemize}
 	\item $TAS_{ij}$: tension arterial sistólica (mmHg) del paciente $i$ en el
 	mes $j$.
 	\item $\overline{TAS}_{i}$: tension arterial sistólica (mmHg) promedio del
-	paciente $i$ ($\sum_{j=0}^n \frac{TAS_{ij}}{n}$).
+	paciente $i$ a lo largo del seguimiento ($\sum_{k=0}^n \frac{TAS_{ik}}{n}$).
 	\item $\overline{TAS}_{ij}$: tension arterial sistólica (mmHg) promedio del
-	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ij}}{n}$).
+	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ik}}{j}$).
 	\item $sexo_i$: sexo del paciente $i$ medido en la ocasión basal (mes 0).
 	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
-	\item $mes_j$: meses transcurridos desde el inicio del tratamiento en la
+	\item $mes_j$: meses transcurridos desde el inicio del tratamiento hasta la
 	ocasión $j$.
-	\item $adherencia_{ij}$: adherencia al tratamiento, medida con el
-	cuestionario Morisky, del paciente $i$ en el mes $j$.
-	\item $\overline{adherencia}_i$: adherencia total al tratamiento, medida con
-	el cuestionario Morisky, del paciente $i$ ($\sum_{j=0}^n
-	\frac{adherencia_{ij}}{n}$).
-	\item $\overline{adherencia}_{ij}$: adherencia total al tratamiento, medida
-	con el cuestionario Morisky, del paciente $i$ hasta el mes $j$
-	($\sum_{k=0}^j \frac{adherencia_{ij}}{n}$).
+	\item $adherencia_{ij}$: adherencia al tratamiento del paciente $i$ en el
+	mes $j$ (variable dicotómica: =1 si adhiere, =0 si no adhiere).
+	\item $\overline{adherencia}_i$: proporción de visitas en las que el
+	paciente $i$ adhirió al tratamiento a lo largo del seguimiento
+	($\sum_{k=0}^n \frac{adherencia_{ik}}{n}$).
+	\item $\overline{adherencia}_{ij}$: proporción de visitas en las que el
+	paciente $i$ adhiere al tratamiento hasta el mes $j$ ($\sum_{k=0}^j
+	\frac{adherencia_{ik}}{j}$).
 	\item $adherencia\ perfecta_i$: variable indicadora, $=1$ si el paciente
-	adhirió al tratamiento todos los meses, $=0$ en otro caso.
+	$i$ adhirió al tratamiento todos los meses, $=0$ en otro caso.
 \end{itemize}
 
 \subsection{Análisis descriptivo}
