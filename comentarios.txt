@@ -1,3 +1,3 @@
-ampliar la parte de problemas con la estimacion en lo posible, prestarle
-atencion a lalonde que fue el ultimo -> poner mas enfasis en lalonde y que lo
-mejor es identificar el tipo de CVT y usar el GMM
+aumente el eje y pero sigue habiendo picos en la edad
+
+mostrar el scatterplot en el notebook de analisis descriptivo

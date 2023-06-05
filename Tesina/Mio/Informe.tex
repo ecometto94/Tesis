@@ -698,38 +698,45 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
-En la figura \ref{TAS_vs_tpo} se puede observar que la TAS promedio disminuye
-durante el transcurso del tratamiento.
+En la figura \ref{TAS_vs_tpo} se puede observar el grupo de pacientes inició el
+tratamiento con una TAS promedio de casi 133 mmHg, la cual fue disminuyendo
+levemente de manera aproximadamente lineal hasta promedio de poco más de 130
+mmHg al final del tratamiento.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo.png}
-	\caption{TAS de cada paciente en cada tiempo}
+	\caption{Evolución de la TAS promedio a lo largo del tratamiento}
 	\label{TAS_vs_tpo}
 \end{figure}
 
-Otro gráfico que resulta de interés es observar la evolución de la TAS a través
-del tiempo sobre cada grupo de las covariables fijas, el resultado es presentado
-en la figura \ref{TAS_with_covs}. Todos los perfiles presentan (en general) una
+Otro gráfico que resulta de interés es observar la evolución de la TAS en cada
+mes sobre cada grupo de las covariables fijas, el resultado es presentado en la
+figura \ref{TAS_with_covs}. Todos los perfiles presentan (en general) una
 pendiente decreciente de la TAS promedio a través del tiempo, siendo esta menor
 en cuanto a la ordenada al origen en el grupo de pacientes de mayor edad y de
-sexo femenino. 
+sexo femenino. La covariable edad es continua, pero a fines de poder observar
+los perfiles promedio de los pacientes se dividió en dos grupos según menores o
+mayores o iguales 59 años (mediana de edad de los pacientes).
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/TAS_vs_tpo_with_covs.png}
-	\caption{TAS a través del tiempo según grupos de covariables}
+	\caption{Evolución de la TAS promedio a lo largo del tratamiento según sexo y edad}
 	\label{TAS_with_covs}
 \end{figure}
 
-Para poder visualizar el efecto de la adherencia sobre la TAS es necesario
-convertir la CVT en una CNVT. Para eso, se dividieron distintos perfiles de
-pacientes según la cantidad de meses que adhirieron al tratamiento, formando los
-grupos: 3 meses o menos, entre 4 y 6 meses o todos los meses (7). Se puede
-observar que para grupo de pacientes que adhirieron al tratamiento 3 meses o
-menos la TAS presenta una pendiente creciente a lo largo del estudio. Para los
-otros 2 grupos, la TAS disminuye a lo largo del tratamiento, siendo menor para
-el grupo de pacientes que adhirieron la totalidad de los meses.
+Cuando se cuenta con una CVT, cada individuo puede presentar distintos valores
+de la covariable en cada ocasión. Por lo tanto, para poder visualizar el efecto
+de la adherencia sobre la TAS según perfiles promedio, es necesario convertir la
+CVT en una CNVT para que cada paciente pertenezca únicamente a un solo grupo.
+Para eso, se dividieron distintos perfiles de pacientes según la cantidad de
+meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos, entre
+4 y 6 meses o todos los meses. Se puede observar que para el grupo de pacientes
+que adhirieron al tratamiento 3 meses o menos la TAS presenta una pendiente
+creciente a lo largo del estudio. Para los otros 2 grupos, la TAS disminuye a lo
+largo del tratamiento, siendo menor para el grupo de pacientes que adhirieron la
+totalidad de los meses.
 
 \begin{figure}[H]
 	\centering
@@ -737,73 +744,6 @@ el grupo de pacientes que adhirieron la totalidad de los meses.
 	\caption{TAS a través del tiempo según perfiles de adherencia al tratamiento}
 	\label{TAS_with_adh}
 \end{figure}
-
-\subsection{Modelo propuesto}
-
-\subsubsection{Modelo propuesto para la media}
-
-En una primera instancia, se propone un modelo lineal de efectos mixtos sin
-considerar a la CVT, ya que primero debe definirse la estructura de covariancia
-y probar su exogeneidad.
-
-\[
-	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
-	\beta_3 mes_j + \varepsilon_{ij}
-\]
-
-Donde 
-
-\[
-	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-\]
-
-
-Siendo $\bm{R}_i$ la matriz de variancias y covariancias del vector $\bm{\varepsilon}_i$.
-
-\subsubsection{Modelo propuesto para la covariancia}
-
-En la figura \ref{semivariogram} puede notarse que la mayor parte de la
-variabilidad total está compuesta por el error de medición dado que la curva no
-inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
-serial también puede considerarse pequeña. Por último, como la curva no llega a
-la variancia total, esto nos indica que debe explicarse la variancia entre
-individuos agregando una ordenada aleatoria.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% AGREGAR PROCESO AL ANEXO %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.4]{img/semivariogram.png}
-	\caption{Semivariograma}
-	\label{semivariogram}
-\end{figure}
-
-Además, se realizaron tests de hipótesis para probar la significación de los
-efectos aleatorios para la ordenada y la pendiente, resultando ambos
-significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
-estructura de covariancia elegida para el modelo es una estructura independiente
-con ordenada y pendiente aleatoria.
-
-El modelo resultante se escribe:
-
-\[
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i +
-	\beta_3 mes_j + b_{1i} t_j + \varepsilon_{ij}
-\]
-
-Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
-
-\[ 
-	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-\]
-\[
-	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
-\]
-
-$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
-vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 
 \subsection{Evaluación de la exogeneidad}
 
@@ -846,6 +786,80 @@ por lo tanto puede considerarse como una covariable exógena.
 		\hline
 	\end{tabular}
 \end{table}
+
+\subsection{Modelo lineal mixto propuesto}
+
+Mediante la inspección del semivariograma muestral (figura \ref{semivariogram})
+y pruebas de hipótesis para efectos aleatorios (ver Anexo
+\ref{eleccion_efectos_aleatorios}) se decidió plantear un modelo de efectos
+mixtos con ordenada y pendiente aleatoria. De esta manera, se incorpora al
+modelo la correlación serial y el efecto entre pacientes. La CVT se incorpora en
+su forma original ya que se evaluó su exogeneidad. El modelo resulta:
+
+% \subsubsection{Modelo propuesto para la media}
+
+% En una primera instancia, se propone un modelo lineal de efectos mixtos sin
+% considerar a la CVT, ya que primero debe definirse la estructura de covariancia
+% y probar su exogeneidad.
+
+% \[
+% 	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
+% 	\beta_3 mes_j + \varepsilon_{ij}
+% \]
+
+% Donde 
+
+% \[
+% 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+% \]
+
+
+% Siendo $\bm{R}_i$ la matriz de variancias y covariancias del vector $\bm{\varepsilon}_i$.
+
+% \subsubsection{Modelo propuesto para la covariancia}
+
+% En la figura \ref{semivariogram} puede notarse que la mayor parte de la
+% variabilidad total está compuesta por el error de medición dado que la curva no
+% inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
+% serial también puede considerarse pequeña. Por último, como la curva no llega a
+% la variancia total, esto nos indica que debe explicarse la variancia entre
+% individuos agregando una ordenada aleatoria.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % AGREGAR PROCESO AL ANEXO %
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[scale=0.4]{img/semivariogram.png}
+% 	\caption{Semivariograma}
+% 	\label{semivariogram}
+% \end{figure}
+
+% Además, se realizaron tests de hipótesis para probar la significación de los
+% efectos aleatorios para la ordenada y la pendiente, resultando ambos
+% significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
+% estructura de covariancia elegida para el modelo es una estructura independiente
+% con ordenada y pendiente aleatoria.
+
+% El modelo resultante se escribe:
+
+\[
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
+	\beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ t_j + \varepsilon_{ij}
+\]
+
+Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
+
+\[ 
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+\]
+\[
+	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
+\]
+
+$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 
 \subsection{Incorporación de la CVT}
 
