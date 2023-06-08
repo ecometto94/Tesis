@@ -350,8 +350,7 @@ Donde:
 
 Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 
-\[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \]
-\[ \bm{b}_i \sim N_k(0, \bm{D}) \]
+\[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \quad \bm{b}_i \sim N_k(0, \bm{D}) \]
 
 $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
 vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente. A partir de este
@@ -747,15 +746,26 @@ totalidad de los meses.
 
 \subsection{Evaluación de la exogeneidad}
 
-Para evaluar la exogeneidad de la variable adherencia se ajustaron modelos de
-regresion logística en cada mes $j$, usando como variable respuesta la
-adherencia en cada mes ($adherencia_{ij}$) y como variables explicativas a:
-$adherencia_{ij-1}$, $\overline{adherencia}_{ij-2}$, $TAS_{ij-1}$,
-$\overline{TAS}_{ij-2}$ (definidas en \ref{variables}). Al usar estas
-covariables, se le da más peso a los valores de adherencia y TAS del mes
-anterior, ya que se asume que las mediciones más cercanas entre sí están más
-correlacionadas, mientras que la información del resto de los meses anteriores
-se resume en un promedio.
+Para evaluar la exogeneidad de la variable adherencia es necesario ajustar un
+modelo para cada ocasión en el que se considere a la variable adherencia como
+variable respuesta y como variables explicativas a la TAS y la adherencia en
+ocasiones previas. Cómo la CVT adherencia es una variable dicotómica, se ajustan
+modelos de regresión logística.
+
+Para ajustar estos modelos se utilizarán como covariables a la adherencia y la
+TAS en el mes anterior, ya que se asume que las mediciones más cercanas entre sí
+están más correlacionadas y tambien se utilizarán la adherencia y la TAS
+promedio desde el inicio hasta 2 meses antes, de esta manera se puede utilizar
+toda la información del estudio. El modelo resulta:
+
+\[ 
+	logit(adherencia_{ij}) = \beta_0 + \beta_1\ adherencia_{ij-1} + \beta_2\ TAS_{ij-1}
+	+ \beta_3\ \overline{adherencia}_{ij-2} + \beta_4\ \overline{TAS}_{ij-2} + \varepsilon_{ij}
+\]
+
+Siendo
+
+\[ \varepsilon_{ij} \sim N(0, Var(\varepsilon_{ij})) \]
 
 En la tabla \ref{exog_table} se presentan los valores de los coeficientes para
 cada covariable y en paréntesis el p-value asociado a cada uno. Como se puede
@@ -768,20 +778,20 @@ por lo tanto puede considerarse como una covariable exógena.
 	\label{exog_table}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		Ocasión\ (t) & $Adherencia_{j-1}$ & $\overline{Adherencia}_{j-2}$ & $TAS_{j-1}$ &
-		$\overline{TAS}_{j-2}$ \\
+		mes\ (j) & $adherencia_{ij-1}$ & $\overline{adherencia}_{ij-2}$ & $TAS_{ij-1}$ &
+		$\overline{TAS}_{ij-2}$ \\
 		\hline
 		\hline
-		$1$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
-		$2$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
+		$2$ & $1.9302\ (<0.001)$ & $-$ & $0.0057\ (0.45)$ & $-$ \\
+		$3$ & $2.3047\ (<0.001)$ & $0.5683\ (0.044)$ & $-0.0088\ (0.343)$ &
 		$0.0075\ (0.419)$ \\
-		$3$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
+		$4$ & $1.9689\ (<0.001)$ & $1.0734\ (0.002)$ & $0.0138\ (0.17)$ &
 		$-0.017\ (0.138)$ \\
-		$4$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
+		$5$ & $2.2945\ (<0.001)$ & $1.0617\ (0.007)$ & $0.0092\ (0.441)$ &
 		$-0.0141\ (0.307)$ \\
-		$5$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
+		$6$ & $2.2741\ (<0.001)$ & $1.0698\ (0.015)$ & $-0.0008\ (0.938)$ &
 		$<0.0001\ (0.996)$ \\
-		$6$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
+		$7$ & $2.5812\ (<0.001)$ & $1.4609\ (0.003)$ & $-0.0005\ (0.966)$ &
 		$-0.0072\ (0.678)$ \\
 		\hline
 	\end{tabular}
@@ -829,13 +839,6 @@ su forma original ya que se evaluó su exogeneidad. El modelo resulta:
 % % AGREGAR PROCESO AL ANEXO %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \begin{figure}[H]
-% 	\centering
-% 	\includegraphics[scale=0.4]{img/semivariogram.png}
-% 	\caption{Semivariograma}
-% 	\label{semivariogram}
-% \end{figure}
-
 % Además, se realizaron tests de hipótesis para probar la significación de los
 % efectos aleatorios para la ordenada y la pendiente, resultando ambos
 % significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
@@ -846,28 +849,62 @@ su forma original ya que se evaluó su exogeneidad. El modelo resulta:
 
 \[
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	\beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ t_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + mes_j\ b_{1i} + \varepsilon_{ij}
 \]
 
 Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-\]
-\[
+	\quad
 	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
 \]
 
-$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+Donde $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
 vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{img/semivariogram.png}
+	\caption{Semivariograma muestral}
+	\label{semivariogram}
+\end{figure}
+
+Los coeficientes del modelo estimado se presentan en la tabla
+\ref{modelo_propuesto}.
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo propuesto}
+	\label{modelo_propuesto}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15390.73} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30801.47} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30864.21} \\
+		\hline
+		Covariable				 & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		$intercepto$             & 122,641 & 2,426     & 50,555 & $<0.001$ \\
+		$sexo_i$                 & 3,760   & 0,747     & 5,036  & $<0.001$ \\
+		$edad_i$                 & 0,167   & 0,038     & 4,357  & $<0.001$ \\
+		$adherencia_{ij}$        & -2,316  & 0,923     & 2,509  & $0.012$  \\
+		$mes_j$                  & 0,371   & 0,240     & 1,547  & $0.122$  \\
+		$mes_j\ adherencia_{ij}$ & -0,792  & 0,262     & 3,018  & $0.003$  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Como se mencionó anteriormente, la CVT adherencia contiene ambos efectos entre e
+intra paciente, por lo tanto su coeficiente no será interpretable y será dificil
+sacar conclusiones sobre como afecta la adherencia a la TAS. En la siguiente
+sección se verán distintas formas de incorporar esta CVT al modelo, las cuales
+algunas si serán interpretables.
 
 \subsection{Incorporación de la CVT}
 
-Como se mencionó anteriormente, hay más de una manera de incorporar una CVT
-exógena a un modelo lineal mixto, en esta sección compararemos algunas de ellas.
-Dado que que la CVT adherencia solo existe a lo largo del tratamiento, se sabe
-apriori que solo afectara a la pendiente del modelo y no a la ordenada al
-origen.
+Hay más de una manera de incorporar una CVT exógena a un modelo lineal mixto, en
+esta sección compararemos algunas de ellas.
 
 \subsubsection{Incorporación de covariable fija}
 
@@ -880,13 +917,14 @@ Una de las transformaciones que puede aplicarse sobre la covariable adherencia
 es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
 adhirió en todo el tratamiento y 0 en otro caso. En base a los resultados
 presentados en la tabla \ref{modelo_1_tabla}, controlando por el resto de las
-variables, los pacientes con adherencia perfecta presentan una disminución
-promedio sobre la TAS de 0.666 por mes.
+variables, los pacientes que adhieren en la totalidad del tratamiento, inician
+el tratamiento con una TAS promedio menor en 2,763 unidades, y luego ésta
+continúa descendiendo en 0,272 unidades por mes.
 
 \begin{multline}
 	\label{modelo_1}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*adherencia\ perfecta_i + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i \\
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia\ perfecta_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -895,35 +933,36 @@ promedio sobre la TAS de 0.666 por mes.
 	\label{modelo_1_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.7275} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.455} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.92} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.08} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30850.16} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30912.9} \\
 		\hline
-		Covariable				& Coef.   & Std. Err. & z      & $P<|z|$ \\
+		Covariable					    & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		$intercepto$                   & 120.719 & 2.320 	  & 52.038 & $<0.001$ \\
-		$sexo_i$                       & 3.845   & 0.743     & 5.176  & $<0.001$  \\
-		$edad_i$                       & 0.169   & 0.038     & 4.414  & $<0.001$  \\
-		$mes_j$                        & -0.002  & 0.131 	  & -0.017 & $0.986$  \\
-		$mes_j*adherencia\ perfecta_i$ & -0.666  & 0.155     & -4.286 & $<0.001$  \\
+		$intercept$                     & 121,728 & 2,340     & 52,023 & $<0.001$ \\
+		$sexo_i$                        & 3,801   & 0,740     & 5,133  & $<0.001$ \\
+		$edad_i$                        & 0,176   & 0,038     & 4,590  & $<0.001$ \\
+	    $adherencia\ perfecta_i$        & -2,763  & 1,020     & -2,708 & $0.007$ \\
+		$mes_j$                         & -0,197  & 0,149     & -1,323 & $0.186$ \\
+		$mes_j\ adherencia\ perfecta_i$ & -0,272  & 0,212     & -1,280 & $0.201$ \\
 		\hline
 	\end{tabular}
 \end{table}
 
-Otra manera de incorporar la covariable fija conservando más información es usar
-la proporción de adherencia total al final del estudio. Es decir, si de las 7
-ocasiones el paciente adhiere correctamente al tratamiento en solo 5, el valor
-que se le asignará es $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes
-presentados en la tabla \ref{modelo_2_tabla} indican que, controlando por el
-resto de las variables, los pacientes presentan una disminución promedio en la
-TAS por mes de 1.410 proporcional a la adherencia. Por
-ejemplo, un paciente que adhiere correctamente sólo al 50\% del tratamiento,
-tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
+Otra manera de incorporar la covariable fija, conservando más información, es
+usar la proporción de adherencia total al final del estudio. Es decir, si de los
+7 meses el paciente adhiere en solo 5, el valor que se le asignará es
+$\frac{5}{7}$ ($\approx 0.71$). Los coeficientes presentados en la tabla
+\ref{modelo_2_tabla} indican que, controlando por el resto de las variables, los
+pacientes presentan una disminución promedio en la TAS por mes de 1.410
+proporcional a la adherencia. Por ejemplo, un paciente que adhiere correctamente
+sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 0.705
+($1.410\ *\ 0.5$).
 
 \begin{multline}
 	\label{modelo_2}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*\overline{adherencia}_i + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -932,17 +971,18 @@ tendrá una disminución promedio en su TAS de 0.705 ($1.410\ *\ 0.5$).
 	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15418.5232} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.046} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30911.511} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{15417.66} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.32} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30918.06} \\
 		\hline
-		Covariable 			 & Coef.   & Std. Err. & z 	    & $P<|z|$  \\
+		Covariable 			 			 & Coef.   & Std. Err. & z 	    & $P<|z|$  \\
 		\hline
-		$intercepto$                    & 120.754 & 2.331     & 51.814 & $<0.001$ \\
-		$sexo_i$                        & 3.776   & 0.747     &  5.054 & $<0.001$ \\
-		$edad_i$                        & 0.169   & 0.038     &  4.391 & $<0.001$ \\
-		$mes_j$                         & 0.826   & 0.287     &  2.876 & $0.004$  \\
-		$mes_j*\overline{adherencia}_i$ & -1.410  & 0.325     & -4.335 & $<0.001$ \\
+		$intercept$                      & 122,917 & 2,849     & 43,146 & $<0.001$ \\
+		$sexo_i$                         & 3,732   & 0,747     & 4,995  & $<0.001$ \\
+		$edad_i$                         & 0,172   & 0,039     & 4,469  & $<0.001$ \\
+		$\overline{adherencia}_i$        & -2,838  & 2,158     & -1,315 & $0.188$  \\
+		$mes_j$                          & 0,498   & 0,380     & 1,308  & $0.191$  \\
+		$mes_j\ \overline{adherencia}_i$ & -1,010  & 0,445     & -2,270 & $0.023$  \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -961,8 +1001,8 @@ afecta la adherencia a la TAS.
 
 \begin{multline}
 	\label{modelo_3}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i + \beta_3\ adherencia_{ij}
+	+ \beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -993,8 +1033,8 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 
 \begin{multline}
 	\label{modelo_4}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij-1} + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij-1} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -1003,17 +1043,18 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.5776} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30863.155} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30919.62} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.50} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30865.0} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30927.74} \\
 		\hline
-		Covariable 		   & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		Covariable 		   		   & Coef.   & Std. Err. & z      & $P<|z|$    \\
 		\hline
-		$intercepto$              & 121.089 & 2.341     & 51.716 & $<0.001$ \\
-		$sexo_i$                  & 3.870   & 0.751     & 5.152  & $<0.001$ \\
-		$edad_i$                  & 0.162   & 0.039     & 4.193  & $<0.001$ \\
-		$mes_j$                   & 0.089   & 0.168     & 0.531  & $0.595$  \\
-		$mes_j*adherencia_{ij-1}$ & -0.501  & 0.155     & -3.228 & $0.001$  \\
+		$intercept$                & 121,190 & 2,355 	 & 51,451 & $<0.001$   \\
+		$sexo_i$                   & 3,869   & 0,751 	 & 5,151  & $<0.001$   \\
+		$edad_i$                   & 0,162   & 0,039 	 & 4,197  & $<0.001$   \\
+		$adherencia_{ij-1}$        & -0,254  & 0,651 	 & -0,390 & $0.697$    \\
+		$mes_j$                    & 0,064   & 0,179 	 & 0,359  & $0.720$    \\
+		$mes_j\ adherencia_{ij-1}$ & -0,443  & 0,215 	 & -2,061 & $0.039$    \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -1027,8 +1068,8 @@ $\frac{3}{5}$ ($0.6$). Los resultados se presentan en la tabla
 
 \begin{multline}
 	\label{modelo_5}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*\overline{adherencia}_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ overline{adherencia}_{ij}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -1037,17 +1078,18 @@ $\frac{3}{5}$ ($0.6$). Los resultados se presentan en la tabla
 	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.2415} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30848.483} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30904.948} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15409.38} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30838.77} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30901.51} \\
 		\hline
-		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$ \\
+		Covariable 				 			& Coef.   & Std. Err. & z      & $P<|z|$ \\
 		\hline
-		$intercepto$                     & 120.570 & 2.333     & 51.669 & $<0.001$ \\
-		$sexo_i$                         & 3.777   & 0.748     & 5.053  & $<0.001$ \\
-		$edad_i$                         & 0.171   & 0.039     & 4.448  & $<0.001$ \\
-		$mes_j$                          & 0.899   & 0.267     & 3.367  & $0.001$  \\
-		$mes*\overline{adherencia}_{ij}$ & -1.499  & 0.298     & -5.022 & $<0.001$ \\
+		$intercept$                	   		& 123,489 & 2,489 	  & 49,622 & $<0.001$ \\
+		$sexo_i$                       		& 3,721   & 0,749 	  & 4,966  & $<0.001$ \\
+		$edad_i$                       		& 0,177   & 0,039 	  & 4,574  & $<0.001$ \\
+		$\overline{adherencia}_{ij}$   		& -4,082  & 1,196 	  & -3,413 & $0.001$ \\
+		$mes_j$                        		& 0,382   & 0,306 	  & 1,248  & $0.212$ \\
+		$mes_j\ \overline{adherencia}_{ij}$ & -0,835  & 0,355 	  & -2,348 & $0.019$ \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -1077,8 +1119,8 @@ TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total
 
 \begin{multline}
 	\label{modelo_6}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i +
-	\beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + \beta_4*mes_j*\overline{adherencia}_i + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij} + \beta_4\ overline{adherencia}_i
+	+ \beta_5\ mes_j + \beta_6\ mes_j\ adherencia_{ij} + \beta_7\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
@@ -1088,18 +1130,20 @@ TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total
 	\label{modelo_6_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.6515} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30807.303} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30870.042} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15389.83} \\
+		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30803.66} \\
+		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30878.95} \\
 		\hline
-		Covariable 			 			& Coef.   & Std. Err. & z      & $P<|z|$  \\
+		Covariable 			 			 & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		$intercepto$           			& 120.832 & 2.330     & 51.855 & $<0.001$ \\
-		$sexo_i$                 		& 3.754   & 0.747     &  5.023 & $<0.001$ \\
-		$edad_i$                 		& 0.167   & 0.039     &  4.333 & $<0.001$ \\
-		$mes_j$                  		& 0.946   & 0.286     &  3.307 & $0.001$  \\
-		$mes_j*adherencia_{ij}$         & -1.261  & 0.178     & -7.078 & $<0.001$ \\
-		$mes_j*\overline{adherencia}_i$ & -0.246  & 0.363     & -0.678 & $0.498$  \\
+		$intercept$            			 & 122,631 & 2,846 	   & 43,090 & $<0.001$ \\
+		$sexo_i$                   		 & 3,723   & 0,747 	   & 4,983  & $<0.001$ \\
+		$edad_i$                   		 & 0,171   & 0,039 	   & 4,429  & $<0.001$ \\
+		$adherencia_{ij}$            	 & -2,658  & 1,054 	   & -2,521 & $0.012$  \\
+		$\overline{adherencia}_i$        & 0,137   & 2,385 	   & 0,058  & $0.954$  \\
+		$mes_j$                    		 & 0,644   & 0,379 	   & 1,701  & $0.089$  \\
+		$mes_j\ adherencia_{ij}$         & -0,603  & 0,314 	   & -1,919 & $0.055$  \\
+		$mes_j\ \overline{adherencia}_i$ & -0,525  & 0,529 	   & -0,992 & $0.321$  \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -1198,9 +1242,20 @@ con el método de máxima verosimilitud restringida. El modelo completo es el
 siguiente y sus resultados pueden observarse en la tabla \ref{modelo_both}.
 
 \[
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i
-	+ \beta_3 mes_j + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \]
+
+Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
+
+\[ 
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+	\quad
+	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
+\]
+
+$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 
 \begin{table}[H]
 	\centering
@@ -1223,10 +1278,10 @@ siguiente y sus resultados pueden observarse en la tabla \ref{modelo_both}.
 	\end{tabular}
 \end{table}
 
-Donde \[
-	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
-	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
-\]
+% Donde \[
+% 	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
+% 	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
+% \]
 
 Se ajusta un modelo reducido solo con pendiente aleatoria:
 
@@ -1242,7 +1297,7 @@ $ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ men
 Siendo $G^2 = (-2)*LogLikelihood$, MC el modelo completo y MR el modelo
 reducido obtenemos:
 
-$ G^2(MR) - G^2(MC) = 31323.7584 - 30861.6558 = 462.1026 $
+$ G^2(MR) - G^2(MC) = 31250.64 - 30787.86 = 462.78 $
 
 Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ resulta mayor, por
 lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
@@ -1263,7 +1318,7 @@ $ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ men
 Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
 reducido obtenemos:
 
-$ G^2(MR) - G^2(MC) = 30912.1548 - 30861.6558 = 50.499 $
+$ G^2(MR) - G^2(MC) = 30838.97 - 30787.86 = 51.11 $
 
 Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
 por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la

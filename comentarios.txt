@@ -1,3 +1,18 @@
+TENGO QUE USAR MES CENTRADO EN 0 SINO NO PUEDE AJUSTAR EL EFECTO ALEATORIO
+
 aumente el eje y pero sigue habiendo picos en la edad
 
 mostrar el scatterplot en el notebook de analisis descriptivo
+
+el test de efectos aleatorios para la pendiente no se puede hacer porque la
+variancia me da 0
+
+como interpretar la CVT cuando tengo el efecto suelto y la interaccion con el
+tiempo, no encuentro mucha info sobre esto
+
+para el semivariograma se usan efectos aleatorios y reml?
+RECALCULAR SEMIVARIOGRAMA CON ADHERENCIA
+
+tiene sentido la adherencia sin interaccion con el tiempo? es decir, deberia ser
+el efecto en la ordenada al inicio del estudio, pero si uso adherencia sub ij
+entonces cuando estemos en un mes j>0 eso va a cambiar el valor de la ordenada
