@@ -847,10 +847,11 @@ su forma original ya que se evaluó su exogeneidad. El modelo resulta:
 
 % El modelo resultante se escribe:
 
-\[
+\begin{multline}
+	\label{modelo_1}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + mes_j\ b_{1i} + \varepsilon_{ij}
-\]
+\end{multline}
 
 Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 
@@ -871,12 +872,12 @@ vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 \end{figure}
 
 Los coeficientes del modelo estimado se presentan en la tabla
-\ref{modelo_propuesto}.
+\ref{modelo_1_tabla}.
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo propuesto}
-	\label{modelo_propuesto}
+	\caption{Modelo 1}
+	\label{modelo_1_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15390.73} \\
@@ -916,21 +917,21 @@ endógenas.
 Una de las transformaciones que puede aplicarse sobre la covariable adherencia
 es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
 adhirió en todo el tratamiento y 0 en otro caso. En base a los resultados
-presentados en la tabla \ref{modelo_1_tabla}, controlando por el resto de las
+presentados en la tabla \ref{modelo_2_tabla}, controlando por el resto de las
 variables, los pacientes que adhieren en la totalidad del tratamiento, inician
 el tratamiento con una TAS promedio menor en 2,763 unidades, y luego ésta
 continúa descendiendo en 0,272 unidades por mes.
 
 \begin{multline}
-	\label{modelo_1}
+	\label{modelo_2}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia\ perfecta_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 1: Incorporación adherencia perfecta}
-	\label{modelo_1_tabla}
+	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\label{modelo_2_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.08} \\
@@ -953,7 +954,7 @@ Otra manera de incorporar la covariable fija, conservando más información, es
 usar la proporción de adherencia total al final del estudio. Es decir, si de los
 7 meses el paciente adhiere en solo 5, el valor que se le asignará es
 $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes presentados en la tabla
-\ref{modelo_2_tabla} indican que, controlando por el resto de las variables, los
+\ref{modelo_3_tabla} indican que, controlando por el resto de las variables, los
 pacientes presentan una disminución promedio en la TAS de 2,838 en proporción a
 la adherencia total al inicio del tratamiento y luego disminuirá en 1,010
 proporcional a la adherencia total por mes. Por ejemplo, un paciente que adhiere
@@ -962,15 +963,15 @@ sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 1.
 por mes ($1,010\ *\ 0.5$).
 
 \begin{multline}
-	\label{modelo_2}
+	\label{modelo_3}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 2: incorporación adherencia total}
-	\label{modelo_2_tabla}
+	\caption{Modelo 3: incorporación adherencia total}
+	\label{modelo_3_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{15417.66} \\
@@ -997,18 +998,18 @@ pensarse que el tratamiento no es de efecto inmediato y la TAS podria estar
 influenciada por la adherencia en meses anteriores.
 
 Los resultados de ajustar el modelo utilizando la adherencia en el mes anterior
-se presentan en la tabla \ref{modelo_3_tabla}.
+se presentan en la tabla \ref{modelo_4_tabla}.
 
 \begin{multline}
-	\label{modelo_3}
+	\label{modelo_4}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1} \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij-1} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 3: incorporación adherencia en el mes anterior}
-	\label{modelo_3_tabla}
+	\caption{Modelo 4: incorporación adherencia en el mes anterior}
+	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.50} \\
@@ -1027,22 +1028,22 @@ se presentan en la tabla \ref{modelo_3_tabla}.
 	\end{tabular}
 \end{table}
 
-En la tabla \ref{modelo_4_tabla} se presentan los resultados de un modelo
+En la tabla \ref{modelo_5_tabla} se presentan los resultados de un modelo
 ajustando utilizando la adherencia promedio en cada mes. Es decir, si en el mes
 4 un paciente adhirio solo en 2 meses, su adherencia promedio será de
 $\frac{2}{4}$ ($0.5$). Sin embargo, si adhiere en la ocasión 5, entonces la
 adherencia promedio en ese mes será $\frac{3}{5}$ ($0.6$). 
 
 \begin{multline}
-	\label{modelo_4}
+	\label{modelo_5}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ overline{adherencia}_{ij} \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 4: incorporación adherencia acumulada}
-	\label{modelo_4_tabla}
+	\caption{Modelo 5: incorporación adherencia acumulada}
+	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15409.38} \\
@@ -1079,9 +1080,9 @@ en los meses que si adhiera. En términos de la estimación del modelo esto no
 genera ningún problema, pero será confuso en la interpretación de los
 parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
 estará acompañado de un 0). Por lo tanto, para evitar esto, el efecto
-intra-unidad estará acompañado solo de $X_{ij}$
+intra-unidad estará acompañado solo de $X_{ij}$.
 
-Los resultados pueden observarse en la tabla \ref{modelo_5_tabla}. Los
+Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. Los
 coeficientes -2.658 y 0,603 quieren decir que, manteniendo constante la
 proporción de adherencia total, se espera que los pacientes que adhieren al
 tratamiento presenten una disminución promedio en la TAS de 2.658 unidades al
@@ -1092,7 +1093,7 @@ que la TAS al inicio del tratamiento sea mayor en 0.137 unidades relativo a la
 proporción de adherencia total y luego disminuya, en promedio, 0,525 unidades en
 proporcion a la adherencia total al tratamiento.
 
-% Los resultados pueden observarse en la tabla \ref{modelo_5_tabla}. El
+% Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. El
 % coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
 % adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
 % los que se adhiere al tratamiento. Por otro lado, el coeficiente -0.246 quiere
@@ -1100,16 +1101,16 @@ proporcion a la adherencia total al tratamiento.
 % TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total.
 
 \begin{multline}
-	\label{modelo_5}
+	\label{modelo_6}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_{3}\ adherencia_{ij} + \beta_4\ \overline{adherencia}_i \\
 	+ \beta_5\ mes_j + \beta_6\ mes_j\ adherencia_{ij} + \beta_7\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 5: incorporación la adherencia dividiendo efecto entre e
+	\caption{Modelo 6: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
-	\label{modelo_5_tabla}
+	\label{modelo_6_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15389.83} \\
@@ -1140,12 +1141,12 @@ proporcion a la adherencia total al tratamiento.
 		\hline
 		Modelo 			 & AIC 		& BIC 	   \\
 		\hline
-		Modelo propuesto & 30801.47 & 30864.21 \\
-		Modelo 1 		 & 30850.16 & 30912.9  \\
-		Modelo 2 		 & 30855.32 & 30918.06 \\
-		Modelo 3 		 & 30865.0  & 30927.74 \\
-		Modelo 4 		 & 30838.77 & 30901.51 \\
-		Modelo 5 		 & 30803.66 & 30878.95 \\
+		Modelo 1		 & 30801.47 & 30864.21 \\
+		Modelo 2 		 & 30850.16 & 30912.9  \\
+		Modelo 3 		 & 30855.32 & 30918.06 \\
+		Modelo 4 		 & 30865.0  & 30927.74 \\
+		Modelo 5 		 & 30838.77 & 30901.51 \\
+		Modelo 6 		 & 30803.66 & 30878.95 \\
 		\hline
 	\end{tabular}
 \end{table}
