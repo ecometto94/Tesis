@@ -1,18 +1,22 @@
 TENGO QUE USAR MES CENTRADO EN 0 SINO NO PUEDE AJUSTAR EL EFECTO ALEATORIO
-
-aumente el eje y pero sigue habiendo picos en la edad
+investigar mejor por que no puedo ajustar el modelo -> si no hay forma, reescalar mes y ajustar la nomenclatura
 
 mostrar el scatterplot en el notebook de analisis descriptivo
-
-el test de efectos aleatorios para la pendiente no se puede hacer porque la
-variancia me da 0
+donde digo "es necesario" en los perfiles promedio de adherencia, usar algo mas soft tipo resulta mas adecuado...
 
 como interpretar la CVT cuando tengo el efecto suelto y la interaccion con el
 tiempo, no encuentro mucha info sobre esto
 
-para el semivariograma se usan efectos aleatorios y reml?
-RECALCULAR SEMIVARIOGRAMA CON ADHERENCIA
-
 tiene sentido la adherencia sin interaccion con el tiempo? es decir, deberia ser
 el efecto en la ordenada al inicio del estudio, pero si uso adherencia sub ij
 entonces cuando estemos en un mes j>0 eso va a cambiar el valor de la ordenada
+
+para el semivariograma se usan efectos aleatorios y reml? la clase OLS no me deja hacerlo
+
+como interpretar lo de proporcional a la adherencia
+
+esta bien interpretar la ordenada como inicio del tratamiento?
+
+llamar a todos los modelos con un numero
+
+con R se puede ajustar bien el modelo aleatorio de mes

@@ -942,9 +942,9 @@ continúa descendiendo en 0,272 unidades por mes.
 		$intercept$                     & 121,728 & 2,340     & 52,023 & $<0.001$ \\
 		$sexo_i$                        & 3,801   & 0,740     & 5,133  & $<0.001$ \\
 		$edad_i$                        & 0,176   & 0,038     & 4,590  & $<0.001$ \\
-	    $adherencia\ perfecta_i$        & -2,763  & 1,020     & -2,708 & $0.007$ \\
-		$mes_j$                         & -0,197  & 0,149     & -1,323 & $0.186$ \\
-		$mes_j\ adherencia\ perfecta_i$ & -0,272  & 0,212     & -1,280 & $0.201$ \\
+	    $adherencia\ perfecta_i$        & -2,763  & 1,020     & -2,708 & $0.007$  \\
+		$mes_j$                         & -0,197  & 0,149     & -1,323 & $0.186$  \\
+		$mes_j\ adherencia\ perfecta_i$ & -0,272  & 0,212     & -1,280 & $0.201$  \\
 		\hline
 	\end{tabular}
 \end{table}
@@ -954,14 +954,16 @@ usar la proporción de adherencia total al final del estudio. Es decir, si de lo
 7 meses el paciente adhiere en solo 5, el valor que se le asignará es
 $\frac{5}{7}$ ($\approx 0.71$). Los coeficientes presentados en la tabla
 \ref{modelo_2_tabla} indican que, controlando por el resto de las variables, los
-pacientes presentan una disminución promedio en la TAS por mes de 1.410
-proporcional a la adherencia. Por ejemplo, un paciente que adhiere correctamente
-sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 0.705
-($1.410\ *\ 0.5$).
+pacientes presentan una disminución promedio en la TAS de 2,838 en proporción a
+la adherencia total al inicio del tratamiento y luego disminuirá en 1,010
+proporcional a la adherencia total por mes. Por ejemplo, un paciente que adhiere
+sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 1.419
+($2,838\ *\ 0.5$) al inicio del tratamiento, y luego una disminución de 0,505
+por mes ($1,010\ *\ 0.5$).
 
 \begin{multline}
 	\label{modelo_2}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
@@ -989,58 +991,24 @@ sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 0.
 
 \subsubsection{Incorporación como CVT}
 
-Se proponen tres maneras de incorporar la CVT al modelo, la adherencia en el mes
-actual, la adherencia en el mes anterior y la adherencia promedio hasta el mes
-actual, ya que podria pensarse que el tratamiento no es de efecto inmediato y la
-TAS podria estar influenciada por la adherencia en meses anteriores.
+Se proponen otras dos maneras de incorporar la CVT al modelo, la adherencia en
+el mes anterior y la adherencia promedio hasta el mes actual, ya que podria
+pensarse que el tratamiento no es de efecto inmediato y la TAS podria estar
+influenciada por la adherencia en meses anteriores.
 
-Los resultados del modelo incorporando la adherencia en el mes actual pueden
-observarse en la tabla \ref{modelo_3_tabla}. Como se mencionó anteriormente, su
-coeficiente no será interpretable y será dificil sacar conclusiones sobre como
-afecta la adherencia a la TAS.
+Los resultados de ajustar el modelo utilizando la adherencia en el mes anterior
+se presentan en la tabla \ref{modelo_3_tabla}.
 
 \begin{multline}
 	\label{modelo_3}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1*sexo_i + \beta_2*edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_3*mes_j + \beta_4*mes_j*adherencia_{ij} + b_{1i}*mes_j + \varepsilon_{ij}
-\end{multline}
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo 3: incorporación adherencia}
-	\label{modelo_3_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393.8815} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30805.763} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30862.228} \\
-		\hline
-		Covariable 	   & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		$intercepto$            & 120.911 & 2.329 	 & 51.912 & $<0.001$ \\
-		$sexo_i$                & 3.772   & 0.747 	 & 5.046  & $<0.001$ \\
-		$edad_i$                & 0.165   & 0.038 	 & 4.297  & $<0.001$ \\
-		$mes_j$                 & 0.791   & 0.171 	 & 4.613  & $<0.001$ \\
-		$mes_j*adherencia_{ij}$ & -1.316  & 0.159 	 & -8.279 & $<0.001$ \\
-		\hline
-	\end{tabular}
-\end{table}
-
-Otra opción, en lugar de considerar la adherencia en la mes actual, es
-considerarla en la mes anterior. Esto permitiria investigar si el
-tratamiento afecta a la TAS en un determinado intervalo de tiempo y no de manera
-instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
-
-\begin{multline}
-	\label{modelo_4}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1} \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij-1} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 4: incorporación adherencia en el mes anterior}
-	\label{modelo_4_tabla}
+	\caption{Modelo 3: incorporación adherencia en el mes anterior}
+	\label{modelo_3_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.50} \\
@@ -1059,23 +1027,22 @@ instantánea. Los resultados se presentan en la tabla \ref{modelo_4_tabla}.
 	\end{tabular}
 \end{table}
 
-Otra opción podría ser transformar la CVT e incorporar la adherencia promedio
-hasta la mes actual. Es decir, si en el mes 4 un paciente adhirio solo en 2
-meses, su adherencia promedio será de $\frac{2}{4}$ ($0.5$). Sin embargo, si
-adhiere en la ocasión 5, entonces la adherencia promedio en ese mes será
-$\frac{3}{5}$ ($0.6$). Los resultados se presentan en la tabla
-\ref{modelo_5_tabla}.
+En la tabla \ref{modelo_4_tabla} se presentan los resultados de un modelo
+ajustando utilizando la adherencia promedio en cada mes. Es decir, si en el mes
+4 un paciente adhirio solo en 2 meses, su adherencia promedio será de
+$\frac{2}{4}$ ($0.5$). Sin embargo, si adhiere en la ocasión 5, entonces la
+adherencia promedio en ese mes será $\frac{3}{5}$ ($0.6$). 
 
 \begin{multline}
-	\label{modelo_5}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ overline{adherencia}_{ij}
+	\label{modelo_4}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ overline{adherencia}_{ij} \\
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 5: incorporación adherencia acumulada}
-	\label{modelo_5_tabla}
+	\caption{Modelo 4: incorporación adherencia acumulada}
+	\label{modelo_4_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15409.38} \\
@@ -1094,6 +1061,10 @@ $\frac{3}{5}$ ($0.6$). Los resultados se presentan en la tabla
 	\end{tabular}
 \end{table}
 
+Al igual que con el modelo propuesto en una primera instancia, estas CVT siguen
+conteniendo ambos efectos entre e intra paciente, por lo que sus coeficientes no
+pueden ser fácilmente interpretables.
+
 \subsubsection{Incorporación dividiendo efecto entre e intra}
 
 Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
@@ -1110,24 +1081,35 @@ parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
 estará acompañado de un 0). Por lo tanto, para evitar esto, el efecto
 intra-unidad estará acompañado solo de $X_{ij}$
 
-Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. El
-coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
-adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
-los que se adhiere al tratamiento. Por otro lado, el coeficiente -0.246 quiere
-decir que, después de controlar por la adherencia en ese mes, se espera que la
-TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total.
+Los resultados pueden observarse en la tabla \ref{modelo_5_tabla}. Los
+coeficientes -2.658 y 0,603 quieren decir que, manteniendo constante la
+proporción de adherencia total, se espera que los pacientes que adhieren al
+tratamiento presenten una disminución promedio en la TAS de 2.658 unidades al
+inicio del tratamiento y que esta disminuya en promedio 0,603 los meses en los
+que se adhiere al tratamiento. Por otro lado, los coeficientes -0,137 y -0,525
+quieren decir que, después de controlar por la adherencia en ese mes, se espera
+que la TAS al inicio del tratamiento sea mayor en 0.137 unidades relativo a la
+proporción de adherencia total y luego disminuya, en promedio, 0,525 unidades en
+proporcion a la adherencia total al tratamiento.
+
+% Los resultados pueden observarse en la tabla \ref{modelo_5_tabla}. El
+% coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
+% adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
+% los que se adhiere al tratamiento. Por otro lado, el coeficiente -0.246 quiere
+% decir que, después de controlar por la adherencia en ese mes, se espera que la
+% TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total.
 
 \begin{multline}
-	\label{modelo_6}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij} + \beta_4\ overline{adherencia}_i
+	\label{modelo_5}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_{3}\ adherencia_{ij} + \beta_4\ \overline{adherencia}_i \\
 	+ \beta_5\ mes_j + \beta_6\ mes_j\ adherencia_{ij} + \beta_7\ mes_j\ \overline{adherencia}_i + b_{1i}\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 6: incorporación la adherencia dividiendo efecto entre e
+	\caption{Modelo 5: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
-	\label{modelo_6_tabla}
+	\label{modelo_5_tabla}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
 		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15389.83} \\
@@ -1154,51 +1136,26 @@ TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total
 	\centering
 	\caption{Coeficientes estimados con sus respectivos p-values y criterio de Akaike de cada modelo}
 	\label{comparacion}
-	\begin{tabular}{*{7}{|c}|}
+	\begin{tabular}{*{3}{|c}|}
 		\hline
-		Variable 						   				    & Modelo 1    & Modelo 2    & Modelo 3    & Modelo 4    & Modelo 5    & Modelo 6   \\
+		Modelo 			 & AIC 		& BIC 	   \\
 		\hline
-		\multirow{2}{*}{$intercepto$} 	   				    & $120.719$   & $120.754$   & $120.911$   & $121.089$   & $120.570$   & $120.832$  \\
-										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
-		\hline
-		\multirow{2}{*}{$sexo_i$} 		   				    & $3.845$     & $3.776$     & $3.772$     & $3.870$     & $3.777$     & $3.754$    \\
-										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
-		\hline
-		\multirow{2}{*}{$edad_i$}		   				    & $0.169$     & $0.169$     & $0.165$     & $0.162$     & $0.171$     & $0.167$    \\
-										   				    & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$  & $(<0.001)$ \\
-		\hline
-		\multirow{2}{*}{$mes_j$} 		   				    & $-0.002$    & $0.826$     & $0.791$     & $0.089$     & $0.899$     & $0.946$    \\
-										   				    & $(0.986)$   & $(0.004)$   & $(<0.001)$  & $(0.595)$   & $(0.001)$   & $(0.001)$  \\
-		\hline
-		\multirow{2}{*}{$mes_j*adherencia\ perfecta_i$}     & $-0.666$    & - 		    & - 		  & -		 	& - 		  & - 		   \\
-														    & $(<0.001)$  & -			& - 		  & - 		    & - 		  & - 		   \\
-		\hline
-		\multirow{2}{*}{$mes_j*\overline{adherencia}_i$}    & -		 	  & $-1.410$    & - 		  & -           & - 		  & $-0.246$   \\
-														    & - 		  & $(<0.001)$  & - 		  & - 			& - 		  & $(0.498)$  \\
-		\hline
-		\multirow{2}{*}{$mes_j*adherencia_{ij}$}            & -		 	  & -           & $-1.316$    & - 			& - 		  & $-1.261$   \\
-														    & - 		  & - 		    & $(<0.001)$  & - 			& - 		  & $(<0.001)$ \\
-		\hline
-		\multirow{2}{*}{$mes_j*adherencia_{ij-1}$} 		    & - 		  & -           & - 		  & $-0.501$    & - 		  & - 		   \\
-														    & - 		  & - 			& - 		  & $(0.001)$	& - 		  & -		   \\
-		\hline
-		\multirow{2}{*}{$mes_j*\overline{adherencia}_{ij}$} & -			  & - 	   		& - 		  & -		    & $-1.499$    & -		   \\
-															& -			  & -			& -			  & -			& $(<0.001)$  & -		   \\
-		\hline
-		\hline
-		AIC													& $30855.455$ & $30855.046$ & $30805.763$ & $30863.155$ & $30848.483$ & $30807.303$ \\
+		Modelo propuesto & 30801.47 & 30864.21 \\
+		Modelo 1 		 & 30850.16 & 30912.9  \\
+		Modelo 2 		 & 30855.32 & 30918.06 \\
+		Modelo 3 		 & 30865.0  & 30927.74 \\
+		Modelo 4 		 & 30838.77 & 30901.51 \\
+		Modelo 5 		 & 30803.66 & 30878.95 \\
 		\hline
 	\end{tabular}
 \end{table}
 
-En la tabla \ref{comparacion} pueden observarse los cambios en los coeficientes
-estimados del modelo según los distintos métodos para incorporar la CVT
-adherencia. Basándose en el AIC, los modelos que mejor ajustan los datos son los
-modelos 3 y 6, es decir, los modelos que incorporan la CVT en su manera natural
-sin aplicarse ninguna transformación. El modelo 6 presenta un AIC un poco
-superior al del modelo 3, esto se debe a que se agrega el coeficiente de
-$mes_j*\overline{adherencia}_i$ aunque este no sea significativo, ya que
-facilita su interpretación.
+En la tabla \ref{comparacion} se puede observar que, basándose en el AIC y el
+BIC, los modelos que mejor ajustan los datos son el modelo propuesto y el modelo
+5, es decir, los modelos que incorporan la CVT en su manera natural sin
+aplicarse ninguna transformación. El modelo 5 presenta valores un poco
+superiores, esto se debe a que se agregan coeficientes que no son significativos
+pero logran facilitar su interpretación.
 
 \newpage
 
@@ -1254,41 +1211,69 @@ Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
 \]
 
-$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+Donde $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
 vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
+
+Siendo \[
+	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
+	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
+\]
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo con ambos efectos aleatorios}
+	\caption{Modelo con ordenada y pendiente aleatoria}
 	\label{modelo_both}
 	\begin{tabular}{*{5}{|c}|}
 		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15430.8279} \\
-		\multicolumn{3}{|c}{Var(Intercepto)} & \multicolumn{2}{|c|}{93.866} \\
-		\multicolumn{3}{|c}{Var(Mes)} & \multicolumn{2}{|c|}{2.219} \\
-		\multicolumn{3}{|c}{Cov(Intercepto, Mes)} & \multicolumn{2}{|c|}{-8.287} \\
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15393,93} \\
+		\multicolumn{3}{|c}{Var($intercepto$)} & \multicolumn{2}{|c|}{112,78} \\
+		\multicolumn{3}{|c}{Var($mes_j$)} & \multicolumn{2}{|c|}{2,16} \\
+		\multicolumn{3}{|c}{Cov($Intercepto$, $mes_j$)} & \multicolumn{2}{|c|}{-10,6} \\
 		\hline
-		Covariable & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$  \\
 		\hline
-		Intercepto & 121.310 & 2.361     & 51.384 & $<0.001$ \\
-		Sexo       & 3.911   & 0.758     & 5.160  & $<0.001$ \\
-		Edad       & 0.158   & 0.039     & 4.063  & $<0.001$ \\
-		Mes 	   & -0.332  & 0.106     & -3.119 & $0.002$  \\
+		$intercepto$             & 122,271 & 2,508     & 48,751 & $<0.001$ \\
+		$sexo_i$                 & 3,760   & 0,749     & 5,022  & $<0.001$ \\
+		$edad_i$                 & 0,167   & 0,039     & 4,344  & $<0.001$ \\
+		$adherencia_{ij}$        & -1,525  & 1,144     & -1,333 & $0.183$  \\
+		$mes_j$                  & 0,371   & 0,240     & 1,545  & $0.122$  \\
+		$mes_j\ adherencia_{ij}$ & -0,792  & 0,263     & -3,015 & $0.003$  \\
 		\hline
 	\end{tabular}
 \end{table}
 
-% Donde \[
-% 	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
-% 	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
-% \]
-
-Se ajusta un modelo reducido solo con pendiente aleatoria:
+Se ajusta un modelo reducido solo con pendiente aleatoria, obteniendose los
+resultados presentados en \ref{modelo_time}:
 
 \[
-	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i
-	+ \beta_3 mes_j + b_{1i}*mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \]
+
+%%%%%%%%%%%%%%%%%%
+% HECHO CON R
+%%%%%%%%%%%%%%%%%%
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con pendiente aleatoria}
+	\label{modelo_time}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15572,14} \\
+		\multicolumn{3}{|c}{Var($mes_j$)} & \multicolumn{2}{|c|}{2,24} \\
+		\hline
+		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		$intercepto$             & 122,914 & 1,946     & 63,162 & $<0.001$ \\
+		$sexo_i$                 & 3,8     & 0,566     & 6,713  & $<0.001$ \\
+		$edad_i$                 & 0,156   & 0,029     & 5,361  & $<0.001$ \\
+		$adherencia_{ij}$        & -1,539  & 1,091     & -1,41  & $0.158$  \\
+		$mes_j$                  & 0,376   & 0,255     & 1,474  & $0.141$  \\
+		$mes_j\ adherencia_{ij}$ & -0,798  & 0,276     & -2,886 & $0.004$  \\
+		\hline
+	\end{tabular}
+\end{table}
 
 Y se plantea el siguiente test de hipótesis:
 
@@ -1297,19 +1282,40 @@ $ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ men
 Siendo $G^2 = (-2)*LogLikelihood$, MC el modelo completo y MR el modelo
 reducido obtenemos:
 
-$ G^2(MR) - G^2(MC) = 31250.64 - 30787.86 = 462.78 $
+$ G^2(MR) - G^2(MC) = 31144.28 - 30787.86 = 356.52 $
 
 Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ resulta mayor, por
 lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
 ordenada al origen aleatoria.
 
 Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
-obtiene:
+obtienen los resultados presentados en la tabla \ref{modelo_intercept}:
 
 \[
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1 sexo_i + \beta_2 edad_i
-	+ \beta_3 mes_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
+	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + \varepsilon_{ij}
 \]
+
+\begin{table}[H]
+	\centering
+	\caption{Modelo con ordenada aleatoria}
+	\label{modelo_intercept}
+	\begin{tabular}{*{5}{|c}|}
+		\hline
+		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15419,49} \\
+		\multicolumn{3}{|c}{Var($intercepto$)} & \multicolumn{2}{|c|}{61,168} \\
+		\hline
+		Covariable 				 & Coef.   & Std. Err. & z      & $P<|z|$  \\
+		\hline
+		$intercepto$             & 122.102 & 2.482     & 49.204 & $<0.001$ \\
+		$sexo_i$                 & 3.771   & 0.752     & 5.016  & $<0.001$ \\
+		$edad_i$                 & 0.165   & 0.039     & 4.261  & $<0.001$ \\
+		$adherencia_{ij}$        & -1.129  & 1.086     & -1.039 & $0.299$  \\
+		$mes_j$                  & 0.430   & 0.224     & 1.924  & $0.054$  \\
+		$mes_j\ adherencia_{ij}$ & -0.866  & 0.250     & -3.467 & $0.001$  \\
+		\hline
+	\end{tabular}
+\end{table}
 
 Se plantea el test de hipótesis:
 
@@ -1318,7 +1324,7 @@ $ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ men
 Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
 reducido obtenemos:
 
-$ G^2(MR) - G^2(MC) = 30838.97 - 30787.86 = 51.11 $
+$ G^2(MR) - G^2(MC) = 30838.98 - 30787.86 = 51.12 $
 
 Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
 por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
