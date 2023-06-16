@@ -521,10 +521,6 @@ debe definirse uno de sus 4 tipos para utilizar el GMM.
 
 \newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REESCRIBIR TODA ESTA SECCION (VER DIGGLE) %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Formas de introducir una CVT al modelo}
 
 Si al evaluar el tipo de la CVT de la manera vista en
@@ -726,16 +722,31 @@ mayores o iguales 59 años (mediana de edad de los pacientes).
 \end{figure}
 
 Cuando se cuenta con una CVT, cada individuo puede presentar distintos valores
-de la covariable en cada ocasión. Por lo tanto, para poder visualizar el efecto
-de la adherencia sobre la TAS según perfiles promedio, es necesario convertir la
-CVT en una CNVT para que cada paciente pertenezca únicamente a un solo grupo.
-Para eso, se dividieron distintos perfiles de pacientes según la cantidad de
-meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos, entre
-4 y 6 meses o todos los meses. Se puede observar que para el grupo de pacientes
-que adhirieron al tratamiento 3 meses o menos la TAS presenta una pendiente
-creciente a lo largo del estudio. Para los otros 2 grupos, la TAS disminuye a lo
-largo del tratamiento, siendo menor para el grupo de pacientes que adhirieron la
-totalidad de los meses.
+de la covariable en cada ocasión, es decir, los pacientes no mantienen un perfil
+constante a lo largo del tratamiento. En una primera instancia es posible
+analizar un diagrama de dispersión de entre la TAS y el tiempo según adherencia.
+En este caso, como la variable $mes$ es discreta, se usa una técnica llamada
+``jitter'' la cual agrega un pequeño desplazamiento en los puntos, evitando que
+queden perfectamente solapados. Al observar los resultados de
+\ref{TAS_with_adh_scatter} se puede notar que esta manera de visualizar el
+efecto de la adherencia sobre la TAS resulta confusa, al menos para estos datos.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia_scatter.png}
+	\caption{Valores de la TAS a través del tiempo según adherencia}
+	\label{TAS_with_adh_scatter}
+\end{figure}
+
+Para poder visualizar el efecto de la adherencia sobre la TAS según perfiles
+promedio, resulta adecuado convertir la CVT en una CNVT para que cada paciente
+pertenezca únicamente a un solo grupo. Para esto, se dividieron distintos
+perfiles de pacientes según la cantidad de meses que adhirieron al tratamiento,
+formando los grupos: 3 meses o menos, entre 4 y 6 meses o todos los meses. Se
+puede observar que para el grupo de pacientes que adhirieron al tratamiento 3
+meses o menos la TAS presenta una pendiente creciente a lo largo del estudio.
+Para los otros 2 grupos, la TAS disminuye a lo largo del tratamiento, siendo
+menor para el grupo de pacientes que adhirieron la totalidad de los meses.
 
 \begin{figure}[H]
 	\centering
@@ -805,47 +816,6 @@ y pruebas de hipótesis para efectos aleatorios (ver Anexo
 mixtos con ordenada y pendiente aleatoria. De esta manera, se incorpora al
 modelo la correlación serial y el efecto entre pacientes. La CVT se incorpora en
 su forma original ya que se evaluó su exogeneidad. El modelo resulta:
-
-% \subsubsection{Modelo propuesto para la media}
-
-% En una primera instancia, se propone un modelo lineal de efectos mixtos sin
-% considerar a la CVT, ya que primero debe definirse la estructura de covariancia
-% y probar su exogeneidad.
-
-% \[
-% 	Y_{ij} = \beta_0 + \beta_1 sexo_i + \beta_2 edad_i +
-% 	\beta_3 mes_j + \varepsilon_{ij}
-% \]
-
-% Donde 
-
-% \[
-% 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-% \]
-
-
-% Siendo $\bm{R}_i$ la matriz de variancias y covariancias del vector $\bm{\varepsilon}_i$.
-
-% \subsubsection{Modelo propuesto para la covariancia}
-
-% En la figura \ref{semivariogram} puede notarse que la mayor parte de la
-% variabilidad total está compuesta por el error de medición dado que la curva no
-% inicia en el cero. Al no haber una pendiente muy pronunciada, la correlación
-% serial también puede considerarse pequeña. Por último, como la curva no llega a
-% la variancia total, esto nos indica que debe explicarse la variancia entre
-% individuos agregando una ordenada aleatoria.
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % AGREGAR PROCESO AL ANEXO %
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Además, se realizaron tests de hipótesis para probar la significación de los
-% efectos aleatorios para la ordenada y la pendiente, resultando ambos
-% significativos (ver Anexo \ref{eleccion_efectos_aleatorios}). Por lo que la
-% estructura de covariancia elegida para el modelo es una estructura independiente
-% con ordenada y pendiente aleatoria.
-
-% El modelo resultante se escribe:
 
 \begin{multline}
 	\label{modelo_1}
@@ -1092,13 +1062,6 @@ quieren decir que, después de controlar por la adherencia en ese mes, se espera
 que la TAS al inicio del tratamiento sea mayor en 0.137 unidades relativo a la
 proporción de adherencia total y luego disminuya, en promedio, 0,525 unidades en
 proporcion a la adherencia total al tratamiento.
-
-% Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. El
-% coeficiente -1.261 quiere decir que, manteniendo constante la proporción de
-% adherencia total, se espera que la TAS disminuya en promedio 1.261 los meses en
-% los que se adhiere al tratamiento. Por otro lado, el coeficiente -0.246 quiere
-% decir que, después de controlar por la adherencia en ese mes, se espera que la
-% TAS disminuya en promedio en 0.246 relativo a la proporción de adherencia total.
 
 \begin{multline}
 	\label{modelo_6}
