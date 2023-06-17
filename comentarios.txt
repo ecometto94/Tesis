@@ -1,4 +1,0 @@
-mostrar el scatterplot en el notebook de analisis descriptivo
-donde digo "es necesario" en los perfiles promedio de adherencia, usar algo mas soft tipo resulta mas adecuado...
-
-llamar a todos los modelos con un numero
