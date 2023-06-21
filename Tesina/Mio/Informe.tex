@@ -455,7 +455,7 @@ a cero solo si se cumple con el supuesto de independencia condicional:
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
-X_{ik}$ para todas las ocasiones $k \neq j$. Con las CVT estocásticas, que se
+X_{ik}$ para todo $j, k$. Con las CVT estocásticas, que se
 fijan por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en
 una prueba cruzada), la suposición también se cumple ya que los valores de las
 covariables en cualquier ocasión se determinan a priori por diseño del estudio y
@@ -549,22 +549,23 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_i + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \beta_3\ t_j\ \overline{X}_i + b_{1i}\ t_j + \varepsilon_{ij} \]
 
-El coeficiente $\beta_1$ se interpreta como el cambio en la tensión arterial por
-cada cambio unitario en el IMC promedio del individuo.
+El coeficiente $\beta_1$ se interpreta como el cambio promedio en la ordenada al
+origen y el coeficiente $\beta_3$ es el cambio promedio en la pendiente de la
+tension arterial, por cada cambio unitario en el IMC promedio del individuo.
 
 \subsection{Covariable variable en el tiempo}
 
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
 transformación. El modelo resultante es,
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 X_{ij} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \beta_3\ t_j\ X_{ij} + b_{1i}\ t_j + \varepsilon_{ij} \]
 
 Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
-entre-unidad, sin embargo el modelo lineal mixto va a tener solo un coeficiente
-$\beta_1$. Si bien el modelo es válido, para obtener una interpretación clara
-del efecto de la CVT se necesita dividir su efecto en dos coeficientes, como se
+entre-unidad, sin embargo el modelo lineal mixto va a tener solo una covariable
+$X_{ij}$. Si bien el modelo es válido, para obtener una interpretación clara del
+efecto de la CVT se necesita dividir su efecto en dos coeficientes, como se
 explicará en la sección \ref{Dividiendo efecto entre-unidad y efecto
 intra-unidad} (Hoffman, 2015).
 
@@ -579,14 +580,14 @@ que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más comú
 que se desconozca el valor $k$ apropiado y se consideren varias opciones
 diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k} X_{ij-k} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \beta_3\ t_j\ X_{ij-k} + b_{1i}\ t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
 
 \subsection{Funcion de las covariables rezagadas}
 
-Una alternativa cuando se quiere utilizar la información de las covariables
+Una alternativa cuando se quiere utilizar toda la información de las covariables
 rezagadas es resumir a través de una función la información de éstas en una sola
 covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
 actual. Sin embargo, la elección de está funcion dependerá del tipo de problema
@@ -595,7 +596,7 @@ este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1 \overline{X}_{ij} + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \beta_3\ t_j\ \overline{X}_{ij} + b_{1i}\ t_j + \varepsilon_{ij} \]
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
 
@@ -608,27 +609,32 @@ coeficiente del modelo que representa a la covariable se puede descomponer en
 dos:
 
 \[ 
-	Y_{ij} = \beta_0 + b_{0i} + \beta_W (X_{ij} - \overline{X}_i) + \beta_B
-	\overline{X}_i + \beta_2 t_j + b_{1i} t_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_{0W}\ (X_{ij} - \overline{X}_i) + \beta_{0B}\ \overline{X}_i
+	+ \beta_2\ t_j + \beta_{1W}\ t_j\ (X_{ij} - \overline{X}_i) + \beta_{1B}\ t_j\ \overline{X}_i + b_{1i}\ t_j + \varepsilon_{ij}
 \]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
-en el tiempo de la CVT para la unidad $i$, $\beta_W$ representa el cambio
+en el tiempo de la CVT para la unidad $i$. $\beta_{0W}$ representa el cambio
 esperado en la media de la variable respuesta asociado con cambios de la CVT
-dentro de la unidad y $\beta_B$ representa el cambio esperado en la media de
-la variable respuesta asociado con cambios de la CVT entre unidades
+dentro de la unidad y $\beta_{0B}$ representa el cambio esperado en la media de
+la variable respuesta asociado con cambios de la CVT entre unidades, ambos
+afectando a la ordenada al origen. Mientras que $\beta_{1W}$ y $\beta_{1B}$
+representan los mismos cambios asociados a la pendiente.
 
-En el ejemplo del IMC y la tensión arterial, $\beta_W$ se interpreta como el
-cambio en la tensión arterial por cada diferencia de una unidad en el IMC de la
-ocasión $j$ comparado con el IMC promedio de la persona, manteniendo constante
-el IMC de las ocasiones restantes. Por otro lado, $\beta_B$ se interpreta como
-el cambio en la tensión arterial por cada cambio de una unidad en el IMC
-promedio de la unidad, controlando por el valor del IMC de la ocasión $j$.
+En el ejemplo del IMC y la tensión arterial, $\beta_{W0}$ se interpreta como el
+cambio promedio en la tensión arterial el tiempo 0 por cada diferencia de una
+unidad en el IMC de la ocasión $j$ comparado con el IMC promedio de la persona,
+manteniendo constante el IMC de las ocasiones restantes. Por otro lado,
+$\beta_{B0}$ se interpreta como el cambio promedio en la tensión arterial en el
+tiempo 0 por cada cambio de una unidad en el IMC promedio de la unidad,
+controlando por el valor del IMC de la ocasión $j$. De la misma manera
+$\beta_{W1}$ y $\beta_{B1}$ representan los cambios promedio en las pendientes
+de los individuos a través del tiempo.
 
-Estos dos efectos permiten medir entonces si la tensión arterial aumenta cuando
-una persona tiene un IMC mayor que el promedio de la población, y también
-permiten medir el cambio en la tensión arterial si dicha persona tiene IMC mayor
-que su promedio habitual.
+Estos efectos permiten medir entonces si la tensión arterial aumenta cuando una
+persona tiene un IMC mayor que el promedio de la población, y también permiten
+medir el cambio en la tensión arterial si dicha persona tiene IMC mayor que su
+promedio habitual.
 
 \newpage
 
@@ -880,10 +886,7 @@ adhiere.}
 	\end{tabular}
 \end{table}
 
-En la siguiente sección se verán distintas formas de incorporar esta CVT al
-modelo, las cuales algunas si serán interpretables.
-
-\subsection{Incorporación de la CVT}
+\subsection{Distintas maneras de incorporar la adherencia al modelo lineal mixto}
 
 Hay más de una manera de incorporar una CVT exógena a un modelo lineal mixto, en
 esta sección compararemos algunas de ellas.
@@ -1080,10 +1083,11 @@ caso, los coeficientes que acompañan a la covariable
 $\overline{adherencia}_{ij}$ se multiplicarán por la proporcion de adherencia
 del mes $j$. Tomando como ejemplo una adherencia perfecta
 ($\overline{adherencia}_{ij}$ = 1), manteniendo constante el efecto del resto de
-las covariables, \hl{los pacientes que adhieren en el mes anterior al
-tratamiento presentan una disminución promedio en su TAS de 3,247 unidades al primer
-mes del tratamiento, acompañado de una disminución de 0,835 unidades por mes
-menores a los pacientes que no adhieren en ninguna ocasión ($\overline{adherencia}_{ij}$ = 0).}
+las covariables, \hl{los pacientes que adhieren al tratamiento en todas las
+ocasiones hasta la actual presentan una disminución promedio en su TAS de 3,247
+unidades al primer mes del tratamiento, acompañado de una disminución de 0,835
+unidades por mes menores a los pacientes que no adhieren en ninguna ocasión
+($\overline{adherencia}_{ij}$ = 0).}
 
 \begin{table}[H]
 	\centering
