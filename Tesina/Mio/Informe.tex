@@ -857,33 +857,18 @@ adhieren al tratamiento presentan una disminución promedio en su TAS de 1,524
 unidades al primer mes del tratamiento, acompañado de una disminución de 0,792 unidades por
 mes menores a los pacientes que no adhieren. Es importante aclarar que, al ser
 la adherencia una CVT, esto no es una pendiente. Es decir, si un paciente
-adhiere al segundo mes, su TAS promedio sera 2,364 unidades menor
-($-1,524*1 + 0,371*2 - 0,791*2*1$) mientras que un paciente que no adhiere tendra
-una TAS promedio 0,742 unidades mayor ($-1,524*0 + 0,371*2 - 0,791*2*0$).
+adhiere al segundo mes, su TAS promedio sera 2,366 unidades menor
+($-1,524*1 + 0,371*2 - 0,792*2*1$) mientras que un paciente que no adhiere tendra
+una TAS promedio 0,742 unidades mayor ($-1,524*0 + 0,371*2 - 0,792*2*0$).
 Sin embargo, si el mismo paciente adhiere al tercer mes, su TAS será en promedio
-2,784 unidades menor ($-1,524*1 + 0,371*3 - 0,791*3*1$) que un paciente que no
+2,787 unidades menor ($-1,524*1 + 0,371*3 - 0,792*3*1$) que un paciente que no
 adhiere.}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 1}
 	\label{modelo_1_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15390.73} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30801.47} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30864.21} \\
-		\hline
-		Covariable				 & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		$intercepto$             & 122,270 & 2,502     & 48,874 & $<0.001$ \\
-		$sexo_i$                 & 3,760   & 0,747     & 5,036  & $<0.001$ \\
-		$edad_i$                 & 0,167   & 0,038     & 4,357  & $<0.001$ \\
-		$adherencia_{ij}$        & -1,524  & 1,143     & -1,333 & $0.183$  \\
-		$mes_j$                  & 0,371   & 0,240     & 1,547  & $0.122$  \\
-		$mes_j\ adherencia_{ij}$ & -0,792  & 0,262     & 3,018  & $0.003$  \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_1}
 \end{table}
 
 \subsection{Distintas maneras de incorporar la adherencia al modelo lineal mixto}
@@ -922,29 +907,14 @@ vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 En base a los resultados
 presentados en la tabla \ref{modelo_2_tabla}, controlando por el resto de las
 variables, \hl{los pacientes que adhieren en la totalidad del tratamiento,
-presentan una TAS promedio menor en 2,763 unidades el primer mes acompañado de
+presentan una TAS promedio menor en 2,491 unidades el primer mes acompañado de
 un descenso de 0,272 unidades por mes.}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 2: Incorporación adherencia perfecta}
 	\label{modelo_2_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15415.08} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30850.16} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30912.9} \\
-		\hline
-		Covariable					    & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		$intercept$                     & 121,926 & 2,376     & 51,320 & $<0.001$ \\
-		$sexo_i$                        & 3,801   & 0,740     & 5,133  & $<0.001$ \\
-		$edad_i$                        & 0,176   & 0,038     & 4,590  & $<0.001$ \\
-	    $adherencia\ perfecta_i$        & -2,491  & 1,176     & -2,119 & $0.034$  \\
-		$mes_j$                         & -0,197  & 0,149     & -1,322 & $0.186$  \\
-		$mes_j\ adherencia\ perfecta_i$ & -0,272  & 0,212     & -1,280 & $0.201$  \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_2}
 \end{table}
 
 Otra manera de incorporar la covariable fija, conservando más información, es
@@ -971,33 +941,18 @@ vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
 
 Los coeficientes presentados en la tabla \ref{modelo_3_tabla} indican que,
 controlando por el resto de las variables, \hl{los pacientes presentan una
-disminución promedio de 2,838 en la TAS en relación a la proporción de
-adherencia total al primer mes de tratamiento y además disminuirá en 1,010 de
+disminución promedio de 1,828 en la TAS en relación a la proporción de
+adherencia total al primer mes de tratamiento y además disminuirá en 1,01 de
 manera proporcional a la proporción adherencia total por mes. Por ejemplo, un
 paciente que adhiere sólo al 50\% del tratamiento, tendrá una disminución
-promedio en su TAS de 1.419 ($2,838\ *\ 0.5$) en el primer mes del tratamiento
+promedio en su TAS de 0,914 ($1,828\ *\ 0.5$) en el primer mes del tratamiento
 acompañado de una disminución de 0,505 por mes ($1,010\ *\ 0.5$).}
 
 \begin{table}[H]
 	\centering
 	\caption{Modelo 3: incorporación adherencia total}
 	\label{modelo_3_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{15417.66} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30855.32} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30918.06} \\
-		\hline
-		Covariable 			 			 & Coef.   & Std. Err. & z 	    & $P<|z|$  \\
-		\hline
-		$intercept$                      & 122,419 & 3,036     & 40,318 & $<0.001$ \\
-		$sexo_i$                         & 3,732   & 0,747     & 4,995  & $<0.001$ \\
-		$edad_i$                         & 0,172   & 0,039     & 4,469  & $<0.001$ \\
-		$\overline{adherencia}_i$        & -1,828  & 2,158     & -0,736 & $0.462$  \\
-		$mes_j$                          & 0,498   & 0,380     & 1,308  & $0.191$  \\
-		$mes_j\ \overline{adherencia}_i$ & -1,010  & 0,445     & -2,270 & $0.023$  \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_3}
 \end{table}
 
 \subsubsection{Incorporación como CVT}
@@ -1037,22 +992,7 @@ los pacientes que no adhieren.}
 	\centering
 	\caption{Modelo 4: incorporación adherencia en el mes anterior}
 	\label{modelo_4_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15422.50} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30865.0} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30927.74} \\
-		\hline
-		Covariable 		   		   & Coef.   & Std. Err. & z      & $P<|z|$    \\
-		\hline
-		$intercept$                & 121,125 & 2,388 	 & 50,714 & $<0.001$   \\
-		$sexo_i$                   & 3,869   & 0,751 	 & 5,151  & $<0.001$   \\
-		$edad_i$                   & 0,162   & 0,039 	 & 4,197  & $<0.001$   \\
-		$adherencia_{ij-1}$        & 0,189   & 0,815 	 & 0,232  & $0.817$    \\
-		$mes_j$                    & 0,064   & 0,179 	 & 0,359  & $0.720$    \\
-		$mes_j\ adherencia_{ij-1}$ & -0,443  & 0,215 	 & -2,061 & $0.039$    \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_4}
 \end{table}
 
 La otra opción es usar la covariable proporción de adherencia hasta el mes
@@ -1093,22 +1033,7 @@ unidades por mes menores a los pacientes que no adhieren en ninguna ocasión
 	\centering
 	\caption{Modelo 5: incorporación adherencia acumulada}
 	\label{modelo_5_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15409.38} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30838.77} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30901.51} \\
-		\hline
-		Covariable 				 			& Coef.   & Std. Err. & z      & $P<|z|$ \\
-		\hline
-		$intercept$                	   		& 123,107 & 2,586 	  & 47,603 & $<0.001$ \\
-		$sexo_i$                       		& 3,721   & 0,749 	  & 4,966  & $<0.001$ \\
-		$edad_i$                       		& 0,177   & 0,039 	  & 4,574  & $<0.001$ \\
-		$\overline{adherencia}_{ij}$   		& -3,247  & 1,421 	  & -2,285 & $0.022$ \\
-		$mes_j$                        		& 0,382   & 0,306 	  & 1,248  & $0.212$ \\
-		$mes_j\ \overline{adherencia}_{ij}$ & -0,835  & 0,355 	  & -2,348 & $0.019$ \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_5}
 \end{table}
 
 \subsubsection{Incorporación dividiendo efecto entre e intra}
@@ -1160,24 +1085,7 @@ unidades por mes en proporcion a la adherencia total al tratamiento.}
 	\caption{Modelo 6: incorporación la adherencia dividiendo efecto entre e
 	intra persona}
 	\label{modelo_6_tabla}
-	\begin{tabular}{*{5}{|c}|}
-		\hline
-		\multicolumn{3}{|c}{Log-Likelihood} & \multicolumn{2}{|c|}{-15389.83} \\
-		\multicolumn{3}{|c}{AIC} & \multicolumn{2}{|c|}{30803.66} \\
-		\multicolumn{3}{|c}{BIC} & \multicolumn{2}{|c|}{30878.95} \\
-		\hline
-		Covariable 			 			 & Coef.   & Std. Err. & z      & $P<|z|$  \\
-		\hline
-		$intercept$            			 & 121,987 & 3,032 	   & 40,235 & $<0.001$ \\
-		$sexo_i$                   		 & 3,723   & 0,747 	   & 4,983  & $<0.001$ \\
-		$edad_i$                   		 & 0,171   & 0,039 	   & 4,429  & $<0.001$ \\
-		$adherencia_{ij}$            	 & -2,055  & 1,325 	   & -1,550 & $0.121$  \\
-		$\overline{adherencia}_i$        & 0,662   & 2,784 	   & 0,238  & $0.812$  \\
-		$mes_j$                    		 & 0,644   & 0,379 	   & 1,701  & $0.089$  \\
-		$mes_j\ adherencia_{ij}$         & -0,603  & 0,314 	   & -1,919 & $0.055$  \\
-		$mes_j\ \overline{adherencia}_i$ & -0,525  & 0,529 	   & -0,992 & $0.321$  \\
-		\hline
-	\end{tabular}
+	\input{tables/modelo_6}
 \end{table}
 
 \subsubsection{Comparación de los métodos}
