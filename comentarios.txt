@@ -1,0 +1,4 @@
+en la introduccion digo que el programa se realizó entre 2014 y 2019, pero tengo
+solamente 7 meses en el dataset
+
+interpreto los parametros en la teoria o no?
