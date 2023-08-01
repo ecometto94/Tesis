@@ -625,7 +625,6 @@ descomponer en dos términos:
 \[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i \]
 El modelo lineal mixto queda planteado del siguiente modo:
 
-
 \[ 
 	Y_{ij} = \beta_0 + b_{0i} + \beta_W\ (X_{ij} - \overline{X}_i) + \beta_B\ \overline{X}_i
 	+ \beta_2\ t_j + \varepsilon_{ij}
@@ -689,7 +688,8 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 	paciente $i$ a lo largo del seguimiento ($\sum_{k=0}^n \frac{TAS_{ik}}{n}$).
 	\item $\overline{TAS}_{ij}$: tension arterial sistólica (mmHg) promedio del
 	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ik}}{j}$).
-	\item $sexo_i$: sexo del paciente $i$ medido en la ocasión basal (mes 0).
+	\item $sexo_i$: sexo del paciente $i$ medido como una variable dicotómica
+	(0=mujer, 1=homobre) en la ocasión basal (mes 0).
 	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
 	\item $mes_j$: meses transcurridos desde el inicio del tratamiento hasta la
 	ocasión $j$.
@@ -710,10 +710,10 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
-En la figura (\ref{TAS_vs_tpo}) se puede observar el grupo de pacientes inició el
-tratamiento con una TAS promedio de casi 133 mmHg, la cual fue disminuyendo
-levemente de manera aproximadamente lineal hasta promedio de poco más de 130
-mmHg al final del tratamiento.
+En la figura (\ref{TAS_vs_tpo}) se puede observar que luego de un mes de
+tratamiento (mes 1) la TAS promedio es de aproximadamente 133, la cual fue
+disminuyendo levemente de manera lineal hasta un promedio de aproximadamente 130
+al final del tratamiento.
 
 \begin{figure}[H]
 	\centering
@@ -722,14 +722,14 @@ mmHg al final del tratamiento.
 	\label{TAS_vs_tpo}
 \end{figure}
 
-Otro gráfico que resulta de interés es observar la evolución de la TAS en cada
-mes sobre cada grupo de las covariables fijas, el resultado es presentado en la
-figura (\ref{TAS_with_covs}). Todos los perfiles presentan (en general) una
-pendiente decreciente de la TAS promedio a través del tiempo, siendo esta menor
-en cuanto a la ordenada al origen en el grupo de pacientes de mayor edad y de
-sexo femenino. La covariable edad es continua, pero a fines de poder observar
-los perfiles promedio de los pacientes se dividió en dos grupos según menores o
-mayores o iguales 59 años (mediana de edad de los pacientes).
+También resulta de interés observar la evolución de la TAS en el tiempo según la
+edad y sexo de los pacientes. Como la variable edad es continua, para tal fin,
+se la categorizó en 2 grupos (<59 añosy >= 59 años, donde 59 es la mediana de la
+edad de los pacientes estudiados). En la figura (\ref{TAS_with_covs}) se observa
+que los perfiles promedios presentan (en general) una pendiente decreciente, es
+decir, la TAS media disminuye con el transcurso del tratamiento. Este
+comportamiento es similar para los grupos, observando valores superiores de TAS
+para los pacientes de sexo masculino y para los pacientes mayores de 59 años. 
 
 \begin{figure}[H]
 	\centering
@@ -738,15 +738,18 @@ mayores o iguales 59 años (mediana de edad de los pacientes).
 	\label{TAS_with_covs}
 \end{figure}
 
-Cuando se cuenta con una CVT, cada individuo puede presentar distintos valores
-de la covariable en cada ocasión, es decir, los pacientes no mantienen un perfil
-constante a lo largo del tratamiento. En una primera instancia es posible
-analizar un diagrama de dispersión de entre la TAS y el tiempo según adherencia.
-En este caso, como la variable $mes$ es discreta, se usa una técnica llamada
-``jitter'' la cual agrega un pequeño desplazamiento en los puntos, evitando que
-queden perfectamente solapados. Al observar los resultados de
-(\ref{TAS_with_adh_scatter}) se puede notar que esta manera de visualizar el
-efecto de la adherencia sobre la TAS resulta confusa, al menos para estos datos.
+Para poder visualizar la relación entre la adherencia al tratamiento, el tiempo
+de seguimiento y la TAS media no es posible realizarlo con los gráficos de
+perfiles promedio. La covariable ``adherencia al tratamiento'' es una CVT y en
+consecuencia para cada individuo puede presentar distintos valores en cada
+ocasión, es decir, los pacientes no mantienen un perfil constante a lo largo del
+tiempo. En una primera instancia es posible realizar un diagrama de dispersión
+entre la TAS y el tiempo (mes) según adherencia. Para poder observar con mayor
+claridad la relación entre estas variables se utiliza la técnina ``jitter'', la
+cual agrega un pequeño desplazamiento en los puntos, evitando que queden
+perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}) se
+puede notar que esta manera de visualizar el efecto de la adherencia sobre la
+TAS resulta confusa.
 
 \begin{figure}[H]
 	\centering
@@ -755,15 +758,17 @@ efecto de la adherencia sobre la TAS resulta confusa, al menos para estos datos.
 	\label{TAS_with_adh_scatter}
 \end{figure}
 
-Para poder visualizar el efecto de la adherencia sobre la TAS según perfiles
-promedio, resulta adecuado convertir la CVT en una CNVT para que cada paciente
-pertenezca únicamente a un solo grupo. Para esto, se dividieron distintos
-perfiles de pacientes según la cantidad de meses que adhirieron al tratamiento,
-formando los grupos: 3 meses o menos, entre 4 y 6 meses o todos los meses. Se
-puede observar que para el grupo de pacientes que adhirieron al tratamiento 3
-meses o menos la TAS presenta una pendiente creciente a lo largo del estudio.
-Para los otros 2 grupos, la TAS disminuye a lo largo del tratamiento, siendo
-menor para el grupo de pacientes que adhirieron la totalidad de los meses.
+Como una alternativa a la presentada previamente, se propone realizar un gráfico
+de perfiles promedio convirtiendo a la CVT (adherencia) en una CVNT para que de
+esta manera cada paciente pertenezca únicamente a un sólo grupo durante todo el
+periodo del estudio. Para esto, se dividieron a los pacientes según la cantidad
+de meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos
+(adherencia baja), entre 4 y 6 meses (adherencia media/alta) o todos los meses
+(adherencia perfecta). En la figura (\ref{TAS_with_adh}) Se puede observar que
+para el grupo de pacientes que adhirieron al tratamiento 3 meses o menos la TAS
+presenta una pendiente creciente a lo largo del estudio. Para los otros 2
+grupos, la TAS disminuye a lo largo del tratamiento, siendo menor para el grupo
+de pacientes que adhirieron la totalidad de los meses.
 
 \begin{figure}[H]
 	\centering
@@ -774,35 +779,37 @@ menor para el grupo de pacientes que adhirieron la totalidad de los meses.
 
 \subsection{Evaluación de la exogeneidad}
 
-Para evaluar la exogeneidad de la variable adherencia es necesario ajustar un
-modelo para cada ocasión en el que se considere a la variable adherencia como
-variable respuesta y como variables explicativas a la TAS y la adherencia en
-ocasiones previas. Cómo la CVT adherencia es una variable dicotómica, se ajustan
-modelos de regresión logística.
+Para evaluar la exogeneidad de la variable adherencia es necesario verificar el
+supuesto de independencia condicional descripta en
+(\ref{seccion_de_exogeneidad}). Esto puede realizarse ajustando un modelo para
+cada ocasión en el que se considere a la variable adherencia como variable
+respuesta y como variables explicativas a la TAS y la adherencia en ocasiones
+previas. Si, en estos modelos, las variables referentes a la TAS registrada en
+ocasiones previas no resultan ser significativas puede decirse que la adherencia
+es una CVT exógena. Cómo la CVT adherencia es una variable dicotómica, se
+ajustan modelos de regresión logística.
 
 Para ajustar estos modelos se utilizarán como covariables a la adherencia y la
 TAS en el mes anterior, ya que se asume que las mediciones más cercanas entre sí
 están más correlacionadas y tambien se utilizarán la adherencia y la TAS
 promedio desde el inicio hasta 2 meses antes, de esta manera se puede utilizar
-toda la información del estudio. El modelo resulta:
+toda la información del estudio. El modelo para la ocasión $j$ ($j = 1, ..., 7$)
+resulta:
 
-\[ 
+$ 
 	logit(adherencia_{ij}) = \beta_0 + \beta_1\ adherencia_{ij-1} + \beta_2\ TAS_{ij-1}
-	+ \beta_3\ \overline{adherencia}_{ij-2} + \beta_4\ \overline{TAS}_{ij-2} + \varepsilon_{ij}
-\]
-
-Siendo
-
-\[ \varepsilon_{ij} \sim N(0, Var(\varepsilon_{ij})) \]
+	+ \beta_3\ \overline{adherencia}_{ij-2} + \beta_4\ \overline{TAS}_{ij-2}
+$
 
 En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes para
-cada covariable y en paréntesis el p-value asociado a cada uno. Como se puede
-notar, en ninguna ocasión la adherencia depende de valores anteriores de la TAS,
-por lo tanto puede considerarse como una covariable exógena.
+cada covariable y en paréntesis la probabilidad asociada a cada uno. Como se
+puede notar, en ninguna ocasión la adherencia depende de valores anteriores de
+la TAS (cuando se controla por los valores previos de la adherencia), por lo
+tanto puede considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
-	\caption{Estimación de coeficientes de los modelos logit y sus respectivos p-value}
+	\caption{Estimación de coeficientes de los modelos logit y sus respectivas probabilidades asociadas}
 	\label{exog_table}
 	\begin{tabular}{*{5}{|c}|}
 		\hline

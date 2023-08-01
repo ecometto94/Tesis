@@ -1,5 +1,4 @@
 en la introduccion digo que el programa se realizó entre 2014 y 2019, pero tengo
 solamente 7 meses en el dataset
 
-segun lessa hoffman la CVT va solo con pendiente y cuando divido efectos va la
-CNVT a la ordenada y la CVT a la pendiente
+interpreto los parametros en la teoria o no?
