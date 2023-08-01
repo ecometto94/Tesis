@@ -37,15 +37,6 @@
 %% OTHER USEFUL VARIABLES 
 
 \def\npatients{560}
-\def\fullcovname{adherencia al tratamiento farmacológico}
-\def\covname{\textit{adherencia}}
-\def\cvt{covariable que varía en el tiempo}
-\def\xseqj{$X_{i1}, ..., X_{ij}$}
-\def\xseqn{$X_{i1}, ..., X_{in}$}
-\def\xseqjminus{$X_{i1}, ..., X_{ij-1}$}
-\def\yseqj{$Y_{i1}, ..., Y_{ij}$}
-\def\yseqn{$Y_{i1}, ..., Y_{in}$}
-\def\yseqjminus{$Y_{i1}, ..., Y_{ij-1}$}
 
 %% FOR PDF METADATA
 \title{\thesistitle}
@@ -159,7 +150,7 @@ longitudinales.
 \section{Datos Longitudinales}
 
 Los datos longitudinales están conformados por mediciones repetidas de una misma
-variable realizadas a la misma unidad en diferentes momentos o condiciones
+variable realizadas sobre la misma unidad en diferentes momentos o condiciones
 experimentales.
 
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
@@ -186,24 +177,12 @@ Estas tres fuentes de variación pueden clasificarse en \textit{``variabilidad
 entre unidades''} (heterogeneidad entre unidades) y \textit{``variabilidad
 intra unidades''} (variación biológica intra-unidad y error de medición)
 
-Dado que estas fuentes de variabilidad introducen correlación entre las
-mediciones repetidas, no se pueden utilizar las técnicas habituales, ya que
-llevarían a inferencias incorrectas sobre los parámetros del modelo.
-
-Con el fin de simplificar la notación, se asumirá que los tiempos de medición
-son los mismos para todas las unidades y que no hay datos faltantes.
-
-Sean $Y_{ij}$ el valor de la variable respuesta y $X_{ij}$ las covariables,
-medidas sobre la unidad $i$ en la ocasión $j$, se obtiene una muestra de $N$
-unidades cada una con $n$ mediciones repetidas de la variable en estudio,
-observadas en los tiempos $t_1, t_2, ..., t_n$, siendo entonces el número total
-de observaciones $N^*=Nn$, con $i=1, ..., N; j=1, ..., n$.
-
-Se asume que $Y_{ij}$ y $X_{ij}$ son simultáneamente medidas. Esto quiere decir
-que en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$ se correlacionan
-directamente. Sin embargo, para un análisis longitudinal se debe asumir que
-existe un orden pre-establecido:
-$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
+Dado que estas fuentes de variabilidad introducen correlación, para el análisis
+de datos longitudinales no se pueden utilizar las técnicas estadísticas
+clásicas, sino que se deben utilizar métodos estadísticos especiales que
+reconozcan las diferentes fuentes de variabilidad presentes en los datos. Los
+modelos lineales mixtos constituyen la herramienta más utilizada para
+representar datos correlacionados.
 
 \section{Covariables en datos longitudinales}
 
@@ -216,6 +195,22 @@ Tanto las CNVT como las CVT se pueden utilizar para realizar comparaciones entre
 poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
 embargo, sólo las CVT permiten describir una relación dinámica entre la
 covariable y la variable respuesta.
+
+Para introducir los conceptos referentes a los tipos de covariables en los
+estudios longitudinales se supone que se cuenta con la variable respuesta $Y$ y
+una sola covariable $X$. Se obtiene una muestra aleatoria de $N$ unidades, cada
+una con $n$ mediciones repetidas de la variable respuesta y de la covariable
+observadas en los tiempos $t_1, ..., t_n$ (se asume que los tiempos de medición
+son los mismos para todas las unidades). El número total de observaciones es
+$N*=Nn$.
+
+Sean $Y_{ij}$ y $X_{ij}$ los valores de la variable respuesta y de la variable
+independiente respectivamente, medidos para la unidad $i$ en la ocasión $t_j$
+con $i = 1, ..., N$ y $j = 1, ..., n$ Si se asume que $Y_{ij}$ y $X_{ij}$ son
+simultáneamente medidas, en un análisis de corte transversal, $Y_{ij}$ y
+$X_{ij}$ se correlacionarían directamente. Sin embargo, para un análisis
+longitudinal se debe asumir que existe un orden pre-establecido:
+$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
 
 \subsection{Covariables fijas en el tiempo}
 
@@ -255,12 +250,13 @@ colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 
 Otra clasificación de las CVT es en exógenas y endógenas.
 
-\paragraph{Covariables exógenas} \mbox{} \\
+\paragraph{Covariables exógenas} \mbox{}
 
-Una CVT se define como exógena, respecto a la variable respuesta, si el valor de
-la covariable en un determinado momento es condicionalmente independiente de
-todos los valores precedentes de la variable respuesta (Diggle et al., 2002).
-Formalmente, para la unidad $i$ en la ocasión $j$:  
+Una CVT estocástica se define como exógena, respecto a la variable respuesta, si
+el valor de la covariable en un determinado momento, dado los valores previos de
+la covariable y de la respuesta, es condicionalmente independiente de todos los
+valores precedentes de la variable respuesta (Diggle et al., 2002). Formalmente,
+para la unidad $i$ en la ocasión $j$:  
 
 \begin{equation}
 	\label{exogeneidad}
@@ -268,36 +264,39 @@ Formalmente, para la unidad $i$ en la ocasión $j$:
 	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
 
-Y en consecuencia:
+Y en consecuencia (Diggle et al., 2002; Fitzmaurice et al., 2004):
 
 \begin{equation}
 	\label{exogeneidad debil}
 	E(Y_{ij}|X_{i1}, ..., X_{in}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
 \end{equation}
 
-Esta definición implica que la respuesta en cualquier momento puede depender de
-los valores previos de la variable respuesta y de la CVT, pero será
-independiente de todos los demás valores de la covariable. Por ejemplo, en un
-estudio longitudinal en donde se evalúa si el la cantidad de actividad física
-(variable explicativa) está asociada al nivel de glucosa en sangre (variable
-respuesta), es de esperar que la cantidad de actividad física en una determinada
-ocasión, afecte a niveles posteriores de nivel de glucosa en sangre, pero no se
-espera que dependa de los niveles glucosa en sangre observados previamente en el
-sujeto afecten a la cantidad de actividad física.
+Esta definición implica que la media condicional de la variable respuesta en un
+determinado momento dado todo los valores de la covariable (previos y
+posteriores) sólo depende de los valores previos de la covariable. Por ejemplo,
+en un estudio longitudinal en donde se evalúa si el la cantidad de actividad
+física (variable explicativa) esta asociada al nivel de glucosa en sangre
+(variable respuesta), según (\ref{exogeneidad debil}), la media condicional de
+la glucosa en un determinado momento dado todos los registros de actividad
+física (previos y posteriores) sólo depende de los registros previos de
+actividad física. También, (\ref{exogeneidad}) sugiere que es de esperar que la
+cantidad de actividad física en una determinada ocasión dependa de la cantidad
+de actividad física observa en momentos previos, pero no se espera que dependa
+de los niveles de glucosa observados previamente.
 
-Es posible examinar empíricamente la suposición de que una CVT es exógena al
-considerar modelos de regresión para la dependencia de $X_{ij}$ en
-$Y_{i1}, ..., Y_{ij-1}$ (o en alguna función conocida de
-$Y_{i1}, ..., Y_{ij-1}$) y $X_{i1}, ..., X_{ij-1}$ (o en alguna función conocida
-de $X_{i1}, ..., X_{ij-1}$). La ausencia de cualquier relación entre $X_{ij}$ y
-$Y_{i1}, ..., Y_{ij-1}$, dado el perfil de la covariable anterior
-$X_{i1}, ..., X_{ij-1}$, proporciona soporte para la validez de la suposición de
-que la CVT es exógena.
+Es posible examinar empíricamente la suposición de que una CVT es exógena
+ajustando un modelo de regresión en donde se considera como variable respuesta a
+la covariable en un momento determinado ($X_{ij}$) y como variables explicativas
+tanto a los valores previos de la covariable ($X_{i1}, ..., X_{ij-1}$) como a
+los valores previos de la variable respuesta ($Y_{i1}, ..., Y_{ij-1}$). Si,
+después de controlar por los valores previos de la covariable, el valor actual
+de la covariable no muestra una asociación con los valores previos de la
+variable respuesta, puede considerarse que la covariable es exógena.
 
 Cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta, se puede dar una interpretación causal a los parámetros de regresión.
 
-\paragraph{Covariables endógenas} \mbox{} \\
+\paragraph{Covariables endógenas} \mbox{}
 
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
 variable estocásticamente relacionada con otros factores medidos en el estudio.
@@ -308,9 +307,9 @@ explicarse por otras variables en el estudio. Cuando el proceso estocástico de
 una CVT endógena puede ser (al menos parcialmente) explicado por la variable
 respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
 endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física está
-asociada al nivel de glicemia. El nivel de actividad física en un determinado
+asociada al nivel de glucosa. El nivel de actividad física en un determinado
 momento puede estar (o no) asociado a niveles previos y también puede estar
-asociado a valores previos de glicemia (un paciente con valor de glicemia alto
+asociado a valores previos de glucosa (un paciente con valor de glucosa alto
 en una visita puede decidir aumentar su nivel de actividad fística para ver si
 este valor se reduce).
 
@@ -446,8 +445,12 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fit
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994) mostraron que las ecuaciones \ref{ML} y \ref{REML} llegan
+Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML}) llegan
 a cero solo si se cumple con el supuesto de independencia condicional:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REMOVER ESPACIO MUCHO ESPACIO ANTES DE LA ECUACION %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{equation}
 \label{estimation_issue}
@@ -455,7 +458,7 @@ a cero solo si se cumple con el supuesto de independencia condicional:
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
-X_{ik}$ para todo $j, k$. Con las CVT estocásticas, que se
+X_{ik}$ para todo $j, k = 1, ..., n$. Con las CVT estocásticas, que se
 fijan por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en
 una prueba cruzada), la suposición también se cumple ya que los valores de las
 covariables en cualquier ocasión se determinan a priori por diseño del estudio y
@@ -479,61 +482,76 @@ estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
 el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
 con la estructura de correlación verdadera.
 
-Luego, Lai y Small (2007) y Lalonde (2014) definieron 4 nuevos tipos de CVT:
+Lai y Small (2007) y Lalonde et. al (2014) definieron cuatro tipos de CVT y
+propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
+en donde es posible incorporar información sobre la naturaleza de la CVT que se
+esta analizando.
 
-\begin{itemize}
-	\item Tipo I: una CVT es de Tipo I si no hay relación entre la
-	CVT y la variable respuesta en diferentes ocasiones. Las variables que
-	involucran cambios predecibles a lo largo del tiempo, como la edad o el
-	tiempo de observación, generalmente se tratan como Tipo I.
-	\item Tipo II: una CVT es de Tipo II si no está asociada a valores
-	anteriores de la variable respuesta, pero la variable respuesta si puede
-	estar asociada a valores previos de la CVT. Un ejemplo de este tipo de CVT
-	puede ser la medicación para la presión arterial con respecto a la variable
-	respuesta presión arterial, ya que valores acumulados de la medicación en
-	el tiempo se espera que tengan un impacto en la presión arterial en
-	cualquier ocasión.
-	\item Tipo III: para éste tipo, no hay suposición de independencia entre la
-	respuesta y los valores de la CVT en diferentes ocasiones. Por lo tanto, una
-	CVT de Tipo III puede implicar un ciclo de feedback entre la CVT y la
-	respuesta, en el que los valores de la covariable pueden verse afectados por
-	los valores anteriores de la respuesta. Un ejemplo de este tipo es la CVT
-	medicación para la presión arterial con la respuesta infarto de miocardio.
-	Mientras que es esperado que la medicación impacte en la probabilidad de
-	infarto, un evento de infarto puede provocar un cambio en la medicación para
-	la presión arterial.
-	\item Tipo IV: para una CVT de Tipo IV, la covariable puede estar asociada a
-	valores previos de la variable respuesta, pero la respuesta no está asociada
-	a valores previos de la CVT. Un ejemplo es la CVT presión arterial con la
-	variable respuesta peso. Si bien existe una asociación entre el peso y la
-	presión arterial, la dirección del efecto parece ser que el peso afecta la
-	presión arterial, pero es poco probable que ocurra lo contrario.
-\end{itemize}
+% Luego, Lai y Small (2007) y Lalonde (2014) definieron 4 nuevos tipos de CVT:
 
-Además, propusieron utilizar el ``Método generalizado de los momentos'' (GMM)
-(Hansen, 1982). Éste método puede ser utilizado para tratar a cada CVT de manera
-diferente, dependiendo del tipo de cada una, y evita problemas con la estimación
-de ecuaciones construidas a partir de componentes no independientes.
+% \begin{itemize}
+% 	\item Tipo I: una CVT es de Tipo I si no hay relación entre la
+% 	CVT y la variable respuesta en diferentes ocasiones. Las variables que
+% 	involucran cambios predecibles a lo largo del tiempo, como la edad o el
+% 	tiempo de observación, generalmente se tratan como Tipo I.
+% 	\item Tipo II: una CVT es de Tipo II si no está asociada a valores
+% 	anteriores de la variable respuesta, pero la variable respuesta si puede
+% 	estar asociada a valores previos de la CVT. Un ejemplo de este tipo de CVT
+% 	puede ser la medicación para la presión arterial con respecto a la variable
+% 	respuesta presión arterial, ya que valores acumulados de la medicación en
+% 	el tiempo se espera que tengan un impacto en la presión arterial en
+% 	cualquier ocasión.
+% 	\item Tipo III: para éste tipo, no hay suposición de independencia entre la
+% 	respuesta y los valores de la CVT en diferentes ocasiones. Por lo tanto, una
+% 	CVT de Tipo III puede implicar un ciclo de feedback entre la CVT y la
+% 	respuesta, en el que los valores de la covariable pueden verse afectados por
+% 	los valores anteriores de la respuesta. Un ejemplo de este tipo es la CVT
+% 	medicación para la presión arterial con la respuesta infarto de miocardio.
+% 	Mientras que es esperado que la medicación impacte en la probabilidad de
+% 	infarto, un evento de infarto puede provocar un cambio en la medicación para
+% 	la presión arterial.
+% 	\item Tipo IV: para una CVT de Tipo IV, la covariable puede estar asociada a
+% 	valores previos de la variable respuesta, pero la respuesta no está asociada
+% 	a valores previos de la CVT. Un ejemplo es la CVT presión arterial con la
+% 	variable respuesta peso. Si bien existe una asociación entre el peso y la
+% 	presión arterial, la dirección del efecto parece ser que el peso afecta la
+% 	presión arterial, pero es poco probable que ocurra lo contrario.
+% \end{itemize}
 
-En conclusión, si la CVT es exógena puede introducirse tanto a un modelo
-estimado con GMM como a un modelo lineal mixto de manera tradicional. Sin
-embargo, si la CVT es endógena, no puede introducirse al modelo lineal mixto y
-debe definirse uno de sus 4 tipos para utilizar el GMM.
+% Además, propusieron utilizar el ``Método generalizado de los momentos'' (GMM)
+% (Hansen, 1982). Éste método puede ser utilizado para tratar a cada CVT de manera
+% diferente, dependiendo del tipo de cada una, y evita problemas con la estimación
+% de ecuaciones construidas a partir de componentes no independientes.
+
+En conclusión, si la CVT es exógena, puede introducirse el modelo lineal mixto
+de manera tradicional y mediante ciertas transformaciones. Sin embargo, si la
+CVT es endógena, no puede introducirse al modelo lineal mixto en su formato
+original y deben explorarse las propuestas planteadas anteriormente. 
 
 \newpage
 
-\section{Formas de introducir una CVT al modelo}
+\section{Formas de introducir una CVT al modelo lineal mixto}
 
 Si al evaluar el tipo de la CVT de la manera vista en
-\ref{seccion_de_exogeneidad} resulta ser exógena, se puede introducir en el
+(\ref{seccion_de_exogeneidad}) resulta ser exógena, se puede introducir en el
 modelo lineal mixto sin consideraciones adicionales. Esto se debe a que no habrá
 problemas con la estimación de los parámetros, ya que se cumple el supuesto de
 independencia condicional.
 
-A continuación, se presentan distintas maneras de introducir la CVT exógena al
-modelo lineal mixto. De manera de ejemplo, se tomará un caso en el que la variable
-respuesta $Y_{ij}$ y la CVT $X_{ij}$ son la tensión arterial y el IMC,
-respectivamente, del paciente $i$ en la ocasión $j$.
+A continuación, se presentan distintas maneras de introducir la CVT exógena a un
+modelo lineal mixto con ordenada aleatoria. De manera de ejemplo, se tomará un
+caso en el que la variable respuesta $Y_{ij}$ y la CVT $X_{ij}$ son la tensión
+arterial y el IMC, respectivamente, del paciente $i$ en la ocasión $j$ con
+$i = 1, ..., N; j = 1, ..., n$.
+
+Para todos los modelos se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son
+independientes.
+
+\[ 
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+	\quad
+	b_{0i} \sim N(0, Var(b_{0i}))
+\]
 
 \subsection{Convertirla en CNVT}
 
@@ -549,25 +567,21 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \beta_3\ t_j\ \overline{X}_i + b_{1i}\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
 
-El coeficiente $\beta_1$ se interpreta como el cambio promedio en la ordenada al
-origen y el coeficiente $\beta_3$ es el cambio promedio en la pendiente de la
-tension arterial, por cada cambio unitario en el IMC promedio del individuo.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PONER O NO PONER INTERPRETACION? %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
+tensión arterial por incrementos unitarios en el IMC promedio (obsrvado durante
+todo el seguimiento) para un momento determinado en el seguimiento.
 
 \subsection{Covariable variable en el tiempo}
 
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
 transformación. El modelo resultante es,
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \beta_3\ t_j\ X_{ij} + b_{1i}\ t_j + \varepsilon_{ij} \]
-
-Como se mencionó anteriormente, las CVT contienen efecto intra-unidad y
-entre-unidad, sin embargo el modelo lineal mixto va a tener solo una covariable
-$X_{ij}$. Si bien el modelo es válido, para obtener una interpretación clara del
-efecto de la CVT se necesita dividir su efecto en dos coeficientes, como se
-explicará en la sección \ref{Dividiendo efecto entre-unidad y efecto
-intra-unidad} (Hoffman, 2015).
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 %%%% LESSA HOFFMAN PAGINA 345
 
@@ -580,61 +594,57 @@ que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más comú
 que se desconozca el valor $k$ apropiado y se consideren varias opciones
 diferentes. El modelo lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \beta_3\ t_j\ X_{ij-k} + b_{1i}\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
 
 \subsection{Funcion de las covariables rezagadas}
 
-Una alternativa cuando se quiere utilizar toda la información de las covariables
-rezagadas es resumir a través de una función la información de éstas en una sola
-covariable. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
+Una alternativa cuando se quiere utilizar toda la información con la que se
+cuenta de la covariable hasta la ocasión actual es resumir la misma a través de
+una función. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
 actual. Sin embargo, la elección de está funcion dependerá del tipo de problema
 a analizar. Cabe destacar que, al igual que con toda medida resumen, al usar
 este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \beta_3\ t_j\ \overline{X}_{ij} + b_{1i}\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
-Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$
+Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
+el $i$-ésimo paciente.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 \label{Dividiendo efecto entre-unidad y efecto intra-unidad}
 
 Otra forma de incorporar la CVT es dividiendo el efecto en dos componentes que
-reflejen la variación intra-unidad y la variación entre-unidad. Entonces, el
-coeficiente del modelo que representa a la covariable se puede descomponer en
-dos:
+reflejen la variación intra-unidad y la variación entre-unidades respecto de la
+CVT. Por lo tanto, el término del modelo que representa a la covariable se puede
+descomponer en dos términos:
+\[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i \]
+El modelo lineal mixto queda planteado del siguiente modo:
+
 
 \[ 
-	Y_{ij} = \beta_0 + b_{0i} + \beta_{0W}\ (X_{ij} - \overline{X}_i) + \beta_{0B}\ \overline{X}_i
-	+ \beta_2\ t_j + \beta_{1W}\ t_j\ (X_{ij} - \overline{X}_i) + \beta_{1B}\ t_j\ \overline{X}_i + b_{1i}\ t_j + \varepsilon_{ij}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_W\ (X_{ij} - \overline{X}_i) + \beta_B\ \overline{X}_i
+	+ \beta_2\ t_j + \varepsilon_{ij}
 \]
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
-en el tiempo de la CVT para la unidad $i$. $\beta_{0W}$ representa el cambio
-esperado en la media de la variable respuesta asociado con cambios de la CVT
-dentro de la unidad y $\beta_{0B}$ representa el cambio esperado en la media de
-la variable respuesta asociado con cambios de la CVT entre unidades, ambos
-afectando a la ordenada al origen. Mientras que $\beta_{1W}$ y $\beta_{1B}$
-representan los mismos cambios asociados a la pendiente.
+en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
+cada paciente.
 
-En el ejemplo del IMC y la tensión arterial, $\beta_{W0}$ se interpreta como el
-cambio promedio en la tensión arterial el tiempo 0 por cada diferencia de una
-unidad en el IMC de la ocasión $j$ comparado con el IMC promedio de la persona,
-manteniendo constante el IMC de las ocasiones restantes. Por otro lado,
-$\beta_{B0}$ se interpreta como el cambio promedio en la tensión arterial en el
-tiempo 0 por cada cambio de una unidad en el IMC promedio de la unidad,
-controlando por el valor del IMC de la ocasión $j$. De la misma manera
-$\beta_{W1}$ y $\beta_{B1}$ representan los cambios promedio en las pendientes
-de los individuos a través del tiempo.
+$\beta_W$ representa el cambio esperado en la media de la tensión arterial
+asociado con variaciones del IMC propias de cada paciente (controlando por el
+tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
+arterial asociado con las variaciones del IMC entre pacientes (controlando por
+el tiempo)
 
-Estos efectos permiten medir entonces si la tensión arterial aumenta cuando una
-persona tiene un IMC mayor que el promedio de la población, y también permiten
-medir el cambio en la tensión arterial si dicha persona tiene IMC mayor que su
-promedio habitual.
+Cabe destacar que cuando la covariable es dicotómica (que toma valores 0 y 1) la
+componente $(X_{ij} - \overline{X}_i)$ tomará solamente dos valores y en
+consecuencia se sugiere dejar esta componente solamente con el valor de $X_{ij}$
+sin centrar respecto al valor promedio (Hoffman, 2015).
 
 \newpage
 
@@ -700,7 +710,7 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
-En la figura \ref{TAS_vs_tpo} se puede observar el grupo de pacientes inició el
+En la figura (\ref{TAS_vs_tpo}) se puede observar el grupo de pacientes inició el
 tratamiento con una TAS promedio de casi 133 mmHg, la cual fue disminuyendo
 levemente de manera aproximadamente lineal hasta promedio de poco más de 130
 mmHg al final del tratamiento.
@@ -714,7 +724,7 @@ mmHg al final del tratamiento.
 
 Otro gráfico que resulta de interés es observar la evolución de la TAS en cada
 mes sobre cada grupo de las covariables fijas, el resultado es presentado en la
-figura \ref{TAS_with_covs}. Todos los perfiles presentan (en general) una
+figura (\ref{TAS_with_covs}). Todos los perfiles presentan (en general) una
 pendiente decreciente de la TAS promedio a través del tiempo, siendo esta menor
 en cuanto a la ordenada al origen en el grupo de pacientes de mayor edad y de
 sexo femenino. La covariable edad es continua, pero a fines de poder observar
@@ -735,7 +745,7 @@ analizar un diagrama de dispersión de entre la TAS y el tiempo según adherenci
 En este caso, como la variable $mes$ es discreta, se usa una técnica llamada
 ``jitter'' la cual agrega un pequeño desplazamiento en los puntos, evitando que
 queden perfectamente solapados. Al observar los resultados de
-\ref{TAS_with_adh_scatter} se puede notar que esta manera de visualizar el
+(\ref{TAS_with_adh_scatter}) se puede notar que esta manera de visualizar el
 efecto de la adherencia sobre la TAS resulta confusa, al menos para estos datos.
 
 \begin{figure}[H]
@@ -785,7 +795,7 @@ Siendo
 
 \[ \varepsilon_{ij} \sim N(0, Var(\varepsilon_{ij})) \]
 
-En la tabla \ref{exog_table} se presentan los valores de los coeficientes para
+En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes para
 cada covariable y en paréntesis el p-value asociado a cada uno. Como se puede
 notar, en ninguna ocasión la adherencia depende de valores anteriores de la TAS,
 por lo tanto puede considerarse como una covariable exógena.
@@ -843,7 +853,7 @@ Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
 Los coeficientes del modelo estimado se presentan en la tabla
-\ref{modelo_1_tabla}. Como se mencionó anteriormente, la CVT adherencia contiene
+(\ref{modelo_1_tabla}). Como se mencionó anteriormente, la CVT adherencia contiene
 ambos efectos entre e intra paciente, por lo tanto su coeficiente no será
 facilmente interpretable. 
 
@@ -857,7 +867,7 @@ facilmente interpretable.
 Manteniendo constantes los efectos del sexo y la edad, en este caso en 0
 (femenino) y 58,84 (edad media) respectivamente, los valores de TAS estimada
 según los posibles perfiles adherencia por el modelo 1 pueden observarse en el
-gráfico \ref{modelo_1_plot}.
+gráfico (\ref{modelo_1_plot}).
 
 \hl{Los pacientes que adhieren al tratamiento presentan una disminución promedio
 en su TAS de 1,322 unidades en su ordenada y 0,832 unidades por mes menores a
@@ -911,12 +921,12 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
-En base a los resultados presentados en la tabla \ref{modelo_2_tabla},
+En base a los resultados presentados en la tabla (\ref{modelo_2_tabla}),
 controlando por el resto de las variables, \hl{los pacientes que adhieren en la
 totalidad del tratamiento, presentan una TAS promedio menor en 2,579 unidades en
 la ordenada y 0,257 unidades por mes.}. Dado que la adherencia se convirtió en
 una CNVT, en este caso el coeficiente -0,257 si resulta una pendiente y los dos
-perfiles de adherencia pueden observarse en el gráfico \ref{modelo_2_plot}
+perfiles de adherencia pueden observarse en el gráfico (\ref{modelo_2_plot}).
 
 \begin{table}[H]
 	\centering
@@ -954,7 +964,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
-Los coeficientes presentados en la tabla \ref{modelo_3_tabla} indican que,
+Los coeficientes presentados en la tabla (\ref{modelo_3_tabla}) indican que,
 controlando por el resto de las variables, \hl{los pacientes presentan una
 disminución promedio de 1,598 en la TAS en relación a la proporción de
 adherencia total en la ordenada al origen y luego disminuirá en 1,052 de manera
@@ -963,7 +973,7 @@ sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 0,
 ($1,598\ *\ 0.5$) al inicio del tratamiento y luego una disminución de 0,526 por
 mes ($1,052\ *\ 0.5$).} Dado que la adherencia es una variable dicotómica, la
 adherencia total solo puede tomar 8 posibles valores, estos perfiles pueden
-observarse en el gráfico \ref{modelo_3_plot}
+observarse en el gráfico (\ref{modelo_3_plot}).
 
 \begin{table}[H]
 	\centering
@@ -1006,13 +1016,13 @@ Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
 Los coeficientes de $adherencia_{ij-1}$ se interpretan de la misma manera que en
-el modelo \ref{modelo_1}, manteniendo constante el efecto del resto de las
+el modelo (\ref{modelo_1}), manteniendo constante el efecto del resto de las
 covariables, \hl{los pacientes que adhieren al tratamiento en el mes anterior
 presentan una aumento promedio en su TAS de 0,343 unidades en su ordenada al
 origen, y una disminución 0,383 unidades por mes.}
 
 Los valores de TAS estimada según los posibles perfiles adherencia por el modelo
-4 pueden observarse en el gráfico \ref{modelo_4_plot}.
+4 pueden observarse en el gráfico (\ref{modelo_4_plot}).
 
 \begin{table}[H]
 	\centering
@@ -1051,7 +1061,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
-En la tabla \ref{modelo_5_tabla} se presentan los resultados del modelo. En este
+En la tabla (\ref{modelo_5_tabla}) se presentan los resultados del modelo. En este
 caso, los coeficientes que acompañan a la covariable
 $\overline{adherencia}_{ij}$ se multiplicarán por la proporcion de adherencia
 del mes $j$. Tomando como ejemplo una adherencia perfecta
@@ -1069,7 +1079,7 @@ los pacientes que no adhieren en ninguna ocasión ($\overline{adherencia}_{ij}$ 
 	\input{tables/modelo_5}
 \end{table}
 
-En el gráfico \ref{modelo_5_plot} pueden observarse los distintos perfiles de
+En el gráfico (\ref{modelo_5_plot}) pueden observarse los distintos perfiles de
 adherencia que pueden ser estimados a través del modelo 5. A diferencia de los
 modelos 1 y 4, en este caso la TAS estimada depende de todo el proceso de
 adherencia y no solo del mes actual. En los modelos antes mencionados, la TAS
@@ -1091,8 +1101,8 @@ no adhiere los primeros 6 meses pero si adhiere el último mes es de 135,01 mmHg
 Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
 presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
 presentó el valor codificado con 1 de dicha covariable, por lo que el método
-presentado en la sección \ref{Dividiendo efecto entre-unidad y efecto
-intra-unidad} resultará en valores extraños para $\beta_W$ si usamos $X_i -
+presentado en la sección (\ref{Dividiendo efecto entre-unidad y efecto
+intra-unidad}) resultará en valores extraños para $\beta_W$ si usamos $X_i -
 \overline{X}_i$. En este caso, si paciente adhirio al tratamiento en el 50\% de
 los meses, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
 acompaña a $\beta_W$ será de -0.5 en los meses que el paciente no adhiera y 0.5
@@ -1119,7 +1129,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_i$.
 
-Los resultados pueden observarse en la tabla \ref{modelo_6_tabla}. \hl{Los
+Los resultados pueden observarse en la tabla (\ref{modelo_6_tabla}). \hl{Los
 coeficientes -1.866 y -0,641 quieren decir que, manteniendo constante la
 proporción de adherencia total, se espera que los pacientes que adhieren al
 tratamiento presenten una disminución promedio en la TAS de 1.866 en la ordenada
@@ -1138,7 +1148,7 @@ por mes en proporcion a la adherencia total al tratamiento.}
 	\input{tables/modelo_6}
 \end{table}
 
-En el gráfico \ref{modelo_6_plot} pueden observarse todos los posibles perfiles
+En el gráfico (\ref{modelo_6_plot}) pueden observarse todos los posibles perfiles
 de adherencia que pueden calcularse a través de este modelo. Las pendientes,
 representadas con lineas discontinuas cuando el paciente no adhiere al siguiente
 mes y con lineas completas cuando el paciente adhiere el siguiente mes, pueden
@@ -1174,11 +1184,11 @@ cruces cuando no adhiere, estos puntos representan el efecto intra individuo.
 	\end{tabular}
 \end{table}
 
-En la tabla \ref{comparacion} se puede observar que, basándose en el AIC y el
-BIC, el modelo que mejor ajusta los datos es el modelo 1 \ref{modelo_1}, este
+En la tabla (\ref{comparacion}) se puede observar que, basándose en el AIC y el
+BIC, el modelo que mejor ajusta los datos es el modelo 1 (\ref{modelo_1}), este
 modelo incorpora la CVT en su forma natural sin aplicarse ninguna
 transformación. El segundo modelo que mejor ajusta los datos es el modelo 6
-\ref{modelo_6} el cual también incorpora la covariable en su forma natural y
+(\ref{modelo_6}) el cual también incorpora la covariable en su forma natural y
 además incorpora una transformación CNVT de ésta para dividir efectos y
 facilitar la interpretación de sus parámetros.
 
@@ -1230,7 +1240,7 @@ Para probar la significación de las efectos aleatorios se ajustaron 3 modelos,
 uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
 solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
 con el método de máxima verosimilitud restringida. El modelo completo es el
-siguiente y sus resultados pueden observarse en la tabla \ref{modelo_both}.
+siguiente y sus resultados pueden observarse en la tabla (\ref{modelo_both}).
 
 \[
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
@@ -1261,16 +1271,12 @@ Siendo \[
 \end{table}
 
 Se ajusta un modelo reducido solo con pendiente aleatoria, obteniendose los
-resultados presentados en \ref{modelo_time}:
+resultados presentados en (\ref{modelo_time}):
 
 \[
 	Y_{ij} = \beta_0 + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
 	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
 \]
-
-%%%%%%%%%%%%%%%%%%
-% HECHO CON R
-%%%%%%%%%%%%%%%%%%
 
 \begin{table}[H]
 	\centering
@@ -1293,7 +1299,7 @@ lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
 ordenada al origen aleatoria.
 
 Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
-obtienen los resultados presentados en la tabla \ref{modelo_intercept}:
+obtienen los resultados presentados en la tabla (\ref{modelo_intercept}):
 
 \[
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
