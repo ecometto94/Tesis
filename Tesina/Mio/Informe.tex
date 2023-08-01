@@ -659,7 +659,7 @@ características, el valor de la TAS y la adherencia al tratamiento. Esta últim
 variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986)
 que arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al
 ser evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT
-que captura como fue la adherencia durante el periodo desde la visita previa
+que captura como fue la adherencia durante el período desde la visita previa
 hasta la visita actual. Como para la visita basal no se cuenta con información
 de adherencia, se toman los datos desde el primer mes de tratamiento.
 
@@ -761,7 +761,7 @@ TAS resulta confusa.
 Como una alternativa a la presentada previamente, se propone realizar un gráfico
 de perfiles promedio convirtiendo a la CVT (adherencia) en una CVNT para que de
 esta manera cada paciente pertenezca únicamente a un sólo grupo durante todo el
-periodo del estudio. Para esto, se dividieron a los pacientes según la cantidad
+período del estudio. Para esto, se dividieron a los pacientes según la cantidad
 de meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos
 (adherencia baja), entre 4 y 6 meses (adherencia media/alta) o todos los meses
 (adherencia perfecta). En la figura (\ref{TAS_with_adh}) Se puede observar que
@@ -839,8 +839,7 @@ efectos aleatorios y comparación de modelos a través del criterio BIC (ver Ane
 \ref{eleccion_efectos_aleatorios}) se decidió plantear un modelo de efectos
 mixtos con ordenada aleatoria y estructura de covariancia autorregresiva de
 orden 1. De esta manera, se incorpora al modelo la correlación serial y el
-efecto entre pacientes. La CVT se incorpora en su forma original ya que se
-evaluó su exogeneidad. El modelo resulta:
+efecto entre pacientes.
 
 \begin{multline}
 	\label{modelo_1}
@@ -911,10 +910,14 @@ Una de las transformaciones que puede aplicarse sobre la covariable adherencia
 es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
 adhirió en todo el tratamiento y 0 en otro caso. El modelo resulta:
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REMOVER ESPACIO MUCHO ESPACIO ANTES DE LA ECUACION %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{multline}
 	\label{modelo_2}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i \\
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia\ perfecta_i + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -922,7 +925,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
 Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
@@ -957,7 +960,7 @@ $\frac{5}{7}$ ($\approx 0.71$). El modelo resulta:
 \begin{multline}
 	\label{modelo_3}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i \\
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_i + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}
 \end{multline}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1201,40 +1204,43 @@ facilitar la interpretación de sus parámetros.
 
 \newpage
 
-\section{Conclusiones}
+\section{Consideraciones finales}
 
-Tradicionalmente, los modelos longitudinales fueron pensados para ser ajustados
-sobre covariables fijas a través del tiempo, pero esto no es algo que suceda
-siempre en la vida real.
+Los datos que surgen de estudios longitudinales pueden ser analizados mediante
+modelos lineales mixtos. En este tipo de estudios es frecuente contar con
+variables independientes que pueden ser fijas a lo largo de todo el período o
+bien puedan variar a lo largo del seguimiento. Estas covariables que varían con
+el tiempo son variables independientes que incluyen tanto la variación
+intra-sujeto y la variación entre-sujetos.
 
-En este informe se ha introducido una manera de categorizar a las covariables
-variables en el tiempo, específicamente como \textit{exógenas} o
-\textit{endógenas}, como así también un método para verificar esta clasificación
-a través de ajustar disintos modelos individualmente para cada ocasión.
+La relación entre la covariable que varía en el tiempo y la variable respuesta
+puede estar confundida por valores anteriores y/o posteriores de la covariable y
+en consecuencia esto puede conducir a inferencias engañosas sobre los parámetros
+del modelo.
 
-Cuando las variables son exógenas pueden añadirse al modelo de la manera
-tradicional. Sin embargo, se han propuesto diversas transformaciones que pueden
-ayudar tanto a ajustar de mejor manera los datos como a la interpretación de los
-coeficientes.
+En esta tesina se presentaron diferentes definiciones y tipos de covariables que
+varían en el tiempo, específicamente se introdujo el concepto de covariable
+endógena y exógena. También se describió una forma empírica de evaluar esta
+clasificación.
 
-También se mostró un ejemplo con un caso de estudio de pacientes de un programa
-de atención y control de pacientes hipertensos. En base a estos datos se
-ajustaron diferentes modelos con las distintas formas mencionadas de introducir
-la CVT y se realizó una comparación de los mismos.
+Se presentaron diferentes formas de introducir al modelo lineal mixto una
+covariable que varía en el tiempo exógena, ya sea en su formato original o bien
+mediante transformaciones. Estos conceptos fueron aplicados a un conjunto de
+datos que surge del programa de atención y control de pacientes hipertensos de
+Fundación ECLA.
 
-Como futuros pasos se propone estudiar más en profundidad la incorporación
-de variables endógenas. Dado que muchas de las técnicas existentes hasta el
-momento no están basadas en el ajuste de modelos lineales mixtos, quedan fuera
-del alcance de esta tesina.
+Uno de los objetivos que persiguió este estudio observacional fue evaluar si la
+adherencia al tratamiento (covariable que varía en el tiempo) influía en los
+valores de la TAS a lo largo del seguimiento. En primer lugar se evaluó la
+exogeneidad de ésta covariable, luego se presentaron diferentes formas de
+introducirla al modelo lineal mixto dando lugar a 6 propuestas diferentes.
+Posteriormente, se compararon estas propuestas y se arribó a un modelo final en
+el que se incorpora a la covariable adherencia en su formato original sin
+realizar transformaciones.
 
 \newpage
 
 \section{Anexo}
-
-\subsection{Elección de efectos aleatorios y estructura de covariancia}
-\label{eleccion_efectos_aleatorios}
-
-\subsubsection{Efectos aleatorios}
 
 \begin{figure}[H]
 	\centering
@@ -1243,118 +1249,13 @@ del alcance de esta tesina.
 	\label{semivariogram}
 \end{figure}
 
-Para probar la significación de las efectos aleatorios se ajustaron 3 modelos,
-uno con ordenada y pendiente aleatoria, otro solo con pendiente aleatoria y otro
-solo con ordenada aleatoria. Los parametros de los 3 modelos fueron estimados
-con el método de máxima verosimilitud restringida. El modelo completo es el
-siguiente y sus resultados pueden observarse en la tabla (\ref{modelo_both}).
-
-\[
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
-\]
-
-Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
-
-\[ 
-	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-	\quad
-	\bm{b}_i = \begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix} \sim N_k(0, \bm{D})
-\]
-
-Donde $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
-vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente.
-
-Siendo \[
-	Var(\bm{b_i}) = Var\begin{pmatrix} b_{0i} \\ b_{1i} \end{pmatrix}
-	= \bm{D} = \begin{pmatrix} D_{00} & D_{01} \\ D_{10} & D_{11} \end{pmatrix}
-\]
-
-\begin{table}[H]
+\begin{figure}[H]
 	\centering
-	\caption{Modelo con ordenada y pendiente aleatoria}
-	\label{modelo_both}
-	\input{tables_anexo/modelo_both}
-\end{table}
+	\includegraphics[scale=0.5]{img/TAS_vs_tpo_perfiles_individuales.png}
+	\caption{Evolución de la TAS a lo largo del tiempo para cada paciente}
+	\label{perfiles_individuales}
+\end{figure}
 
-Se ajusta un modelo reducido solo con pendiente aleatoria, obteniendose los
-resultados presentados en (\ref{modelo_time}):
-
-\[
-	Y_{ij} = \beta_0 + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + b_{1i}\ mes_j + \varepsilon_{ij}
-\]
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo con pendiente aleatoria}
-	\label{modelo_time}
-	\input{tables_anexo/modelo_pendiente}
-\end{table}
-
-Y se plantea el siguiente test de hipótesis:
-
-$ \left. H_0 \right) D_{00}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
-
-Siendo $G^2 = (-2)*LogLikelihood$, MC el modelo completo y MR el modelo
-reducido obtenemos:
-
-$ G^2(MR) - G^2(MC) = 31144.28 - 30787.86 = 356.52 $
-
-Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ resulta mayor, por
-lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
-ordenada al origen aleatoria.
-
-Al repetir los mismos pasos para un modelo solo con ordenada aleatoria se
-obtienen los resultados presentados en la tabla (\ref{modelo_intercept}):
-
-\[
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + \varepsilon_{ij}
-\]
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo con ordenada aleatoria}
-	\label{modelo_intercept}
-	\input{tables_anexo/modelo_ordenada}
-\end{table}
-
-Se plantea el test de hipótesis:
-
-$ \left. H_0 \right) D_{11}\ =\ D_{01}\ =\ 0\ \quad\ \left. H_1\ \right) al\ menos\ uno\ distinto\ de\ cero $
-
-Siendo $G^2 = (-2)*Log-Likelihood$, MC el modelo completo y MR el modelo
-reducido obtenemos:
-
-$ G^2(MR) - G^2(MC) = 30838.98 - 30787.86 = 51.12 $
-
-Al comparar este valor con una $\chi_{50:50;1;0.05} = 5.14$ vemos es que mayor,
-por lo tanto se rechaza la hipótesis nula y se considera que se debe incluir la
-pendiente aleatoria.
-
-En base a este test, ambos efectos aleatorios son añadidos al modelo. Sin
-embargo, al modelar la correlación serial con una estructura de covariancia
-autorregresiva de orden 1, tanto con ordenada y pendiente aleatoria como con
-solo ordenada aleatoria, se obtienen:
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo con ordenada aleatoria}
-	\label{modelo_both_ar1}
-	\input{tables_anexo/modelo_both_ar1}
-\end{table}
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo con ordenada aleatoria}
-	\label{modelo_intercept_ar1}
-	\input{tables_anexo/modelo_ordenada_ar1}
-\end{table}
-
-Comparando estos modelos a través del criterio BIC, el que mejor ajusta los
-datos es el modelo lineal mixto con ordenada aleatoria y estructura de
-covariancia AR1, por lo tanto este será el modelo propuesto.
 
 \newpage
 \nocite{*}
