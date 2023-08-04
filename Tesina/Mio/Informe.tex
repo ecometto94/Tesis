@@ -106,19 +106,19 @@ tiempo.
 Las CVT son variables independientes que contienen ambas variaciones, intra y
 entre unidad, es decir, que el valor de la covariable cambia para una unidad
 determinada a lo largo del tiempo y además puede cambiar para diferentes
-unidades. Este tipo de covariables tienen los mismos usos que las CNVT, y además
-permiten describir la relación dinámica entre la CVT y la respuesta. Sin
+unidades. Este tipo de covariables tienen los mismos usos que las CNVT, y
+además, permiten describir la relación dinámica entre la CVT y la respuesta. Sin
 embargo, esta relación puede estar confundida por valores anteriores y/o
-posteriores de la covariable y en consecuencia esto puede conducir a inferencias
-engañosas sobre los parámetros del modelo. Esta tesina realiza una introducción
-a la problemática de incorporar covariables que varían en el tiempo en modelos
-mixtos para datos longitudinales, presentando diferentes definiciones de las
-mismas y enfoques metodológicos.
+posteriores de la covariable, y en consecuencia, esto puede conducir a
+inferencias engañosas sobre los parámetros del modelo. Esta tesina realiza una
+introducción a la problemática de incorporar covariables que varían en el tiempo
+en modelos mixtos para datos longitudinales, presentando diferentes definiciones
+de las mismas y enfoques metodológicos.
 
 Estos conceptos se aplican a un conjunto de datos que surge del programa de
-atención y control de pacientes hipertensos de Fundación ECLA llevado a cabo en
+atención y control de pacientes hipertensos de Fundación ECLA, llevado a cabo en
 Rosario durante el período 2014-2019. Este estudio observacional realizó un
-seguimiento de un grupo de pacientes hipertensos registrando en cada visita el
+seguimiento de un grupo de pacientes hipertensos, registrando en cada visita el
 tratamiento farmacológico dado al paciente, los valores de la tensión arterial
 sistólica (TAS) y la adherencia a dicho tratamiento, entre otras
 características. Uno de los objetivos que persiguió este estudio fue evaluar si
@@ -301,7 +301,7 @@ respuesta, se puede dar una interpretación causal a los parámetros de regresi�
 
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
 variable estocásticamente relacionada con otros factores medidos en el estudio.
-Esta también puede definirse como una variable generada por un proceso
+Ésta también puede definirse como una variable generada por un proceso
 estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
 endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
@@ -446,7 +446,7 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fit
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994), mostraron que las ecuaciones (\ref{ML}) y (\ref{REML})
+Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML})
 llegan a cero sólo si se cumple con el supuesto de independencia condicional:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -474,12 +474,12 @@ modelo.
 
 Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
 longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente ya que
+estimación generalizadas) con estructura de correlación independiente, ya que
 este es siempre consistente. La estructura de correlación independiente
 generalmente tiene una alta eficiencia para la estimación de los coeficientes
 asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
 estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
+estimación de los coeficientes asociados a las CVT, y proporciona un ejemplo en
 el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
 con la estructura de correlación verdadera.
 
@@ -533,7 +533,7 @@ original y deben explorarse las propuestas planteadas anteriormente.
 
 \section{Formas de introducir una CVT al modelo lineal mixto}
 
-Si al evaluar el tipo de la CVT de la manera vista en
+Si al evaluar el tipo de la CVT, de la manera vista en
 (\ref{seccion_de_exogeneidad}) resulta ser exógena, se puede introducir en el
 modelo lineal mixto sin consideraciones adicionales. Esto se debe a que no habrá
 problemas con la estimación de los parámetros, ya que se cumple el supuesto de
@@ -557,12 +557,12 @@ independientes.
 \subsection{Convertirla en CNVT}
 
 Una solución rápida al problema de las CVT, sea exógena o endógena, es
-transformarla en una CNVT, esto se puede lograr resumiendo la información de la
-misma mediante alguna función como el promedio de los valores de cada individuo
-y dejarlo fijo a través del tiempo. También podria usarse su valor máximo,
-mínimo o cualquier transformación que resulte de interés en el estudio. El
-problema de este enfoque es que se pierde información, dado que se usa una
-covariable más simple que no refleja la relación dinámica entre la covariable y
+transformarla en una CNVT. Esto se puede lograr resumiendo la información de la
+misma mediante alguna función, como el promedio de los valores de cada
+individuo, y dejarlo fijo a través del tiempo. También podria usarse su valor
+máximo, mínimo o cualquier transformación que resulte de interés en el estudio.
+El problema de este enfoque es que se pierde información, dado que se usa una
+covariable más simple, que no refleja la relación dinámica entre la covariable y
 la respuesta en el tiempo.
 
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
@@ -570,17 +570,14 @@ cada uno de los individuos y el modelo resultaría:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PONER O NO PONER INTERPRETACION? %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
-tensión arterial por incrementos unitarios en el IMC promedio (obsrvado durante
+tensión arterial por incrementos unitarios en el IMC promedio (observado durante
 todo el seguimiento) para un momento determinado en el seguimiento.
 
 \subsection{Covariable variable en el tiempo}
 
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
-transformación. El modelo resultante es,
+transformación. El modelo resultante es:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
