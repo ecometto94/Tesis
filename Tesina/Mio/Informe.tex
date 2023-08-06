@@ -554,6 +554,9 @@ independientes.
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$.
+
 \subsection{Convertirla en CNVT}
 
 Una solución rápida al problema de las CVT, sea exógena o endógena, es
@@ -570,10 +573,10 @@ cada uno de los individuos y el modelo resultaría:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
 
-El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
-tensión arterial por incrementos unitarios en el IMC promedio \hl{del paciente}
-(observado durante todo el seguimiento) \hl{para un momento determinado en el
-seguimiento}.
+% El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
+% tensión arterial por incrementos unitarios en el IMC promedio \hl{del paciente}
+% (observado durante todo el seguimiento) \hl{para un momento determinado en el
+% seguimiento}.
 
 \subsection{Covariable variable en el tiempo}
 
@@ -582,9 +585,9 @@ transformación. El modelo resultante es:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
-\hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
-de la tensión arterial por incrementos unitarios en el IMC para un momento
-determinado en el seguimiento}.
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial por incrementos unitarios en el IMC para un momento
+% determinado en el seguimiento}.
 
 \subsection{Covariable rezagada}
 
@@ -598,9 +601,11 @@ modelo lineal mixto se definiría de la siguiente manera:
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
-elección del rezago $k$. \hl{El coeficiente $\beta_1$ se interpreta como el
-cambio esperado en la media de la tensión arterial, para un momento determinado
-en el seguimiento, por incrementos unitarios en el IMC del momento anterior}.
+elección del rezago $k$.
+
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial, para un momento determinado en el seguimiento, por
+% incrementos unitarios en el IMC del momento anterior}.
 
 \subsection{Función de las covariables rezagadas}
 
@@ -616,9 +621,11 @@ resultando el modelo:
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
-el $i$-ésimo paciente. \hl{El coeficiente $\beta_1$ se interpreta como el cambio
-esperado en la media de la tensión arterial por incrementos unitarios en el IMC
-promedio hasta la ocasión actual para un momento determinado en el seguimiento}.
+el $i$-ésimo paciente.
+
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial por incrementos unitarios en el IMC promedio hasta la
+% ocasión actual para un momento determinado en el seguimiento}.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 \label{Dividiendo efecto entre-unidad y efecto intra-unidad}
@@ -637,13 +644,14 @@ El modelo lineal mixto queda planteado del siguiente modo:
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
-cada paciente.
+cada paciente. $\beta_W$ representa el efecto intra-unidad y $\beta_B$ el
+efecto entre-unidades.
 
-$\beta_W$ representa el cambio esperado en la media de la tensión arterial
-asociado con variaciones del IMC propias de cada paciente (controlando por el
-tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
-arterial asociado con las variaciones del IMC entre pacientes (controlando por
-el tiempo)
+% $\beta_W$ representa el cambio esperado en la media de la tensión arterial
+% asociado con variaciones del IMC propias de cada paciente (controlando por el
+% tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
+% arterial asociado con las variaciones del IMC entre pacientes (controlando por
+% el tiempo)
 
 Cabe destacar que cuando la covariable es dicotómica (que toma valores 0 y 1) la
 componente $(X_{ij} - \overline{X}_i)$ tomará solamente dos valores y en
