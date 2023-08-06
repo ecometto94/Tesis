@@ -98,34 +98,34 @@ covariables conduce a considerar distintos enfoques para cada una de ellas en el
 análisis.
 
 Las CNVT son variables independientes que no tienen variación intra-unidad, es
-decir que el valor de la covariable no cambia para una unidad determinada en
+decir, que el valor de la covariable no cambia para una unidad determinada en
 el estudio longitudinal. Este tipo de covariables se pueden utilizar para
 realizar comparaciones entre poblaciones y describir diferentes tendencias en el
 tiempo.
 
 Las CVT son variables independientes que contienen ambas variaciones, intra y
-entre unidad, es decir que el valor de la covariable cambia para una unidad
+entre unidad, es decir, que el valor de la covariable cambia para una unidad
 determinada a lo largo del tiempo y además puede cambiar para diferentes
-unidades. Este tipo de covariables tienen los mismos usos que las CNVT, y además
-permiten describir la relación dinámica entre la CVT y la respuesta. Sin
+unidades. Este tipo de covariables tienen los mismos usos que las CNVT, y
+además, permiten describir la relación dinámica entre la CVT y la respuesta. Sin
 embargo, esta relación puede estar confundida por valores anteriores y/o
-posteriores de la covariable y en consecuencia esto puede conducir a inferencias
-engañosas sobre los parámetros del modelo. Esta tesina realiza una introducción
-a la problemática de incorporar covariables que varían en el tiempo en modelos
-mixtos para datos longitudinales, presentando diferentes definiciones de las
-mismas y enfoques metodológicos.
+posteriores de la covariable, y en consecuencia, esto puede conducir a
+inferencias engañosas sobre los parámetros del modelo. Esta tesina realiza una
+introducción a la problemática de incorporar covariables que varían en el tiempo
+en modelos mixtos para datos longitudinales, presentando diferentes definiciones
+de las mismas y enfoques metodológicos.
 
 Estos conceptos se aplican a un conjunto de datos que surge del programa de
-atención y control de pacientes hipertensos de Fundación ECLA llevado a cabo en
+atención y control de pacientes hipertensos de Fundación ECLA, llevado a cabo en
 Rosario durante el período 2014-2019. Este estudio observacional realizó un
-seguimiento de un grupo de pacientes hipertensos registrando en cada visita el
+seguimiento de un grupo de pacientes hipertensos, registrando en cada visita el
 tratamiento farmacológico dado al paciente, los valores de la tensión arterial
-sistólica (TAS) y la adherencia a dicho tratamiento entre otras características.
-Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia al
-tratamiento influye en los valores de la TAS a lo largo del seguimiento. Como la
-variable adherencia es una CVT, se presentarán diferentes enfoques para
-incluirla en un modelo longitudinal mixto que pueda explicar el cambio en la
-tensión arterial sistólica media a lo largo del tiempo.
+sistólica (TAS) y la adherencia a dicho tratamiento, entre otras
+características. Uno de los objetivos que persiguió este estudio fue evaluar si
+la adherencia al tratamiento influye en los valores de la TAS a lo largo del
+seguimiento. Como la variable adherencia es una CVT, se presentarán diferentes
+enfoques para incluirla en un modelo longitudinal mixto que pueda explicar el
+cambio en la tensión arterial sistólica media a lo largo del tiempo.
 
 \newpage
 \section{Objetivos}
@@ -156,7 +156,7 @@ experimentales.
 Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
 agrupamiento generalmente están correlacionadas positivamente. Por lo tanto, los
-supuestos usuales de independencia y homogeneidad de variancias no son válidos
+supuestos usuales de independencia y homogeneidad de variancias no son válidos.
 
 Existen tres fuentes potenciales de variabilidad que influyen sobre la
 correlación entre medidas repetidas:
@@ -206,10 +206,10 @@ $N*=Nn$.
 
 Sean $Y_{ij}$ y $X_{ij}$ los valores de la variable respuesta y de la variable
 independiente respectivamente, medidos para la unidad $i$ en la ocasión $t_j$
-con $i = 1, ..., N$ y $j = 1, ..., n$ Si se asume que $Y_{ij}$ y $X_{ij}$ son
+con $i = 1, ..., N$ y $j = 1, ..., n$. Si se asume que $Y_{ij}$ y $X_{ij}$ son
 simultáneamente medidas, en un análisis de corte transversal, $Y_{ij}$ y
 $X_{ij}$ se correlacionarían directamente. Sin embargo, para un análisis
-longitudinal se debe asumir que existe un orden pre-establecido:
+longitudinal se debe asumir que existe un orden preestablecido:
 $(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
 
 \subsection{Covariables fijas en el tiempo}
@@ -218,11 +218,11 @@ Las CNVT son variables independientes que no presentan variación intra-unidad,
 es decir, los valores de estas covariables no cambian a lo largo del estudio
 para una unidad en particular.
 
-Éstas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
+Estas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
 biológico de una persona o el grupo de tratamiento) o pueden ser covariables
 basales (es decir, medidas al inicio del estudio). Las covariables basales son
 fijas por definición pero pueden ser variables en el tiempo por naturaleza, por
-ejemplo, la edad varia en el tiempo pero la edad basal es fija.
+ejemplo, la edad varía en el tiempo, pero la edad basal es fija.
 
 \subsection{Covariables variables en el tiempo}
 
@@ -248,7 +248,7 @@ colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 \subsubsection{Covariables exógenas y endógenas}
 \label{seccion_de_exogeneidad}
 
-Otra clasificación de las CVT es en exógenas y endógenas.
+Las CVT también se pueden clasificar en exógenas y endógenas.
 
 \paragraph{Covariables exógenas} \mbox{}
 
@@ -264,7 +264,7 @@ para la unidad $i$ en la ocasión $j$:
 	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
 
-Y en consecuencia (Diggle et al., 2002; Fitzmaurice et al., 2004):
+Y, en consecuencia (Diggle et al., 2002; Fitzmaurice et al., 2004):
 
 \begin{equation}
 	\label{exogeneidad debil}
@@ -272,26 +272,27 @@ Y en consecuencia (Diggle et al., 2002; Fitzmaurice et al., 2004):
 \end{equation}
 
 Esta definición implica que la media condicional de la variable respuesta en un
-determinado momento dado todo los valores de la covariable (previos y
-posteriores) sólo depende de los valores previos de la covariable. Por ejemplo,
-en un estudio longitudinal en donde se evalúa si el la cantidad de actividad
-física (variable explicativa) esta asociada al nivel de glucosa en sangre
-(variable respuesta), según (\ref{exogeneidad debil}), la media condicional de
-la glucosa en un determinado momento dado todos los registros de actividad
-física (previos y posteriores) sólo depende de los registros previos de
-actividad física. También, (\ref{exogeneidad}) sugiere que es de esperar que la
-cantidad de actividad física en una determinada ocasión dependa de la cantidad
-de actividad física observa en momentos previos, pero no se espera que dependa
-de los niveles de glucosa observados previamente.
+determinado momento, dado todo los valores de la covariable (previos y
+posteriores), sólo depende de los valores previos de la covariable. Por ejemplo,
+en un estudio longitudinal que evalúa si la cantidad de actividad física
+(variable explicativa) está asociada al nivel de glucosa en sangre (variable
+respuesta), según (\ref{exogeneidad debil}), la media condicional de la glucosa
+en un determinado momento, dado todos los registros de actividad física (previos
+y posteriores), sólo depende de los registros previos de actividad física.
+También, (\ref{exogeneidad}) sugiere que es de esperar que la cantidad de
+actividad física en una determinada ocasión dependa de la cantidad de actividad
+física observada en momentos previos, pero no se espera que dependa de los niveles
+de glucosa observados previamente.
 
-Es posible examinar empíricamente la suposición de que una CVT es exógena
-ajustando un modelo de regresión en donde se considera como variable respuesta a
-la covariable en un momento determinado ($X_{ij}$) y como variables explicativas
-tanto a los valores previos de la covariable ($X_{i1}, ..., X_{ij-1}$) como a
-los valores previos de la variable respuesta ($Y_{i1}, ..., Y_{ij-1}$). Si,
-después de controlar por los valores previos de la covariable, el valor actual
-de la covariable no muestra una asociación con los valores previos de la
-variable respuesta, puede considerarse que la covariable es exógena.
+Es posible examinar empíricamente la suposición de que una CVT es exógena,
+ajustando un modelo de regresión en donde se considera, como variable respuesta
+a la covariable en un momento determinado ($X_{ij}$), y como variables
+explicativas tanto a los valores previos de la covariable ($X_{i1}, ...,
+X_{ij-1}$) como a los valores previos de la variable respuesta ($Y_{i1}, ...,
+Y_{ij-1}$). Si, después de controlar por los valores previos de la covariable,
+el valor actual de la covariable no muestra una asociación con los valores
+previos de la variable respuesta, puede considerarse que la covariable es
+exógena.
 
 Cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta, se puede dar una interpretación causal a los parámetros de regresión.
@@ -300,7 +301,7 @@ respuesta, se puede dar una interpretación causal a los parámetros de regresi�
 
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
 variable estocásticamente relacionada con otros factores medidos en el estudio.
-Esta también puede definirse como una variable generada por un proceso
+Ésta también puede definirse como una variable generada por un proceso
 estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
 endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
@@ -310,7 +311,7 @@ endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física es
 asociada al nivel de glucosa. El nivel de actividad física en un determinado
 momento puede estar (o no) asociado a niveles previos y también puede estar
 asociado a valores previos de glucosa (un paciente con valor de glucosa alto
-en una visita puede decidir aumentar su nivel de actividad fística para ver si
+en una visita puede decidir aumentar su nivel de actividad física para ver si
 este valor se reduce).
 
 \section{Modelo lineal mixto}
@@ -353,7 +354,7 @@ Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
 \[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \quad \bm{b}_i \sim N_k(0, \bm{D}) \]
 
 $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
-vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$ respectivamente. A partir de este
+vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$, respectivamente. A partir de este
 modelo se obtiene:
 
 \begin{itemize}
@@ -370,12 +371,12 @@ apropiadamente la variabilidad intra individuo.
 
 \subsection{Estimación de los parámetros del modelo}
 
-Bajo el supuesto de que $\bm{\varepsilon}_i$ y $\bm{b}_i$ se distribuyen normalmente se
-pueden usar métodos de estimación basados en la teoría de máxima verosimilitud,
-cuya idea es asignar a los parámetros el valor más probable en base a los datos
-que fueron observados. Se usarán para estimar los parámetros de la parte media
-y los de las estructuras de covariancia los métodos de máxima verosimilitud
-(ML) y máxima verosimilitud restringida (REML) respectivamente
+Bajo el supuesto de que $\bm{\varepsilon}_i$ y $\bm{b}_i$ se distribuyen
+normalmente, se pueden usar métodos de estimación basados en la teoría de máxima
+verosimilitud, cuya idea es asignar a los parámetros el valor más probable en
+base a los datos que fueron observados. Se usarán para estimar los parámetros de
+la parte media y los de las estructuras de covariancia los métodos de máxima
+verosimilitud (ML) y máxima verosimilitud restringida (REML), respectivamente.
 
 \subsubsection{Método de máxima verosimilitud (ML)}
 
@@ -436,7 +437,7 @@ log-verosimilitud restringida que se propone es:
 	- \frac{1}{2} \ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}_i^{-1} \bm{X}_i}|
 \end{equation}
 
-Maximizando esta funcion con respecto a $\bm{\beta}$ y $\bm{\theta}$ se obtiene:
+Maximizando esta función con respecto a $\bm{\beta}$ y $\bm{\theta}$ se obtiene:
 
 \[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i)^{-1}
 \sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{Y}_i\]
@@ -445,8 +446,8 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fit
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML}) llegan
-a cero solo si se cumple con el supuesto de independencia condicional:
+Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML})
+llegan a cero sólo si se cumple con el supuesto de independencia condicional:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REMOVER ESPACIO MUCHO ESPACIO ANTES DE LA ECUACION %
@@ -473,19 +474,19 @@ modelo.
 
 Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
 longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente ya que
+estimación generalizadas) con estructura de correlación independiente, ya que
 este es siempre consistente. La estructura de correlación independiente
 generalmente tiene una alta eficiencia para la estimación de los coeficientes
 asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
 estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT y proporciona un ejemplo en
+estimación de los coeficientes asociados a las CVT, y proporciona un ejemplo en
 el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
 con la estructura de correlación verdadera.
 
-Lai y Small (2007) y Lalonde et. al (2014) definieron cuatro tipos de CVT y
+Lai y Small (2007) y Lalonde et al. (2014) definieron cuatro tipos de CVT y
 propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
 en donde es posible incorporar información sobre la naturaleza de la CVT que se
-esta analizando.
+está analizando.
 
 % Luego, Lai y Small (2007) y Lalonde (2014) definieron 4 nuevos tipos de CVT:
 
@@ -532,7 +533,7 @@ original y deben explorarse las propuestas planteadas anteriormente.
 
 \section{Formas de introducir una CVT al modelo lineal mixto}
 
-Si al evaluar el tipo de la CVT de la manera vista en
+Si al evaluar el tipo de la CVT, de la manera vista en
 (\ref{seccion_de_exogeneidad}) resulta ser exógena, se puede introducir en el
 modelo lineal mixto sin consideraciones adicionales. Esto se debe a que no habrá
 problemas con la estimación de los parámetros, ya que se cumple el supuesto de
@@ -553,15 +554,18 @@ independientes.
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$.
+
 \subsection{Convertirla en CNVT}
 
 Una solución rápida al problema de las CVT, sea exógena o endógena, es
-transformarla en una CNVT, esto se puede lograr resumiendo la información de la
-misma mediante alguna función como el promedio de los valores de cada individuo
-y dejarlo fijo a través del tiempo. También podria usarse su valor máximo,
-mínimo o cualquier transformación que resulte de interés en el estudio. El
-problema de este enfoque es que se pierde información, dado que se usa una
-covariable más simple que no refleja la relación dinámica entre la covariable y
+transformarla en una CNVT. Esto se puede lograr resumiendo la información de la
+misma mediante alguna función, como el promedio de los valores de cada
+individuo, y dejarlo fijo a través del tiempo. También podria usarse su valor
+máximo, mínimo o cualquier transformación que resulte de interés en el estudio.
+El problema de este enfoque es que se pierde información, dado que se usa una
+covariable más simple, que no refleja la relación dinámica entre la covariable y
 la respuesta en el tiempo.
 
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
@@ -569,42 +573,46 @@ cada uno de los individuos y el modelo resultaría:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PONER O NO PONER INTERPRETACION? %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
-tensión arterial por incrementos unitarios en el IMC promedio (obsrvado durante
-todo el seguimiento) para un momento determinado en el seguimiento.
+% El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
+% tensión arterial por incrementos unitarios en el IMC promedio \hl{del paciente}
+% (observado durante todo el seguimiento) \hl{para un momento determinado en el
+% seguimiento}.
 
 \subsection{Covariable variable en el tiempo}
 
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
-transformación. El modelo resultante es,
+transformación. El modelo resultante es:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
 
-%%%% LESSA HOFFMAN PAGINA 345
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial por incrementos unitarios en el IMC para un momento
+% determinado en el seguimiento}.
 
 \subsection{Covariable rezagada}
 
-En algunas aplicaciones hay justificacion previa para considerar la covariable
+En algunas aplicaciones hay justificación previa para considerar la covariable
 en el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo, el
 efecto del IMC sobre la tensión arterial probablemente no sea inmediato, por lo
 que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más común es
-que se desconozca el valor $k$ apropiado y se consideren varias opciones
-diferentes. El modelo lineal mixto se definiría de la siguiente manera:
+que se desconozca el valor $k$ apropiado y se considere mas de una opción. El
+modelo lineal mixto se definiría de la siguiente manera:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
 
-\subsection{Funcion de las covariables rezagadas}
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial, para un momento determinado en el seguimiento, por
+% incrementos unitarios en el IMC del momento anterior}.
 
-Una alternativa cuando se quiere utilizar toda la información con la que se
-cuenta de la covariable hasta la ocasión actual es resumir la misma a través de
+\subsection{Función de las covariables rezagadas}
+
+Una alternativa, cuando se quiere utilizar toda la información con la que se
+cuenta de la covariable hasta la ocasión actual, es resumir la misma a través de
 una función. Un ejemplo puede ser el valor promedio o acumulado hasta la ocasión
-actual. Sin embargo, la elección de está funcion dependerá del tipo de problema
+actual. Sin embargo, la elección de está función dependerá del tipo de problema
 a analizar. Cabe destacar que, al igual que con toda medida resumen, al usar
 este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
@@ -614,6 +622,10 @@ resultando el modelo:
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
 el $i$-ésimo paciente.
+
+% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
+% de la tensión arterial por incrementos unitarios en el IMC promedio hasta la
+% ocasión actual para un momento determinado en el seguimiento}.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 \label{Dividiendo efecto entre-unidad y efecto intra-unidad}
@@ -632,13 +644,14 @@ El modelo lineal mixto queda planteado del siguiente modo:
 
 Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
-cada paciente.
+cada paciente. $\beta_W$ representa el efecto intra-unidad y $\beta_B$ el
+efecto entre-unidades.
 
-$\beta_W$ representa el cambio esperado en la media de la tensión arterial
-asociado con variaciones del IMC propias de cada paciente (controlando por el
-tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
-arterial asociado con las variaciones del IMC entre pacientes (controlando por
-el tiempo)
+% $\beta_W$ representa el cambio esperado en la media de la tensión arterial
+% asociado con variaciones del IMC propias de cada paciente (controlando por el
+% tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
+% arterial asociado con las variaciones del IMC entre pacientes (controlando por
+% el tiempo)
 
 Cabe destacar que cuando la covariable es dicotómica (que toma valores 0 y 1) la
 componente $(X_{ij} - \overline{X}_i)$ tomará solamente dos valores y en
@@ -650,25 +663,26 @@ sin centrar respecto al valor promedio (Hoffman, 2015).
 \section{Aplicación}
 
 A partir del programa de atención y control de pacientes hipertensos iniciado en
-el año 2014 en Rosario se obtienen datos de \npatients{} pacientes de entre 30 y
-86 años, con una edad media de 58.84 y desvío estándar de 9.87 años, de los
+el año 2014 en Rosario, se obtienen datos de \npatients{} pacientes de entre 30
+y 86 años, con una edad media de 58.84 y desvío estándar de 9.87 años, de los
 cuales un 49.28\% son hombres. A todos estos pacientes se les indicó un
 tratamiento antihipertensivo al incio del seguimiento (visita basal). Durante 7
 meses se agendaron visitas mensuales en donde se registraron, entre otras
 características, el valor de la TAS y la adherencia al tratamiento. Esta última
 variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986)
-que arroja como resultado: adhiere al tratamiento, no adhiere al tratamiento. Al
-ser evaluada en todas las visitas mensuales, esta variable dicotómica es una CVT
-que captura como fue la adherencia durante el período desde la visita previa
-hasta la visita actual. Como para la visita basal no se cuenta con información
-de adherencia, se toman los datos desde el primer mes de tratamiento.
+, cuyo resultado categoriza a los pacientes como adherentes o no adherentes al
+tratamiento. Al ser evaluada en todas las visitas mensuales, esta variable
+dicotómica es una CVT que captura como fue la adherencia durante el período
+desde la visita previa hasta la visita actual. Como para la visita basal no se
+cuenta con información de adherencia, se toman los datos desde el primer mes de
+tratamiento.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
 influye en los valores de la TAS a lo largo del seguimiento.
 
-Para dar respuesta a este interrogante se propuso ajustar un modelo longitudinal
-de efectos mixtos considerando a la TAS como variable respuesta y la adherencia,
-sexo y edad como variables explicativas.
+Para dar respuesta a este interrogante, se propuso ajustar un modelo
+longitudinal de efectos mixtos considerando a la TAS como variable respuesta y
+la adherencia, sexo y edad como variables explicativas.
 
 Para todas las decisiones de esta sección se utilizará un nivel de significación
 del 5\%.
@@ -682,14 +696,14 @@ dataset y sus distintas transformaciones transformaciones.
 Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 
 \begin{itemize}
-	\item $TAS_{ij}$: tension arterial sistólica (mmHg) del paciente $i$ en el
+	\item $TAS_{ij}$: tensión arterial sistólica (mmHg) del paciente $i$ en el
 	mes $j$.
-	\item $\overline{TAS}_{i}$: tension arterial sistólica (mmHg) promedio del
+	\item $\overline{TAS}_{i}$: tensión arterial sistólica (mmHg) promedio del
 	paciente $i$ a lo largo del seguimiento ($\sum_{k=0}^n \frac{TAS_{ik}}{n}$).
-	\item $\overline{TAS}_{ij}$: tension arterial sistólica (mmHg) promedio del
+	\item $\overline{TAS}_{ij}$: tensión arterial sistólica (mmHg) promedio del
 	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ik}}{j}$).
 	\item $sexo_i$: sexo del paciente $i$ medido como una variable dicotómica
-	(0=mujer, 1=homobre) en la ocasión basal (mes 0).
+	(0=mujer, 1=hombre) en la ocasión basal (mes 0).
 	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
 	\item $mes_j$: meses transcurridos desde el inicio del tratamiento hasta la
 	ocasión $j$.
@@ -699,7 +713,7 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 	paciente $i$ adhirió al tratamiento a lo largo del seguimiento
 	($\sum_{k=0}^n \frac{adherencia_{ik}}{n}$).
 	\item $\overline{adherencia}_{ij}$: proporción de visitas en las que el
-	paciente $i$ adhiere al tratamiento hasta el mes $j$ ($\sum_{k=0}^j
+	paciente $i$ adhirió al tratamiento hasta el mes $j$ ($\sum_{k=0}^j
 	\frac{adherencia_{ik}}{j}$).
 	\item $adherencia\ perfecta_i$: variable indicadora, $=1$ si el paciente
 	$i$ adhirió al tratamiento todos los meses, $=0$ en otro caso.
@@ -724,7 +738,7 @@ al final del tratamiento.
 
 También resulta de interés observar la evolución de la TAS en el tiempo según la
 edad y sexo de los pacientes. Como la variable edad es continua, para tal fin,
-se la categorizó en 2 grupos (<59 añosy >= 59 años, donde 59 es la mediana de la
+se la categorizó en 2 grupos ($< 59$ años y $>=$ 59 años, donde 59 es la mediana de la
 edad de los pacientes estudiados). En la figura (\ref{TAS_with_covs}) se observa
 que los perfiles promedios presentan (en general) una pendiente decreciente, es
 decir, la TAS media disminuye con el transcurso del tratamiento. Este
@@ -738,16 +752,16 @@ para los pacientes de sexo masculino y para los pacientes mayores de 59 años.
 	\label{TAS_with_covs}
 \end{figure}
 
-Para poder visualizar la relación entre la adherencia al tratamiento, el tiempo
-de seguimiento y la TAS media no es posible realizarlo con los gráficos de
-perfiles promedio. La covariable ``adherencia al tratamiento'' es una CVT y en
-consecuencia para cada individuo puede presentar distintos valores en cada
+Para visualizar la relación entre la adherencia al tratamiento, el tiempo de
+seguimiento y la TAS media, los gráficos de perfiles promedio no resultan
+adecuados. La covariable ``adherencia al tratamiento'' es una CVT y, en
+consecuencia, para cada individuo, puede presentar distintos valores en cada
 ocasión, es decir, los pacientes no mantienen un perfil constante a lo largo del
-tiempo. En una primera instancia es posible realizar un diagrama de dispersión
+tiempo. En una primera instancia, es posible realizar un diagrama de dispersión
 entre la TAS y el tiempo (mes) según adherencia. Para poder observar con mayor
 claridad la relación entre estas variables se utiliza la técnina ``jitter'', la
 cual agrega un pequeño desplazamiento en los puntos, evitando que queden
-perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}) se
+perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}), se
 puede notar que esta manera de visualizar el efecto de la adherencia sobre la
 TAS resulta confusa.
 
@@ -759,13 +773,13 @@ TAS resulta confusa.
 \end{figure}
 
 Como una alternativa a la presentada previamente, se propone realizar un gráfico
-de perfiles promedio convirtiendo a la CVT (adherencia) en una CVNT para que de
-esta manera cada paciente pertenezca únicamente a un sólo grupo durante todo el
+de perfiles promedio convirtiendo a la CVT (adherencia) en una CVNT, para que de
+esta manera cada, paciente pertenezca únicamente a un sólo grupo durante todo el
 período del estudio. Para esto, se dividieron a los pacientes según la cantidad
 de meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos
 (adherencia baja), entre 4 y 6 meses (adherencia media/alta) o todos los meses
 (adherencia perfecta). En la figura (\ref{TAS_with_adh}) Se puede observar que
-para el grupo de pacientes que adhirieron al tratamiento 3 meses o menos la TAS
+para el grupo de pacientes que adhirieron al tratamiento 3 meses o menos, la TAS
 presenta una pendiente creciente a lo largo del estudio. Para los otros 2
 grupos, la TAS disminuye a lo largo del tratamiento, siendo menor para el grupo
 de pacientes que adhirieron la totalidad de los meses.
@@ -778,14 +792,15 @@ de pacientes que adhirieron la totalidad de los meses.
 \end{figure}
 
 \subsection{Evaluación de la exogeneidad}
+\label{evaluacion de la exogeneidad}
 
 Para evaluar la exogeneidad de la variable adherencia es necesario verificar el
-supuesto de independencia condicional descripta en
+supuesto de independencia condicional descripto en
 (\ref{seccion_de_exogeneidad}). Esto puede realizarse ajustando un modelo para
-cada ocasión en el que se considere a la variable adherencia como variable
-respuesta y como variables explicativas a la TAS y la adherencia en ocasiones
+cada ocasión, en el que se considere a la variable adherencia como variable
+respuesta, y como variables explicativas a la TAS y la adherencia en ocasiones
 previas. Si, en estos modelos, las variables referentes a la TAS registrada en
-ocasiones previas no resultan ser significativas puede decirse que la adherencia
+ocasiones previas no resultan ser significativas, puede decirse que la adherencia
 es una CVT exógena. Cómo la CVT adherencia es una variable dicotómica, se
 ajustan modelos de regresión logística.
 
@@ -832,93 +847,40 @@ tanto puede considerarse como una covariable exógena.
 	\end{tabular}
 \end{table}
 
-\subsection{Modelo lineal mixto propuesto}
+\subsection{Modelos propuestos}
 
-Mediante la inspección del semivariograma muestral, pruebas de hipótesis para
-efectos aleatorios y comparación de modelos a través del criterio BIC (ver Anexo
-\ref{eleccion_efectos_aleatorios}) se decidió plantear un modelo de efectos
-mixtos con ordenada aleatoria y estructura de covariancia autorregresiva de
-orden 1. De esta manera, se incorpora al modelo la correlación serial y el
-efecto entre pacientes.
+Se decidió plantear un modelo lineal de efectos mixtos (MLM) con ordenada
+aleatoria y estructura de covariancia autorregresiva de orden 1. De esta manera,
+se incorpora al modelo la correlación serial y el efecto entre pacientes
+presente en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
+covariables: el sexo, la edad y la adherencia al tratamiento. Esta última
+variable, como se determinó en el punto anterior, es una CVT exógena y puede
+incorporase al modelo de diferentes maneras. A continuación se presentan 6
+modelos que surgen de plantear las distintas formas de incorporar la CVT
+adherencia al tratamiento al MLM.
 
-\begin{multline}
-	\label{modelo_1}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij} + \varepsilon_{ij}
-\end{multline}
+\subsubsection{Incorporación de la CVT como CNVT}
 
-Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
+Hay diversas formas de convertir una CVT en CNVT. En este apartado se
+presentarán dos que resultan de interés para el estudio:
 
-\[ 
-	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
-	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
-\]
+\begin{itemize}
+	\item adherencia perfecta (si/no).
+	\item proporción de adherencia durante todo el seguimiento.
+\end{itemize}
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-Los coeficientes del modelo estimado se presentan en la tabla
-(\ref{modelo_1_tabla}). Como se mencionó anteriormente, la CVT adherencia contiene
-ambos efectos entre e intra paciente, por lo tanto su coeficiente no será
-facilmente interpretable. 
-
-\begin{table}[H]
-	\centering
-	\caption{Modelo 1}
-	\label{modelo_1_tabla}
-	\input{tables/modelo_1}
-\end{table}
-
-Manteniendo constantes los efectos del sexo y la edad, en este caso en 0
-(femenino) y 58,84 (edad media) respectivamente, los valores de TAS estimada
-según los posibles perfiles adherencia por el modelo 1 pueden observarse en el
-gráfico (\ref{modelo_1_plot}).
-
-\hl{Los pacientes que adhieren al tratamiento presentan una disminución promedio
-en su TAS de 1,322 unidades en su ordenada y 0,832 unidades por mes menores a
-los pacientes que no adhieren. Es importante aclarar que, al ser la adherencia
-una CVT, esto no es una pendiente y la TAS se ve afectada solo por la adherencia
-en el mes actual. Es decir, si un paciente no adhiere al sexto mes, su TAS
-promedio sera de 134,37 mmHg, mientras que si adhiere al mes 7, su TAS estimada
-será 7,146 ($1,322 + 0,832 * 7$) unidades menor que la de un paciente que no
-adhiere en el mes 7, al igual que un paciente que adhiere la totalidad de los
-meses.}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_1.png}
-	\caption{TAS estimada por modelo 1 vs adherencia a través del tiempo}
-	\label{modelo_1_plot}
-\end{figure}
-
-\subsection{Distintas maneras de incorporar la adherencia al modelo lineal mixto}
-
-Hay más de una manera de incorporar una CVT exógena a un modelo lineal mixto, en
-esta sección compararemos algunas de ellas. Para los gráficos de los perfiles de
-adherencia de cada modelo se mantendrán constantes el sexo y la edad en 0 y
-58,84 respectivamente.
-
-\subsubsection{Incorporación de covariable fija}
-
-Hay diversas formas de convertir una CVT en CNVT, en este apartado se mostrarán
-2 que resultan de interés para el estudio. Es importante destacar que éstas
-transformaciones se pueden utilizar para incorporar CVT tanto exógenas como
-endógenas.
+\paragraph{Adherencia perfecta} \mbox{}
 
 Una de las transformaciones que puede aplicarse sobre la covariable adherencia
-es convertirla en una variable dicotómica fija, cuyo valor es 1 si el paciente
-adhirió en todo el tratamiento y 0 en otro caso. El modelo resulta:
+al tratamiento es convertirla en una variable dicotómica fija, cuyo valor es 1
+si el paciente adhirió en todo el seguimiento y 0 en otro caso. El modelo
+resulta:
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REMOVER ESPACIO MUCHO ESPACIO ANTES DE LA ECUACION %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{multline}
-	\label{modelo_2}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i \\
+\begin{equation}
+	\label{modelo_1}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i
 	+ \beta_4\ mes_j + \varepsilon_{ij}
-\end{multline}
+\end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 
@@ -928,278 +890,249 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-En base a los resultados presentados en la tabla (\ref{modelo_2_tabla}),
-controlando por el resto de las variables, \hl{los pacientes que adhieren en la
-totalidad del tratamiento, presentan una TAS promedio menor en 2,579 unidades en
-la ordenada y 0,257 unidades por mes.}. Dado que la adherencia se convirtió en
-una CNVT, en este caso el coeficiente -0,257 si resulta una pendiente y los dos
-perfiles de adherencia pueden observarse en el gráfico (\ref{modelo_2_plot}).
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 2: Incorporación adherencia perfecta}
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 1 que incorpora la CVT como Adherencia perfecta (CNVT)}
+	\label{modelo_1_tabla}
+	\input{tables/modelo_1}
+\end{table}
+
+En base a los resultados presentados en la tabla (\ref{modelo_1_tabla}),
+controlando por el resto de las variables, los pacientes que adhieren siempre a
+lo largo del seguimiento presentan una TAS promedio menor que los pacientes que
+adhieren a veces o no adhieren en ningún momento. Esta diferencia es constante
+en el tiempo.
+
+\paragraph{Proporción de adherencia} \mbox{}
+
+Otra manera de transformar a la CVT, conservando más información, es calcular la
+proporción de adherencia al final del seguimiento. Por ejemplo, si un paciente
+manifestó adherir al tratamiento en 5 de las 7 visitas, entonces la proporción
+de adherencia es: $5/7= 0.71$. El modelo resulta:
+
+\begin{equation}
+	\label{modelo_2}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i
+	+ \beta_4\ mes_j + \varepsilon_{ij}
+\end{equation}
+
+Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
+
+\[ 
+	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
+	\quad
+	b_{0i} \sim N(0, Var(b_{0i}))
+\]
+
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
+
+\begin{table}[H]
+	\centering
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 2 que incorpora la CVT como Proporción de adherencia (CNVT)}
 	\label{modelo_2_tabla}
 	\input{tables/modelo_2}
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_2.png}
-	\caption{TAS estimada por modelo 2 vs adherencia perfecta a través del tiempo}
-	\label{modelo_2_plot}
-\end{figure}
+En base a los resultados presentados en la tabla (\ref{modelo_2_tabla}),
+controlando por el resto de las variables, a mayor proporción de adherencia
+durante el seguimiento menores valores de TAS promedio.
 
-Otra manera de incorporar la covariable fija, conservando más información, es
-usar la proporción de adherencia total al final del estudio. Es decir, si de los
-7 meses el paciente adhiere en solo 5, el valor que se le asignará es
-$\frac{5}{7}$ ($\approx 0.71$). El modelo resulta:
+\subsubsection{Incorporación de la CVT sin modificación}
 
-\begin{multline}
+Como se observó en el punto (\ref{evaluacion de la exogeneidad}), la CVT
+adherencia al tratamiento es exógena y, en consecuencia, puede incorporarse en
+su forma original al modelo. El MLM resulta en:
+
+\begin{equation}
 	\label{modelo_3}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i \\
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
 	+ \beta_4\ mes_j + \varepsilon_{ij}
-\end{multline}
+\end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-Los coeficientes presentados en la tabla (\ref{modelo_3_tabla}) indican que,
-controlando por el resto de las variables, \hl{los pacientes presentan una
-disminución promedio de 1,598 en la TAS en relación a la proporción de
-adherencia total en la ordenada al origen y luego disminuirá en 1,052 de manera
-proporcional a la adherencia total por mes. Por ejemplo, un paciente que adhiere
-sólo al 50\% del tratamiento, tendrá una disminución promedio en su TAS de 0,799
-($1,598\ *\ 0.5$) al inicio del tratamiento y luego una disminución de 0,526 por
-mes ($1,052\ *\ 0.5$).} Dado que la adherencia es una variable dicotómica, la
-adherencia total solo puede tomar 8 posibles valores, estos perfiles pueden
-observarse en el gráfico (\ref{modelo_3_plot}).
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 3: incorporación adherencia total}
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 3 que incorpora la Adherencia al tratamiento sin transformar}
 	\label{modelo_3_tabla}
 	\input{tables/modelo_3}
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_3.png}
-	\caption{TAS estimada por modelo 3 vs adherencia total a través del tiempo}
-	\label{modelo_3_plot}
-\end{figure}
+En base a los resultados presentados en la tabla (\ref{modelo_3_tabla}),
+controlando por el resto de las variables y para un momento de tiempo
+determinado, los pacientes que adhieren al tratamiento presentan una TAS
+promedio menor que los pacientes que no adhieren al tratamiento.
 
-\subsubsection{Incorporación como CVT}
+\subsubsection{Incorporación de la CVT considerando la covariable rezagada}
 
-Se proponen otras dos maneras de incorporar la CVT al modelo, la adherencia en
-el mes anterior y la adherencia promedio hasta el mes actual, ya que podria
-pensarse que el tratamiento no es de efecto inmediato y la TAS podria estar
-influenciada por la adherencia en meses anteriores.
+Puede pensarse que el efecto de la adherencia al tratamiento no es inmediato y
+entonces se desea considerar la adherencia al tratamiento observada en el mes
+anterior a la visita (rezago $k=1$). A continuación, se presenta el MLM
+resultante:
 
-El modelo utilizando la adherencia en el mes anterior resulta:
-
-\begin{multline}
+\begin{equation}
 	\label{modelo_4}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1} \\
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ adherencia_{ij-1} + \varepsilon_{ij}
-\end{multline}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1}
+	+ \beta_4\ mes_j + \varepsilon_{ij}
+\end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-Los coeficientes de $adherencia_{ij-1}$ se interpretan de la misma manera que en
-el modelo (\ref{modelo_1}), manteniendo constante el efecto del resto de las
-covariables, \hl{los pacientes que adhieren al tratamiento en el mes anterior
-presentan una aumento promedio en su TAS de 0,343 unidades en su ordenada al
-origen, y una disminución 0,383 unidades por mes.}
-
-Los valores de TAS estimada según los posibles perfiles adherencia por el modelo
-4 pueden observarse en el gráfico (\ref{modelo_4_plot}).
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 4: incorporación adherencia en el mes anterior}
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 4 que incorpora la Adherencia al tratamiento en la visita anterior}
 	\label{modelo_4_tabla}
 	\input{tables/modelo_4}
 \end{table}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_4.png}
-	\caption{TAS estimada por modelo 4 vs adherencia en el mes anterior a través del tiempo}
-	\label{modelo_4_plot}
-\end{figure}
+En base a los resultados presentados en la tabla (\ref{modelo_4_tabla}),
+controlando por el resto de las variables y para un momento de tiempo
+determinado, no se observan diferencias significativas en la TAS promedio entre
+los pacientes que adhieren al tratamiento en la visita anterior y los que no
+adhirieron.
 
-La otra opción es usar la covariable proporción de adherencia hasta el mes
-actual. Es decir, si en el mes 4 un paciente adhirio solo en 2 meses, su
-adherencia promedio será de $\frac{2}{4}$ ($0.5$). Sin embargo, si adhiere en la
-ocasión 5, entonces la adherencia promedio en ese mes será $\frac{3}{5}$
-($0.6$). El modelo resulta:
+\subsubsection{Incorporación de la CVT como función de covariables rezagadas}
 
-\begin{multline}
+Puede pensarse que el efecto de la adherencia al tratamiento en la TAS no sólo
+depende del mes anterior sino también del comportamiento del paciente en las
+visitas previas. Por lo tanto, se decidió calcular para cada paciente la
+proporción de adherencia al tratamiento hasta el mes actual. Por ejemplo, si
+hasta la visita del mes 5 el paciente manifestó adherir al tratamiento en 3 de
+ellas y en 2 no, la proporción de adherencia al tratamiento al mes 5 es de 3/5.
+Esta nueva covariable resulta también ser una CVT.
+
+A continuación, se presenta el MLM resultante:
+
+\begin{equation}
 	\label{modelo_5}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ overline{adherencia}_{ij} \\
-	+ \beta_4\ mes_j + \beta_5\ mes_j\ \overline{adherencia}_{ij} + \varepsilon_{ij}
-\end{multline}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}
+\end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-En la tabla (\ref{modelo_5_tabla}) se presentan los resultados del modelo. En este
-caso, los coeficientes que acompañan a la covariable
-$\overline{adherencia}_{ij}$ se multiplicarán por la proporcion de adherencia
-del mes $j$. Tomando como ejemplo una adherencia perfecta
-($\overline{adherencia}_{ij}$ = 1), manteniendo constante el efecto del resto de
-las covariables, \hl{los pacientes que adhieren al tratamiento en todas las
-ocasiones hasta la actual presentan una disminución promedio en su TAS de 2,608
-en la ordenada al origen, y una disminución de 0,957 unidades por mes menores a
-los pacientes que no adhieren en ninguna ocasión ($\overline{adherencia}_{ij}$ =
-0).}
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 5: incorporación adherencia acumulada}
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 5 que incorpora la Proporción de adherencia al tratamiento hasta la visita actual}
 	\label{modelo_5_tabla}
 	\input{tables/modelo_5}
 \end{table}
 
-En el gráfico (\ref{modelo_5_plot}) pueden observarse los distintos perfiles de
-adherencia que pueden ser estimados a través del modelo 5. A diferencia de los
-modelos 1 y 4, en este caso la TAS estimada depende de todo el proceso de
-adherencia y no solo del mes actual. En los modelos antes mencionados, la TAS
-estimada en el mes 7 para un paciente que adhiere todo el tratamiento es la
-misma que para un paciente que no adhiere los primeros 6 meses pero si adhiere
-en el mes 7. En este modelo, la TAS estimada en el mes 7 para un paciente que
-adhiere todo el tratamiento es de 127,03 mmHg, mientras que para un paciente que
-no adhiere los primeros 6 meses pero si adhiere el último mes es de 135,01 mmHg.
+En base a los resultados presentados en la tabla (\ref{modelo_5_tabla}),
+controlando por el resto de las variables y para un momento de tiempo
+determinado, a mayor proporción de adherencia al tratamiento hasta ese momento,
+se esperan menores valores de TAS promedio.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_5.png}
-	\caption{TAS estimada por modelo 5 vs adherencia acumulada través del tiempo}
-	\label{modelo_5_plot}
-\end{figure}
+\subsubsection{Incorporación de la CVT, dividiendo su efecto en dos componentes}
 
-\subsubsection{Incorporación dividiendo efecto entre e intra}
+Como se presentó en el apartado (\ref{Dividiendo efecto entre-unidad y efecto
+intra-unidad}), el efecto de la CVT puede descomponerse en dos componentes:
+efecto intra paciente y efecto entre pacientes. Puesto que la variable
+adherencia es dicotómica, se considera el efecto intra paciente solamente con
+$X_{ij}$. El MLM resultante es:
 
-Cuando la CVT es dicotómica, con 0 indicando la ausencia del atributo y 1 la
-presencia, entonces $\overline{X}_i$ es la proporción en la que una persona
-presentó el valor codificado con 1 de dicha covariable, por lo que el método
-presentado en la sección (\ref{Dividiendo efecto entre-unidad y efecto
-intra-unidad}) resultará en valores extraños para $\beta_W$ si usamos $X_i -
-\overline{X}_i$. En este caso, si paciente adhirio al tratamiento en el 50\% de
-los meses, $\overline{X}_i$ tendrá un valor de 0.5 y entonces el término que
-acompaña a $\beta_W$ será de -0.5 en los meses que el paciente no adhiera y 0.5
-en los meses que si adhiera. En términos de la estimación del modelo esto no
-genera ningún problema, pero será confuso en la interpretación de los
-parámetros, dado que el parámetro $\beta_W$ estará siempre presente (nunca
-estará acompañado de un 0). Por lo tanto, para evitar esto, el efecto
-intra-unidad estará acompañado solo de $X_{ij}$. El modelo resulta:
-
-\begin{multline}
+\begin{equation}
 	\label{modelo_6}
-	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_{3}\ adherencia_{ij} + \beta_4\ \overline{adherencia}_i \\
-	+ \beta_5\ mes_j + \beta_6\ mes_j\ adherencia_{ij} + \beta_7\ mes_j\ \overline{adherencia}_i + \varepsilon_{ij}
-\end{multline}
+	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
+	+ \beta_4\ \overline{adherencia}_i + \beta_5\ mes_j + \varepsilon_{ij}
+\end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} = \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i}))
 \]
 
-Donde $\bm{R}_i$ es la matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_i$.
-
-Los resultados pueden observarse en la tabla (\ref{modelo_6_tabla}). \hl{Los
-coeficientes -1.866 y -0,641 quieren decir que, manteniendo constante la
-proporción de adherencia total, se espera que los pacientes que adhieren al
-tratamiento presenten una disminución promedio en la TAS de 1.866 en la ordenada
-al origen y que esta disminuya en promedio 0,641 por cada mes en el que se
-adhiere al tratamiento. Por otro lado, los coeficientes 0,678 y -0,533 quieren
-decir que, después de controlar por la adherencia en ese mes, se espera que la
-TAS el primer mes de tratamiento sea mayor en 0.662 unidades en relación a la
-proporción de adherencia total y luego disminuya, en promedio, 0,525 unidades
-por mes en proporcion a la adherencia total al tratamiento.}
+Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+$\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
 	\centering
-	\caption{Modelo 6: incorporación la adherencia dividiendo efecto entre e
-	intra persona}
+	\caption{Parámetros estimados y medidas de bondad de ajuste del Modelo 6 que incorpora dos componentes para la adherencia al tratamiento}
 	\label{modelo_6_tabla}
 	\input{tables/modelo_6}
 \end{table}
 
-En el gráfico (\ref{modelo_6_plot}) pueden observarse todos los posibles perfiles
-de adherencia que pueden calcularse a través de este modelo. Las pendientes,
-representadas con lineas discontinuas cuando el paciente no adhiere al siguiente
-mes y con lineas completas cuando el paciente adhiere el siguiente mes, pueden
-tener distintas pendientes según la adherencia total del paciente y éstas
-representan el efecto entre individuo. A su vez, cada paciente puede cambiar de
-grupo de adherencia mes a mes, representado con circulos cuando adhiere y con
-cruces cuando no adhiere, estos puntos representan el efecto intra individuo.
+En base a los resultados presentados en la tabla (\ref{modelo_6_tabla}),
+controlando por el resto de las variables y para un momento de tiempo
+determinado, la proporción de aherencia en todo el seguimiento no resulta ser
+signficatva. En cambio, la adherencia en cada visita si lo es, evidenciando que
+la TAS promedio es menor para los pacientes que adhieren al tratamiento en la
+visita que para los que no.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.5]{img/modelo_6.png}
-	\caption{TAS estimada por modelo 6 vs adherencia y adherencia total a través del tiempo}
-	\label{modelo_6_plot}
-\end{figure}
+\subsubsection{Comparación de los modelos propuestos}
 
-\subsubsection{Comparación de los métodos}
+A continuación, en la tabla \ref{comparacion}, se presentan para cada uno de los
+6 modelos ajustados la forma en la que se incorporó la covariable adherencia al
+tratamiento, el valor estimado del coeficiente que acompaña a la covariable
+conjuntamente con la probabilidad asociada y los valores de los criterios de
+información de Akaike (AIC) y Bayesiano de Schwarz (BIC)
 
 \begin{table}[H]
 	\centering
-	\caption{AIC y BIC de los diferentes modelos}
+	\caption{Resumen de los modelos ajustados}
 	\label{comparacion}
-	\begin{tabular}{*{3}{|c}|}
+	\begin{tabular}{|c|p{5cm}|p{5cm}|c|c|}
 		\hline
-		Modelo 			 & AIC 		& BIC 	   \\
+		Modelo & Forma de incorporar la adherencia al tratamiento & Parámetro estimado asociado a la adherencia(prob asoc) & AIC & BIC \\
 		\hline
-		Modelo 1		 & 30773.19 & 30829.66 \\
-		Modelo 2 		 & 30820.06 & 30876.52 \\
-		Modelo 3 		 & 30825.27 & 30881.73 \\
-		Modelo 4 		 & 30838.47 & 30894.94 \\
-		Modelo 5 		 & 30810.56 & 30867.02 \\
-		Modelo 6 		 & 30775.39 & 30844.4  \\
+		Modelo 1 & Adherencia perfecta (CNVT) & $-3.608\ (<0.001)$ & $30819.66$ & $30869.85$ \\
+		\hline
+		Modelo 2 & Proporción de adherencia (CNVT) & $-5.806\ (<0.001)$ & $30829.33$ & $30879.52$ \\
+		\hline
+		Modelo 3 & Adherencia al tratamiento sin transformar & $-4.423\ (<0.001) $ & $30781.42$ & $30831.61$ \\
+		\hline
+		Modelo 4 & Adherencia al tratamiento en la visita anterior & $-0.854\ (0.076)$ & $30839.53$ & $30889.72$ \\
+		\hline
+		Modelo 5 & Proporción de adherencia al tratamiento hasta la visita actual & $-5.12\ (<0.001)$ & $30815.82$ & $30866.01$ \\
+		\hline
+		\multirow{2}{*}{Modelo 6}
+		& Adherencia al tratamiento sin transformar & $-4.22\ (<0.001)$ & \multirow{2}{*}{30782.5} & \multirow{2}{*}{30838.96} \\
+		\cline{2-3}
+		& Proporción de adherencia (CNVT) & $-0,291\ (0.338)$ & & \\
 		\hline
 	\end{tabular}
 \end{table}
 
 En la tabla (\ref{comparacion}) se puede observar que, basándose en el AIC y el
-BIC, el modelo que mejor ajusta los datos es el modelo 1 (\ref{modelo_1}), este
-modelo incorpora la CVT en su forma natural sin aplicarse ninguna
+BIC, el modelo que mejor ajusta a los datos es el modelo 3 (\ref{modelo_3}),
+este modelo incorpora la CVT en su forma natural sin aplicarse ninguna
 transformación. El segundo modelo que mejor ajusta los datos es el modelo 6
-(\ref{modelo_6}) el cual también incorpora la covariable en su forma natural y
-además incorpora una transformación CNVT de ésta para dividir efectos y
+(\ref{modelo_6}), el cual también incorpora la covariable en su forma natural y
+además incorpora una transformación CNVT de ésta para dividir su efecto y
 facilitar la interpretación de sus parámetros.
 
 \newpage
@@ -1214,17 +1147,17 @@ el tiempo son variables independientes que incluyen tanto la variación
 intra-sujeto y la variación entre-sujetos.
 
 La relación entre la covariable que varía en el tiempo y la variable respuesta
-puede estar confundida por valores anteriores y/o posteriores de la covariable y
-en consecuencia esto puede conducir a inferencias engañosas sobre los parámetros
-del modelo.
+puede estar confundida por valores anteriores y/o posteriores de la covariable
+y, en consecuencia, esto puede conducir a inferencias engañosas sobre los
+parámetros del modelo.
 
 En esta tesina se presentaron diferentes definiciones y tipos de covariables que
 varían en el tiempo, específicamente se introdujo el concepto de covariable
 endógena y exógena. También se describió una forma empírica de evaluar esta
 clasificación.
 
-Se presentaron diferentes formas de introducir al modelo lineal mixto una
-covariable que varía en el tiempo exógena, ya sea en su formato original o bien
+Se presentaron diferentes formas de introducir una covariable que varía en el
+tiempo exógena al modelo lineal mixto, ya sea en su formato original o bien
 mediante transformaciones. Estos conceptos fueron aplicados a un conjunto de
 datos que surge del programa de atención y control de pacientes hipertensos de
 Fundación ECLA.
