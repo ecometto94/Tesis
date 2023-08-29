@@ -818,8 +818,8 @@ se puede utilizar toda la información del estudio. El modelo para la ocasión $
 ($j = 2, ..., 7$) resulta:
 
 $ 
-	logit(adherencia_{ij}) = \beta_0 + \beta_1\ adherencia_{ij-1} + \beta_2\ TAS_{ij-1}
-	+ \beta_3\ \overline{adherencia}_{ij-2} + \beta_4\ \overline{TAS}_{ij-2}
+	logit(P(adherencia_j=1)) = \beta_0 + \beta_1\ adherencia_{j-1} + \beta_2\ TAS_{j-1}
+	+ \beta_3\ \overline{adherencia}_{j-2} + \beta_4\ \overline{TAS}_{j-2}
 $
 
 En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes
