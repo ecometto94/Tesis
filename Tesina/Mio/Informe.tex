@@ -51,7 +51,7 @@
 	\textsc{\Large Universidad Nacional de Rosario}\\[.7cm]
 	\includegraphics[width=25mm]{img/fceye-unr.png}\\[.5cm]
 	\textsc{Facultad de Ciencias Económicas y Estadística}\\[0.5cm]
-	\textsc{Anteproyecto de Tesina}
+	\textsc{Tesina}
 	
 	\HRule \\[0.4cm]
 	{ \huge \bfseries \thesistitle}\\[0.1cm]
@@ -216,7 +216,8 @@ $(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
 
 Las CNVT son variables independientes que no presentan variación intra-unidad,
 es decir, los valores de estas covariables no cambian a lo largo del estudio
-para una unidad en particular.
+para una unidad en particular. En consecuencia, $X_{ij} = X_i$ para todo
+$j = 1, ..., n$
 
 Estas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
 biológico de una persona o el grupo de tratamiento) o pueden ser covariables
@@ -260,11 +261,11 @@ para la unidad $i$ en la ocasión $j$:
 
 \begin{equation}
 	\label{exogeneidad}
-	f(X_{ij}|X_{i1}, ..., X_{ij-1}, Y_{i1}, ..., Y_{ij}) =
+	f(X_{ij}|X_{i1}, ..., X_{ij-1}, Y_{i1}, ..., Y_{ij-1}) =
 	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
 
-Y, en consecuencia (Diggle et al., 2002; Fitzmaurice et al., 2004):
+Y, en consecuencia (Fitzmaurice et al., 2004):
 
 \begin{equation}
 	\label{exogeneidad debil}
@@ -307,12 +308,12 @@ endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
 una CVT endógena puede ser (al menos parcialmente) explicado por la variable
 respuesta, se dice que hay \textit{feedback} entre la respuesta y la CVT
-endógena. Por ejemplo, cuando se evalúa si la cantidad de actividad física está
-asociada al nivel de glucosa. El nivel de actividad física en un determinado
-momento puede estar (o no) asociado a niveles previos y también puede estar
-asociado a valores previos de glucosa (un paciente con valor de glucosa alto
-en una visita puede decidir aumentar su nivel de actividad física para ver si
-este valor se reduce).
+endógena (Lalonde et al., 2015). Por ejemplo, cuando se evalúa si la cantidad de
+actividad física está asociada al nivel de glucosa. El nivel de actividad física
+en un determinado momento puede estar (o no) asociado a niveles previos y
+también puede estar asociado a valores previos de glucosa (un paciente con valor
+de glucosa alto en una visita puede decidir aumentar su nivel de actividad
+física para ver si este valor se reduce).
 
 \section{Modelo lineal mixto}
 
@@ -459,13 +460,13 @@ llegan a cero sólo si se cumple con el supuesto de independencia condicional:
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
-X_{ik}$ para todo $j, k = 1, ..., n$. Con las CVT estocásticas, que se
-fijan por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en
-una prueba cruzada), la suposición también se cumple ya que los valores de las
+X_{ik}$ para todo $j, k = 1, ..., n$. Con las CVT no estocásticas, que se fijan
+por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en una
+prueba cruzada), la suposición también se cumple ya que los valores de las
 covariables en cualquier ocasión se determinan a priori por diseño del estudio y
 de manera completamente no relacionado con la respuesta longitudinal. Sin
-embargo, cuando una covariable es variable en el tiempo no estocástica, puede
-que no necesariamente se mantenga.
+embargo, cuando una covariable es variable en el tiempo estocástica, puede que
+no necesariamente se mantenga.
 
 En general, cuando (\ref{estimation_issue}) no se cumple, los valores
 precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
@@ -477,18 +478,18 @@ longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
 estimación generalizadas) con estructura de correlación independiente, ya que
 este es siempre consistente. La estructura de correlación independiente
 generalmente tiene una alta eficiencia para la estimación de los coeficientes
-asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (1995) muestra que esta
+asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (2004) muestra que esta
 estructura puede resultar en una pérdida sustancial de eficiencia para la
 estimación de los coeficientes asociados a las CVT, y proporciona un ejemplo en
 el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
 con la estructura de correlación verdadera.
 
-Lai y Small (2007) y Lalonde et al. (2014) definieron cuatro tipos de CVT y
+Lai y Small (2007) y Lalonde et al. (2015) definieron cuatro tipos de CVT y
 propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
 en donde es posible incorporar información sobre la naturaleza de la CVT que se
 está analizando.
 
-% Luego, Lai y Small (2007) y Lalonde (2014) definieron 4 nuevos tipos de CVT:
+% Luego, Lai y Small (2007) y Lalonde (2015) definieron 4 nuevos tipos de CVT:
 
 % \begin{itemize}
 % 	\item Tipo I: una CVT es de Tipo I si no hay relación entre la
@@ -531,7 +532,7 @@ original y deben explorarse las propuestas planteadas anteriormente.
 
 \newpage
 
-\section{Formas de introducir una CVT al modelo lineal mixto}
+\section{Formas de introducir una CVT exógena al modelo lineal mixto}
 
 Si al evaluar el tipo de la CVT, de la manera vista en
 (\ref{seccion_de_exogeneidad}) resulta ser exógena, se puede introducir en el
@@ -594,7 +595,7 @@ transformación. El modelo resultante es:
 En algunas aplicaciones hay justificación previa para considerar la covariable
 en el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo, el
 efecto del IMC sobre la tensión arterial probablemente no sea inmediato, por lo
-que podría interesarnos su valor en la ocasión anterior ($k=1$). Lo más común es
+que podría interesar su valor en la ocasión anterior ($k=1$). Lo más común es
 que se desconozca el valor $k$ apropiado y se considere mas de una opción. El
 modelo lineal mixto se definiría de la siguiente manera:
 
@@ -663,26 +664,28 @@ sin centrar respecto al valor promedio (Hoffman, 2015).
 \section{Aplicación}
 
 A partir del programa de atención y control de pacientes hipertensos iniciado en
-el año 2014 en Rosario, se obtienen datos de \npatients{} pacientes de entre 30
-y 86 años, con una edad media de 58.84 y desvío estándar de 9.87 años, de los
-cuales un 49.28\% son hombres. A todos estos pacientes se les indicó un
+el año 2014 en Rosario, se obtienen datos de \npatients{} pacientes hipertensos
+de entre 30 y 86 años, con una edad media de 58.84 (desvío estándar 9,9 años),
+de los cuales un 49.28\% son hombres. A todos estos pacientes se les indicó un
 tratamiento antihipertensivo al incio del seguimiento (visita basal). Durante 7
 meses se agendaron visitas mensuales en donde se registraron, entre otras
 características, el valor de la TAS y la adherencia al tratamiento. Esta última
-variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986)
-, cuyo resultado categoriza a los pacientes como adherentes o no adherentes al
+variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986),
+cuyo resultado categoriza a los pacientes como adherentes o no adherentes al
 tratamiento. Al ser evaluada en todas las visitas mensuales, esta variable
-dicotómica es una CVT que captura como fue la adherencia durante el período
-desde la visita previa hasta la visita actual. Como para la visita basal no se
-cuenta con información de adherencia, se toman los datos desde el primer mes de
-tratamiento.
+dicotómica captura como fue la adherencia durante el período desde la visita
+previa hasta la visita actual. Como para la visita basal no se cuenta con
+información de adherencia, se toman los datos desde el primer mes de
+seguimiento.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
 influye en los valores de la TAS a lo largo del seguimiento.
 
 Para dar respuesta a este interrogante, se propuso ajustar un modelo
 longitudinal de efectos mixtos considerando a la TAS como variable respuesta y
-la adherencia, sexo y edad como variables explicativas.
+la adherencia al tratamiento, sexo y edad basal como variables explicativas.
+Cabe destacar que para este estudio la adherencia al tratamiento es una CVT
+estocástica, mientras que la edad basal y el sexo son CNVT.
 
 Para todas las decisiones de esta sección se utilizará un nivel de significación
 del 5\%.
@@ -691,7 +694,8 @@ del 5\%.
 \label{variables}
 
 A continuación se describen las variables originales que se encuentran en el
-dataset y sus distintas transformaciones transformaciones.
+dataset y variables derivadas que se han construido a partir de las variables
+originales mediante diferentes transformaciones.
 
 Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 
@@ -699,21 +703,21 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 	\item $TAS_{ij}$: tensión arterial sistólica (mmHg) del paciente $i$ en el
 	mes $j$.
 	\item $\overline{TAS}_{i}$: tensión arterial sistólica (mmHg) promedio del
-	paciente $i$ a lo largo del seguimiento ($\sum_{k=0}^n \frac{TAS_{ik}}{n}$).
+	paciente $i$ a lo largo del seguimiento ($\sum_{k=1}^7 \frac{TAS_{ik}}{n}$).
 	\item $\overline{TAS}_{ij}$: tensión arterial sistólica (mmHg) promedio del
-	paciente $i$ hasta el mes $j$ ($\sum_{k=0}^j \frac{TAS_{ik}}{j}$).
+	paciente $i$ hasta el mes $j$ ($\sum_{k=1}^j \frac{TAS_{ik}}{j}$).
 	\item $sexo_i$: sexo del paciente $i$ medido como una variable dicotómica
 	(0=mujer, 1=hombre) en la ocasión basal (mes 0).
 	\item $edad_i$: edad del paciente $i$ medido en la ocasión basal (mes 0).
-	\item $mes_j$: meses transcurridos desde el inicio del tratamiento hasta la
+	\item $mes_j$: meses transcurridos desde el inicio del seguimiento hasta la
 	ocasión $j$.
 	\item $adherencia_{ij}$: adherencia al tratamiento del paciente $i$ en el
 	mes $j$ (variable dicotómica: =1 si adhiere, =0 si no adhiere).
 	\item $\overline{adherencia}_i$: proporción de visitas en las que el
 	paciente $i$ adhirió al tratamiento a lo largo del seguimiento
-	($\sum_{k=0}^n \frac{adherencia_{ik}}{n}$).
+	($\sum_{k=1}^7 \frac{adherencia_{ik}}{n}$).
 	\item $\overline{adherencia}_{ij}$: proporción de visitas en las que el
-	paciente $i$ adhirió al tratamiento hasta el mes $j$ ($\sum_{k=0}^j
+	paciente $i$ adhirió al tratamiento hasta el mes $j$ ($\sum_{k=1}^j
 	\frac{adherencia_{ik}}{j}$).
 	\item $adherencia\ perfecta_i$: variable indicadora, $=1$ si el paciente
 	$i$ adhirió al tratamiento todos los meses, $=0$ en otro caso.
@@ -725,30 +729,31 @@ En esta sección se presentaran diversos gráficos con el fin de describir la
 población en estudio.
 
 En la figura (\ref{TAS_vs_tpo}) se puede observar que luego de un mes de
-tratamiento (mes 1) la TAS promedio es de aproximadamente 133, la cual fue
+seguimiento (mes 1) la TAS promedio es de aproximadamente 133 mmHg, la cual fue
 disminuyendo levemente de manera lineal hasta un promedio de aproximadamente 130
-al final del tratamiento.
+al final del seguimiento.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo.png}
-	\caption{Evolución de la TAS promedio a lo largo del tratamiento}
+	\caption{Evolución de la TAS promedio a lo largo del seguimiento}
 	\label{TAS_vs_tpo}
 \end{figure}
 
 También resulta de interés observar la evolución de la TAS en el tiempo según la
-edad y sexo de los pacientes. Como la variable edad es continua, para tal fin,
-se la categorizó en 2 grupos ($< 59$ años y $>=$ 59 años, donde 59 es la mediana de la
-edad de los pacientes estudiados). En la figura (\ref{TAS_with_covs}) se observa
-que los perfiles promedios presentan (en general) una pendiente decreciente, es
-decir, la TAS media disminuye con el transcurso del tratamiento. Este
-comportamiento es similar para los grupos, observando valores superiores de TAS
-para los pacientes de sexo masculino y para los pacientes mayores de 59 años. 
+edad basal y sexo de los pacientes. Como la variable edad es continua, para tal
+fin, se la categorizó en 2 grupos ($< 59$ años y $>=$ 59 años, donde 59 es la
+mediana de la edad de los pacientes estudiados). En la figura
+(\ref{TAS_with_covs}) se observa que los perfiles promedios presentan (en
+general) una pendiente decreciente, es decir, la TAS media disminuye con el
+transcurso del seguimiento. Este comportamiento es similar para los grupos,
+observando valores superiores de TAS para los pacientes de sexo masculino y para
+los pacientes mayores de 59 años. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/TAS_vs_tpo_with_covs.png}
-	\caption{Evolución de la TAS promedio a lo largo del tratamiento según sexo y edad}
+	\caption{Evolución de la TAS promedio a lo largo del seguimiento según sexo y edad}
 	\label{TAS_with_covs}
 \end{figure}
 
@@ -774,15 +779,16 @@ TAS resulta confusa.
 
 Como una alternativa a la presentada previamente, se propone realizar un gráfico
 de perfiles promedio convirtiendo a la CVT (adherencia) en una CVNT, para que de
-esta manera cada, paciente pertenezca únicamente a un sólo grupo durante todo el
+esta manera, cada paciente pertenezca únicamente a un sólo grupo durante todo el
 período del estudio. Para esto, se dividieron a los pacientes según la cantidad
 de meses que adhirieron al tratamiento, formando los grupos: 3 meses o menos
 (adherencia baja), entre 4 y 6 meses (adherencia media/alta) o todos los meses
-(adherencia perfecta). En la figura (\ref{TAS_with_adh}) Se puede observar que
+(adherencia perfecta). En la figura (\ref{TAS_with_adh}) se puede observar que
 para el grupo de pacientes que adhirieron al tratamiento 3 meses o menos, la TAS
-presenta una pendiente creciente a lo largo del estudio. Para los otros 2
-grupos, la TAS disminuye a lo largo del tratamiento, siendo menor para el grupo
-de pacientes que adhirieron la totalidad de los meses.
+presenta una leve pendiente creciente a lo largo del estudio. Para los otros 2
+grupos, la TAS disminuye a lo largo del seguimiento, observándose una
+disminución mayor para el grupo de pacientes que adhirieron la totalidad de los
+meses.
 
 \begin{figure}[H]
 	\centering
@@ -794,33 +800,34 @@ de pacientes que adhirieron la totalidad de los meses.
 \subsection{Evaluación de la exogeneidad}
 \label{evaluacion de la exogeneidad}
 
-Para evaluar la exogeneidad de la variable adherencia es necesario verificar el
-supuesto de independencia condicional descripto en
+Para evaluar la exogeneidad de la variable adherencia al tratamiento es
+necesario verificar el supuesto de independencia condicional descripto en
 (\ref{seccion_de_exogeneidad}). Esto puede realizarse ajustando un modelo para
 cada ocasión, en el que se considere a la variable adherencia como variable
 respuesta, y como variables explicativas a la TAS y la adherencia en ocasiones
 previas. Si, en estos modelos, las variables referentes a la TAS registrada en
-ocasiones previas no resultan ser significativas, puede decirse que la adherencia
-es una CVT exógena. Cómo la CVT adherencia es una variable dicotómica, se
-ajustan modelos de regresión logística.
+ocasiones previas no resultan ser significativas, puede decirse que la
+adherencia es una CVT exógena. Cómo la CVT adherencia es una variable
+dicotómica, se ajustan modelos de regresión logística.
 
-Para ajustar estos modelos se utilizarán como covariables a la adherencia y la
-TAS en el mes anterior, ya que se asume que las mediciones más cercanas entre sí
-están más correlacionadas y tambien se utilizarán la adherencia y la TAS
-promedio desde el inicio hasta 2 meses antes, de esta manera se puede utilizar
-toda la información del estudio. El modelo para la ocasión $j$ ($j = 1, ..., 7$)
-resulta:
+Para ajustar estos modelos se utilizarán como variables explicativas a la
+adherencia y la TAS en el mes anterior, ya que se asume que las mediciones más
+cercanas entre sí están más correlacionadas y tambien se utilizarán la
+adherencia y la TAS promedio desde el inicio hasta 2 meses antes, de esta manera
+se puede utilizar toda la información del estudio. El modelo para la ocasión $j$
+($j = 2, ..., 7$) resulta:
 
 $ 
-	logit(adherencia_{ij}) = \beta_0 + \beta_1\ adherencia_{ij-1} + \beta_2\ TAS_{ij-1}
-	+ \beta_3\ \overline{adherencia}_{ij-2} + \beta_4\ \overline{TAS}_{ij-2}
+	logit(P(adherencia_j=1)) = \beta_0 + \beta_1\ adherencia_{j-1} + \beta_2\ TAS_{j-1}
+	+ \beta_3\ \overline{adherencia}_{j-2} + \beta_4\ \overline{TAS}_{j-2}
 $
 
-En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes para
-cada covariable y en paréntesis la probabilidad asociada a cada uno. Como se
-puede notar, en ninguna ocasión la adherencia depende de valores anteriores de
-la TAS (cuando se controla por los valores previos de la adherencia), por lo
-tanto puede considerarse como una covariable exógena.
+En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes
+estimados en cada modelo y entre paréntesis la probabilidad asociada a cada
+coefiente (referente al test parcial $\left. H_0\right) Bk=0, k = 1, 2, 3, 4$).
+Como se puede notar, en ninguna ocasión la adherencia depende de valores
+anteriores de la TAS (cuando se controla por los valores previos de la
+adherencia), por lo tanto puede considerarse como una covariable exógena.
 
 \begin{table}[H]
 	\centering
@@ -891,7 +898,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \]
 
 Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_{i}$, se supone con AR(1).
+$\bm{\varepsilon}_{i}$, se supone AR(1).
 
 \begin{table}[H]
 	\centering
@@ -1099,7 +1106,7 @@ A continuación, en la tabla \ref{comparacion}, se presentan para cada uno de lo
 6 modelos ajustados la forma en la que se incorporó la covariable adherencia al
 tratamiento, el valor estimado del coeficiente que acompaña a la covariable
 conjuntamente con la probabilidad asociada y los valores de los criterios de
-información de Akaike (AIC) y Bayesiano de Schwarz (BIC)
+información de Akaike (AIC) y Bayesiano de Schwarz (BIC).
 
 \begin{table}[H]
 	\centering
@@ -1169,7 +1176,16 @@ exogeneidad de ésta covariable, luego se presentaron diferentes formas de
 introducirla al modelo lineal mixto dando lugar a 6 propuestas diferentes.
 Posteriormente, se compararon estas propuestas y se arribó a un modelo final en
 el que se incorpora a la covariable adherencia en su formato original sin
-realizar transformaciones.
+realizar transformaciones. En este modelo se concluye que, controlando por el
+resto de las variables y para un momento de tiempo determinado, los pacientes
+que adhieren al tratamiento presentan una TAS promedio menor que los pacientes
+que no adhieren al tratamiento.
+
+Se propone como sugerencia para futuros estudios evaluar la incorporación de
+covariables continuas que varían en el tiempo, ya que en este trabajo la
+covariable de interés es dicotómica. También se propone evaluar el tratamiento
+de covariables que varian en el tiempo que resultan ser endógenas al evaluar su
+condición.
 
 \newpage
 
