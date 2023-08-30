@@ -17,6 +17,36 @@
 \usepackage{float}				% to manually select placement of tables
 \usepackage{autobreak}          % to automatically fit equations to page width
 \usepackage{soul}				% for highlighting
+\usepackage{listings}			% for python code
+\usepackage{xcolor}				% for python code
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=1pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+ 	morekeywords={as}
+}
+
+\lstset{style=mystyle}
 
 
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
@@ -42,6 +72,24 @@
 \title{\thesistitle}
 \author{\thesisauthorfirst\space\thesisauthorsecond}
 \date{\thesisdate}
+
+%% FOR PYTHON COLORS
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\linespread{0.2},   
+    tabsize=4,
+}
+
+\lstset{style=mystyle, basicstyle=\linespread{0}}
 
 \begin{document}
 
@@ -1191,6 +1239,8 @@ condición.
 
 \section{Anexo}
 
+\subsection{Gráficos de interés}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/semivariogram.png}
@@ -1205,6 +1255,88 @@ condición.
 	\label{perfiles_individuales}
 \end{figure}
 
+\subsection{Código}
+
+A continuación se adjunta el código paso a paso en lenguaje Python con el que se
+realizó esta tesina.
+
+\subsubsection{Preprocesamiento}
+
+Importar paquetes necesarios
+
+\begin{lstlisting}
+	import pandas as pd
+\end{lstlisting}
+
+Leer los datos
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final.csv")
+	df.head()
+\end{lstlisting}
+
+Crear las transformaciones de las variables
+
+\begin{lstlisting}
+	df_grouped_by_paciente = df.groupby("idPaciente")
+
+	# Crear Adherencia_Acum: variable de indice de performance de adherencia al tratamiento hasta el momento t
+	df["Adherencia_Acumulada"] = (
+		df_grouped_by_paciente["Adherencia"]
+		.expanding()
+		.mean()
+		.to_list()
+	)
+	
+	# Crear covariable Adherencia_Total no dependiente del tiempo con el performance final de cada paciente
+	adherencia_promedio_por_paciente = (
+		df_grouped_by_paciente["Adherencia"]
+		.mean()
+		.to_dict()
+	)
+	df["Adherencia_Total"] = df["idPaciente"].map(
+		adherencia_promedio_por_paciente
+	)
+	
+	# Crear Adherencia Perfecta (1 si adhiere todos los meses, 0 en otro caso)
+	df["Adherencia_Perfecta"] = (df["Adherencia_Total"] == 1).astype(int)
+	
+	# Crear TAS_Media_Acum: variable de TAS media hasta el momento t
+	df["TAS_Media_Acumulada"] = (
+		df_grouped_by_paciente["TAS"]
+		.expanding()
+		.mean()
+		.to_list()
+	)
+\end{lstlisting}
+
+Crear variables rezagadas
+
+\begin{lstlisting}
+	tesis["Adherencia_lag1"] = (
+		df_grouped_by_paciente["Adherencia"]
+		.shift(1)
+		.fillna(0)
+	)
+	
+	tesis["TAS_lag1"] = (
+		df_grouped_by_paciente["TAS"]
+		.shift(1)
+		.fillna(tesis["tas_basal"])
+	)
+	
+	tesis["Adherencia_Acumulada_lag2"] = (
+		df_grouped_by_paciente["Adherencia_Acumulada"]
+		.shift(2)
+		.fillna(0)
+	)
+	
+	tesis["TAS_Media_Acumulada_lag2"] = (
+		df_grouped_by_paciente["TAS_Media_Acumulada"]
+		.shift(2)
+		.fillna(tesis["tas_basal"])
+	)
+\end{lstlisting}
 
 \newpage
 \nocite{*}
