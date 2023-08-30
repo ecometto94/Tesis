@@ -1313,29 +1313,35 @@ Crear las transformaciones de las variables
 Crear variables rezagadas
 
 \begin{lstlisting}
-	tesis["Adherencia_lag1"] = (
+	df["Adherencia_lag1"] = (
 		df_grouped_by_paciente["Adherencia"]
 		.shift(1)
 		.fillna(0)
 	)
 	
-	tesis["TAS_lag1"] = (
+	df["TAS_lag1"] = (
 		df_grouped_by_paciente["TAS"]
 		.shift(1)
-		.fillna(tesis["tas_basal"])
+		.fillna(df["tas_basal"])
 	)
 	
-	tesis["Adherencia_Acumulada_lag2"] = (
+	df["Adherencia_Acumulada_lag2"] = (
 		df_grouped_by_paciente["Adherencia_Acumulada"]
 		.shift(2)
 		.fillna(0)
 	)
 	
-	tesis["TAS_Media_Acumulada_lag2"] = (
+	df["TAS_Media_Acumulada_lag2"] = (
 		df_grouped_by_paciente["TAS_Media_Acumulada"]
 		.shift(2)
-		.fillna(tesis["tas_basal"])
+		.fillna(df["tas_basal"])
 	)
+\end{lstlisting}
+
+Guardar datos preprocesados
+
+\begin{lstlisting}
+	df.to_csv("../Datos/tesis_final_preprocesado.csv", index=False)
 \end{lstlisting}
 
 \newpage
