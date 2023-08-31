@@ -1661,6 +1661,205 @@ Mostrar el resumen de cada modelo logit.
 		print(lr.summary())
 \end{lstlisting}
 
+\subsubsection{Modelos}
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	import warnings
+
+	import rpy2.robjects as ro
+	from rpy2.robjects.packages import importr
+	from rpy2.robjects import pandas2ri
+\end{lstlisting}
+
+Setear variables globales de utilidad.
+
+\begin{lstlisting}
+	PARAMS_MAPPING = {
+		"(Intercept)": "$intercepto$",
+		"Sexo": "$sexo_i$",
+		"Edad": "$edad_i$",
+		"Mes": "$mes_j$",
+		"Adherencia": "$adherencia_{ij}$",
+		"Adherencia_Perfecta": "$adherencia\ perfecta_i$",
+		"Adherencia_Total": "$\overline{adherencia}_i$",
+		"Adherencia_lag1": "$adherencia_{ij-1}$",
+		"Adherencia_Acumulada": "$\overline{adherencia}_{ij}$",
+	}
+	
+	nlme = importr('nlme')
+	stats = importr("stats")
+	base = importr("base")
+	
+	SAVE_MODELS = False
+\end{lstlisting}
+
+Funciones auxiliares para guardar las tablas de los modelos en formato latex.
+
+\begin{lstlisting}
+	def add_minor_if_zero(num):
+		return num if num != "0.0" else "<0.001"
+
+	def model_to_latex(model) -> str:
+		model_summary = base.summary(model)
+		cov_names = model_summary.rx2("coefficients").rx2("fixed").names
+		n_covs = len(cov_names)
+		t_table = model_summary.rx2("tTable")
+		fe_params = dict(zip(cov_names, t_table[:n_covs]))
+		se_params = dict(zip(cov_names, t_table[n_covs:n_covs*2]))
+		tvalues = dict(zip(cov_names, t_table[n_covs*3:n_covs*4]))
+		pvalues = dict(zip(cov_names, t_table[n_covs*4:n_covs*5]))
+		pvalues = {
+			key: f"${add_minor_if_zero(str(round(value, 3)))}$"
+			for key, value in pvalues.items()
+		}
+		table = ""
+		for name in cov_names:
+			table += (
+				f"\n\t    {PARAMS_MAPPING[name]} "
+				+ f"& {round(fe_params[name], 3)} "
+				+ f"& {round(se_params[name], 3)} "
+				+ f"& {round(tvalues[name], 3)} & "
+			).replace(".", ",") + f"{pvalues[name]} \\\\"
+		return fr"""
+		\begin{{tabular}}{{*{{5}}{{|c}}|}}
+			\hline
+			\multicolumn{{3}}{{|c}}{{Log-Likelihood}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("logLik")[0], 2)}}} \\
+			\multicolumn{{3}}{{|c}}{{AIC}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("AIC")[0], 2)}}} \\
+			\multicolumn{{3}}{{|c}}{{BIC}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("BIC")[0], 2)}}} \\
+			\hline
+			Covariable				   & Coef.                         & Std. Err.                  & z                           & $P<|z|$  \\
+			\hline{table}
+			\hline
+		\end{{tabular}}
+	"""
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+\end{lstlisting}
+
+Convertir los datos a formato R para poder utilizar lme.
+
+\begin{lstlisting}
+	with (ro.default_converter + pandas2ri.converter).context():
+    	tesis = ro.conversion.get_conversion().py2rpy(tesis)
+\end{lstlisting}
+
+Formula compartida por todos los modelos para los efectos aleatorios.
+
+\begin{lstlisting}
+	random_formula = ro.Formula("~ 1 | idPaciente")
+\end{lstlisting}
+
+Modelo 1.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Perfecta + Mes")
+	modelo_1 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_1.tex", "w") as f:
+			f.write(model_to_latex(modelo_1))
+\end{lstlisting}
+
+Modelo 2.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Total + Mes")
+	modelo_2 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_2.tex", "w") as f:
+			f.write(model_to_latex(modelo_2))
+\end{lstlisting}
+
+Modelo 3.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia + Mes")
+	modelo_3 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_3.tex", "w") as f:
+			f.write(model_to_latex(modelo_3))
+\end{lstlisting}
+
+Modelo 4.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_lag1 + Mes")
+	modelo_4 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_4.tex", "w") as f:
+			f.write(model_to_latex(modelo_4))
+\end{lstlisting}
+
+Modelo 5.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Acumulada + Mes")
+	modelo_5 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_5.tex", "w") as f:
+			f.write(model_to_latex(modelo_5))
+\end{lstlisting}
+
+Modelo 6.
+
+\begin{lstlisting}
+	formula = ro.Formula(
+		"TAS ~ Sexo + Edad + Adherencia + Adherencia_Total + Mes"
+	)
+	modelo_6 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_6.tex", "w") as f:
+			f.write(model_to_latex(modelo_6))
+\end{lstlisting}
+
 \newpage
 \nocite{*}
 \renewcommand{\refname}{Bibliografía}
