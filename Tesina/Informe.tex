@@ -43,7 +43,7 @@
     showstringspaces=false,
     showtabs=false,                  
     tabsize=4,
- 	morekeywords={as}
+ 	morekeywords={as},
 }
 
 \lstset{style=mystyle}
@@ -1262,20 +1262,20 @@ realizó esta tesina.
 
 \subsubsection{Preprocesamiento}
 
-Importar paquetes necesarios
+Importar paquetes necesarios.
 
 \begin{lstlisting}
 	import pandas as pd
 \end{lstlisting}
 
-Leer los datos
+Leer los datos.
 
 \begin{lstlisting}
 	df = pd.read_csv("../Datos/tesis_final.csv")
 	df.head()
 \end{lstlisting}
 
-Crear las transformaciones de las variables
+Crear las transformaciones de las variables.
 
 \begin{lstlisting}
 	df_grouped_by_paciente = df.groupby("idPaciente")
@@ -1310,7 +1310,7 @@ Crear las transformaciones de las variables
 	)
 \end{lstlisting}
 
-Crear variables rezagadas
+Crear variables rezagadas.
 
 \begin{lstlisting}
 	df["Adherencia_lag1"] = (
@@ -1338,10 +1338,327 @@ Crear variables rezagadas
 	)
 \end{lstlisting}
 
-Guardar datos preprocesados
+Guardar datos preprocesados.
 
 \begin{lstlisting}
 	df.to_csv("../Datos/tesis_final_preprocesado.csv", index=False)
+\end{lstlisting}
+
+\subsubsection{Análisis Descriptivo}
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	import numpy as np
+	import matplotlib.pyplot as plt
+	import seaborn as sns
+	import statsmodels.api as sm
+	import rpy2.robjects as robjects
+\end{lstlisting}
+
+Setear variables globales de utilidad.
+
+\begin{lstlisting}
+	plt.rcParams["figure.figsize"] = (10, 5)
+	PATH_TO_IMG = "../Tesina/img"
+	YLIM = (125, 140)
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+	df_basal = df[df["Mes"] == 1]
+\end{lstlisting}
+
+Valores de interés.
+
+\begin{lstlisting}
+	prop_hombres = df_basal["Sexo"].mean()
+	edad_media = df_basal["Edad"].mean()
+	desvio_edad = df_basal["Edad"].std()
+	edad_min = df_basal["Edad"].min()
+	edad_max = df_basal["Edad"].max()
+	tas_media = df_basal["TAS"].mean()
+	tas_desvio = df_basal["TAS"].std()
+\end{lstlisting}
+
+Gráfico de perfiles individuales
+
+\begin{lstlisting}
+	lineplot = sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		hue=df["idPaciente"],
+		marker="o",
+		palette="Greys",
+		alpha=0.2
+	)
+	plt.ylabel("TAS (mmHg)")
+	lineplot.get_legend().remove()
+	plt.ylim((80, 220))
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_perfiles_individuales.png",
+		bbox_inches='tight'
+	)
+\end{lstlisting}
+
+Evolución de la TAS promedio.
+
+\begin{lstlisting}
+	sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		color="black",
+		ci=None
+	)
+	plt.ylim(YLIM)
+	plt.ylabel("TAS (mmHg)")
+	plt.savefig(f"{PATH_TO_IMG}/TAS_vs_tpo.png", bbox_inches='tight')
+\end{lstlisting}
+
+Evolución de la TAS según covariables.
+
+\begin{lstlisting}
+	plt.figure(figsize=(15,10))
+
+	# Separar grupos por covariable
+	edad_mediana = int(
+		df_basal
+		.drop_duplicates(["idPaciente", "Edad"])["Edad"]
+		.median()
+	)
+	hue_edad = df["Edad"] > edad_mediana
+	hue_edad = hue_edad.map(
+		{
+			True: f"> {edad_mediana}",
+			False: f"<= {edad_mediana}"
+		}
+	)
+	hue_sexo = df["Sexo"].map({0: "Mujer", 1: "Hombre"})
+	
+	hues = {
+		"Edad": hue_edad,
+		"Sexo": hue_sexo
+	}
+	
+	covs = ["Edad", "Sexo"]
+	for i, cov_name in enumerate(covs):
+		axs = plt.subplot(int(len(covs)/2)+1,2,i+1)
+		line = sns.lineplot(
+			x=df["Mes"],
+			y=df["TAS"],
+			marker="o",
+			hue=hues[cov_name],
+			style=hues[cov_name],
+			palette=["black", "black"],
+			ci=None
+		)
+		plt.legend()
+		plt.ylim(YLIM)
+		plt.ylabel("TAS (mmHg)")
+		plt.title(cov_name)
+	
+	plt.tight_layout()
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_covs.png",
+		bbox_inches='tight'
+	)
+	plt.show()
+\end{lstlisting}
+
+Valores de la TAS a través del tiempo según adherencia.
+
+\begin{lstlisting}
+	sns.stripplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		hue=df["Adherencia"].map({0: "No", 1: "Si"}),
+		palette=["gray", "black"],
+		alpha=0.8,
+	)
+	plt.ylabel("TAS (mmHg)")
+	plt.ylim((70, 230))
+	plt.legend(loc="upper right")
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_adherencia_scatter.png",
+		bbox_inches='tight'
+	)
+\end{lstlisting}
+
+TAS a través del tiempo según perfiles de adherencia al tratamiento.
+
+\begin{lstlisting}
+	# Crear perfiles
+	aux = []
+	for value in df["Adherencia_Total"]:
+		if value <= 3/7:
+			aux.append("3 meses o menos")
+		elif value == 1:
+			aux.append("Todas los meses")
+		else:
+			aux.append("Entre 4 y 6 meses")
+	
+	df["Perfiles de adherencia"] = aux
+	
+	# Plot
+	plt.figure(figsize=(10,5))
+	sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		hue=df["Perfiles de adherencia"],
+		style=df["Perfiles de adherencia"],
+		palette=["black", "black", "black"],
+		ci=None
+	)
+	plt.ylim(YLIM)
+	plt.ylabel("TAS (mmHg)")
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_adherencia.png",
+		bbox_inches='tight'
+	)
+	
+	df = df.drop("Perfiles de adherencia", axis=1)
+\end{lstlisting}
+
+Semivariograma
+
+\begin{lstlisting}
+	# Funciones auxiliares
+	def jitter(data, factor=0.1):
+		jittered_data = data + np.random.normal(0, factor, len(data))
+		return jittered_data
+	
+	def variograma(id, x, y):
+		"""
+		id = (nobs x 1) vector con los id
+		y = (nobs x 1) vector respuesta (residuos)
+		x = (nobs x 1) vector de covariables (tiempo)
+		
+		RETURN: delta.y = vec( 0.5*(y_ij - y_ik)^2 )
+				delta.x = vec( abs( x_ij - x_ik ) )
+		"""
+		uid = id.unique()
+		m = len(uid)
+		delta_y = []
+		delta_x = []
+		did = []
+		for i in range(m):
+			yi = y[id == uid[i]]
+			xi = x[id == uid[i]]
+			n = len(yi)
+			expand_j = [i for i in range(n)]*n
+			expand_k = np.repeat([i for i in range(n)], n)
+			keep = expand_j > expand_k
+			if keep.sum() <= 0:
+				continue
+			expand_j = [j for j, b in zip(expand_j, keep) if b]
+			expand_k = [k for k, b in zip(expand_k, keep) if b]
+			delta_yi = (
+				0.5*(np.array(yi.iloc[expand_j])
+				- np.array(yi.iloc[expand_k]))**2
+			)
+			delta_xi = (
+				abs(np.array(xi.iloc[expand_j])
+				- np.array(xi.iloc[expand_k]))
+			)
+			didi = np.repeat(uid[i], len(delta_yi))
+			delta_y.extend(list(delta_yi))
+			delta_x.extend(list(delta_xi))
+			did.extend(list(didi))
+		return did, delta_x, delta_y
+	
+	# Agregar intercepto porque OLS lo pide
+	df["Intercept"] = 1
+	
+	# Efectos a usar
+	effects = [
+		"Intercept",
+		"Sexo",
+		"Edad",
+		"Adherencia",
+		"Mes",
+	]
+	
+	# Modelo OLS
+	model = sm.OLS(df["TAS"], df[effects]).fit()
+	
+	# Valores semivariograma
+	did, delta_x, delta_y = variograma(
+		df["idPaciente"], df["Mes"], model.resid
+	)
+	
+	# Spline en R
+	r_x = robjects.FloatVector(delta_x)
+	r_y = robjects.FloatVector(delta_y)
+	r_smooth_spline = robjects.r["smooth.spline"]
+	spline = r_smooth_spline( r_x, r_y, df=5 )
+	
+	# Plot
+	plt.figure(figsize=(10,5))
+	var = np.var(model.resid)
+	fig, ax = plt.subplots(1,1)
+	scat = sns.scatterplot(
+		x=jitter(delta_x),
+		y=delta_y,
+		alpha=0.1,
+		color="black"
+	)
+	plt.axhline(var, color="black", linestyle="--")
+	scat.set(ylim=(0, 1.2*var))
+	plt.plot(spline[0], spline[1], color="black")
+	plt.tight_layout()
+	plt.savefig(f"{PATH_TO_IMG}/semivariogram.png", bbox_inches='tight')
+\end{lstlisting}
+
+\subsubsection{Prueba de exogeneidad}
+
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	from statsmodels.discrete.discrete_model import Logit
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+\end{lstlisting}
+
+Mostrar el resumen de cada modelo logit.
+
+\begin{lstlisting}
+	max_range = df["Mes"].max()+1
+	df["Intercept"] = 1
+	
+	for i in range(2, max_range):
+		df_aux = df[df["Mes"] == i]
+	
+		print("\n", "*"*50, "Target time:", i, "*"*50, "\n")
+	
+		if i == 2:
+			fixed_effects = [
+				"Intercept",
+				"Adherencia_lag1",
+				"TAS_lag1"
+			]
+		else:
+			fixed_effects = [
+				"Intercept",
+				"Adherencia_lag1",
+				"Adherencia_Acumulada_lag2",
+				"TAS_lag1",
+				"TAS_Media_Acumulada_lag2"
+			]
+	
+		lr = Logit(df_aux["Adherencia"], df_aux[fixed_effects]).fit()
+		print(lr.summary())
 \end{lstlisting}
 
 \newpage
