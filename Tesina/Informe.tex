@@ -17,6 +17,36 @@
 \usepackage{float}				% to manually select placement of tables
 \usepackage{autobreak}          % to automatically fit equations to page width
 \usepackage{soul}				% for highlighting
+\usepackage{listings}			% for python code
+\usepackage{xcolor}				% for python code
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	language=python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=1pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+ 	morekeywords={as},
+}
+
+\lstset{style=mystyle}
 
 
 \usetikzlibrary{babel}		    % for draw arrows in tikz using babel spanish
@@ -42,6 +72,24 @@
 \title{\thesistitle}
 \author{\thesisauthorfirst\space\thesisauthorsecond}
 \date{\thesisdate}
+
+%% FOR PYTHON COLORS
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\linespread{0.2},   
+    tabsize=4,
+}
+
+\lstset{style=mystyle, basicstyle=\linespread{0}}
 
 \begin{document}
 
@@ -1191,6 +1239,8 @@ condición.
 
 \section{Anexo}
 
+\subsection{Gráficos de interés}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{img/semivariogram.png}
@@ -1205,6 +1255,610 @@ condición.
 	\label{perfiles_individuales}
 \end{figure}
 
+\subsection{Código}
+
+A continuación se adjunta el código paso a paso en lenguaje Python con el que se
+realizó esta tesina.
+
+\subsubsection{Preprocesamiento}
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final.csv")
+	df.head()
+\end{lstlisting}
+
+Crear las transformaciones de las variables.
+
+\begin{lstlisting}
+	df_grouped_by_paciente = df.groupby("idPaciente")
+
+	# Crear Adherencia_Acum: variable de indice de performance de adherencia al tratamiento hasta el momento t
+	df["Adherencia_Acumulada"] = (
+		df_grouped_by_paciente["Adherencia"]
+		.expanding()
+		.mean()
+		.to_list()
+	)
+	
+	# Crear covariable Adherencia_Total no dependiente del tiempo con el performance final de cada paciente
+	adherencia_promedio_por_paciente = (
+		df_grouped_by_paciente["Adherencia"]
+		.mean()
+		.to_dict()
+	)
+	df["Adherencia_Total"] = df["idPaciente"].map(
+		adherencia_promedio_por_paciente
+	)
+	
+	# Crear Adherencia Perfecta (1 si adhiere todos los meses, 0 en otro caso)
+	df["Adherencia_Perfecta"] = (df["Adherencia_Total"] == 1).astype(int)
+	
+	# Crear TAS_Media_Acum: variable de TAS media hasta el momento t
+	df["TAS_Media_Acumulada"] = (
+		df_grouped_by_paciente["TAS"]
+		.expanding()
+		.mean()
+		.to_list()
+	)
+\end{lstlisting}
+
+Crear variables rezagadas.
+
+\begin{lstlisting}
+	df["Adherencia_lag1"] = (
+		df_grouped_by_paciente["Adherencia"]
+		.shift(1)
+		.fillna(0)
+	)
+	
+	df["TAS_lag1"] = (
+		df_grouped_by_paciente["TAS"]
+		.shift(1)
+		.fillna(df["tas_basal"])
+	)
+	
+	df["Adherencia_Acumulada_lag2"] = (
+		df_grouped_by_paciente["Adherencia_Acumulada"]
+		.shift(2)
+		.fillna(0)
+	)
+	
+	df["TAS_Media_Acumulada_lag2"] = (
+		df_grouped_by_paciente["TAS_Media_Acumulada"]
+		.shift(2)
+		.fillna(df["tas_basal"])
+	)
+\end{lstlisting}
+
+Guardar datos preprocesados.
+
+\begin{lstlisting}
+	df.to_csv("../Datos/tesis_final_preprocesado.csv", index=False)
+\end{lstlisting}
+
+\subsubsection{Análisis Descriptivo}
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	import numpy as np
+	import matplotlib.pyplot as plt
+	import seaborn as sns
+	import statsmodels.api as sm
+	import rpy2.robjects as robjects
+\end{lstlisting}
+
+Setear variables globales de utilidad.
+
+\begin{lstlisting}
+	plt.rcParams["figure.figsize"] = (10, 5)
+	PATH_TO_IMG = "../Tesina/img"
+	YLIM = (125, 140)
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+	df_basal = df[df["Mes"] == 1]
+\end{lstlisting}
+
+Valores de interés.
+
+\begin{lstlisting}
+	prop_hombres = df_basal["Sexo"].mean()
+	edad_media = df_basal["Edad"].mean()
+	desvio_edad = df_basal["Edad"].std()
+	edad_min = df_basal["Edad"].min()
+	edad_max = df_basal["Edad"].max()
+	tas_media = df_basal["TAS"].mean()
+	tas_desvio = df_basal["TAS"].std()
+\end{lstlisting}
+
+Gráfico de perfiles individuales
+
+\begin{lstlisting}
+	lineplot = sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		hue=df["idPaciente"],
+		marker="o",
+		palette="Greys",
+		alpha=0.2
+	)
+	plt.ylabel("TAS (mmHg)")
+	lineplot.get_legend().remove()
+	plt.ylim((80, 220))
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_perfiles_individuales.png",
+		bbox_inches='tight'
+	)
+\end{lstlisting}
+
+Evolución de la TAS promedio.
+
+\begin{lstlisting}
+	sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		color="black",
+		ci=None
+	)
+	plt.ylim(YLIM)
+	plt.ylabel("TAS (mmHg)")
+	plt.savefig(f"{PATH_TO_IMG}/TAS_vs_tpo.png", bbox_inches='tight')
+\end{lstlisting}
+
+Evolución de la TAS según covariables.
+
+\begin{lstlisting}
+	plt.figure(figsize=(15,10))
+
+	# Separar grupos por covariable
+	edad_mediana = int(
+		df_basal
+		.drop_duplicates(["idPaciente", "Edad"])["Edad"]
+		.median()
+	)
+	hue_edad = df["Edad"] > edad_mediana
+	hue_edad = hue_edad.map(
+		{
+			True: f"> {edad_mediana}",
+			False: f"<= {edad_mediana}"
+		}
+	)
+	hue_sexo = df["Sexo"].map({0: "Mujer", 1: "Hombre"})
+	
+	hues = {
+		"Edad": hue_edad,
+		"Sexo": hue_sexo
+	}
+	
+	covs = ["Edad", "Sexo"]
+	for i, cov_name in enumerate(covs):
+		axs = plt.subplot(int(len(covs)/2)+1,2,i+1)
+		line = sns.lineplot(
+			x=df["Mes"],
+			y=df["TAS"],
+			marker="o",
+			hue=hues[cov_name],
+			style=hues[cov_name],
+			palette=["black", "black"],
+			ci=None
+		)
+		plt.legend()
+		plt.ylim(YLIM)
+		plt.ylabel("TAS (mmHg)")
+		plt.title(cov_name)
+	
+	plt.tight_layout()
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_covs.png",
+		bbox_inches='tight'
+	)
+	plt.show()
+\end{lstlisting}
+
+Valores de la TAS a través del tiempo según adherencia.
+
+\begin{lstlisting}
+	sns.stripplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		hue=df["Adherencia"].map({0: "No", 1: "Si"}),
+		palette=["gray", "black"],
+		alpha=0.8,
+	)
+	plt.ylabel("TAS (mmHg)")
+	plt.ylim((70, 230))
+	plt.legend(loc="upper right")
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_adherencia_scatter.png",
+		bbox_inches='tight'
+	)
+\end{lstlisting}
+
+TAS a través del tiempo según perfiles de adherencia al tratamiento.
+
+\begin{lstlisting}
+	# Crear perfiles
+	aux = []
+	for value in df["Adherencia_Total"]:
+		if value <= 3/7:
+			aux.append("3 meses o menos")
+		elif value == 1:
+			aux.append("Todas los meses")
+		else:
+			aux.append("Entre 4 y 6 meses")
+	
+	df["Perfiles de adherencia"] = aux
+	
+	# Plot
+	plt.figure(figsize=(10,5))
+	sns.lineplot(
+		x=df["Mes"],
+		y=df["TAS"],
+		marker="o",
+		hue=df["Perfiles de adherencia"],
+		style=df["Perfiles de adherencia"],
+		palette=["black", "black", "black"],
+		ci=None
+	)
+	plt.ylim(YLIM)
+	plt.ylabel("TAS (mmHg)")
+	plt.savefig(
+		f"{PATH_TO_IMG}/TAS_vs_tpo_with_adherencia.png",
+		bbox_inches='tight'
+	)
+	
+	df = df.drop("Perfiles de adherencia", axis=1)
+\end{lstlisting}
+
+Semivariograma
+
+\begin{lstlisting}
+	# Funciones auxiliares
+	def jitter(data, factor=0.1):
+		jittered_data = data + np.random.normal(0, factor, len(data))
+		return jittered_data
+	
+	def variograma(id, x, y):
+		"""
+		id = (nobs x 1) vector con los id
+		y = (nobs x 1) vector respuesta (residuos)
+		x = (nobs x 1) vector de covariables (tiempo)
+		
+		RETURN: delta.y = vec( 0.5*(y_ij - y_ik)^2 )
+				delta.x = vec( abs( x_ij - x_ik ) )
+		"""
+		uid = id.unique()
+		m = len(uid)
+		delta_y = []
+		delta_x = []
+		did = []
+		for i in range(m):
+			yi = y[id == uid[i]]
+			xi = x[id == uid[i]]
+			n = len(yi)
+			expand_j = [i for i in range(n)]*n
+			expand_k = np.repeat([i for i in range(n)], n)
+			keep = expand_j > expand_k
+			if keep.sum() <= 0:
+				continue
+			expand_j = [j for j, b in zip(expand_j, keep) if b]
+			expand_k = [k for k, b in zip(expand_k, keep) if b]
+			delta_yi = (
+				0.5*(np.array(yi.iloc[expand_j])
+				- np.array(yi.iloc[expand_k]))**2
+			)
+			delta_xi = (
+				abs(np.array(xi.iloc[expand_j])
+				- np.array(xi.iloc[expand_k]))
+			)
+			didi = np.repeat(uid[i], len(delta_yi))
+			delta_y.extend(list(delta_yi))
+			delta_x.extend(list(delta_xi))
+			did.extend(list(didi))
+		return did, delta_x, delta_y
+	
+	# Agregar intercepto porque OLS lo pide
+	df["Intercept"] = 1
+	
+	# Efectos a usar
+	effects = [
+		"Intercept",
+		"Sexo",
+		"Edad",
+		"Adherencia",
+		"Mes",
+	]
+	
+	# Modelo OLS
+	model = sm.OLS(df["TAS"], df[effects]).fit()
+	
+	# Valores semivariograma
+	did, delta_x, delta_y = variograma(
+		df["idPaciente"], df["Mes"], model.resid
+	)
+	
+	# Spline en R
+	r_x = robjects.FloatVector(delta_x)
+	r_y = robjects.FloatVector(delta_y)
+	r_smooth_spline = robjects.r["smooth.spline"]
+	spline = r_smooth_spline( r_x, r_y, df=5 )
+	
+	# Plot
+	plt.figure(figsize=(10,5))
+	var = np.var(model.resid)
+	fig, ax = plt.subplots(1,1)
+	scat = sns.scatterplot(
+		x=jitter(delta_x),
+		y=delta_y,
+		alpha=0.1,
+		color="black"
+	)
+	plt.axhline(var, color="black", linestyle="--")
+	scat.set(ylim=(0, 1.2*var))
+	plt.plot(spline[0], spline[1], color="black")
+	plt.tight_layout()
+	plt.savefig(f"{PATH_TO_IMG}/semivariogram.png", bbox_inches='tight')
+\end{lstlisting}
+
+\subsubsection{Prueba de exogeneidad}
+
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	from statsmodels.discrete.discrete_model import Logit
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+\end{lstlisting}
+
+Mostrar el resumen de cada modelo logit.
+
+\begin{lstlisting}
+	max_range = df["Mes"].max()+1
+	df["Intercept"] = 1
+	
+	for i in range(2, max_range):
+		df_aux = df[df["Mes"] == i]
+	
+		print("\n", "*"*50, "Target time:", i, "*"*50, "\n")
+	
+		if i == 2:
+			fixed_effects = [
+				"Intercept",
+				"Adherencia_lag1",
+				"TAS_lag1"
+			]
+		else:
+			fixed_effects = [
+				"Intercept",
+				"Adherencia_lag1",
+				"Adherencia_Acumulada_lag2",
+				"TAS_lag1",
+				"TAS_Media_Acumulada_lag2"
+			]
+	
+		lr = Logit(df_aux["Adherencia"], df_aux[fixed_effects]).fit()
+		print(lr.summary())
+\end{lstlisting}
+
+\subsubsection{Modelos}
+
+Importar paquetes necesarios.
+
+\begin{lstlisting}
+	import pandas as pd
+	import warnings
+
+	import rpy2.robjects as ro
+	from rpy2.robjects.packages import importr
+	from rpy2.robjects import pandas2ri
+\end{lstlisting}
+
+Setear variables globales de utilidad.
+
+\begin{lstlisting}
+	PARAMS_MAPPING = {
+		"(Intercept)": "$intercepto$",
+		"Sexo": "$sexo_i$",
+		"Edad": "$edad_i$",
+		"Mes": "$mes_j$",
+		"Adherencia": "$adherencia_{ij}$",
+		"Adherencia_Perfecta": "$adherencia\ perfecta_i$",
+		"Adherencia_Total": "$\overline{adherencia}_i$",
+		"Adherencia_lag1": "$adherencia_{ij-1}$",
+		"Adherencia_Acumulada": "$\overline{adherencia}_{ij}$",
+	}
+	
+	nlme = importr('nlme')
+	stats = importr("stats")
+	base = importr("base")
+	
+	SAVE_MODELS = False
+\end{lstlisting}
+
+Funciones auxiliares para guardar las tablas de los modelos en formato latex.
+
+\begin{lstlisting}
+	def add_minor_if_zero(num):
+		return num if num != "0.0" else "<0.001"
+
+	def model_to_latex(model) -> str:
+		model_summary = base.summary(model)
+		cov_names = model_summary.rx2("coefficients").rx2("fixed").names
+		n_covs = len(cov_names)
+		t_table = model_summary.rx2("tTable")
+		fe_params = dict(zip(cov_names, t_table[:n_covs]))
+		se_params = dict(zip(cov_names, t_table[n_covs:n_covs*2]))
+		tvalues = dict(zip(cov_names, t_table[n_covs*3:n_covs*4]))
+		pvalues = dict(zip(cov_names, t_table[n_covs*4:n_covs*5]))
+		pvalues = {
+			key: f"${add_minor_if_zero(str(round(value, 3)))}$"
+			for key, value in pvalues.items()
+		}
+		table = ""
+		for name in cov_names:
+			table += (
+				f"\n\t    {PARAMS_MAPPING[name]} "
+				+ f"& {round(fe_params[name], 3)} "
+				+ f"& {round(se_params[name], 3)} "
+				+ f"& {round(tvalues[name], 3)} & "
+			).replace(".", ",") + f"{pvalues[name]} \\\\"
+		return fr"""
+		\begin{{tabular}}{{*{{5}}{{|c}}|}}
+			\hline
+			\multicolumn{{3}}{{|c}}{{Log-Likelihood}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("logLik")[0], 2)}}} \\
+			\multicolumn{{3}}{{|c}}{{AIC}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("AIC")[0], 2)}}} \\
+			\multicolumn{{3}}{{|c}}{{BIC}} & \multicolumn{{2}}{{|c|}}{{{round(model_summary.rx2("BIC")[0], 2)}}} \\
+			\hline
+			Covariable				   & Coef.                         & Std. Err.                  & z                           & $P<|z|$  \\
+			\hline{table}
+			\hline
+		\end{{tabular}}
+	"""
+\end{lstlisting}
+
+Leer los datos.
+
+\begin{lstlisting}
+	df = pd.read_csv("../Datos/tesis_final_preprocesado.csv")
+\end{lstlisting}
+
+Convertir los datos a formato R para poder utilizar lme.
+
+\begin{lstlisting}
+	with (ro.default_converter + pandas2ri.converter).context():
+    	tesis = ro.conversion.get_conversion().py2rpy(tesis)
+\end{lstlisting}
+
+Formula compartida por todos los modelos para los efectos aleatorios.
+
+\begin{lstlisting}
+	random_formula = ro.Formula("~ 1 | idPaciente")
+\end{lstlisting}
+
+Modelo 1.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Perfecta + Mes")
+	modelo_1 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_1.tex", "w") as f:
+			f.write(model_to_latex(modelo_1))
+\end{lstlisting}
+
+Modelo 2.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Total + Mes")
+	modelo_2 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_2.tex", "w") as f:
+			f.write(model_to_latex(modelo_2))
+\end{lstlisting}
+
+Modelo 3.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia + Mes")
+	modelo_3 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_3.tex", "w") as f:
+			f.write(model_to_latex(modelo_3))
+\end{lstlisting}
+
+Modelo 4.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_lag1 + Mes")
+	modelo_4 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_4.tex", "w") as f:
+			f.write(model_to_latex(modelo_4))
+\end{lstlisting}
+
+Modelo 5.
+
+\begin{lstlisting}
+	formula = ro.Formula("TAS ~ Sexo + Edad + Adherencia_Acumulada + Mes")
+	modelo_5 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_5.tex", "w") as f:
+			f.write(model_to_latex(modelo_5))
+\end{lstlisting}
+
+Modelo 6.
+
+\begin{lstlisting}
+	formula = ro.Formula(
+		"TAS ~ Sexo + Edad + Adherencia + Adherencia_Total + Mes"
+	)
+	modelo_6 = nlme.lme(
+		formula,
+		random=random_formula,
+		data=df,
+		method="ML",
+		corr=nlme.corAR1()
+	)
+	
+	if SAVE_MODELS:
+		with open("../Tesina/tables/modelo_6.tex", "w") as f:
+			f.write(model_to_latex(modelo_6))
+\end{lstlisting}
 
 \newpage
 \nocite{*}
