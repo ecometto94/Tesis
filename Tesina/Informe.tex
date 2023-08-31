@@ -301,11 +301,11 @@ Las CVT también se pueden clasificar en exógenas y endógenas.
 
 \paragraph{Covariables exógenas} \mbox{}
 
-Una CVT estocástica se define como exógena, respecto a la variable respuesta, si
-el valor de la covariable en un determinado momento, dado los valores previos de
-la covariable y de la respuesta, es condicionalmente independiente de todos los
-valores precedentes de la variable respuesta (Diggle et al., 2002). Formalmente,
-para la unidad $i$ en la ocasión $j$:  
+Según Fitzmaurice (2004), una CVT estocástica se define como exógena, respecto a
+la variable respuesta, si los valores previos de la variable respuesta en la
+ocasión $j$ ($Y_{i1}, ..., Y_{ij-1}$), dado los valores precedentes de la
+covariable ($X_{i1}, ..., X_{ij-1}$), no predicen el siguiente valor de la
+covariable ($X_{ij}$). Formalmente, para la unidad $i$ en la ocasión $j$:  
 
 \begin{equation}
 	\label{exogeneidad}
@@ -313,7 +313,7 @@ para la unidad $i$ en la ocasión $j$:
 	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
 
-Y, en consecuencia (Fitzmaurice et al., 2004):
+Y, en consecuencia:
 
 \begin{equation}
 	\label{exogeneidad debil}
