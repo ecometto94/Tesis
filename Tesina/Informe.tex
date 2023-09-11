@@ -131,7 +131,7 @@ unidad, las cuales pueden surgir por ser medidas en diferentes momentos o
 condiciones. Su principal objetivo es estudiar los cambios en el tiempo y los
 factores que influencian el cambio. 
 
-Los modelos mixtos permiten ajustar datos con estas características, donde la
+Los modelos mixtos permiten ajustar datos con estas propiedades, donde la
 respuesta se modela por una parte sistemática que está compuesta por una
 combinación de características poblacionales que son compartidas por todas las
 unidades (efectos fijos), y una parte aleatoria que está constituida por efectos
@@ -165,10 +165,10 @@ de las mismas y enfoques metodológicos.
 
 Estos conceptos se aplican a un conjunto de datos que surge del programa de
 atención y control de pacientes hipertensos de Fundación ECLA, llevado a cabo en
-Rosario durante el período 2014-2019. Este estudio observacional realizó un
-seguimiento de un grupo de pacientes hipertensos, registrando en cada visita el
-tratamiento farmacológico dado al paciente, los valores de la tensión arterial
-sistólica (TAS) y la adherencia a dicho tratamiento, entre otras
+Rosario durante el período 2014-2019. En este estudio observacional se realizó
+un seguimiento de un grupo de pacientes hipertensos, registrando en cada visita
+el tratamiento farmacológico dado al paciente, los valores de la tensión
+arterial sistólica (TAS) y la adherencia a dicho tratamiento, entre otras
 características. Uno de los objetivos que persiguió este estudio fue evaluar si
 la adherencia al tratamiento influye en los valores de la TAS a lo largo del
 seguimiento. Como la variable adherencia es una CVT, se presentarán diferentes
@@ -187,9 +187,8 @@ longitudinales.
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-	\item Definir los tipos de covariables existentes.
-	\item Describir propuestas de incorporación de covariables que varían en el
-	tiempo en los modelos mixtos.
+	\item Describir distintas propuestas de incorporación de covariables que
+	varían en el tiempo en los modelos mixtos.
 	\item Aplicar los conceptos vistos al programa de
 	atención y control de pacientes hipertensos de Fundación ECLA.
 \end{itemize}
@@ -201,13 +200,13 @@ Los datos longitudinales están conformados por mediciones repetidas de una mism
 variable realizadas sobre la misma unidad en diferentes momentos o condiciones
 experimentales.
 
-Dado que las mediciones repetidas son obtenidas de la misma unidad, los datos
+Dado que las mediciones repetidas se obtienen de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
-agrupamiento generalmente están correlacionadas positivamente. Por lo tanto, los
+agrupamiento presentan, en general, correlación positiva. Por lo tanto, los
 supuestos usuales de independencia y homogeneidad de variancias no son válidos.
 
 Existen tres fuentes potenciales de variabilidad que influyen sobre la
-correlación entre medidas repetidas:
+correlación entre las mediciones repetidas:
 
 \begin{itemize}
 	\item \textit{Heterogeneidad entre las unidades:} Refleja la propensión
@@ -234,10 +233,9 @@ representar datos correlacionados.
 
 \section{Covariables en datos longitudinales}
 
-En los estudios longitudinales, las variables independientes pueden ser
-clasificadas en dos categorías: CNVT y CVT. La diferencia entre
-ellas puede conducir a diferentes enfoques de análisis así como también a
-diferentes conclusiones.
+En los estudios longitudinales, las variables independientes se pueden
+clasificar en dos categorías: CNVT y CVT. La diferencia entre ellas conduce a
+diferentes enfoques de análisis.
 
 Tanto las CNVT como las CVT se pueden utilizar para realizar comparaciones entre
 poblaciones y describir diferentes tendencias a lo largo del tiempo. Sin
@@ -250,15 +248,15 @@ una sola covariable $X$. Se obtiene una muestra aleatoria de $N$ unidades, cada
 una con $n$ mediciones repetidas de la variable respuesta y de la covariable
 observadas en los tiempos $t_1, ..., t_n$ (se asume que los tiempos de medición
 son los mismos para todas las unidades). El número total de observaciones es
-$N*=Nn$.
+$N^*=Nn$.
 
 Sean $Y_{ij}$ y $X_{ij}$ los valores de la variable respuesta y de la variable
 independiente respectivamente, medidos para la unidad $i$ en la ocasión $t_j$
-con $i = 1, ..., N$ y $j = 1, ..., n$. Si se asume que $Y_{ij}$ y $X_{ij}$ son
-simultáneamente medidas, en un análisis de corte transversal, $Y_{ij}$ y
-$X_{ij}$ se correlacionarían directamente. Sin embargo, para un análisis
-longitudinal se debe asumir que existe un orden preestablecido:
-$(X_{i1}, Y_{i1}), (X_{i2}, Y_{i2}), ..., (X_{in}, Y_{in})$
+con $i = 1, ..., N$ y $j = 1, ..., n$. Si se asume que $Y_{ij}$ y $X_{ij}$ se
+miden simultáneamente, en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$
+se correlacionarían directamente. Sin embargo, para un análisis longitudinal se
+debe asumir que existe un orden preestablecido: $(X_{i1}, Y_{i1}), (X_{i2},
+Y_{i2}), ..., (X_{in}, Y_{in})$
 
 \subsection{Covariables fijas en el tiempo}
 
@@ -287,7 +285,7 @@ A continuación se describen diferentes tipos de CVT.
 
 Las CVT pueden clasificarse en estocásticas y no estocásticas. Las CVT no
 estocásticas son covariables que varían sistemáticamente a través del tiempo
-pero son fijas por diseño del estudio o bien su valor puede predecirse. En
+pero son fijas por el diseño del estudio o bien su valor puede predecirse. En
 cambio, las CVT estocásticas son covariables que varían aleatoriamente a través
 del tiempo, es decir, los valores en cualquier ocasión no pueden ser estimados
 ya que son gobernados por un mecanismo aleatorio. Ejemplos de las primeras son:
@@ -423,9 +421,9 @@ apropiadamente la variabilidad intra individuo.
 Bajo el supuesto de que $\bm{\varepsilon}_i$ y $\bm{b}_i$ se distribuyen
 normalmente, se pueden usar métodos de estimación basados en la teoría de máxima
 verosimilitud, cuya idea es asignar a los parámetros el valor más probable en
-base a los datos que fueron observados. Se usarán para estimar los parámetros de
-la parte media y los de las estructuras de covariancia los métodos de máxima
-verosimilitud (ML) y máxima verosimilitud restringida (REML), respectivamente.
+base a los datos que fueron observados. Para estimar los parámetros de la parte
+media y de covariancia se utilizan los métodos de máxima verosimilitud (ML) y
+máxima verosimilitud restringida (REML), respectivamente.
 
 \subsubsection{Método de máxima verosimilitud (ML)}
 
@@ -643,18 +641,14 @@ transformación. El modelo resultante es:
 En algunas aplicaciones hay justificación previa para considerar la covariable
 en el rezago $k$ momentos antes de la medición de la respuesta. Por ejemplo, el
 efecto del IMC sobre la tensión arterial probablemente no sea inmediato, por lo
-que podría interesar su valor en la ocasión anterior ($k=1$). Lo más común es
-que se desconozca el valor $k$ apropiado y se considere mas de una opción. El
-modelo lineal mixto se definiría de la siguiente manera:
+que podría interesar su valor en la ocasión anterior ($k=1$). En general, se
+desconoce el valor de $k$, por lo que se consideran varias opciones. El modelo
+lineal mixto se definiría de la siguiente manera:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
 
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
-
-% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
-% de la tensión arterial, para un momento determinado en el seguimiento, por
-% incrementos unitarios en el IMC del momento anterior}.
 
 \subsection{Función de las covariables rezagadas}
 
@@ -671,10 +665,6 @@ resultando el modelo:
 
 Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
 el $i$-ésimo paciente.
-
-% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
-% de la tensión arterial por incrementos unitarios en el IMC promedio hasta la
-% ocasión actual para un momento determinado en el seguimiento}.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
 \label{Dividiendo efecto entre-unidad y efecto intra-unidad}
@@ -713,14 +703,14 @@ sin centrar respecto al valor promedio (Hoffman, 2015).
 
 A partir del programa de atención y control de pacientes hipertensos iniciado en
 el año 2014 en Rosario, se obtienen datos de \npatients{} pacientes hipertensos
-de entre 30 y 86 años, con una edad media de 58.84 (desvío estándar 9,9 años),
-de los cuales un 49.28\% son hombres. A todos estos pacientes se les indicó un
-tratamiento antihipertensivo al incio del seguimiento (visita basal). Durante 7
-meses se agendaron visitas mensuales en donde se registraron, entre otras
-características, el valor de la TAS y la adherencia al tratamiento. Esta última
-variable surge de la evaluación del cuestionario Morisky (Morisky et al., 1986),
-cuyo resultado categoriza a los pacientes como adherentes o no adherentes al
-tratamiento. Al ser evaluada en todas las visitas mensuales, esta variable
+de entre 30 y 86 años, con una edad promedio de 58.84 (desvío estándar 9,9
+años), de los cuales un 49.28\% son hombres. A todos estos pacientes se les
+indicó un tratamiento antihipertensivo al incio del seguimiento (visita basal).
+Durante 7 meses se agendaron visitas mensuales en donde se registraron, entre
+otras características, el valor de la TAS y la adherencia al tratamiento. Esta
+última variable surge de la evaluación del cuestionario Morisky (Morisky et al.,
+1986), cuyo resultado categoriza a los pacientes como adherentes o no adherentes
+al tratamiento. Al ser evaluada en todas las visitas mensuales, esta variable
 dicotómica captura como fue la adherencia durante el período desde la visita
 previa hasta la visita actual. Como para la visita basal no se cuenta con
 información de adherencia, se toman los datos desde el primer mes de
@@ -858,11 +848,11 @@ ocasiones previas no resultan ser significativas, puede decirse que la
 adherencia es una CVT exógena. Cómo la CVT adherencia es una variable
 dicotómica, se ajustan modelos de regresión logística.
 
-Para ajustar estos modelos se utilizarán como variables explicativas a la
+Para ajustar estos modelos se utilizan como variables explicativas a la
 adherencia y la TAS en el mes anterior, ya que se asume que las mediciones más
-cercanas entre sí están más correlacionadas y tambien se utilizarán la
-adherencia y la TAS promedio desde el inicio hasta 2 meses antes, de esta manera
-se puede utilizar toda la información del estudio. El modelo para la ocasión $j$
+cercanas entre sí están más correlacionadas y tambien se utilizan la adherencia
+y la TAS promedio desde el inicio hasta 2 meses antes, de esta manera se puede
+utilizar toda la información del estudio. El modelo para la ocasión $j$
 ($j = 2, ..., 7$) resulta:
 
 $ 
@@ -904,7 +894,7 @@ adherencia), por lo tanto puede considerarse como una covariable exógena.
 
 \subsection{Modelos propuestos}
 
-Se decidió plantear un modelo lineal de efectos mixtos (MLM) con ordenada
+Se propone un modelo lineal de efectos mixtos (MLM) con ordenada
 aleatoria y estructura de covariancia autorregresiva de orden 1. De esta manera,
 se incorpora al modelo la correlación serial y el efecto entre pacientes
 presente en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
@@ -1199,7 +1189,7 @@ modelos lineales mixtos. En este tipo de estudios es frecuente contar con
 variables independientes que pueden ser fijas a lo largo de todo el período o
 bien puedan variar a lo largo del seguimiento. Estas covariables que varían con
 el tiempo son variables independientes que incluyen tanto la variación
-intra-sujeto y la variación entre-sujetos.
+intra-sujeto como la variación entre-sujetos.
 
 La relación entre la covariable que varía en el tiempo y la variable respuesta
 puede estar confundida por valores anteriores y/o posteriores de la covariable
