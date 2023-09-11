@@ -496,10 +496,6 @@ Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fit
 Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML})
 llegan a cero sólo si se cumple con el supuesto de independencia condicional:
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% REMOVER ESPACIO MUCHO ESPACIO ANTES DE LA ECUACION %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{equation}
 \label{estimation_issue}
 	E[Y_{ij} | X_{ij}] = E[Y_{ij} | X_{ij}, j = 1, ..., n]
@@ -534,42 +530,6 @@ Lai y Small (2007) y Lalonde et al. (2015) definieron cuatro tipos de CVT y
 propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
 en donde es posible incorporar información sobre la naturaleza de la CVT que se
 está analizando.
-
-% Luego, Lai y Small (2007) y Lalonde (2015) definieron 4 nuevos tipos de CVT:
-
-% \begin{itemize}
-% 	\item Tipo I: una CVT es de Tipo I si no hay relación entre la
-% 	CVT y la variable respuesta en diferentes ocasiones. Las variables que
-% 	involucran cambios predecibles a lo largo del tiempo, como la edad o el
-% 	tiempo de observación, generalmente se tratan como Tipo I.
-% 	\item Tipo II: una CVT es de Tipo II si no está asociada a valores
-% 	anteriores de la variable respuesta, pero la variable respuesta si puede
-% 	estar asociada a valores previos de la CVT. Un ejemplo de este tipo de CVT
-% 	puede ser la medicación para la presión arterial con respecto a la variable
-% 	respuesta presión arterial, ya que valores acumulados de la medicación en
-% 	el tiempo se espera que tengan un impacto en la presión arterial en
-% 	cualquier ocasión.
-% 	\item Tipo III: para éste tipo, no hay suposición de independencia entre la
-% 	respuesta y los valores de la CVT en diferentes ocasiones. Por lo tanto, una
-% 	CVT de Tipo III puede implicar un ciclo de feedback entre la CVT y la
-% 	respuesta, en el que los valores de la covariable pueden verse afectados por
-% 	los valores anteriores de la respuesta. Un ejemplo de este tipo es la CVT
-% 	medicación para la presión arterial con la respuesta infarto de miocardio.
-% 	Mientras que es esperado que la medicación impacte en la probabilidad de
-% 	infarto, un evento de infarto puede provocar un cambio en la medicación para
-% 	la presión arterial.
-% 	\item Tipo IV: para una CVT de Tipo IV, la covariable puede estar asociada a
-% 	valores previos de la variable respuesta, pero la respuesta no está asociada
-% 	a valores previos de la CVT. Un ejemplo es la CVT presión arterial con la
-% 	variable respuesta peso. Si bien existe una asociación entre el peso y la
-% 	presión arterial, la dirección del efecto parece ser que el peso afecta la
-% 	presión arterial, pero es poco probable que ocurra lo contrario.
-% \end{itemize}
-
-% Además, propusieron utilizar el ``Método generalizado de los momentos'' (GMM)
-% (Hansen, 1982). Éste método puede ser utilizado para tratar a cada CVT de manera
-% diferente, dependiendo del tipo de cada una, y evita problemas con la estimación
-% de ecuaciones construidas a partir de componentes no independientes.
 
 En conclusión, si la CVT es exógena, puede introducirse el modelo lineal mixto
 de manera tradicional y mediante ciertas transformaciones. Sin embargo, si la
@@ -620,21 +580,12 @@ cada uno de los individuos y el modelo resultaría:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
 
-% El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media de la
-% tensión arterial por incrementos unitarios en el IMC promedio \hl{del paciente}
-% (observado durante todo el seguimiento) \hl{para un momento determinado en el
-% seguimiento}.
-
 \subsection{Covariable variable en el tiempo}
 
 Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
 transformación. El modelo resultante es:
 
 \[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
-
-% \hl{El coeficiente $\beta_1$ se interpreta como el cambio esperado en la media
-% de la tensión arterial por incrementos unitarios en el IMC para un momento
-% determinado en el seguimiento}.
 
 \subsection{Covariable rezagada}
 
@@ -685,12 +636,6 @@ Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
 cada paciente. $\beta_W$ representa el efecto intra-unidad y $\beta_B$ el
 efecto entre-unidades.
-
-% $\beta_W$ representa el cambio esperado en la media de la tensión arterial
-% asociado con variaciones del IMC propias de cada paciente (controlando por el
-% tiempo). $\beta_B$ representa el cambio esperado en la media de la tensión
-% arterial asociado con las variaciones del IMC entre pacientes (controlando por
-% el tiempo)
 
 Cabe destacar que cuando la covariable es dicotómica (que toma valores 0 y 1) la
 componente $(X_{ij} - \overline{X}_i)$ tomará solamente dos valores y en
