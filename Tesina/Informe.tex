@@ -1154,15 +1154,29 @@ Fundación ECLA.
 
 Uno de los objetivos que persiguió este estudio observacional fue evaluar si la
 adherencia al tratamiento (covariable que varía en el tiempo) influía en los
-valores de la TAS a lo largo del seguimiento. En primer lugar se evaluó la
-exogeneidad de ésta covariable, luego se presentaron diferentes formas de
-introducirla al modelo lineal mixto dando lugar a 6 propuestas diferentes.
-Posteriormente, se compararon estas propuestas y se arribó a un modelo final en
-el que se incorpora a la covariable adherencia en su formato original sin
-realizar transformaciones. En este modelo se concluye que, controlando por el
-resto de las variables y para un momento de tiempo determinado, los pacientes
-que adhieren al tratamiento presentan una TAS promedio menor que los pacientes
-que no adhieren al tratamiento.
+valores de la TAS a lo largo del seguimiento. Para responder a esto, en primer
+lugar se evaluó la exogeneidad de ésta covariable y luego se propusieron seis
+modelos introduciendo la CVT según los distintos enfoques presentados.
+
+A partir de las propuestas presentadas, en el análisis del problema se observó
+que los modelos que presentaron un mejor ajuste de los datos fueron los que
+incorporaron la CVT en su formato original. La propuesta de transformar la CVT
+en CNVT, resumiendo la información de la covariable en valores únicos para cada
+paciente, no es la más recomendable dado que se presume una pérdida de
+información, y esto se ve reflejado en un peor ajuste de los modelos. Sin
+embargo, el ajuste depende de la medida resumen de la información. El peor
+ajuste se observó en el modelo que utiliza la covariable rezagada, sin embargo,
+no es un indicador de que es un mal enfoque, ya que el ajuste dependerá del
+problema en particular. Por lo tanto, el enfoque a utilizar depende
+exclusivamente de la naturaleza de los datos que se analizan y se deberán
+explorar diferentes propuestas en cada caso.
+
+Se concluye que, controlando por el resto de las variables y para un momento de
+tiempo determinado, los pacientes que adhieren al tratamiento presentan una TAS
+promedio menor que los pacientes que no adhieren al tratamiento. Un punto a
+tener en cuenta es que si bien los modelos que incorporaron la CVT a través de
+transformaciones no tuvieron un mejor ajuste que el modelo 3, esto va a depender
+exclusivamente de la naturaleza de los datos.
 
 Se propone como sugerencia para futuros estudios evaluar la incorporación de
 covariables continuas que varían en el tiempo, ya que en este trabajo la
