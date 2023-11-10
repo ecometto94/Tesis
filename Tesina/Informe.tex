@@ -497,7 +497,6 @@ log-verosimilitud restringida que se propone es:
 	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})]
 	- \frac{1}{2} \ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i|.
 \end{equation}
-
 Maximizando esta función con respecto a $\bm{\beta}$ y $\bm{\theta}$ se obtiene:
 
 \[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i)^{-1}
@@ -531,24 +530,25 @@ modelo.
 
 Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
 longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente, ya que
-este es siempre consistente. La estructura de correlación independiente
-generalmente tiene una alta eficiencia para la estimación de los coeficientes
-asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (2004) muestra que esta
-estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT, y proporciona un ejemplo en
-el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
-con la estructura de correlación verdadera.
+estimación generalizadas) con estructura de correlación independiente, dado que
+de este modo las estimaciones son siempre consistentes. La estructura de
+correlación independiente generalmente tiene una alta eficiencia para la
+estimación de los coeficientes asociados a CNVT. Sin embargo, para las CVT,
+Fitzmaurice (2004) muestra que esta estructura puede resultar en una pérdida
+sustancial de eficiencia para la estimación de los coeficientes asociados a las
+CVT, y proporciona un ejemplo en el que la elección de dicha estructura tiene
+una eficiencia del 60\% en relación con la estructura de correlación verdadera.
 
 Lai y Small (2007) y Lalonde et al. (2015) definieron cuatro tipos de CVT y
 propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
 en donde es posible incorporar información sobre la naturaleza de la CVT que se
 está analizando.
 
-En conclusión, si la CVT es exógena, puede introducirse el modelo lineal mixto
+En conclusión, si la CVT es exógena, puede introducirse al modelo lineal mixto
 de manera tradicional y mediante ciertas transformaciones. Sin embargo, si la
 CVT es endógena, no puede introducirse al modelo lineal mixto en su formato
-original y deben explorarse las propuestas planteadas anteriormente. 
+original. Este trabajo no abordará los enfoques posibles cuando la CVT es
+endógena, ya que estos implican el uso de otro tipo de modelos.
 
 \newpage
 
@@ -572,11 +572,8 @@ independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})).
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_{i}$.
 
 \subsection{Convertirla en CNVT}
 
@@ -592,14 +589,14 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij}. \]
 
 \subsection{Covariable variable en el tiempo}
 
-Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
-transformación. El modelo resultante es:
+Una CVT es exógena, se puede incorporar al modelo sin ninguna transformación. El
+modelo resultante es:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij}. \]
 
 \subsection{Covariable rezagada}
 
@@ -610,8 +607,7 @@ que podría interesar su valor en la ocasión anterior ($k=1$). En general, se
 desconoce el valor de $k$, por lo que se consideran varias opciones. El modelo
 lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
-
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij}. \]
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
 
@@ -626,9 +622,8 @@ este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
-
-Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij}, \]
+donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
 el $i$-ésimo paciente.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
@@ -638,15 +633,14 @@ Otra forma de incorporar la CVT es dividiendo el efecto en dos componentes que
 reflejen la variación intra-unidad y la variación entre-unidades respecto de la
 CVT. Por lo tanto, el término del modelo que representa a la covariable se puede
 descomponer en dos términos:
-\[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i \]
+\[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i. \]
 El modelo lineal mixto queda planteado del siguiente modo:
 
 \[ 
 	Y_{ij} = \beta_0 + b_{0i} + \beta_W\ (X_{ij} - \overline{X}_i) + \beta_B\ \overline{X}_i
-	+ \beta_2\ t_j + \varepsilon_{ij}
+	+ \beta_2\ t_j + \varepsilon_{ij},
 \]
-
-Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
+donde $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
 cada paciente. $\beta_W$ representa el efecto intra-unidad y $\beta_B$ el
 efecto entre-unidades.
