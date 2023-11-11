@@ -739,7 +739,7 @@ mediana de la edad de los pacientes estudiados). En la figura
 general) una pendiente decreciente, es decir, la TAS media disminuye con el
 transcurso del seguimiento. Este comportamiento es similar para los grupos,
 observando valores superiores de TAS para los pacientes de sexo masculino y para
-los pacientes mayores de 59 años. 
+los pacientes mayores de 59 años.
 
 \begin{figure}[H]
 	\centering
@@ -759,7 +759,7 @@ claridad la relación entre estas variables se utiliza la técnina ``jitter'', l
 cual agrega un pequeño desplazamiento en los puntos, evitando que queden
 perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}), se
 puede notar que esta manera de visualizar el efecto de la adherencia sobre la
-TAS resulta confusa.
+TAS no muestra ningún patrón de comportamiento.
 
 \begin{figure}[H]
 	\centering
@@ -784,7 +784,7 @@ meses.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia.png}
-	\caption{TAS a través del tiempo según perfiles de adherencia al tratamiento}
+	\caption{TAS a través del tiempo según grupos de adherencia al tratamiento}
 	\label{TAS_with_adh}
 \end{figure}
 
@@ -815,7 +815,7 @@ $
 
 En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes
 estimados en cada modelo y entre paréntesis la probabilidad asociada a cada
-coefiente (referente al test parcial $\left. H_0\right) Bk=0, k = 1, 2, 3, 4$).
+coefiente (referente al test parcial $\left. H_0\right) B_k=0, k = 1, 2, 3, 4$).
 Como se puede notar, en ninguna ocasión la adherencia depende de valores
 anteriores de la TAS (cuando se controla por los valores previos de la
 adherencia), por lo tanto puede considerarse como una covariable exógena.
@@ -847,10 +847,10 @@ adherencia), por lo tanto puede considerarse como una covariable exógena.
 
 \subsection{Modelos propuestos}
 
-Se propone un modelo lineal de efectos mixtos (MLM) con ordenada
-aleatoria y estructura de covariancia autorregresiva de orden 1. De esta manera,
-se incorpora al modelo la correlación serial y el efecto entre pacientes
-presente en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
+Se propone un modelo lineal de efectos mixtos (MLM) con ordenada aleatoria y
+estructura de covariancia autorregresiva de orden 1 (AR(1)). De esta manera, se
+incorpora al modelo la correlación serial y el efecto entre pacientes presente
+en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
 covariables: el sexo, la edad y la adherencia al tratamiento. Esta última
 variable, como se determinó en el punto anterior, es una CVT exógena y puede
 incorporase al modelo de diferentes maneras. A continuación se presentan 6
@@ -877,7 +877,7 @@ resulta:
 \begin{equation}
 	\label{modelo_1}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -885,10 +885,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone AR(1).
 
 \begin{table}[H]
@@ -901,8 +900,7 @@ $\bm{\varepsilon}_{i}$, se supone AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_1_tabla}),
 controlando por el resto de las variables, los pacientes que adhieren siempre a
 lo largo del seguimiento presentan una TAS promedio menor que los pacientes que
-adhieren a veces o no adhieren en ningún momento. Esta diferencia es constante
-en el tiempo.
+adhieren a veces o no adhieren en ningún momento.
 
 \paragraph{Proporción de adherencia} \mbox{}
 
@@ -914,7 +912,7 @@ de adherencia es: $5/7= 0.71$. El modelo resulta:
 \begin{equation}
 	\label{modelo_2}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -922,10 +920,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -948,7 +945,7 @@ su forma original al modelo. El MLM resulta en:
 \begin{equation}
 	\label{modelo_3}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -956,10 +953,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -972,7 +968,7 @@ $\bm{\varepsilon}_{i}$, se supone con AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_3_tabla}),
 controlando por el resto de las variables y para un momento de tiempo
 determinado, los pacientes que adhieren al tratamiento presentan una TAS
-promedio menor que los pacientes que no adhieren al tratamiento.
+promedio menor que los pacientes que no adhieren.
 
 \subsubsection{Incorporación de la CVT considerando la covariable rezagada}
 
@@ -984,7 +980,7 @@ resultante:
 \begin{equation}
 	\label{modelo_4}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -994,8 +990,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1008,8 +1003,7 @@ $\bm{\varepsilon}_{i}$, se supone con AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_4_tabla}),
 controlando por el resto de las variables y para un momento de tiempo
 determinado, no se observan diferencias significativas en la TAS promedio entre
-los pacientes que adhieren al tratamiento en la visita anterior y los que no
-adhirieron.
+los pacientes que, en la visita anterior, adhieren al tratamiento y los que no.
 
 \subsubsection{Incorporación de la CVT como función de covariables rezagadas}
 
@@ -1026,7 +1020,7 @@ A continuación, se presenta el MLM resultante:
 \begin{equation}
 	\label{modelo_5}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_{ij}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1036,8 +1030,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1063,7 +1056,7 @@ $X_{ij}$. El MLM resultante es:
 \begin{equation}
 	\label{modelo_6}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ \overline{adherencia}_i + \beta_5\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ \overline{adherencia}_i + \beta_5\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1073,8 +1066,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1181,10 +1173,7 @@ explorar diferentes propuestas en cada caso.
 
 Se concluye que, controlando por el resto de las variables y para un momento de
 tiempo determinado, los pacientes que adhieren al tratamiento presentan una TAS
-promedio menor que los pacientes que no adhieren al tratamiento. Un punto a
-tener en cuenta es que si bien los modelos que incorporaron la CVT a través de
-transformaciones no tuvieron un mejor ajuste que el modelo 3, esto va a depender
-exclusivamente de la naturaleza de los datos.
+promedio menor que los pacientes que no adhieren al tratamiento.
 
 Se propone como sugerencia para futuros estudios evaluar la incorporación de
 covariables continuas que varían en el tiempo, ya que en este trabajo la
