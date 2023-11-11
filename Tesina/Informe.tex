@@ -157,11 +157,10 @@ específicos de cada unidad (efectos aleatorios) y por el error aleatorio, las
 cuales reflejan las múltiples fuentes de heterogeneidad y correlación entre y
 dentro de las unidades.
 
-En estos modelos pueden incorporarse covariables. Las mismas se pueden
-clasificar en 2 categorías: covariables no variables en el tiempo (CNVT) y
-covariables variables en el tiempo (CVT). La naturaleza diferente de estas
-covariables conduce a considerar distintos enfoques para cada una de ellas en el
-análisis.
+Las covariables que se consideren en estos modelos se pueden clasificar en 2
+categorías: covariables no variables en el tiempo (CNVT) y covariables variables
+en el tiempo (CVT). La naturaleza diferente de estas covariables conduce a
+considerar distintos enfoques para cada una de ellas en el análisis.
 
 Las CNVT son variables independientes que no tienen variación intra-unidad, es
 decir, que el valor de la covariable no cambia para una unidad determinada en
@@ -173,8 +172,8 @@ Las CVT son variables independientes que contienen ambas variaciones, intra y
 entre unidad, es decir, que el valor de la covariable cambia para una unidad
 determinada a lo largo del tiempo y además puede cambiar para diferentes
 unidades. Este tipo de covariables tienen los mismos usos que las CNVT, y
-además, permiten describir la relación dinámica entre la CVT y la respuesta. Sin
-embargo, esta relación puede estar confundida por valores anteriores y/o
+además, permiten describir la relación dinámica entre cada CVT y la respuesta.
+Sin embargo, esta relación puede estar confundida por valores anteriores y/o
 posteriores de la covariable, y en consecuencia, esto puede conducir a
 inferencias engañosas sobre los parámetros del modelo. Esta tesina realiza una
 introducción a la problemática de incorporar covariables que varían en el tiempo
@@ -221,7 +220,8 @@ experimentales.
 Dado que las mediciones repetidas se obtienen de la misma unidad, los datos
 longitudinales están agrupados. Las observaciones dentro de un mismo
 agrupamiento presentan, en general, correlación positiva. Por lo tanto, los
-supuestos usuales de independencia y homogeneidad de variancias no son válidos.
+supuestos usuales de independencia y homogeneidad de variancias de los modelos
+lineales clásicos no son válidos.
 
 Existen tres fuentes potenciales de variabilidad que influyen sobre la
 correlación entre las mediciones repetidas:
@@ -274,14 +274,14 @@ con $i = 1, ..., N$ y $j = 1, ..., n$. Si se asume que $Y_{ij}$ y $X_{ij}$ se
 miden simultáneamente, en un análisis de corte transversal, $Y_{ij}$ y $X_{ij}$
 se correlacionarían directamente. Sin embargo, para un análisis longitudinal se
 debe asumir que existe un orden preestablecido: $(X_{i1}, Y_{i1}), (X_{i2},
-Y_{i2}), ..., (X_{in}, Y_{in})$
+Y_{i2}), ..., (X_{in}, Y_{in})$.
 
 \subsection{Covariables fijas en el tiempo}
 
 Las CNVT son variables independientes que no presentan variación intra-unidad,
 es decir, los valores de estas covariables no cambian a lo largo del estudio
 para una unidad en particular. En consecuencia, $X_{ij} = X_i$ para todo
-$j = 1, ..., n$
+$j = 1, ..., n$.
 
 Estas covariables pueden ser fijas por naturaleza (por ejemplo, el sexo
 biológico de una persona o el grupo de tratamiento) o pueden ser covariables
@@ -313,7 +313,7 @@ colesterol, ingesta de alcohol (si/no), ingesta de grasas, etc.
 \subsubsection{Covariables exógenas y endógenas}
 \label{seccion_de_exogeneidad}
 
-Las CVT también se pueden clasificar en exógenas y endógenas.
+Las CVT estocásticas se pueden clasificar en exógenas y endógenas.
 
 \paragraph{Covariables exógenas} \mbox{}
 
@@ -328,12 +328,11 @@ covariable ($X_{ij}$). Formalmente, para la unidad $i$ en la ocasión $j$:
 	f(X_{ij}|X_{i1}, ..., X_{ij-1}, Y_{i1}, ..., Y_{ij-1}) =
 	f(X_{ij}|X_{i1}, ..., X_{ij-1})
 \end{equation}
-
-Y, en consecuencia:
+y, en consecuencia:
 
 \begin{equation}
 	\label{exogeneidad debil}
-	E(Y_{ij}|X_{i1}, ..., X_{in}) = E(Y_{ij}|X_{i1}, ..., X_{ij})
+	E(Y_{ij}|X_{i1}, ..., X_{in}) = E(Y_{ij}|X_{i1}, ..., X_{ij}).
 \end{equation}
 
 Esta definición implica que la media condicional de la variable respuesta en un
@@ -354,7 +353,7 @@ ajustando un modelo de regresión en donde se considera, como variable respuesta
 a la covariable en un momento determinado ($X_{ij}$), y como variables
 explicativas tanto a los valores previos de la covariable ($X_{i1}, ...,
 X_{ij-1}$) como a los valores previos de la variable respuesta ($Y_{i1}, ...,
-Y_{ij-1}$). Si, después de controlar por los valores previos de la covariable,
+Y_{ij-1}$). Si después de controlar por los valores previos de la covariable,
 el valor actual de la covariable no muestra una asociación con los valores
 previos de la variable respuesta, puede considerarse que la covariable es
 exógena.
@@ -365,8 +364,8 @@ respuesta, se puede dar una interpretación causal a los parámetros de regresi�
 \paragraph{Covariables endógenas} \mbox{}
 
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
-variable estocásticamente relacionada con otros factores medidos en el estudio.
-Ésta también puede definirse como una variable generada por un proceso
+variable estocástica que está relacionada con otros factores medidos en el
+estudio. Ésta también puede definirse como una variable generada por un proceso
 estocástico relacionado con el individuo en estudio. En otras palabras, las CVT
 endógenas están asociadas con un efecto individual y, a menudo, pueden
 explicarse por otras variables en el estudio. Cuando el proceso estocástico de
@@ -394,11 +393,10 @@ El modelo lineal mixto para la unidad $i$ se puede expresar en forma matricial
 como:
 
 \[
-	\bm{Y}_i = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i + \bm{\varepsilon}_i;
+	\bm{Y}_i = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i + \bm{\varepsilon}_i
 	\quad i = 1, ..., N;
 \]
-
-Donde:
+donde:
 
 \begin{itemize}
 	\item $\bm{Y}_i$: Vector de la variable respuesta de la i-ésima unidad, de
@@ -414,13 +412,13 @@ Donde:
 	de dimensión $(n \times 1)$
 \end{itemize}
 
-Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes.
+Se supone que $\bm{\varepsilon}_i$ y $\bm{b}_i$ son independientes
 
-\[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \quad \bm{b}_i \sim N_k(0, \bm{D}) \]
+\[ \bm{\varepsilon}_i \sim N_{n}(0, \bm{R}_i) \quad y \quad \bm{b}_i \sim N_k(0, \bm{D}), \]
+donde $\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
+vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$, respectivamente.
 
-$\bm{D}$ y $\bm{R}_i$ son las matrices de variancias y covariancias de los
-vectores $\bm{b}_i$ y $\bm{\varepsilon}_i$, respectivamente. A partir de este
-modelo se obtiene:
+A partir de este modelo se obtiene:
 
 \begin{itemize}
 	\item $E(\bm{Y}_i/\bm{b}_i) = \bm{X}_i\bm{\beta} + \bm{Z}_i\bm{b}_i$ (media condicional o específica de
@@ -431,7 +429,7 @@ modelo se obtiene:
 \end{itemize}
 
 Generalmente, la matriz $\bm{D}$ adopta una estructura de covariancia
-arbitraria, mientras que la matriz $\bm{R}_i$ adopta otra estructura que modela
+arbitraria, mientras que la matriz $\bm{R}_i$ adopta una estructura que modela
 apropiadamente la variabilidad intra individuo.
 
 \subsection{Estimación de los parámetros del modelo}
@@ -454,10 +452,9 @@ log-verosimilitud:
 \label{ML}
 	l = -\frac{1}{2} \sum_{i=1}^{N}n \ln(2\pi) - \frac{1}{2}\ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
-	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})]
+	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})],
 \end{equation}
-
-Siendo $\bm{\varSigma}_i$ función del vector $\bm{\theta}$ que contiene los
+siendo $\bm{\varSigma}_i$ función del vector $\bm{\theta}$ que contiene los
 parámetros de covariancia.
 
 Los estimadores de $\bm{\beta}$ y $\bm{\theta}$ son los valores que maximizan
@@ -467,26 +464,25 @@ explícita de $\hat{\bm{\theta}}$. Para encontrar su solución se recurre a
 métodos numéricos. El estimador del vector $\bm{\beta}$ resulta:
 
 \[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}_i'\hat{\bm{\varSigma}_i}^{-1}\bm{X}_i)^{-1}
-\sum_{i=1}^{N} \bm{X}'_i\hat{\bm{\varSigma}_i}^{-1}\bm{Y}_i \]
-
-El estimador $\hat{\bm{\beta}}$ resulta insesgado de $\bm{\beta}$. Cuando
-$\bm{\theta}$ es desconocido no se puede calcular de manera exacta la matriz
-de covariancias de $\hat{\bm{\beta}}$. Si el número de unidades es grande se
-puede demostrar que asintóticamente (Fitzmaurice et al., 2004):
+\sum_{i=1}^{N} \bm{X}'_i\hat{\bm{\varSigma}_i}^{-1}\bm{Y}_i, \]
+siendo este insesgado de $\bm{\beta}$. Cuando $\bm{\theta}$ es desconocido no se
+puede calcular de manera exacta la matriz de covariancias de $\hat{\bm{\beta}}$.
+Si el número de unidades es grande se puede demostrar que asintóticamente
+(Fitzmaurice et al., 2004):
 
 \[ \hat{\bm{\beta}} \sim N_p(\bm{\beta}, \bm{V}_{\bm{\beta}}) \quad donde \quad \bm{V}_{\bm{\beta}} =
-(\sum_{i=1}^{N} \bm{X}'_i\hat{\bm{\varSigma}_i}^{-1}\bm{X}_i)^{-1} \]
+(\sum_{i=1}^{N} \bm{X}'_i\hat{\bm{\varSigma}_i}^{-1}\bm{X}_i)^{-1}. \]
 
 \subsubsection{Método de máxima verosimilitud restringida (REML)}
 
-El inconveniente que posee el método de ML es que los parámetros de covariancia
-resultan sesgados. Es decir, a pesar de que $\bm{\hat{\beta}}$ es un estimador
-insesgado de $\bm{\beta}$, no pasa lo mismo con $\bm{\hat{\theta}}$. Si el
-tamaño de muestra es chico, los parámetros que representan las variancias van a
-ser demasiado pequeños, dando así una visión muy optimista de la variabilidad de
-las mediciones, es decir, se subestiman los parámetros de covariancia. El sesgo
-se debe a que en la estimación ML de $\bm{\theta}$ no se tiene en cuenta que
-$\bm{\beta}$ es estimado a partir de los datos.
+El inconveniente que posee el método de ML es que los estimadores de los
+parámetros de covariancia resultan sesgados. Es decir, a pesar de que
+$\bm{\hat{\beta}}$ es un estimador insesgado de $\bm{\beta}$, no pasa lo mismo
+con $\bm{\hat{\theta}}$. Si el tamaño de muestra es chico los parámetros que
+representan las variancias van a ser subestimados, dando así una visión muy
+optimista de la variabilidad de las mediciones. El sesgo se debe a que en la
+estimación ML de $\bm{\theta}$ no se tiene en cuenta que $\bm{\beta}$ es
+estimado a partir de los datos.
 
 Distintos autores proponen el método de REML para estimar los parámetros del
 modelo. Este método es una modificación del método de máxima verosimilitud, en
@@ -498,25 +494,24 @@ log-verosimilitud restringida que se propone es:
 \label{REML}
 	\bm{l}^* = -\frac{1}{2} \sum_{i=1}^{N}n \ln(2\pi) - \frac{1}{2}\ln|\bm{\varSigma}_i| -
 	\frac{1}{2} \sum_{i=1}^{N} [(\bm{Y}_i - \bm{X}_i\bm{\beta})'
-	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})] -
-	- \frac{1}{2} \ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}_i^{-1} \bm{X}_i}|
+	\bm{\varSigma}_i^{-1} (\bm{Y}_i - \bm{X}_i\bm{\beta})]
+	- \frac{1}{2} \ln |\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i|.
 \end{equation}
-
 Maximizando esta función con respecto a $\bm{\beta}$ y $\bm{\theta}$ se obtiene:
 
 \[ \hat{\bm{\beta}} = (\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{X}_i)^{-1}
-\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{Y}_i\]
-
-Donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fitzmaurice et al., 2004).
+\sum_{i=1}^{N} \bm{X}'_i \hat{\bm{\varSigma}}_i^{-1} \bm{Y}_i, \]
+donde $\hat{\bm{\varSigma}}_i$ es el estimador REML de ${\bm{\varSigma}_i}$ (Fitzmaurice et al., 2004).
 
 \subsubsection{Problemas con la estimación}
 
-Pepe y Anderson (1994) mostraron que las ecuaciones (\ref{ML}) y (\ref{REML})
-llegan a cero sólo si se cumple con el supuesto de independencia condicional:
+Pepe y Anderson (1994) mostraron que las expresiones (\ref{ML}) y (\ref{REML})
+se pueden igualar a cero sólo si se cumple con el supuesto de independencia
+condicional:
 
 \begin{equation}
 \label{estimation_issue}
-	E[Y_{ij} | X_{ij}] = E[Y_{ij} | X_{ij}, j = 1, ..., n]
+	E(Y_{ij} | X_{ij}) = E(Y_{ij} | X_{ij}, j = 1, ..., n).
 \end{equation}
 
 Con las CNVT, esta suposición se mantiene necesariamente ya que $X_{ij} =
@@ -524,9 +519,9 @@ X_{ik}$ para todo $j, k = 1, ..., n$. Con las CVT no estocásticas, que se fijan
 por diseño del estudio (por ejemplo, indicador de grupo de tratamiento en una
 prueba cruzada), la suposición también se cumple ya que los valores de las
 covariables en cualquier ocasión se determinan a priori por diseño del estudio y
-de manera completamente no relacionado con la respuesta longitudinal. Sin
-embargo, cuando una covariable es variable en el tiempo estocástica, puede que
-no necesariamente se mantenga.
+de manera no relacionados con la respuesta longitudinal. Sin embargo, cuando una
+covariable es variable en el tiempo estocástica, puede que no necesariamente se
+mantenga.
 
 En general, cuando (\ref{estimation_issue}) no se cumple, los valores
 precedentes y/o posteriores de la CVT confunden la relación entre $Y_{ij}$ y
@@ -535,24 +530,25 @@ modelo.
 
 Frente a este escenario, Pepe y Anderson (1994) recomendaron plantear el modelo
 longitudinal marginal y realizar las estimaciones mediante GEE (ecuaciones de
-estimación generalizadas) con estructura de correlación independiente, ya que
-este es siempre consistente. La estructura de correlación independiente
-generalmente tiene una alta eficiencia para la estimación de los coeficientes
-asociados a CNVT. Sin embargo, para las CVT, Fitzmaurice (2004) muestra que esta
-estructura puede resultar en una pérdida sustancial de eficiencia para la
-estimación de los coeficientes asociados a las CVT, y proporciona un ejemplo en
-el que la elección de dicha estructura tiene una eficiencia del 60\% en relación
-con la estructura de correlación verdadera.
+estimación generalizadas) con estructura de correlación independiente, dado que
+de este modo las estimaciones son siempre consistentes. La estructura de
+correlación independiente generalmente tiene una alta eficiencia para la
+estimación de los coeficientes asociados a CNVT. Sin embargo, para las CVT,
+Fitzmaurice (2004) muestra que esta estructura puede resultar en una pérdida
+sustancial de eficiencia para la estimación de los coeficientes asociados a las
+CVT, y proporciona un ejemplo en el que la elección de dicha estructura tiene
+una eficiencia del 60\% en relación con la estructura de correlación verdadera.
 
 Lai y Small (2007) y Lalonde et al. (2015) definieron cuatro tipos de CVT y
 propusieron utilizar el ``Método generalizado de los momentos'' (Hansen, 1982)
 en donde es posible incorporar información sobre la naturaleza de la CVT que se
 está analizando.
 
-En conclusión, si la CVT es exógena, puede introducirse el modelo lineal mixto
+En conclusión, si la CVT es exógena, puede introducirse al modelo lineal mixto
 de manera tradicional y mediante ciertas transformaciones. Sin embargo, si la
 CVT es endógena, no puede introducirse al modelo lineal mixto en su formato
-original y deben explorarse las propuestas planteadas anteriormente. 
+original. Este trabajo no abordará los enfoques posibles cuando la CVT es
+endógena, ya que estos implican el uso de otro tipo de modelos.
 
 \newpage
 
@@ -576,11 +572,8 @@ independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})).
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
-$\bm{\varepsilon}_{i}$.
 
 \subsection{Convertirla en CNVT}
 
@@ -596,14 +589,14 @@ la respuesta en el tiempo.
 En el ejemplo mencionado anteriormente, se podría calcular el IMC promedio de
 cada uno de los individuos y el modelo resultaría:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_i + \beta_2\ t_j + \varepsilon_{ij}. \]
 
 \subsection{Covariable variable en el tiempo}
 
-Dado que la CVT es exógena, se puede incorporar al modelo sin ninguna
-transformación. El modelo resultante es:
+Una CVT es exógena, se puede incorporar al modelo sin ninguna transformación. El
+modelo resultante es:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ X_{ij} + \beta_2\ t_j + \varepsilon_{ij}. \]
 
 \subsection{Covariable rezagada}
 
@@ -614,8 +607,7 @@ que podría interesar su valor en la ocasión anterior ($k=1$). En general, se
 desconoce el valor de $k$, por lo que se consideran varias opciones. El modelo
 lineal mixto se definiría de la siguiente manera:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij} \]
-
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_{1k}\ X_{ij-k} + \beta_2\ t_j + \varepsilon_{ij}. \]
 En este modelo, el coeficiente $\beta_{1k}$ depende explícitamente de la
 elección del rezago $k$.
 
@@ -630,9 +622,8 @@ este tipo de covariables se pierde parte de la información. En el ejemplo
 mencionado, podría ser de interés calcular el IMC promedio hasta la ocasión $j$,
 resultando el modelo:
 
-\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij} \]
-
-Donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
+\[ Y_{ij} = \beta_0 + b_{0i} + \beta_1\ \overline{X}_{ij} + \beta_2\ t_j + \varepsilon_{ij}, \]
+donde $\overline{X}_{ij}$ es el IMC promedio calculado hasta la ocasión $j$ para
 el $i$-ésimo paciente.
 
 \subsection{Dividiendo efecto entre-unidad y efecto intra-unidad}
@@ -642,15 +633,14 @@ Otra forma de incorporar la CVT es dividiendo el efecto en dos componentes que
 reflejen la variación intra-unidad y la variación entre-unidades respecto de la
 CVT. Por lo tanto, el término del modelo que representa a la covariable se puede
 descomponer en dos términos:
-\[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i \]
+\[ \beta X_{ij} \rightarrow \beta_W (X_{ij} - \overline{X}_i) + \beta_B \overline{X}_i. \]
 El modelo lineal mixto queda planteado del siguiente modo:
 
 \[ 
 	Y_{ij} = \beta_0 + b_{0i} + \beta_W\ (X_{ij} - \overline{X}_i) + \beta_B\ \overline{X}_i
-	+ \beta_2\ t_j + \varepsilon_{ij}
+	+ \beta_2\ t_j + \varepsilon_{ij},
 \]
-
-Donde, $\overline{X}_i$ representa el promedio de todos los valores observados
+donde $\overline{X}_i$ representa el promedio de todos los valores observados
 en el tiempo de la CVT para la unidad $i$, es decir, el promedio del IMC para
 cada paciente. $\beta_W$ representa el efecto intra-unidad y $\beta_B$ el
 efecto entre-unidades.
@@ -749,7 +739,7 @@ mediana de la edad de los pacientes estudiados). En la figura
 general) una pendiente decreciente, es decir, la TAS media disminuye con el
 transcurso del seguimiento. Este comportamiento es similar para los grupos,
 observando valores superiores de TAS para los pacientes de sexo masculino y para
-los pacientes mayores de 59 años. 
+los pacientes mayores de 59 años.
 
 \begin{figure}[H]
 	\centering
@@ -769,7 +759,7 @@ claridad la relación entre estas variables se utiliza la técnina ``jitter'', l
 cual agrega un pequeño desplazamiento en los puntos, evitando que queden
 perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}), se
 puede notar que esta manera de visualizar el efecto de la adherencia sobre la
-TAS resulta confusa.
+TAS no muestra ningún patrón de comportamiento.
 
 \begin{figure}[H]
 	\centering
@@ -794,7 +784,7 @@ meses.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{img/TAS_vs_tpo_with_adherencia.png}
-	\caption{TAS a través del tiempo según perfiles de adherencia al tratamiento}
+	\caption{TAS a través del tiempo según grupos de adherencia al tratamiento}
 	\label{TAS_with_adh}
 \end{figure}
 
@@ -825,7 +815,7 @@ $
 
 En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes
 estimados en cada modelo y entre paréntesis la probabilidad asociada a cada
-coefiente (referente al test parcial $\left. H_0\right) Bk=0, k = 1, 2, 3, 4$).
+coefiente (referente al test parcial $\left. H_0\right) B_k=0, k = 1, 2, 3, 4$).
 Como se puede notar, en ninguna ocasión la adherencia depende de valores
 anteriores de la TAS (cuando se controla por los valores previos de la
 adherencia), por lo tanto puede considerarse como una covariable exógena.
@@ -857,10 +847,10 @@ adherencia), por lo tanto puede considerarse como una covariable exógena.
 
 \subsection{Modelos propuestos}
 
-Se propone un modelo lineal de efectos mixtos (MLM) con ordenada
-aleatoria y estructura de covariancia autorregresiva de orden 1. De esta manera,
-se incorpora al modelo la correlación serial y el efecto entre pacientes
-presente en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
+Se propone un modelo lineal de efectos mixtos (MLM) con ordenada aleatoria y
+estructura de covariancia autorregresiva de orden 1 (AR(1)). De esta manera, se
+incorpora al modelo la correlación serial y el efecto entre pacientes presente
+en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
 covariables: el sexo, la edad y la adherencia al tratamiento. Esta última
 variable, como se determinó en el punto anterior, es una CVT exógena y puede
 incorporase al modelo de diferentes maneras. A continuación se presentan 6
@@ -887,7 +877,7 @@ resulta:
 \begin{equation}
 	\label{modelo_1}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia\ perfecta_i
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -895,10 +885,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone AR(1).
 
 \begin{table}[H]
@@ -911,8 +900,7 @@ $\bm{\varepsilon}_{i}$, se supone AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_1_tabla}),
 controlando por el resto de las variables, los pacientes que adhieren siempre a
 lo largo del seguimiento presentan una TAS promedio menor que los pacientes que
-adhieren a veces o no adhieren en ningún momento. Esta diferencia es constante
-en el tiempo.
+adhieren a veces o no adhieren en ningún momento.
 
 \paragraph{Proporción de adherencia} \mbox{}
 
@@ -924,7 +912,7 @@ de adherencia es: $5/7= 0.71$. El modelo resulta:
 \begin{equation}
 	\label{modelo_2}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_i
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -932,10 +920,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -958,7 +945,7 @@ su forma original al modelo. El MLM resulta en:
 \begin{equation}
 	\label{modelo_3}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -966,10 +953,9 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 \[ 
 	\bm{\varepsilon}_i = \begin{pmatrix} \varepsilon_{i1} \\ \vdots \\ \varepsilon_{in} \end{pmatrix} \sim N_{n}(0, \bm{R}_i)
 	\quad
-	b_{0i} \sim N(0, Var(b_{0i}))
+	b_{0i} \sim N(0, Var(b_{0i})),
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -982,7 +968,7 @@ $\bm{\varepsilon}_{i}$, se supone con AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_3_tabla}),
 controlando por el resto de las variables y para un momento de tiempo
 determinado, los pacientes que adhieren al tratamiento presentan una TAS
-promedio menor que los pacientes que no adhieren al tratamiento.
+promedio menor que los pacientes que no adhieren.
 
 \subsubsection{Incorporación de la CVT considerando la covariable rezagada}
 
@@ -994,7 +980,7 @@ resultante:
 \begin{equation}
 	\label{modelo_4}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij-1}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1004,8 +990,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1018,8 +1003,7 @@ $\bm{\varepsilon}_{i}$, se supone con AR(1).
 En base a los resultados presentados en la tabla (\ref{modelo_4_tabla}),
 controlando por el resto de las variables y para un momento de tiempo
 determinado, no se observan diferencias significativas en la TAS promedio entre
-los pacientes que adhieren al tratamiento en la visita anterior y los que no
-adhirieron.
+los pacientes que, en la visita anterior, adhieren al tratamiento y los que no.
 
 \subsubsection{Incorporación de la CVT como función de covariables rezagadas}
 
@@ -1036,7 +1020,7 @@ A continuación, se presenta el MLM resultante:
 \begin{equation}
 	\label{modelo_5}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ \overline{adherencia}_{ij}
-	+ \beta_4\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1046,8 +1030,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1073,7 +1056,7 @@ $X_{ij}$. El MLM resultante es:
 \begin{equation}
 	\label{modelo_6}
 	Y_{ij} = \beta_0 + b_{0i} + \beta_1\ sexo_i + \beta_2\ edad_i + \beta_3\ adherencia_{ij}
-	+ \beta_4\ \overline{adherencia}_i + \beta_5\ mes_j + \varepsilon_{ij}
+	+ \beta_4\ \overline{adherencia}_i + \beta_5\ mes_j + \varepsilon_{ij}.
 \end{equation}
 
 Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
@@ -1083,8 +1066,7 @@ Se supone que $\bm{\varepsilon}_i$ y $b_{0i}$ son independientes.
 	\quad
 	b_{0i} \sim N(0, Var(b_{0i}))
 \]
-
-Donde $\bm{R}_i$, matriz de variancias y covariancias del vector
+donde $\bm{R}_i$, matriz de variancias y covariancias del vector
 $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 \begin{table}[H]
@@ -1191,10 +1173,7 @@ explorar diferentes propuestas en cada caso.
 
 Se concluye que, controlando por el resto de las variables y para un momento de
 tiempo determinado, los pacientes que adhieren al tratamiento presentan una TAS
-promedio menor que los pacientes que no adhieren al tratamiento. Un punto a
-tener en cuenta es que si bien los modelos que incorporaron la CVT a través de
-transformaciones no tuvieron un mejor ajuste que el modelo 3, esto va a depender
-exclusivamente de la naturaleza de los datos.
+promedio menor que los pacientes que no adhieren al tratamiento.
 
 Se propone como sugerencia para futuros estudios evaluar la incorporación de
 covariables continuas que varían en el tiempo, ya que en este trabajo la
