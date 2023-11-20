@@ -115,7 +115,7 @@
 	\end{minipage}
 	\\[4cm]
 	\vfill
-	{\large 21 de Septiembre de 2023}\\
+	{\large 21 de Noviembre de 2023}\\
 	\clearpage
 \end{titlepage}
 
@@ -654,20 +654,31 @@ sin centrar respecto al valor promedio (Hoffman, 2015).
 
 \section{Aplicación}
 
-A partir del programa de atención y control de pacientes hipertensos iniciado en
-el año 2014 en Rosario, se obtienen datos de \npatients{} pacientes hipertensos
-de entre 30 y 86 años, con una edad promedio de 58.84 (desvío estándar 9,9
-años), de los cuales un 49.28\% son hombres. A todos estos pacientes se les
-indicó un tratamiento antihipertensivo al incio del seguimiento (visita basal).
-Durante 7 meses se agendaron visitas mensuales en donde se registraron, entre
-otras características, el valor de la TAS y la adherencia al tratamiento. Esta
-última variable surge de la evaluación del cuestionario Morisky (Morisky et al.,
-1986), cuyo resultado categoriza a los pacientes como adherentes o no adherentes
-al tratamiento. Al ser evaluada en todas las visitas mensuales, esta variable
-dicotómica captura como fue la adherencia durante el período desde la visita
-previa hasta la visita actual. Como para la visita basal no se cuenta con
-información de adherencia, se toman los datos desde el primer mes de
-seguimiento.
+La fundación ECLA (Estudios Clínicos de Latinoamérica) es una organización sin
+fines de lucro cuyo objetivo fundamental es prevenir y controlar enfermedades
+cardiovasculares. Se sustenta con las donaciones y subsidios de entes no
+gubernamentales. En el año 2014, en Rosario, se inició un programa de detección,
+control y tratamiento de hipertensión arterial, totalmente gratuito para la
+comunidad en general. A través de puestos de control itinerantes dispuestos en
+diferentes espacios de la ciudad, se tomó la presión de quienes lo desearon. De
+esta manera se identificaron individuos con tensión arterial elevada a quien se
+los invitó a participar del programa y a recibir atención gratuita en los
+consultorios de la fundación. 
+
+A partir de dicho programa, se obtuvieron datos de \npatients{} pacientes
+hipertensos de entre 30 y 86 años, con una edad promedio de 58.84 (desvío
+estándar 9,9 años), de los cuales un 49.28\% son hombres. A todos estos
+pacientes se les indicó un tratamiento antihipertensivo al inicio del seguimiento
+(visita basal). Durante 7 meses se agendaron visitas mensuales en donde se
+registraron, entre otras características, el valor de la TAS y la adherencia al
+tratamiento. Esta última variable surge de la evaluación del cuestionario
+Morisky (Morisky et al., 1986), el cual consiste de 4 preguntas de respuesta
+dicotómica (ver Anexo). Si el paciente responde correctamente a las 4 preguntas
+se considera que adhiere al tratamiento, en caso contrario no. Al ser evaluada
+en todas las visitas mensuales, esta variable dicotómica captura como fue la
+adherencia durante el período desde la visita previa hasta la visita actual.
+Como para la visita basal no se cuenta con información de adherencia, se toman
+los datos desde el primer mes de seguimiento.
 
 Uno de los objetivos que persiguió este estudio fue evaluar si la adherencia
 influye en los valores de la TAS a lo largo del seguimiento.
@@ -850,7 +861,7 @@ adherencia), por lo tanto puede considerarse como una covariable exógena.
 Se propone un modelo lineal de efectos mixtos (MLM) con ordenada aleatoria y
 estructura de covariancia autorregresiva de orden 1 (AR(1)). De esta manera, se
 incorpora al modelo la correlación serial y el efecto entre pacientes presente
-en los datos (ver anexo). Además, se incorpora el tiempo (mes) y como
+en los datos (ver Anexo). Además, se incorpora el tiempo (mes) y como
 covariables: el sexo, la edad y la adherencia al tratamiento. Esta última
 variable, como se determinó en el punto anterior, es una CVT exógena y puede
 incorporase al modelo de diferentes maneras. A continuación se presentan 6
@@ -1184,6 +1195,16 @@ condición.
 \newpage
 
 \section{Anexo}
+
+\subsection{Preguntas del cuestionario Morisky}
+
+\begin{itemize}
+	\item ¿Olvida alguna vez tomar los medicamentos para tratar su enfermedad?
+	(Si/No)
+	\item ¿Toma los medicamentos a las horas indicadas? (Si/No)
+	\item Cuando se encuentra bien, ¿deja de tomar la medicación? (Si/No)
+	\item Si alguna vez le sienta mal, ¿deja usted de tomarla? (Si/No)
+\end{itemize}
 
 \subsection{Gráficos de interés}
 
