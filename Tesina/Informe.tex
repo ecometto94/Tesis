@@ -249,6 +249,8 @@ reconozcan las diferentes fuentes de variabilidad presentes en los datos. Los
 modelos lineales mixtos constituyen la herramienta más utilizada para
 representar datos correlacionados.
 
+\newpage
+
 \section{Covariables en datos longitudinales}
 
 En los estudios longitudinales, las variables independientes se pueden
@@ -361,6 +363,8 @@ exógena.
 Cuando se puede asumir que las CVT son exógenas con respecto a la variable
 respuesta, se puede dar una interpretación causal a los parámetros de regresión.
 
+\newpage
+
 \paragraph{Covariables endógenas} \mbox{}
 
 Una CVT que no es exógena se define como endógena. Una variable endógena es una
@@ -377,6 +381,8 @@ en un determinado momento puede estar (o no) asociado a niveles previos y
 también puede estar asociado a valores previos de glucosa (un paciente con valor
 de glucosa alto en una visita puede decidir aumentar su nivel de actividad
 física para ver si este valor se reduce).
+
+\newpage
 
 \section{Modelo lineal mixto}
 
@@ -580,7 +586,7 @@ independientes.
 Una solución rápida al problema de las CVT, sea exógena o endógena, es
 transformarla en una CNVT. Esto se puede lograr resumiendo la información de la
 misma mediante alguna función, como el promedio de los valores de cada
-individuo, y dejarlo fijo a través del tiempo. También podria usarse su valor
+individuo, y dejarlo fijo a través del tiempo. También podría usarse su valor
 máximo, mínimo o cualquier transformación que resulte de interés en el estudio.
 El problema de este enfoque es que se pierde información, dado que se usa una
 covariable más simple, que no refleja la relación dinámica entre la covariable y
@@ -727,7 +733,7 @@ Siendo $ i = 1, ..., \npatients{}$ y $j = 1, ..., 7$ se obtienen:
 
 \subsection{Análisis descriptivo}
 
-En esta sección se presentaran diversos gráficos con el fin de describir la
+En esta sección se presentarán diversos gráficos con el fin de describir la
 población en estudio.
 
 En la figura (\ref{TAS_vs_tpo}) se puede observar que luego de un mes de
@@ -766,7 +772,7 @@ consecuencia, para cada individuo, puede presentar distintos valores en cada
 ocasión, es decir, los pacientes no mantienen un perfil constante a lo largo del
 tiempo. En una primera instancia, es posible realizar un diagrama de dispersión
 entre la TAS y el tiempo (mes) según adherencia. Para poder observar con mayor
-claridad la relación entre estas variables se utiliza la técnina ``jitter'', la
+claridad la relación entre estas variables se utiliza la técnica ``jitter'', la
 cual agrega un pequeño desplazamiento en los puntos, evitando que queden
 perfectamente solapados. A partir de la figura (\ref{TAS_with_adh_scatter}), se
 puede notar que esta manera de visualizar el efecto de la adherencia sobre la
@@ -814,7 +820,7 @@ dicotómica, se ajustan modelos de regresión logística.
 
 Para ajustar estos modelos se utilizan como variables explicativas a la
 adherencia y la TAS en el mes anterior, ya que se asume que las mediciones más
-cercanas entre sí están más correlacionadas y tambien se utilizan la adherencia
+cercanas entre sí están más correlacionadas y también se utilizan la adherencia
 y la TAS promedio desde el inicio hasta 2 meses antes, de esta manera se puede
 utilizar toda la información del estudio. El modelo para la ocasión $j$
 ($j = 2, ..., 7$) resulta:
@@ -826,7 +832,7 @@ $
 
 En la tabla (\ref{exog_table}) se presentan los valores de los coeficientes
 estimados en cada modelo y entre paréntesis la probabilidad asociada a cada
-coefiente (referente al test parcial $\left. H_0\right) B_k=0, k = 1, 2, 3, 4$).
+coeficiente (referente al test parcial $\left. H_0\right) B_k=0, k = 1, 2, 3, 4$).
 Como se puede notar, en ninguna ocasión la adherencia depende de valores
 anteriores de la TAS (cuando se controla por los valores previos de la
 adherencia), por lo tanto puede considerarse como una covariable exógena.
@@ -864,7 +870,7 @@ incorpora al modelo la correlación serial y el efecto entre pacientes presente
 en los datos (ver Anexo). Además, se incorpora el tiempo (mes) y como
 covariables: el sexo, la edad y la adherencia al tratamiento. Esta última
 variable, como se determinó en el punto anterior, es una CVT exógena y puede
-incorporase al modelo de diferentes maneras. A continuación se presentan 6
+incorporarse al modelo de diferentes maneras. A continuación se presentan 6
 modelos que surgen de plantear las distintas formas de incorporar la CVT
 adherencia al tratamiento al MLM.
 
@@ -1089,8 +1095,8 @@ $\bm{\varepsilon}_{i}$, se supone con AR(1).
 
 En base a los resultados presentados en la tabla (\ref{modelo_6_tabla}),
 controlando por el resto de las variables y para un momento de tiempo
-determinado, la proporción de aherencia en todo el seguimiento no resulta ser
-signficatva. En cambio, la adherencia en cada visita si lo es, evidenciando que
+determinado, la proporción de adherencia en todo el seguimiento no resulta ser
+significativa. En cambio, la adherencia en cada visita si lo es, evidenciando que
 la TAS promedio es menor para los pacientes que adhieren al tratamiento en la
 visita que para los que no.
 
@@ -1100,7 +1106,7 @@ A continuación, en la tabla \ref{comparacion}, se presentan para cada uno de lo
 6 modelos ajustados la forma en la que se incorporó la covariable adherencia al
 tratamiento, el valor estimado del coeficiente que acompaña a la covariable
 conjuntamente con la probabilidad asociada y los valores de los criterios de
-información de Akaike (AIC) y Bayesiano de Schwarz (BIC).
+Información de Akaike (AIC) y Bayesiano de Schwarz (BIC).
 
 \begin{table}[H]
 	\centering
@@ -1143,7 +1149,7 @@ facilitar la interpretación de sus parámetros.
 Los datos que surgen de estudios longitudinales pueden ser analizados mediante
 modelos lineales mixtos. En este tipo de estudios es frecuente contar con
 variables independientes que pueden ser fijas a lo largo de todo el período o
-bien puedan variar a lo largo del seguimiento. Estas covariables que varían con
+bien pueden variar a lo largo del seguimiento. Estas covariables que varían con
 el tiempo son variables independientes que incluyen tanto la variación
 intra-sujeto como la variación entre-sujetos.
 
@@ -1189,7 +1195,7 @@ promedio menor que los pacientes que no adhieren al tratamiento.
 Se propone como sugerencia para futuros estudios evaluar la incorporación de
 covariables continuas que varían en el tiempo, ya que en este trabajo la
 covariable de interés es dicotómica. También se propone evaluar el tratamiento
-de covariables que varian en el tiempo que resultan ser endógenas al evaluar su
+de covariables que varían en el tiempo que resultan ser endógenas al evaluar su
 condición.
 
 \newpage
